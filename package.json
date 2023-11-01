@@ -18,6 +18,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "react-scripts": "^5.0.1"
   }
 }

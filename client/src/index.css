@@ -9,11 +9,12 @@
 }
 h1 {
   font-family: "Poppins", sans-serif;
-  @apply font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug
+  @apply font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug;
 }
+
 h2 {
   font-family: "Poppins", sans-serif;
-  @apply font-extrabold text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-normal lg:leading-snug xl:leading-snug
+  @apply font-extrabold text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-normal lg:leading-snug xl:leading-snug;
 }
 h4 {
   font-family: "Inter", sans-serif;
@@ -22,7 +23,7 @@ h4 {
 h6 {
   font-family: "Inter", sans-serif;
   font-weight: 700;
-  @apply text-base
+  @apply text-base;
 }
 p {
   font-family: "Poppins", sans-serif;
