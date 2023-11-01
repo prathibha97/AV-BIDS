@@ -1,14 +1,6 @@
 import React from "react";
-import { Button } from "@material-tailwind/react";
 
-import {
-  Card,
-  Typography,
-  Select,
-  Option,
-  Avatar,
-  Textarea,
-} from "@material-tailwind/react";
+import { Avatar, Textarea } from "@material-tailwind/react";
 
 import REFRESH_ICON from "../../assets/14_messages/refresh.png";
 import PROFILE_PHOTO from "../../assets/14_messages/profile photo.jpg";

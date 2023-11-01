@@ -154,6 +154,12 @@ function Router() {
       routes: [{ element: lazy(() => import("../pages/14_messages_empty")) }],
     },
 
+    {
+      path: "/15_dashboard",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/15_dashboard")) }],
+    },
+
     { path: "*", element: lazy(() => import("./404")) },
 
     // {

@@ -1,12 +1,4 @@
-import {
-  Textarea,
-  Button,
-  Input,
-  Select,
-  Option,
-} from "@material-tailwind/react";
-
-import DELETE_BUTTON from "../../assets/12_edit_event/ep_delete.png";
+import { Button } from "@material-tailwind/react";
 
 export function index() {
   return (

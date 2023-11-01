@@ -206,6 +206,10 @@ function index() {
             <Link to="/14_messages_empty">
               <div className="mb-2">14_messages_empty</div>
             </Link>
+
+            <Link to="/15_dashboard">
+              <div className="mb-2">15_Dashboard</div>
+            </Link>
           </div>
         </div>
       </section>

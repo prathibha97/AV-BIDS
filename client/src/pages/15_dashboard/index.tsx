@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Button, Input, Card, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Card,
+  Typography,
+  Select,
+  Option,
+} from "@material-tailwind/react";
 
 import AVATAR from "../../assets/11_dashboard/avatar.png";
 
@@ -43,7 +50,7 @@ function index() {
     <div className="container mx-auto">
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
         <div>
-          <div className="grid grid-cols-2 justify-items-center gap-8">
+          <div className="grid grid-cols-2  gap-8">
             <div>
               <div className="flex items-center gap-4">
                 <img
@@ -114,7 +121,6 @@ function index() {
             </div>
             <div>
               <div>
-                {" "}
                 <p className="text-[16px] mb-2">Website</p>
                 <div className="w-72">
                   <Input
@@ -127,6 +133,83 @@ function index() {
             </div>
 
             <div></div>
+
+            {/* <div>
+              <h2 className="text-[20px] font-semibold text-left">
+                Company Address
+              </h2>
+            </div> */}
+
+            <div className="w-72">
+              <h2 className="text-[20px] font-semibold text-left">
+                Company Address
+              </h2>
+            </div>
+            <div></div>
+
+            <div className="col-span-2">
+              <p className="text-[16px] mb-2">Address</p>
+              <div>
+                <Input
+                  label="740 West Elm St. Unit 235"
+                  crossOrigin=""
+                  className=" bg-[#f0edfc]"
+                />
+              </div>
+            </div>
+
+            <div className="...">
+              <p className="mb-2">Country</p>
+              <div className="mb-5">
+                <Select
+                  label="United States of America"
+                  className="bg-[#eeebfc]"
+                >
+                  <Option>Option 01</Option>
+                  <Option>Option 02</Option>
+                  <Option>Option 03</Option>
+                  <Option>Option 04</Option>
+                  <Option>Option 05</Option>
+                </Select>
+              </div>
+            </div>
+
+            <div className="...">
+              <p className="mb-2">City</p>
+              <div className="mb-5">
+                <Select label="Phoenix" className="bg-[#eeebfc]">
+                  <Option>Option 01</Option>
+                  <Option>Option 02</Option>
+                  <Option>Option 03</Option>
+                  <Option>Option 04</Option>
+                  <Option>Option 05</Option>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-[16px] mb-2">Zip</p>
+              <div className="w-full">
+                <Input
+                  label="Enter Zip Code"
+                  crossOrigin=""
+                  className=" bg-[#f0edfc]"
+                />
+              </div>
+            </div>
+
+            <div className="...">
+              <p className="mb-2">State</p>
+              <div className="mb-5">
+                <Select label="Arizona" className="bg-[#eeebfc]">
+                  <Option>Option 01</Option>
+                  <Option>Option 02</Option>
+                  <Option>Option 03</Option>
+                  <Option>Option 04</Option>
+                  <Option>Option 05</Option>
+                </Select>
+              </div>
+            </div>
           </div>
 
           <div className="flex justify-end">
