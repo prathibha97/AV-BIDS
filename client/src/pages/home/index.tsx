@@ -156,6 +156,10 @@ function index() {
         <h2 className="text-[25px] text-center text-primary mb-4">Dashboard</h2>
         <div className="flex justify-center gap-28 mt-6">
           <div className="text-[16px] font-medium">
+            <Link to="/homedashboard">
+              <div className="mb-2">Dashboard Home</div>
+            </Link>
+
             <Link to="/12_events">
               <div className="mb-2">12_events</div>
             </Link>

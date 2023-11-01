@@ -295,8 +295,12 @@ function index() {
 
       <h2 className="text-[30px] text-primary text-center mb-4">Site Map</h2>
 
-      <div className="flex items-center justify-center gap-32 mb-6">
+      {/* <div className="flex items-center justify-center gap-32 mb-6">
         <div className="font-medium">
+          <Link to="/homedashboard">
+            <div>Dashboard Home</div>
+          </Link>
+
           <Link to="/12_events">
             <div>12_events</div>
           </Link>
@@ -344,7 +348,7 @@ function index() {
             <div>14_messages_empty</div>
           </Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

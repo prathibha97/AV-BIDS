@@ -83,9 +83,9 @@ function Router() {
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
-      path: "/",
+      path: "/homedashboard",
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/home")) }],
+      routes: [{ element: lazy(() => import("../pages/homedashboard")) }],
     },
     {
       path: "/12_events",
