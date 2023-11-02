@@ -8,6 +8,9 @@ import SuspenseScreen from "./suspense-screen";
 // import AuthLayout from "../layout/auth-layout";
 // import useAuth from "../utils/context/auth-context";
 
+import HomeLayout2 from "../layout/home-layout";
+import Layout_02 from "../layout/layout_02";
+
 function Router() {
   const routes: any = [
     {
@@ -75,6 +78,86 @@ function Router() {
       routes: [
         { element: lazy(() => import("../pages/10_event_details_page")) },
       ],
+    },
+
+    // ----------------------Dashboard Routes Start here-----------------------------
+
+    {
+      path: "/homedashboard",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/homedashboard")) }],
+    },
+    {
+      path: "/12_events",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/12_events")) }],
+    },
+    {
+      path: "/13_event_details_page",
+      layout: Layout_02,
+      routes: [
+        { element: lazy(() => import("../pages/13_event_details_page")) },
+      ],
+    },
+
+    {
+      path: "/13_edit_event",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event")) }],
+    },
+
+    {
+      path: "/13_edit_event_1",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_1")) }],
+    },
+
+    {
+      path: "/13_edit_event_2",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_2")) }],
+    },
+
+    {
+      path: "/13_edit_event_3",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_3")) }],
+    },
+
+    {
+      path: "/13_edit_event_4",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_4")) }],
+    },
+
+    {
+      path: "/13_edit_event_5",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_5")) }],
+    },
+
+    {
+      path: "/13_edit_event_6",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/13_edit_event_6")) }],
+    },
+
+    {
+      path: "/14_messages",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/14_messages")) }],
+    },
+
+    {
+      path: "/14_messages_empty",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/14_messages_empty")) }],
+    },
+
+    {
+      path: "/15_dashboard",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/15_dashboard")) }],
     },
 
     { path: "*", element: lazy(() => import("./404")) },
