@@ -14,9 +14,13 @@ import {
   LoginFormSchema,
   LoginFormValues,
 } from '../../utils/validations/login-form-validation';
+import { useAppDispatch } from '../../app/hooks';
+import { setUser } from '../../app/features/user/userSlice';
 
 export function Index() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -34,10 +38,11 @@ export function Index() {
       const { data } = await api.post('/auth/login', { ...values });
 
       console.log(data.user);
+      dispatch(setUser(data.user))
       if (data.user.userType === 'PROVIDER') {
         navigate('/provider-dashboard');
       } else {
-        navigate('/planner-dashboard');
+        navigate('/homedashboard');
       }
     } catch (error) {
       console.log(error);
