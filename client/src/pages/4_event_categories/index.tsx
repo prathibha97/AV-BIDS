@@ -22,7 +22,7 @@ function index() {
           <div className="grid md:grid-cols-2 gap-4 content-center ">
             <div className="mx-auto flex justify-center items-center">
               <div>
-                <div className="flex gap-8 mb-6  justify-center items-center  ">
+                <div className="flex gap-8 mb-6  justify-center items-center">
                   <div>
                     <div className="flex items-center gap-2 ">
                       <MdEast className="text-purple_two mb-0.5" />

@@ -7,15 +7,12 @@ import CONTACT_US_03 from "../../assets/7_contact_us/location.png";
 import {
   Card,
   Input,
-  Checkbox,
   Button,
   Typography,
   Select,
   Option,
   Textarea,
 } from "@material-tailwind/react";
-
-import { MdOutlineSpeakerNotes } from "react-icons/md";
 
 function index() {
   return (

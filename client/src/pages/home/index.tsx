@@ -152,6 +152,66 @@ function index() {
             </Link>
           </div>
         </div>
+
+        <h2 className="text-[25px] text-center text-primary mb-4">Dashboard</h2>
+        <div className="flex justify-center gap-28 mt-6">
+          <div className="text-[16px] font-medium">
+            <Link to="/homedashboard">
+              <div className="mb-2">Dashboard Home</div>
+            </Link>
+
+            <Link to="/12_events">
+              <div className="mb-2">12_events</div>
+            </Link>
+
+            <Link to="/13_event_details_page">
+              <div className="mb-2">13_event_details_page</div>
+            </Link>
+            <Link to="/13_edit_event">
+              <div className="mb-2">13_edit_events</div>
+            </Link>
+
+            <Link to="/13_edit_event_1">
+              <div className="mb-2">13_edit_event_1</div>
+            </Link>
+          </div>
+
+          <div className="text-[16px] font-medium">
+            <Link to="/13_edit_event_2">
+              <div className="mb-2">13_edit_event_2</div>
+            </Link>
+
+            <Link to="/13_edit_event_3">
+              <div className="mb-2">13_edit_event_3</div>
+            </Link>
+
+            <Link to="/13_edit_event_4">
+              <div className="mb-2">13_edit_event_4</div>
+            </Link>
+
+            <Link to="/13_edit_event_5">
+              <div className="mb-2">13_edit_event_5</div>
+            </Link>
+          </div>
+
+          <div className="text-[16px] font-medium">
+            <Link to="/13_edit_event_6">
+              <div className="mb-2">13_edit_event_6</div>
+            </Link>
+
+            <Link to="/14_messages">
+              <div className="mb-2">14_messages</div>
+            </Link>
+
+            <Link to="/14_messages_empty">
+              <div className="mb-2">14_messages_empty</div>
+            </Link>
+
+            <Link to="/15_dashboard">
+              <div className="mb-2">15_Dashboard</div>
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   );
