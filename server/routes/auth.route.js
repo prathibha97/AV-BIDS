@@ -79,7 +79,7 @@ authRouter.post('/login', login);
  *       500:
  *         description: Internal server error
  */
-authRouter.post('/logout', protect, logout);
+authRouter.post('/logout', logout);
 
 /**
  * @swagger
