@@ -8,7 +8,7 @@ import SuspenseScreen from "./suspense-screen";
 // import AuthLayout from "../layout/auth-layout";
 // import useAuth from "../utils/context/auth-context";
 
-import HomeLayout2 from "../layout/home-layout";
+import HomeLayout2 from "../layout/home-layout-dash";
 import Layout_02 from "../layout/layout_02";
 
 function Router() {
