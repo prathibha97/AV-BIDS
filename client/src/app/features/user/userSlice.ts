@@ -3,7 +3,7 @@ import User from '../../../types';
 
 // Define the state type
 interface UserState {
-  user: null | User; // Assuming user is a string or null
+  user: null | User; 
 }
 
 // Define the initial state
@@ -22,9 +22,17 @@ const userSlice = createSlice({
     clearUser(state) {
       state.user = null;
     },
+    updateUser(state, action: PayloadAction<Partial<User>>) {
+      if( state.user){
+        state.user = {
+          ...state.user,
+          ...action.payload,
+        };
+      }
+    },
   },
 });
 
 // Export actions and reducer
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;

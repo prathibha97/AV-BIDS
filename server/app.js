@@ -19,6 +19,7 @@ app.use(morgan('dev'));
 
 app.use('/api', api);
 
+
 if (process.env.NODE_ENV !== 'development') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
   app.get('/*', (req, res) => {

@@ -17,6 +17,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imageUrl: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  company: {
+    type: String,
+  },
   userType: {
     type: String,
     enum: ['PLANNER', 'PROVIDER'],

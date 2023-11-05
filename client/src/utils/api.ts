@@ -1,13 +1,24 @@
 import axios from 'axios';
 
-// Create an instance of axios
 const api = axios.create({
-  // baseURL: 'http://52.41.255.9:5000/api',
   baseURL: 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
-    // 'Content-Type': 'multipart/form-data',
   },
 });
+
+// Add a request interceptor
+api.interceptors.request.use(
+  (config) => {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    if (userInfo && userInfo.token) {
+      config.headers.Authorization = `Bearer ${userInfo.token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default api;

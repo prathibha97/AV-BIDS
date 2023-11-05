@@ -37,6 +37,7 @@ function ProfileMenu() {
   const handleSignout = async () => {
     try {
       await api.post('/auth/logout');
+      localStorage.removeItem('userInfo');
       dispatch(clearUser());
       navigate('/');
     } catch (error) {

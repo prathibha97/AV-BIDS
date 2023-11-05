@@ -15,7 +15,6 @@ const protect = async (req, res, next) => {
       res.status(401);
       throw new Error('Not authorized, token failed');
     }
-    next();
   } else if (!token) {
     res.status(401);
     throw new Error('Not authorized, no token');
@@ -35,4 +34,12 @@ const admin = (req, res, next) => {
   }
 };
 
-module.exports = { protect, admin };
+const requireLogin = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).send({ error: 'You must log in!' });
+  }
+
+  next();
+};
+
+module.exports = { protect, admin, requireLogin };

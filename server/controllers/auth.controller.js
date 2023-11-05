@@ -160,9 +160,8 @@ const resetPassword = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await getUserByEmail(email);
-    if (!user)
-      return res.status(404).json({ message: 'User does not exists' });
-
+    if (!user) return res.status(404).json({ message: 'User does not exists' });
+  
     // generate salt and hash password using bcrypt
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -171,14 +170,15 @@ const resetPassword = async (req, res) => {
     user.password = hashedPassword;
     await user.save();
 
-    res.status(200).json({ message: 'Password reset successful' });
+    return res.status(200).json({ message: 'Password reset successful' });
   } catch (err) {
     console.error(err.message);
-    res
+    return res
       .status(500)
-      .json({ message: 'Error occured while reseting the password' });
+      .json({ message: 'Error occurred while resetting the password' });
   }
 };
+
 
 module.exports = {
   register,

@@ -8,14 +8,14 @@ import {
 } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../app/features/user/userSlice';
+import { useAppDispatch } from '../../app/hooks';
 import LOGO from '../../assets/register/logo.png';
 import api from '../../utils/api';
 import {
   LoginFormSchema,
   LoginFormValues,
 } from '../../utils/validations/login-form-validation';
-import { useAppDispatch } from '../../app/hooks';
-import { setUser } from '../../app/features/user/userSlice';
 
 export function Index() {
   const navigate = useNavigate();
@@ -36,9 +36,8 @@ export function Index() {
   const onSubmit = async (values: LoginFormValues) => {
     try {
       const { data } = await api.post('/auth/login', { ...values });
-
-      console.log(data.user);
-      dispatch(setUser(data.user))
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      dispatch(setUser(data.user));
       if (data.user.userType === 'PROVIDER') {
         navigate('/provider-dashboard');
       } else {
