@@ -52,3 +52,5 @@ module.exports = {
     client.del(JSON.stringify(hashKey));
   },
 };
+
+//sample
