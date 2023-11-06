@@ -160,6 +160,11 @@ function Router() {
       routes: [{ element: lazy(() => import("../pages/15_dashboard")) }],
     },
 
+    {
+      path: "/17_billing",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/17_billing")) }],
+    },
     { path: "*", element: lazy(() => import("./404")) },
 
     // {

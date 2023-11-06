@@ -210,6 +210,10 @@ function index() {
             <Link to="/15_dashboard">
               <div className="mb-2">15_Dashboard</div>
             </Link>
+
+            <Link to="/17_billing">
+              <div className="mb-2">17_Billing</div>
+            </Link>
           </div>
         </div>
       </section>
