@@ -1,16 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@material-tailwind/react';
+import axios from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
-import AVATAR from '../../../assets/11_dashboard/avatar.png';
 import api from '../../../utils/api';
 import {
   EditProfileFormSchema,
   EditProfileFormValues,
 } from '../../../utils/validations/edit-profile-form-validation';
-import axios from 'axios';
 
 interface EditProfileProps {}
 
@@ -45,13 +44,12 @@ const EditProfile: FC<EditProfileProps> = () => {
     const uploadConfig = await api.get('/upload?type=' + fileExtension);
 
     try {
-      await axios
-        .put(uploadConfig.data.url, file, {
-          headers: {
-            // @ts-ignore
-            'Content-Type': file.type,
-          },
-        })
+      await axios.put(uploadConfig.data.url, file, {
+        headers: {
+          // @ts-ignore
+          'Content-Type': file.type,
+        },
+      });
       // TODO: update user
       const res = await api.put(`/users/${user?._id}`, {
         ...values,
