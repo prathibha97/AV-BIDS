@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   _id:string;
   firstName: string;
   lastName: string;
@@ -12,4 +12,8 @@ interface User {
   company: string;
 }
 
-export default User;
+export interface Member{
+  name: string;
+  email: string;
+  role: string;
+}

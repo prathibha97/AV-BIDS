@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import User from '../../../types';
+import { User } from '../../../types';
 
 // Define the state type
 interface UserState {
-  user: null | User; 
+  user: null | User;
 }
 
 // Define the initial state
@@ -23,7 +23,7 @@ const userSlice = createSlice({
       state.user = null;
     },
     updateUser(state, action: PayloadAction<Partial<User>>) {
-      if( state.user){
+      if (state.user) {
         state.user = {
           ...state.user,
           ...action.payload,
