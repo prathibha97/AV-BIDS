@@ -43,8 +43,6 @@ const EditProfile: FC<EditProfileProps> = () => {
         file.name.split('.').pop().toLowerCase()
       : null;
     const uploadConfig = await api.get('/upload?type=' + fileExtension);
-    console.log(uploadConfig);
-
 
     try {
       await axios
@@ -55,10 +53,10 @@ const EditProfile: FC<EditProfileProps> = () => {
           },
         })
       // TODO: update user
-      // const res = await api.put('/api/blogs', {
-      //   ...values,
-      //   fileUrl: uploadConfig.data.key,
-      // });
+      const res = await api.put(`/users/${user?._id}`, {
+        ...values,
+        imageUrl: uploadConfig.data.key,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -71,7 +69,7 @@ const EditProfile: FC<EditProfileProps> = () => {
           <div>
             <div className='flex items-center gap-4'>
               <img
-                src={AVATAR}
+                src={`https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`}
                 alt='aad'
                 className='object-scale-down w-[67px]'
               />
@@ -83,7 +81,12 @@ const EditProfile: FC<EditProfileProps> = () => {
               >
                 <span className='text-white'>Upload New Photo</span>
               </Button>
-              <Input type='file' accept='image/*' crossOrigin='' onChange={onFileChange} />
+              <Input
+                type='file'
+                accept='image/*'
+                crossOrigin=''
+                onChange={onFileChange}
+              />
             </div>
           </div>
           <div></div>
