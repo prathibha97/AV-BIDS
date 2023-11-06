@@ -3,7 +3,8 @@ const Member = require('./member.mongo');
 const createMember = (values) =>
   new Member(values).save().then((member) => member.toObject());
 
-const getMembers = async (req) => await Member.find().cache({key:req.user.id});
+const getMembers = async (req) => await Member.find()
+.cache({key:req.user.id});
 
 const getMemberById = (id) => Member.findById({ _id: id });
 
