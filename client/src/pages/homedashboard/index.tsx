@@ -1,6 +1,16 @@
 import React from "react";
+import { useState } from "react";
 
-import { Button, Input, Card, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Card,
+  Typography,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 
 import AVATAR from "../../assets/11_dashboard/avatar.png";
 
@@ -38,7 +48,10 @@ const TABLE_ROWS = [
 ];
 // ------------------------------------Table Contents--------------------------------------------------
 
-function index() {
+function DialogDefault() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(!open);
   return (
     <div className="container mx-auto">
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
@@ -76,7 +89,6 @@ function index() {
             </div>
 
             <div>
-              {" "}
               <div>
                 <p className="text-[16px] mb-2">Email Address</p>
                 <div className="w-72">
@@ -114,7 +126,6 @@ function index() {
             </div>
             <div>
               <div>
-                {" "}
                 <p className="text-[16px] mb-2">Website</p>
                 <div className="w-72">
                   <Input
@@ -145,7 +156,7 @@ function index() {
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-[20px] font-semibold">Members</h2>
-          <Button
+          {/* <Button
             variant="outlined"
             size="sm"
             className="hidden lg:inline-block rounded-btn "
@@ -154,7 +165,74 @@ function index() {
               <img src={PLUS_ICON} alt="aad" className="object-contain" />
               <span className="text-black normal-case">Add New Member</span>
             </div>
-          </Button>
+          </Button> */}
+
+          {/* -----------------------Dialog Box Here Started ----------------------------- */}
+          <>
+            <Button
+              onClick={handleOpen}
+              variant="outlined"
+              size="sm"
+              className="hidden lg:inline-block rounded-btn "
+            >
+              <div className="flex items-center gap-2">
+                <img src={PLUS_ICON} alt="aad" className="object-contain" />
+                <span className="text-black normal-case font-semibold">
+                  Add New Member
+                </span>
+              </div>
+            </Button>
+          </>
+
+          <Dialog open={open} handler={handleOpen}>
+            <div className="flex items-center justify-center py-6">
+              <div>
+                <h2 className="text-[20px] font-semibold mb-5 text-black text-center">
+                  Add Member
+                </h2>
+                <p className="text-black mb-1">Name</p>
+                <div className="w-72 mb-4">
+                  <Input
+                    label="UDixie Normus"
+                    crossOrigin=""
+                    variant="outlined"
+                    className="bg-[#F3F1FC] border-1 border-[#E4E4E4] shadow-none"
+                  />
+                </div>
+
+                <p className="text-black mb-1">Role</p>
+                <div className="w-72 mb-4">
+                  <Input
+                    label="Event Planner"
+                    crossOrigin=""
+                    className="bg-[#F3F1FC] border-1 border-[#E4E4E4]"
+                  />
+                </div>
+                <p className="text-black mb-1">Email</p>
+                <div className="w-72 mb-4">
+                  <Input
+                    label="dixie@anitameetings.com"
+                    crossOrigin=""
+                    className="bg-[#F3F1FC] border-1 border-[#E4E4E4]"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end">
+                  <Button
+                    variant="filled"
+                    color="indigo"
+                    size="sm"
+                    className="rounded-md w-32 py-3 mt-2  bg-primary font-poppins"
+                  >
+                    <span className="text-white rounded-lg normal-case ">
+                      Add Member
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Dialog>
+          {/* -----------------------Dialog Box Here Ended ----------------------------- */}
         </div>
 
         <div>
@@ -352,4 +430,4 @@ function index() {
   );
 }
 
-export default index;
+export default DialogDefault;
