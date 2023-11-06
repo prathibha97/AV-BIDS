@@ -214,6 +214,14 @@ function index() {
             <Link to="/17_billing">
               <div className="mb-2">17_Billing</div>
             </Link>
+
+            <Link to="/11_dashboard_add_member">
+              <div className="mb-2">11_dashboard_add_member</div>
+            </Link>
+
+            <Link to="/11_dashboard_delete_member">
+              <div className="mb-2">11_dashboard_delete_member</div>
+            </Link>
           </div>
         </div>
       </section>

@@ -165,6 +165,22 @@ function Router() {
       layout: HomeLayout2,
       routes: [{ element: lazy(() => import("../pages/17_billing")) }],
     },
+
+    {
+      path: "/11_dashboard_add_member",
+      layout: EmptyLayout,
+      routes: [
+        { element: lazy(() => import("../pages/11_dashboard_add_member")) },
+      ],
+    },
+
+    {
+      path: "/11_dashboard_delete_member",
+      layout: EmptyLayout,
+      routes: [
+        { element: lazy(() => import("../pages/11_dashboard_delete_member")) },
+      ],
+    },
     { path: "*", element: lazy(() => import("./404")) },
 
     // {
