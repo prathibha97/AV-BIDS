@@ -1,22 +1,24 @@
-import { FC } from 'react'
-import { useForm } from 'react-hook-form';
-import { ResetPasswordFormSchema, ResetPasswordFormValues } from '../../../utils/validations/reset-password-form-validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import api from '../../../utils/api';
-import { setUser, updateUser } from '../../../app/features/user/userSlice';
 import { Button, Input } from '@material-tailwind/react';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { clearUser, updateUser } from '../../../app/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
+import api from '../../../utils/api';
+import {
+  ResetPasswordFormSchema,
+  ResetPasswordFormValues,
+} from '../../../utils/validations/reset-password-form-validation';
 
-interface ResetPasswordProps {
-  
-}
+interface ResetPasswordProps {}
 
 const ResetPassword: FC<ResetPasswordProps> = ({}) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const user = useAppSelector((state: RootState) => state.user.user);
-
 
   const {
     register,
@@ -35,9 +37,20 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
     try {
       const { data } = await api.post('/auth/reset-password', {
         email: user?.email,
-        password: values.newPassword
+        password: values.newPassword,
       });
       dispatch(updateUser(data.user));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await api.delete(`/users/${user?._id}`);
+      navigate('/');
+      dispatch(clearUser());
+      localStorage.removeItem('userInfo')
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +108,9 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             variant='filled'
             color='indigo'
             size='sm'
+            type='button'
             className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
+            onClick={handleDeleteAccount}
           >
             <span className='text-white'>Delete Account</span>
           </Button>
@@ -113,6 +128,6 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
       </form>
     </section>
   );
-}
+};
 
-export default ResetPassword
+export default ResetPassword;

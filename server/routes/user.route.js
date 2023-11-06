@@ -1,7 +1,6 @@
 const express = require('express');
 const { protect, admin } = require('../middlewares/auth');
 const { getAllUsers, getUser, update, remove } = require('../controllers/users.controller');
-const cleanCache = require('../middlewares/cleanCache');
 
 const userRouter = express.Router();
 
@@ -117,7 +116,7 @@ userRouter.get('/', protect, admin, getAllUsers);
  */
 
 userRouter.get('/:id', protect, getUser);
-userRouter.put('/:id', protect, cleanCache, update);
-userRouter.delete('/:id', protect, cleanCache, remove);
+userRouter.put('/:id', protect, update);
+userRouter.delete('/:id', protect, remove);
 
 module.exports = userRouter;

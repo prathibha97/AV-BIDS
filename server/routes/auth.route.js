@@ -1,6 +1,12 @@
 const express = require('express');
-const { register, login, logout, resetPassword } = require('../controllers/auth.controller');
+const {
+  register,
+  login,
+  logout,
+  resetPassword,
+} = require('../controllers/auth.controller');
 const { protect } = require('../middlewares/auth');
+const cleanCache = require('../middlewares/cleanCache');
 
 const authRouter = express.Router();
 
@@ -110,6 +116,5 @@ authRouter.post('/logout', logout);
  *         description: Internal server error
  */
 authRouter.post('/reset-password', protect, resetPassword);
-
 
 module.exports = authRouter;

@@ -3,7 +3,8 @@ import { Button, Input } from '@material-tailwind/react';
 import axios from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppSelector } from '../../../app/hooks';
+import { updateUser } from '../../../app/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
 import api from '../../../utils/api';
 import {
@@ -16,11 +17,11 @@ interface EditProfileProps {}
 const EditProfile: FC<EditProfileProps> = () => {
   const [file, setFile] = useState(null);
   const user = useAppSelector((state: RootState) => state.user.user);
+  const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<EditProfileFormValues>({
     resolver: zodResolver(EditProfileFormSchema),
     defaultValues: {
@@ -41,22 +42,34 @@ const EditProfile: FC<EditProfileProps> = () => {
       ? // @ts-ignore
         file.name.split('.').pop().toLowerCase()
       : null;
-    const uploadConfig = await api.get('/upload?type=' + fileExtension);
 
-    try {
-      await axios.put(uploadConfig.data.url, file, {
-        headers: {
-          // @ts-ignore
-          'Content-Type': file.type,
-        },
-      });
-      // TODO: update user
-      const res = await api.put(`/users/${user?._id}`, {
-        ...values,
-        imageUrl: uploadConfig.data.key,
-      });
-    } catch (error) {
-      console.error(error);
+    if (fileExtension !== null) {
+      const uploadConfig = await api.get('/upload?type=' + fileExtension);
+
+      try {
+        await axios.put(uploadConfig.data.url, file, {
+          headers: {
+            // @ts-ignore
+            'Content-Type': file.type,
+          },
+        });
+        const { data } = await api.put(`/users/${user?._id}`, {
+          ...values,
+          imageUrl: uploadConfig.data.key,
+        });
+        dispatch(updateUser(data));
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const { data } = await api.put(`/users/${user?._id}`, {
+          ...values,
+        });
+        dispatch(updateUser(data));
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

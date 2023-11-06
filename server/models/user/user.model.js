@@ -5,9 +5,9 @@ const createUser = (values) =>
 
 const getUsers = async (req) =>
   await User.find()
-    .cache({ key: req.user.id })
-    .select('-refreshToken')
-    .select('-password');
+  .select('-refreshToken')
+  .select('-password');
+  // .cache({ key: req.user.id })
 
 const getUserById = (id) =>
   User.findById({ _id: id }).select('-refreshToken').select('-password');
@@ -27,7 +27,13 @@ const updateUser = (id, updates) => {
 };
 
 const removeUser = (id) => {
-  return User.findByIdAndRemove({ _id: id });
+  return User.findByIdAndRemove(
+    { _id: id },
+    {
+      new: true,
+      upsert: true,
+    }
+  );
 };
 
 module.exports = {
