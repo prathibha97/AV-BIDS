@@ -6,12 +6,15 @@ const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
 const api = require('./routes/api');
+const credentials = require('./middlewares/credentials');
+const corsOptions = require('./config/corsOptions');
 
 require('./services/cache');
 
 const app = express();
 
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use(compression());
 app.use(express.json({ limit: '25mb' }));
 app.use(bodyParser.json());
