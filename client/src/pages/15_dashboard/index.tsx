@@ -13,6 +13,10 @@ import AVATAR from "../../assets/11_dashboard/avatar.png";
 
 import PLUS_ICON from "../../assets/11_dashboard/plus.png";
 
+import DELETE from "../../assets/15_dashboard/delete.png";
+
+import EDIT from "../../assets/15_dashboard/edit.png";
+
 // ------------------------------------Table Contents--------------------------------------------------
 const TABLE_HEAD = ["Name", "Role", "Email", ""];
 
@@ -74,7 +78,7 @@ function index() {
                 <p className="text-[16px] mb-2">Full Name</p>
                 <div className="w-72">
                   <Input
-                    label="Username"
+                    label="John Smith"
                     crossOrigin=""
                     className=" bg-[#f0edfc]"
                   />
@@ -83,12 +87,11 @@ function index() {
             </div>
 
             <div>
-              {" "}
               <div>
                 <p className="text-[16px] mb-2">Email Address</p>
                 <div className="w-72">
                   <Input
-                    label="Username"
+                    label="info@anitameetings.com"
                     crossOrigin=""
                     className=" bg-[#f0edfc]"
                   />
@@ -100,7 +103,7 @@ function index() {
                 <p className="text-[16px] mb-2">Company</p>
                 <div className="w-72">
                   <Input
-                    label="Username"
+                    label="Anita Meetings LLC"
                     crossOrigin=""
                     className=" bg-[#f0edfc]"
                   />
@@ -112,7 +115,7 @@ function index() {
                 <p className="text-[16px] mb-2">Phone Number</p>
                 <div className="w-72">
                   <Input
-                    label="Username"
+                    label="+880 01723801729"
                     crossOrigin=""
                     className=" bg-[#f0edfc]"
                   />
@@ -124,7 +127,7 @@ function index() {
                 <p className="text-[16px] mb-2">Website</p>
                 <div className="w-72">
                   <Input
-                    label="Username"
+                    label="www.anitameetings.com"
                     crossOrigin=""
                     className=" bg-[#f0edfc]"
                   />
@@ -314,6 +317,52 @@ function index() {
       </section>
 
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
+        <h2 className="text-[20px] font-semibold mb-4">
+          Upload Your Proof of Insurance *
+        </h2>
+
+        <div className="bg-[#F3F1FB] px-4 py-10 border-dashed border-2 border-[#e7daff] mb-4 rounded-md">
+          <div className="flex items-center justify-center text-center">
+            <div>
+              <p className="font-semibold text-[17px] mb-2">
+                Drop files here to upload
+              </p>
+              <p className="text-[15px] ">
+                To upload file size is (Max 5Mb) and allowed file types are
+                (.doc, .docx, .pdf)
+              </p>
+              <Button
+                variant="filled"
+                color="indigo"
+                size="sm"
+                className="rounded-md w-41 py-2 mt-4 px-4 bg-primary font-poppins"
+              >
+                <span className="text-white">Upload File</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#F3F1FB] p-8 flex items-center w-[120px] rounded-md">
+          <div>
+            <p className="font-semibold text-[17px] mb-2 text-center">COI</p>
+            <div className="flex items-center gap-2">
+              <img
+                src={EDIT}
+                alt="aad"
+                className="object-scale-down w-[20px]"
+              />
+              <img
+                src={DELETE}
+                alt="aad"
+                className="object-scale-down w-[20px]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
         <h2 className="text-[20px] font-semibold mb-4">Change Password</h2>
 
         <div className="grid grid-cols-1 gap-4">
@@ -374,63 +423,6 @@ function index() {
           </Button>
         </div>
       </section>
-
-      <h2 className="text-[30px] text-primary text-center mb-4">Site Map</h2>
-
-      {/* <div className="flex items-center justify-center gap-32 mb-6">
-        <div className="font-medium">
-          <Link to="/homedashboard">
-            <div>Dashboard Home</div>
-          </Link>
-
-          <Link to="/12_events">
-            <div>12_events</div>
-          </Link>
-
-          <Link to="/13_event_details_page">
-            <div>13_event_details_page</div>
-          </Link>
-          <Link to="/13_edit_event">
-            <div>13_edit_events</div>
-          </Link>
-
-          <Link to="/13_edit_event_1">
-            <div>13_edit_event_1</div>
-          </Link>
-        </div>
-
-        <div className="font-medium">
-          <Link to="/13_edit_event_2">
-            <div>13_edit_event_2</div>
-          </Link>
-
-          <Link to="/13_edit_event_3">
-            <div>13_edit_event_3</div>
-          </Link>
-
-          <Link to="/13_edit_event_4">
-            <div>13_edit_event_4</div>
-          </Link>
-
-          <Link to="/13_edit_event_5">
-            <div>13_edit_event_5</div>
-          </Link>
-        </div>
-
-        <div className="font-medium">
-          <Link to="/13_edit_event_6">
-            <div>13_edit_event_6</div>
-          </Link>
-
-          <Link to="/14_messages">
-            <div>14_messages</div>
-          </Link>
-
-          <Link to="/14_messages_empty">
-            <div>14_messages_empty</div>
-          </Link>
-        </div>
-      </div> */}
     </div>
   );
 }
