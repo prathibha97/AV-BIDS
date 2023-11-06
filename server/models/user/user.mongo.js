@@ -26,10 +26,18 @@ const userSchema = new mongoose.Schema({
   company: {
     type: String,
   },
+  website: {
+    type: String,
+  },
   userType: {
     type: String,
     enum: ['PLANNER', 'PROVIDER'],
     required: true,
+  },
+  role: {
+    type: String,
+    enum: ['Admin', 'Standard'],
+    default: 'Standard',
   },
   refreshToken: [String],
 });

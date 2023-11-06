@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const path = require('path');
 const api = require('./routes/api');
 
+require('./services/cache');
+
 const app = express();
 
 app.use(cors());
