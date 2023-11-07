@@ -1,11 +1,6 @@
-import {
-  Button,
-  Input,
-  Option,
-  Select,
-  Textarea,
-} from '@material-tailwind/react';
+import { Button, Input, Option, Select } from '@material-tailwind/react';
 import DELETE_BUTTON from '../../../assets/12_edit_event/ep_delete.png';
+import RichTextEditor from './rich-text-editor';
 
 const StepOne = () => {
   return (
@@ -26,7 +21,7 @@ const StepOne = () => {
         <div className='col-span-2'>
           <p className='mb-2'>Event Description </p>
           <div className='mb-5'>
-            <Textarea label='Message' className='bg-[#eeebfb]' />
+            <RichTextEditor />
           </div>
         </div>
         <div className=''>
@@ -78,8 +73,6 @@ const StepOne = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className=""></div> */}
 
       <p className='font-medium text-[18px] mb-4'>Address & Location</p>
 
@@ -144,7 +137,6 @@ const StepOne = () => {
         </div>
       </div>
 
-      {/* <div className="></div> */}
 
       <p className='font-medium text-[18px] mb-4'>File Attachment</p>
 
