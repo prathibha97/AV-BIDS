@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { Control, Controller } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './RichTextEditor.css';
-const RichTextEditor = () => {
-  const [value, setValue] = useState('');
+import { FC } from 'react';
 
+interface RichTextEditorProps {
+  control: Control;
+  handleInputChange:any;
+}
+const RichTextEditor: FC<RichTextEditorProps> = ({ control,handleInputChange }) => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -23,20 +27,26 @@ const RichTextEditor = () => {
     ],
   };
   return (
-    <div>
-      <div className='custom-quill-container'>
-        <ReactQuill
-          theme='snow'
-          value={value}
-          onChange={setValue}
-          modules={modules}
-          className='custom-quill-editor'
-          style={{ height: '200px' }}
-        />
-      </div>
-      {/* preview */}
-      {/* <div dangerouslySetInnerHTML={{ __html: value }} /> */}
-    </div>
+    <Controller
+      name='description'
+      control={control}
+      defaultValue=''
+      render={({ field }) => (
+        <div className='custom-quill-container'>
+          <ReactQuill
+            theme='snow'
+            value={field.value}
+            onChange={(content) => {
+              field.onChange(content);
+              handleInputChange('description', content); // Add this line
+            }}
+            modules={modules}
+            className='custom-quill-editor'
+            style={{ height: '200px' }}
+          />
+        </div>
+      )}
+    />
   );
 };
 

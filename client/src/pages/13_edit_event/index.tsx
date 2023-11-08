@@ -1,6 +1,12 @@
 import { Button } from '@material-tailwind/react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  EventFormFormValues,
+  EventFormSchema,
+} from '../../utils/validations/event-form-validation';
 import StepFive from './components/step-five';
 import StepFour from './components/step-four';
 import StepOne from './components/step-one';
@@ -12,6 +18,13 @@ import StepTwo from './components/step-two';
 export function Index() {
   const [currentStep, setCurrentStep] = useState(1);
 
+  const { register, control } =
+    useForm<EventFormFormValues>({
+      resolver: zodResolver(EventFormSchema),
+    });
+const [formData, setFormData] = useState({});
+
+
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -20,7 +33,10 @@ export function Index() {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = () => {};
+const onSubmit = () => {
+  // formData contains all the form data from all steps
+  console.log(formData);
+};
 
   return (
     <div className='container mx-auto mb-8'>
@@ -43,8 +59,27 @@ export function Index() {
           </div>
         </div>
 
-        {currentStep === 1 && <StepOne />}
-        {currentStep === 2 && <StepTwo />}
+        {currentStep === 1 && (
+          <StepOne
+            register={register}
+            control={control}
+            updateFormData={setFormData}
+          />
+        )}
+        {currentStep === 2 && (
+          <StepTwo
+            register={register}
+            control={control}
+            updateFormData={setFormData}
+            formData={formData}
+            updateStepTwoData={(field:any, value:any) => {
+              setFormData({
+                ...formData,
+                [field]: value,
+              });
+            }}
+          />
+        )}
         {currentStep === 3 && <StepThree />}
         {currentStep === 4 && <StepFour />}
         {currentStep === 5 && <StepFive />}
@@ -100,7 +135,8 @@ export function Index() {
                 color='indigo'
                 size='sm'
                 className='rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]'
-                onClick={handleSubmit}
+                type='button'
+                onClick={onSubmit}
               >
                 <span className='text-white'>Submit</span>
               </Button>
