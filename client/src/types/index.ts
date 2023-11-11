@@ -72,18 +72,18 @@ export interface Event {
     wired_belt_pack_and_headset: number;
   };
   screens: {
-    '21:9 Large Format Screen': number;
-    'Fast Fold Screen (16:9 Format) Large Venue': number;
-    'Fast Fold Screen (16:9 Format) Medium Venue': number;
-    'Fast Fold Screen (16:9 Format) Meeting Room': number;
-    'Fast Fold Screen (4:3 Format) Large Venue': number;
-    'Fast Fold Screen (4:3 Format) Medium Venue': number;
-    'Fast Fold Screen (4:3 Format) Meeting Room': number;
-    'Fast Fold Drape Kit': number;
-    'Tripod Screens 60”-96': number;
-    'LCD Monitor': number;
-    'Video LED Wall': number;
-    'Screen Rigging and Truss': number;
+    '21:9_Large_Format_Screen': number;
+    'Fast_Fold_Screen_(16:9_Format)_Large_Venue': number;
+    'Fast_Fold_Screen_(16:9_Format)_Medium_Venue': number;
+    'Fast_Fold_Screen_(16:9_Format)_Meeting_Room': number;
+    'Fast_Fold_Screen_(4:3_Format)_Large_Venue': number;
+    'Fast_Fold_Screen_(4:3_Format)_Medium_Venue': number;
+    'Fast_Fold_Screen_(4:3_Format)_Meeting_Room': number;
+    Fast_Fold_Drape_Kit: number;
+    'Tripod_Screens_60”-96': number;
+    LCD_Monitor: number;
+    Video_LED_Wall: number;
+    Screen_Rigging_and_Truss: number;
   };
   projection: {
     '21:9 Format Projection': number;

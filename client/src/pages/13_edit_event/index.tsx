@@ -68,11 +68,9 @@ const onSubmit = () => {
         )}
         {currentStep === 2 && (
           <StepTwo
-            register={register}
-            control={control}
-            updateFormData={setFormData}
+            // @ts-ignore
             formData={formData}
-            updateStepTwoData={(field:any, value:any) => {
+            updateStepTwoData={(field: any, value: any) => {
               setFormData({
                 ...formData,
                 [field]: value,
@@ -80,11 +78,21 @@ const onSubmit = () => {
             }}
           />
         )}
-        {currentStep === 3 && <StepThree />}
-        {currentStep === 4 && <StepFour />}
+        {currentStep === 3 && (
+          <StepThree
+            formData={formData}
+            updateStepTwoData={(field: any, value: any) => {
+              setFormData({
+                ...formData,
+                [field]: value,
+              });
+            }}
+          />
+        )}
+        {/* {currentStep === 4 && <StepFour />}
         {currentStep === 5 && <StepFive />}
         {currentStep === 6 && <StepSix />}
-        {currentStep === 7 && <StepSeven />}
+        {currentStep === 7 && <StepSeven />} */}
 
         <div className='flex items-center justify-between mt-6'>
           <div>
