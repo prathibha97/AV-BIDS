@@ -1,58 +1,49 @@
-import React from "react";
-import { Typography, Card } from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  Cog6ToothIcon,
-  PowerIcon,
-} from "@heroicons/react/24/solid";
+import { Card, Typography } from '@material-tailwind/react';
 
-import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
-import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  InboxIcon,
-} from "@heroicons/react/24/solid";
+import { List, ListItem, ListItemPrefix } from '@material-tailwind/react';
 
-import DASHBOARD from "../assets/sidebar/dashboard.png";
-import EVENT from "../assets/sidebar/my events.png";
-import MESSAGES from "../assets/sidebar/message.png";
+import DASHBOARD from '../assets/sidebar/dashboard.png';
+import MESSAGES from '../assets/sidebar/message.png';
+import EVENT from '../assets/sidebar/my events.png';
+import { useNavigate } from 'react-router-dom';
 
 export function Sidebar_dashboard() {
+  const navigate = useNavigate()
   return (
     <div>
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]">
-        <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">
+      <Card className='h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]'>
+        <div className='mb-2 p-4'>
+          <Typography variant='h5' color='blue-gray'>
             Sidebar
           </Typography>
         </div>
         <List>
-          <ListItem>
+          <ListItem onClick={() => navigate('/homedashboard')}>
             <ListItemPrefix>
               <img
                 src={DASHBOARD}
-                alt="aad"
-                className="object-scale-down w-[18px]"
+                alt='aad'
+                className='object-scale-down w-[18px]'
               />
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem>
+          <ListItem onClick={() => navigate('/12_events')}>
             <ListItemPrefix>
               <img
                 src={EVENT}
-                alt="aad"
-                className="object-scale-down w-[18px]"
+                alt='aad'
+                className='object-scale-down w-[18px]'
               />
             </ListItemPrefix>
             My Event
           </ListItem>
-          <ListItem>
+          <ListItem onClick={() => navigate('/14_messages')}>
             <ListItemPrefix>
               <img
                 src={MESSAGES}
-                alt="aad"
-                className="object-scale-down w-[18px]"
+                alt='aad'
+                className='object-scale-down w-[18px]'
               />
             </ListItemPrefix>
             Messages
