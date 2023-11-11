@@ -89,9 +89,26 @@ const onSubmit = () => {
             }}
           />
         )}
-        {/* {currentStep === 4 && <StepFour />}
-        {currentStep === 5 && <StepFive />}
-        {currentStep === 6 && <StepSix />}
+        {currentStep === 4 && (
+          <StepFour
+            formData={formData}
+            updateStepTwoData={(field: any, value: any) => {
+              setFormData({
+                ...formData,
+                [field]: value,
+              });
+            }}
+          />
+        )}
+        {currentStep === 5 && <StepFive formData={formData}
+            updateStepTwoData={(field: any, value: any) => {
+              setFormData({
+                ...formData,
+                [field]: value,
+              });
+            }}
+          />}
+        {/* {currentStep === 6 && <StepSix />}
         {currentStep === 7 && <StepSeven />} */}
 
         <div className='flex items-center justify-between mt-6'>

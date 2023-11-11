@@ -72,52 +72,56 @@ export interface Event {
     wired_belt_pack_and_headset: number;
   };
   screens: {
-    '21:9_Large_Format_Screen': number;
-    'Fast_Fold_Screen_(16:9_Format)_Large_Venue': number;
-    'Fast_Fold_Screen_(16:9_Format)_Medium_Venue': number;
-    'Fast_Fold_Screen_(16:9_Format)_Meeting_Room': number;
-    'Fast_Fold_Screen_(4:3_Format)_Large_Venue': number;
-    'Fast_Fold_Screen_(4:3_Format)_Medium_Venue': number;
-    'Fast_Fold_Screen_(4:3_Format)_Meeting_Room': number;
+    Twenty_One_Nine_Large_Format_Screen: number;
+    Fast_Fold_Screen_16_9_Format_Large_Venue: number;
+    Fast_Fold_Screen_16_9_Format_Medium_Venue: number;
+    Fast_Fold_Screen_16_9_Format_Meeting_Room: number;
+    Fast_Fold_Screen_4_3_Format_Large_Venue: number;
+    Fast_Fold_Screen_4_3_Format_Medium_Venue: number;
+    Fast_Fold_Screen_4_3_Format_Meeting_Room: number;
     Fast_Fold_Drape_Kit: number;
-    'Tripod_Screens_60”-96': number;
+    Tripod_Screens_60_96: number;
     LCD_Monitor: number;
     Video_LED_Wall: number;
     Screen_Rigging_and_Truss: number;
   };
   projection: {
-    '21:9 Format Projection': number;
-    'Large Venue Projector (Standard Throw Lens)': number;
-    'Large Venue Projector (Long Throw Lens)': number;
-    'Large Venue Projector (Short Throw Lens)': number;
-    'Medium Venue Projector (Standard Throw Lens)': number;
-    'Medium Venue Projector (Long Throw Lens)': number;
-    'Medium Venue Projector (Short Throw Lens)': number;
-    'Meeting Room Projector': number;
-    'Projector Rigging and Truss': number;
+    Twenty_One_Nine_Format_Projection: number;
+    Large_Venue_Projector_Standard_Throw_Lens: number;
+    Large_Venue_Projector_Long_Throw_Lens: number;
+    Large_Venue_Projector_Short_Throw_Lens: number;
+    Medium_Venue_Projector_Standard_Throw_Lens: number;
+    Medium_Venue_Projector_Long_Throw_Lens: number;
+    Medium_Venue_Projector_Short_Throw_Lens: number;
+    Meeting_Room_Projector: number;
+    Projector_Rigging_and_Truss: number;
   };
+
   videoCamera: {
-    'Broadcast Camera': number;
-    'Roaming Camera': number;
+    Broadcast_Camera: number;
+    Roaming_Camera: number;
     Camcorder: number;
-    'Video & Camera Lighting': number;
-    'Photography Camera': number;
+    Video_and_Camera_Lighting: number;
+    Photography_Camera: number;
   };
+
   videoProcessing: {
-    'Video Switching & Effects Processing': number;
-    'Video Capture': number;
-    'Screen Blend (21:9 Format)': number;
-    'Video Streaming': number;
-    'DVD-Blu-Ray Player': number;
-    'VHS/DVD Player': number;
+    Video_Switching_and_Effects_Processing: number;
+    Video_Capture: number;
+    Screen_Blend_21_Nine_Format: number;
+    Video_Streaming: number;
+    DVD_Blu_Ray_Player: number;
+    VHS_DVD_Player: number;
   };
+
   presenterTools: {
-    'Speaker Timer': number;
-    'Presentation Remote Clicker': number;
-    'Laser Pointer': number;
-    'Perfect Cue System': number;
+    Speaker_Timer: number;
+    Presentation_Remote_Clicker: number;
+    Laser_Pointer: number;
+    Perfect_Cue_System: number;
     Flipchart: number;
   };
+
   lighting: {
     Uplighting: number;
     'Stage Wash': number;
