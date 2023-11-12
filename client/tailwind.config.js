@@ -174,6 +174,7 @@ module.exports = withMT({
       secondary: "#957FEF",
       purple_two: "#8645FF",
       input_background: "#F3F1FB",
+      primary_font_color: "#353535",
     }),
     columns: {
       auto: "auto",
