@@ -19,24 +19,21 @@ function index() {
     <div className="container mx-auto">
       <section className="py-8 md:py-16 grid md:grid-cols-2 content-center">
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
-          <Button
-            variant="filled"
-            color="green"
-            size="sm"
-            className="rounded-full w-28 py-2 px-4 bg-[#B5F9C4] font-poppins mb-3"
-          >
-            <span className="text-[#178751]">Contact Us</span>
-          </Button>
+          <div className="bg-[#B5F9C4] rounded-full w-32 mb-4">
+            <p className="text-[#178751] font-semibold px-4 py-1 text-center">
+              Contact Us
+            </p>
+          </div>
           <h2 className="text-primary mb-3">Get in touch today</h2>
-          <p>
+          <p className="text-primary_font_color">
             Let us know how we can help or answer any questions. We would love
             to hear feedback about the site as well so we can make the user
             experience better.
           </p>
 
           <div className="mt-6">
-            <div className="flex items-center gap-16 mb-6">
-              <div className="flex items-center gap-4">
+            <div className="sm:flex items-center gap-16 mb-6">
+              <div className="flex items-center gap-4 mb-6 sm:mb-0">
                 <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#F3F1FB]">
                   <img
                     src={CONTACT_US_01}
@@ -45,7 +42,7 @@ function index() {
                   />
                 </div>
 
-                <p>info@avbids.com</p>
+                <p className="text-primary_font_color">info@avbids.com</p>
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#F3F1FB]">
@@ -55,7 +52,7 @@ function index() {
                     className=" object-scale-down"
                   />
                 </div>
-                <p>(623) 420-6666</p>
+                <p className="text-primary_font_color">(623) 420-6666</p>
               </div>
             </div>
 
@@ -67,20 +64,20 @@ function index() {
                   className=" object-scale-down"
                 />
               </div>
-              <p>Phoenix, Arizona</p>
+              <p className="text-primary_font_color">Phoenix, Arizona</p>
             </div>
           </div>
           <img
             src={CONTACT_US}
             alt="aad"
-            className="w-[547px] object-scale-down"
+            className="w-[500px] object-scale-down"
           />
         </div>
 
         <div className="flex justify-center items-center">
           <div>
             <Card color="transparent" shadow={false}>
-              <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 bg-[#F3F1FB] p-6  rounded-xl">
+              <form className="mt-8 mb-2 w-[23rem] max-w-screen-lg sm:w-96 bg-[#F3F1FB] p-6  rounded-xl">
                 <div className="mb flex flex-col gap-2 ">
                   <Typography variant="h6" color="blue-gray" className="">
                     Name
@@ -153,9 +150,11 @@ function index() {
                     }}
                   />
                 </div>
-                <Button className="mt-6 bg-primary rounded-full" fullWidth>
-                  Submit
-                </Button>
+                <div className="flex items-center justify-end">
+                  <Button className="mt-6 bg-primary rounded-full normal-case">
+                    Submit
+                  </Button>
+                </div>
               </form>
             </Card>
           </div>

@@ -1,13 +1,6 @@
-import {
-  Card,
-  Checkbox,
-  Select,
-  Option,
-  Button,
-} from "@material-tailwind/react";
-
-import EVENTS_01 from "../../assets/09_events/events01.png";
-import EVENTS_02 from "../../assets/09_events/location.png";
+import Sidebar from "./components/sidebar";
+import EventLists from "./components/eventLists";
+import { Select, Option, Button } from "@material-tailwind/react";
 
 export function index() {
   return (
@@ -15,8 +8,9 @@ export function index() {
       <div>
         <h2 className="text-center text-primary mb-16">Event Listings</h2>
       </div>
-      <div className="flex justify-center w-full gap-8 mb-6">
-        <Card className="h-[calc(125vh-2rem)] w-full max-w-[20rem] p-4  bg-[#F3F1FB]">
+
+      <div className="flex justify-center gap-8">
+        {/* <Card className="h-[calc(125vh-2rem)] w-full max-w-[20rem] p-4  bg-[#F3F1FB]">
           <div className="mb-2 p-4">
             <div className="mb-4">
               <h6>Event Type</h6>
@@ -129,7 +123,11 @@ export function index() {
               </Button>
             </div>
           </div>
-        </Card>
+        </Card> */}
+
+        <div className="hidden sm:block">
+          <Sidebar />
+        </div>
 
         <div>
           <div className="flex justify-between items-center mb-6">
@@ -144,59 +142,13 @@ export function index() {
               </Select>
             </div>
           </div>
-          <div className="flex items-center justify-center bg-[#fff] drop-shadow gap-8 p-8 h-40 rounded-lg w-max">
-            <div>
-              <img
-                src={EVENTS_01}
-                alt="aad"
-                className="object-scale-down w-[73px]"
-              />
-            </div>
 
-            <div>
-              <h2 className="text-[20px]">General Session & 4 Breakouts</h2>
-
-              <div className="flex gap-36">
-                <p className="text-[18px]">
-                  Event Date: 10/10/2023 - 10/15/2023
-                </p>
-                <p className="text-[18px]">$70,000 - $150,000</p>
-              </div>
-
-              <div className="flex items-center gap-16 mt-4">
-                <div className="flex gap-8 items-center">
-                  <img
-                    src={EVENTS_02}
-                    alt="aad"
-                    className="object-scale-down w-[20px]"
-                  />
-                  <p className="text-[16px] text-[#9381FF]">Phoenix, Arizona</p>
-                </div>
-
-                <p className="text-[16px]">Corporate, General Meeting</p>
-                <Button
-                  variant="filled"
-                  color="green"
-                  size="sm"
-                  className="rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins"
-                >
-                  <h2 className="text-[#178751] text-[12px]">Virtual</h2>
-                </Button>
-              </div>
-            </div>
-
-            <div className="ml-24">
-              <Button
-                variant="filled"
-                color="indigo"
-                size="sm"
-                className="rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins"
-              >
-                <span className="text-white">Apply Now</span>
-              </Button>
-              <p className="text-[16px] mt-4">23 days left to apply</p>
-            </div>
-          </div>
+          <EventLists />
+          <EventLists />
+          <EventLists />
+          <EventLists />
+          <EventLists />
+          <EventLists />
         </div>
       </div>
     </div>

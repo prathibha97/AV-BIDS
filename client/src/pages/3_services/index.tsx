@@ -19,7 +19,7 @@ function index() {
             </div>
 
             <div>
-              <p className="text-[20px] mb-6">
+              <p className="text-[16px] mb-6">
                 Yes, AV Bids offers paid services to help event planners plan
                 and prepare their events for success.
               </p>
@@ -29,7 +29,9 @@ function index() {
                 size="sm"
                 className="lg:inline-block bg-primary rounded-btn py-3 px-6"
               >
-                <span className=" text-white">Contact Us Today</span>
+                <span className=" text-white normal-case">
+                  Contact Us Today
+                </span>
               </Button>
             </div>
           </div>
@@ -48,8 +50,12 @@ function index() {
         <div className="flex justify-center items-center mx-4">
           <div className="grid sm:grid-cols-2 gap-4 content-center w-[1000px]">
             <div className=" bg-[#F3F1FB] rounded-lg p-8 flex flex-col items-center sm:items-start">
-              <img src={ICON_01} alt="aad" className="mb-4 w-[45px]" />
-              <h6 className=" mb-4">Presentation Design</h6>
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#67EFA5] mb-2">
+                <img src={ICON_01} alt="aad" className="w-[30px]" />
+              </div>
+              <h6 className="mb-4 text-[#000] font-extrabold">
+                Presentation Design
+              </h6>
               <p className="text-center sm:text-left">
                 We know event planners have a big enough work load, and sifting
                 through dozens if not hundreds of presentations is definitely
@@ -60,12 +66,11 @@ function index() {
             </div>
 
             <div className=" bg-[#F3F1FB] rounded-lg p-8 flex flex-col items-center sm:items-start ">
-              <img
-                src={ICON_02}
-                alt="aad"
-                className="object-scale-down  mb-4"
-              />
-              <h6 className=" mb-4">Event Layout</h6>
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#B3A0FF] mb-2">
+                <img src={ICON_02} alt="aad" className="w-[30px]" />
+              </div>
+
+              <h6 className=" mb-4 text-[#000] font-extrabold">Event Layout</h6>
               <p className="text-center sm:text-left">
                 Using CADD design software we can create a layout of your event
                 space. This includes table layout, audio visual equipment
@@ -74,8 +79,11 @@ function index() {
             </div>
 
             <div className=" bg-[#F3F1FB] rounded-lg p-8 flex flex-col items-center sm:items-start">
-              <img src={ICON_03} alt="aad" className="object-scale-down" />
-              <h6 className=" mb-4">3d Rendering</h6>
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#FFACED] mb-2">
+                <img src={ICON_03} alt="aad" className="w-[30px]" />
+              </div>
+
+              <h6 className=" mb-4 text-[#000] font-extrabold">3d Rendering</h6>
               <p className="text-center sm:text-left">
                 Need help designing a stage design? We use 3d design software to
                 create a stunning and one of kind set design.
@@ -83,8 +91,11 @@ function index() {
             </div>
 
             <div className=" bg-[#F3F1FB] rounded-lg p-8 flex flex-col items-center sm:items-start">
-              <img src={ICON_04} alt="aad" className="object-scale-down mb-4" />
-              <h6 className=" mb-4">Consultation</h6>
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-[#FFEAA0] mb-2">
+                <img src={ICON_04} alt="aad" className="w-[30px]" />
+              </div>
+
+              <h6 className=" mb-4 text-[#000] font-extrabold">Consultation</h6>
               <p className="text-center sm:text-left">
                 Not sure where to start with audio visual requirements for your
                 event? We offer free consultations to help you determine what
@@ -100,7 +111,7 @@ function index() {
             size="sm"
             className="lg:inline-block bg-[#8645FF] rounded-btn py-3 px-6"
           >
-            <span className=" text-white">Contact Us Today</span>
+            <span className=" text-white normal-case">Contact Us Today</span>
           </Button>
         </div>
       </section>
