@@ -15,6 +15,11 @@ import StepSix from './components/step-six';
 import StepThree from './components/step-three';
 import StepTwo from './components/step-two';
 
+interface Requirement {
+  label: string;
+  count: number;
+}
+
 export function Index() {
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -37,6 +42,22 @@ const onSubmit = () => {
   // formData contains all the form data from all steps
   console.log(formData);
 };
+
+const updateFormData = (
+  field: string,
+  value: number | Requirement[] | Requirement
+) => {
+  setFormData((prevData) => ({
+    ...prevData,
+    // @ts-ignore
+    [field]: Array.isArray(prevData[field])
+      ? // @ts-ignore
+        value.map((req: Requirement) => ({ ...req }))
+      : value,
+  }));
+};
+
+
 
   return (
     <div className='container mx-auto mb-8'>
@@ -123,15 +144,7 @@ const onSubmit = () => {
           />
         )}
         {currentStep === 7 && (
-          <StepSeven
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
+          <StepSeven formData={formData} updateFormData={updateFormData} />
         )}
 
         <div className='flex items-center justify-between mt-6'>
