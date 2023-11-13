@@ -124,40 +124,44 @@ export interface Event {
 
   lighting: {
     Uplighting: number;
-    'Stage Wash': number;
-    'Moving Head Lights': number;
+    Stage_Wash: number;
+    Moving_Head_Lights: number;
     Gobo: number;
-    'Inflatable Balloon Light': number;
-    'LED Lighting Effects': number;
+    Inflatable_Balloon_Light: number;
+    LED_Lighting_Effects: number;
     Spotlight: number;
-    'Lighting Rigging and Truss': number;
+    Lighting_Rigging_and_Truss: number;
   };
+
   scenic: {
-    'Drape Kit (Black)': number;
-    'Drape Kit (Grey)': number;
-    'Drape Kit (White)': number;
-    'Scenic Panels': number;
+    Drape_Kit_Black: number;
+    Drape_Kit_Grey: number;
+    Drape_Kit_White: number;
+    Scenic_Panels: number;
     Podium: number;
-    'Mobile Hotspot (up to 15 devices)': number;
-    'Event WIFI Network (more than 15 devices)': number;
-    'Laptops-PC': number;
-    'Laptops-Mac': number;
+    Mobile_Hotspot_up_to_15_devices: number;
+    Event_WIFI_Network_more_than_15_devices: number;
+    Laptops_PC: number;
+    Laptops_Mac: number;
   };
+
   electrical: {
-    'Audience Table Power': number;
-    'Power Strips 6x1': number;
-    'Portable Distribution Box (50 Amp)': number;
-    'Portable Distribution Box (100 Amp)': number;
-    'Portable Distribution Box (200 Amp)': number;
-    'Portable Distribution Box (300 Amp)': number;
-    'Portable Distribution Box (400 Amp)': number;
+    Audience_Table_Power: number;
+    Power_Strips_6x1: number;
+    Portable_Distribution_Box_50_Amp: number;
+    Portable_Distribution_Box_100_Amp: number;
+    Portable_Distribution_Box_200_Amp: number;
+    Portable_Distribution_Box_300_Amp: number;
+    Portable_Distribution_Box_400_Amp: number;
   };
+
   staff: {
-    'Audio Tech': number;
-    'Video Tech': number;
-    'Lighting Tech': number;
-    'Project Manager': number;
+    Audio_Tech: number;
+    Video_Tech: number;
+    Lighting_Tech: number;
+    Project_Manager: number;
   };
+
   otherRequirements: {
     [requirement: string]: number;
   };
