@@ -1,23 +1,17 @@
 import { FC, useState } from 'react';
-import { UseFormRegister, UseFormReturn } from 'react-hook-form';
 import Counter from '../../../components/counter';
-import { EventFormFormValues } from '../../../utils/validations/event-form-validation';
 
 interface StepTwoProps {
-  control: UseFormReturn<any>['control'];
-  register: UseFormRegister<EventFormFormValues>;
-  updateFormData: any;
-  formData: any;
-  updateStepTwoData:any;
+  formData: {
+    roomCount: number;
+    generalSessionCount: number;
+    breakoutSessionCount: number;
+    presenterCount: number;
+  };
+  updateStepTwoData: (field: string, value: number) => void;
 }
 
-const StepTwo: FC<StepTwoProps> = ({
-  control,
-  register,
-  updateFormData,
-  formData,
-  updateStepTwoData
-}) => {
+const StepTwo: FC<StepTwoProps> = ({ formData, updateStepTwoData }) => {
   const [rooms, setRooms] = useState(formData.roomCount || 0);
   const [generalSessions, setGeneralSessions] = useState(
     formData.generalSessionCount || 0
@@ -27,41 +21,34 @@ const StepTwo: FC<StepTwoProps> = ({
   );
   const [presenters, setPresenters] = useState(formData.presenterCount || 0);
 
+  const handleAdjust = (field: string, value: number) => {
+    let updatedValue = 0;
 
-const handleAdjust = (field: string, value: number) => {
-  console.log(`field: ${field}, value: ${value}`);
-  switch (field) {
-    case 'roomCount':
-      setRooms((prevRooms: number) => {
-        const updatedValue = Math.max(0, prevRooms + value);
-        return updatedValue;
-      });
-      break;
-    case 'generalSessionCount':
-      setGeneralSessions((prevGeneralSessions: any) => {
-        const updatedValue = Math.max(0, prevGeneralSessions + value);
-        return updatedValue;
-      });
-      break;
-    case 'breakoutSessionCount':
-      setBreakoutSessions((prevBreakoutSessions: any) => {
-        const updatedValue = Math.max(0, prevBreakoutSessions + value);
-        return updatedValue;
-      });
-      break;
-    case 'presenterCount':
-      setPresenters((prevPresenters: any) => {
-        const updatedValue = Math.max(0, prevPresenters + value);
-        return updatedValue;
-      });
-      break;
-    default:
-      break;
-  }
+    switch (field) {
+      case 'roomCount':
+        updatedValue = Math.max(0, rooms + value);
+        setRooms(updatedValue);
+        break;
+      case 'generalSessionCount':
+        updatedValue = Math.max(0, generalSessions + value);
+        setGeneralSessions(updatedValue);
+        break;
+      case 'breakoutSessionCount':
+        updatedValue = Math.max(0, breakoutSessions + value);
+        setBreakoutSessions(updatedValue);
+        break;
+      case 'presenterCount':
+        updatedValue = Math.max(0, presenters + value);
+        setPresenters(updatedValue);
+        break;
+      default:
+        break;
+    }
 
-  updateStepTwoData(field, Math.max(0, formData[field] + value));
-};
-
+    if (!isNaN(updatedValue)) {
+      updateStepTwoData(field, updatedValue);
+    }
+  };
 
   return (
     <div className='grid grid-cols-2 gap-4 mb-6'>
