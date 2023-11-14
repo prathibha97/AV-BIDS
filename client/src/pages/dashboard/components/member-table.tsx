@@ -16,6 +16,9 @@ import PLUS_ICON from "../../../assets/11_dashboard/plus.png";
 import { Member } from "../../../types";
 import api from "../../../utils/api";
 
+import AddNewMember from "../components/add-new-member";
+import DeleteMember from "../components/delete-member";
+
 const TABLE_HEAD = ["Name", "Role", "Email", ""];
 
 const TABLE_ROWS = [
@@ -69,16 +72,6 @@ const MemberTable = () => {
     <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-[20px] font-semibold">Members</h2>
-        {/* <Button
-          variant="outlined"
-          size="sm"
-          className="hidden lg:inline-block rounded-btn "
-        >
-          <div className="flex items-center gap-2">
-            <img src={PLUS_ICON} alt="aad" className="object-contain" />
-            <span className="text-black normal-case">Add New Member</span>
-          </div>
-        </Button> */}
 
         <>
           <Button
@@ -96,8 +89,7 @@ const MemberTable = () => {
           </Button>
         </>
 
-        {/* -----------------------------------------This is for the "Add New Member" button"------------------------------------------------------ */}
-        <Dialog open={open} handler={handleOpen}>
+        <Dialog open={open} handler={handleOpen} size="xs">
           <div className="flex justify-end p-3">
             <MdOutlineCancel
               size={32}
@@ -105,56 +97,10 @@ const MemberTable = () => {
               onClick={handleOpen}
             />
           </div>
-          <div className="flex items-center justify-center py-6">
-            <div>
-              <h2 className="text-[20px] font-semibold mb-5 text-black text-center">
-                Add Member
-              </h2>
-              <p className="text-black mb-1">Name</p>
-              <div className="w-72 mb-4">
-                <Input
-                  label="UDixie Normus"
-                  crossOrigin=""
-                  variant="outlined"
-                  className="bg-[#F3F1FC] border-1 border-[#E4E4E4] shadow-none"
-                />
-              </div>
-
-              <p className="text-black mb-1">Role</p>
-              <div className="w-72 mb-4">
-                <Input
-                  label="Event Planner"
-                  crossOrigin=""
-                  className="bg-[#F3F1FC] border-1 border-[#E4E4E4]"
-                />
-              </div>
-              <p className="text-black mb-1">Email</p>
-              <div className="w-72 mb-4">
-                <Input
-                  label="dixie@anitameetings.com"
-                  crossOrigin=""
-                  className="bg-[#F3F1FC] border-1 border-[#E4E4E4]"
-                />
-              </div>
-
-              <div className="flex items-center justify-end">
-                <Button
-                  variant="filled"
-                  color="indigo"
-                  size="sm"
-                  className="rounded-md w-32 py-3 mt-2  bg-primary font-poppins"
-                >
-                  <span className="text-white rounded-lg normal-case ">
-                    Add Member
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
+          <AddNewMember />
         </Dialog>
 
-        {/* ----------------------------------------------------This is for Edit and delete member------------------------------------------------------- */}
-        <Dialog open={open_1} handler={handleOpen_1}>
+        <Dialog open={open_1} handler={handleOpen_1} size="xs">
           <div className="flex justify-end p-3">
             <MdOutlineCancel
               size={32}
@@ -162,56 +108,7 @@ const MemberTable = () => {
               onClick={handleOpen_1}
             />
           </div>
-
-          <div className="flex items-center justify-center mb-4 ">
-            <div>
-              <div className="flex items-center justify-center mb-5">
-                <h2 className="text-[22px] font-semibold  text-black text-center">
-                  Remove Member
-                </h2>
-              </div>
-
-              <div className="flex items-center justify-center mb-3">
-                <div className="flex items-center justify-center rounded-full w-16 h-16 bg-[#DE5753]">
-                  <MdDeleteOutline size={32} className="text-white " />
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-[20px] font-semibold mb-5 text-black text-center">
-                  Are you sure to Remove Member?
-                </h2>
-              </div>
-
-              <div>
-                <p className="text-center">
-                  Are you sure to delete Alex Account? All Changes will be lost
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center text-center gap-8 mb-6">
-            <Button
-              variant="filled"
-              color="indigo"
-              size="sm"
-              className="rounded-md w-24 py-3 mt-4  bg-primary font-poppins"
-            >
-              <span className="text-white rounded-lg normal-case text-center">
-                Cancel
-              </span>
-            </Button>
-
-            <Button
-              variant="filled"
-              color="indigo"
-              size="sm"
-              className="rounded-md w-24 py-3 mt-4 px-8 bg-primary font-poppins"
-            >
-              <span className="text-white rounded-lg normal-case ">Yes</span>
-            </Button>
-          </div>
+          <DeleteMember />
         </Dialog>
       </div>
 
@@ -280,7 +177,7 @@ const MemberTable = () => {
                           <MdEdit
                             size={24}
                             className="text-[#A2A1A7]"
-                            onClick={handleOpen_1}
+                            // onClick={handleOpen_1}
                           />
                           <MdDeleteOutline
                             size={24}

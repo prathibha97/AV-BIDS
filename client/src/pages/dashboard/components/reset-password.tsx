@@ -1,16 +1,16 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Input } from '@material-tailwind/react';
-import { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { clearUser, updateUser } from '../../../app/features/user/userSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { RootState } from '../../../app/store';
-import api from '../../../utils/api';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input } from "@material-tailwind/react";
+import { FC } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { clearUser, updateUser } from "../../../app/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { RootState } from "../../../app/store";
+import api from "../../../utils/api";
 import {
   ResetPasswordFormSchema,
   ResetPasswordFormValues,
-} from '../../../utils/validations/reset-password-form-validation';
+} from "../../../utils/validations/reset-password-form-validation";
 
 interface ResetPasswordProps {}
 
@@ -27,15 +27,15 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
   } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(ResetPasswordFormSchema),
     defaultValues: {
-      password: '',
-      newPassword: '',
-      confirmPassword: '',
+      password: "",
+      newPassword: "",
+      confirmPassword: "",
     },
   });
 
   const onSubmit = async (values: ResetPasswordFormValues) => {
     try {
-      const { data } = await api.post('/auth/reset-password', {
+      const { data } = await api.post("/auth/reset-password", {
         email: user?.email,
         password: values.newPassword,
       });
@@ -48,81 +48,81 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
   const handleDeleteAccount = async () => {
     try {
       await api.delete(`/users/${user?._id}`);
-      navigate('/');
+      navigate("/");
       dispatch(clearUser());
-      localStorage.removeItem('userInfo')
+      localStorage.removeItem("userInfo");
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
-      <h2 className='text-[20px] font-semibold mb-4'>Change Password</h2>
+    <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
+      <h2 className="text-[20px] font-semibold mb-4">Change Password</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='grid grid-cols-1 gap-4'>
+        <div className="grid grid-cols-1 gap-4">
           <div>
-            <p className='mb-2'>Current password</p>
-            <div className='w-72'>
+            <p className="mb-2">Current password</p>
+            <div className="w-72">
               <Input
-                type='password'
-                label='Password'
-                crossOrigin=''
-                className=' bg-[#f0edfc]'
-                {...register('password')}
+                type="password"
+                label="Password"
+                crossOrigin=""
+                className=" bg-[#f0edfc]"
+                {...register("password")}
               />
               {errors.password && <span>Password is required</span>}
             </div>
           </div>
 
           <div>
-            <p className='mb-2'>New Password</p>
-            <div className='w-72'>
+            <p className="mb-2">New Password</p>
+            <div className="w-72">
               <Input
-                type='password'
-                label='Password'
-                crossOrigin=''
-                className=' bg-[#f0edfc]'
-                {...register('newPassword')}
+                type="password"
+                label="Password"
+                crossOrigin=""
+                className=" bg-[#f0edfc]"
+                {...register("newPassword")}
               />
               {errors.password && <span>New Password is required</span>}
             </div>
           </div>
           <div>
-            {' '}
-            <p className='mb-2'>Confirm New Password</p>
-            <div className='w-72'>
+            {" "}
+            <p className="mb-2">Confirm New Password</p>
+            <div className="w-72">
               <Input
-                type='password'
-                label='Password'
-                crossOrigin=''
-                className=' bg-[#f0edfc]'
-                {...register('confirmPassword')}
+                type="password"
+                label="Password"
+                crossOrigin=""
+                className=" bg-[#f0edfc]"
+                {...register("confirmPassword")}
               />
               {errors.password && <span>Passwords does not match</span>}
             </div>
           </div>
         </div>
 
-        <div className='flex items-center justify-between mt-4'>
+        <div className="flex items-center justify-between mt-4">
           <Button
-            variant='filled'
-            color='indigo'
-            size='sm'
-            type='button'
-            className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
+            variant="filled"
+            color="indigo"
+            size="sm"
+            type="button"
+            className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
             onClick={handleDeleteAccount}
           >
-            <span className='text-white'>Delete Account</span>
+            <span className="text-white">Delete Account</span>
           </Button>
 
           <Button
-            variant='filled'
-            color='indigo'
-            size='sm'
-            className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
-            type='submit'
+            variant="filled"
+            color="indigo"
+            size="sm"
+            className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
+            type="submit"
           >
-            <span className='text-white'>Submit</span>
+            <span className="text-white">Submit</span>
           </Button>
         </div>
       </form>

@@ -1,4 +1,5 @@
 import Sidebar from "./components/sidebar";
+import MobileSidebar from "./components/mobileSidebar";
 import EventLists from "./components/eventLists";
 import { Select, Option, Button } from "@material-tailwind/react";
 
@@ -125,14 +126,16 @@ export function index() {
           </div>
         </Card> */}
 
-        <div className="hidden sm:block">
-          <Sidebar />
-        </div>
+        <div className="hidden sm:block">{/* <Sidebar /> */}</div>
 
         <div>
-          <div className="flex justify-between items-center mb-6">
-            <p>500 events Found</p>
-            <div className="w-[200px]">
+          <div className="flex mb-6 mx-4">
+            <div>
+              <MobileSidebar />
+            </div>
+            <p className="text-[14px]">500 events Found</p>
+
+            {/* <div className="w-[200px]">
               <Select label="Sort: Ending Soonest ">
                 <Option>Ending Soonest</Option>
                 <Option>Budget Lowest</Option>
@@ -140,7 +143,7 @@ export function index() {
                 <Option>Audience Size Lowest</Option>
                 <Option>Audience Size Highest</Option>
               </Select>
-            </div>
+            </div> */}
           </div>
 
           <EventLists />
