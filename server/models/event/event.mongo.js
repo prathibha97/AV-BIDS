@@ -178,6 +178,21 @@ const eventSchema = new mongoose.Schema({
       url: String,
     },
   ],
+  proposals: [
+    {
+      provider: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      proposalText: String,
+      files: [
+        {
+          fileName: String,
+          url: String,
+        },
+      ],
+    },
+  ],
   comments: {
     description: String,
   },
