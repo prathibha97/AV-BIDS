@@ -140,6 +140,7 @@ function ProfileMenu() {
 // nav list component
 
 export function NavbarDashboard() {
+  const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = React.useState(false);
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -160,6 +161,7 @@ export function NavbarDashboard() {
               variant='outlined'
               size='sm'
               className='hidden lg:inline-block rounded-btn '
+              onClick={() => navigate('/events/new')}
             >
               <div className='flex items-center gap-2'>
                 <img src={PLUS_ICON} alt='aad' className='object-contain' />
