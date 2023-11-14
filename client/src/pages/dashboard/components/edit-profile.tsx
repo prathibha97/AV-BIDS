@@ -19,10 +19,7 @@ const EditProfile: FC<EditProfileProps> = () => {
   const user = useAppSelector((state: RootState) => state.user.user);
   const dispatch = useAppDispatch();
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<EditProfileFormValues>({
+  const { register, handleSubmit } = useForm<EditProfileFormValues>({
     resolver: zodResolver(EditProfileFormSchema),
     defaultValues: {
       firstName: user?.firstName ?? '',
@@ -90,14 +87,16 @@ const EditProfile: FC<EditProfileProps> = () => {
                 size='sm'
                 className='rounded-md w-41 py-2 mt-4 px-4 bg-primary font-poppins'
               >
-                <span className='text-white'>Upload New Photo</span>
+                <label className='text-white'>
+                  Upload New Photo
+                  <input
+                    type='file'
+                    accept='image/*'
+                    onChange={onFileChange}
+                    className='hidden'
+                  />
+                </label>
               </Button>
-              <Input
-                type='file'
-                accept='image/*'
-                crossOrigin=''
-                onChange={onFileChange}
-              />
             </div>
           </div>
           <div></div>

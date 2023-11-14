@@ -313,7 +313,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
             {uploadedFiles.map((file, index) => (
               <div key={index} className='mb-4'>
                 <div className='flex items-center gap-4'>
-                  <p>{file.fileName}</p>
+                  <p>{file.name}</p>
                   <img
                     src={DELETE_BUTTON}
                     alt='delete'
