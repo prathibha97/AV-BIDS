@@ -19,6 +19,7 @@ export interface Member {
 }
 
 export interface Event {
+  _id: string;
   title: string;
   description: string;
   eventType: string;
@@ -168,4 +169,5 @@ export interface Event {
   comments: {
     description: string;
   };
+  createdAt: Date;
 }

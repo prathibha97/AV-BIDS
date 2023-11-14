@@ -14,6 +14,7 @@ import { EventFormFormValues, EventFormSchema } from '../../../utils/validations
 import api from '../../../utils/api';
 import { useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
+import { useNavigate } from 'react-router-dom';
 
 interface Requirement {
   label: string;
@@ -22,6 +23,7 @@ interface Requirement {
 
 export function Index() {
   const [currentStep, setCurrentStep] = useState(1);
+  const navigate = useNavigate()
 
   const { register, control } = useForm<EventFormFormValues>({
     resolver: zodResolver(EventFormSchema),
@@ -39,12 +41,13 @@ export function Index() {
   };
 
   const onSubmit = async () => {
-    console.log(formData);
     try {
       await api.post('/events', {
         ...formData,
         createdBy: user && user._id,
       });
+      navigate('/events/my-events');
+
     } catch (error) {
       console.log(error);
     }

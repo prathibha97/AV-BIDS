@@ -20,14 +20,19 @@ interface UploadedFile extends File {
   progress: number;
 }
 
-
 interface StepOneProps {
   control: UseFormReturn<any>['control'];
   register: UseFormRegister<EventFormFormValues>;
   updateFormData: any;
+  formData: any;
 }
 
-const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
+const StepOne: FC<StepOneProps> = ({
+  control,
+  register,
+  updateFormData,
+  formData,
+}) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,6 +134,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleInputChange('title', e.target.value);
                 }}
+                value={formData.title}
               />
             </div>
           </div>
@@ -139,6 +145,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               <RichTextEditor
                 control={control}
                 handleInputChange={handleInputChange}
+                formData={formData}
               />
             </div>
           </div>
@@ -152,6 +159,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('eventType', e);
                 }}
+                value={formData.eventType}
               >
                 {eventTypes.map((type) => (
                   <Option key={type.value} value={type.value}>
@@ -167,10 +175,11 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               <Select
                 label='Coporate'
                 className='bg-[#eeebfc]'
-                name='eventType'
+                name='eventCategory'
                 onChange={(e: any) => {
                   handleSelect('eventCategory', e);
                 }}
+                value={formData.eventCategory}
               >
                 {eventCategories.map((category) => (
                   <Option key={category.value} value={category.value}>
@@ -186,10 +195,11 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               <Select
                 label='General Meeting'
                 className='bg-[#eeebfc]'
-                name='eventType'
+                name='eventSubCategory'
                 onChange={(e: any) => {
                   handleSelect('eventSubCategory', e);
                 }}
+                value={formData.eventSubCategory}
               >
                 {eventSubCategories.map((category) => (
                   <Option key={category.value} value={category.value}>
@@ -205,10 +215,11 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               <Select
                 label='$70,000 - $150,000'
                 className='bg-[#eeebfc]'
-                name='eventType'
+                name='eventBudget'
                 onChange={(e: any) => {
                   handleSelect('eventBudget', e);
                 }}
+                value={formData.eventBudget}
               >
                 {eventBudgetOptions.map((budget) => (
                   <Option key={budget.value} value={budget.value}>
@@ -219,9 +230,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
             </div>
           </div>
         </div>
-
         <p className='font-medium text-[18px] mb-4'>Address & Location</p>
-
         <div className='grid grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]'>
           <div className=''>
             <p className='mb-2'>Venue Name</p>
@@ -234,6 +243,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('address.venueName', e.target.value);
                 }}
+                value={formData.address?.venueName || ''}
               />
             </div>
           </div>
@@ -249,11 +259,11 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('address.venueAddress', e.target.value);
                 }}
+                value={formData.address?.venueAddress}
               />
             </div>
           </div>
         </div>
-
         <div className='grid grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]'>
           <div className='...'>
             <p className='mb-2'>City </p>
@@ -266,6 +276,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('address.city', e.target.value);
                 }}
+                value={formData.address?.city}
               />
             </div>
           </div>
@@ -280,6 +291,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('address.state', e);
                 }}
+                value={formData.address?.state}
               >
                 {usStates.map((state) => (
                   <Option key={state.value} value={state.value}>
@@ -301,14 +313,14 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 onChange={(e: any) => {
                   handleSelect('address.zipCode', e.target.value);
                 }}
+                value={formData.address?.zipCode}
               />
             </div>
           </div>
         </div>
-
         <p className='font-medium text-[18px] mb-4'>File Attachment</p>
-
-        {uploadedFiles.length > 0 ? (
+        
+        {uploadedFiles.length > 0 && (
           <div className='grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2'>
             {uploadedFiles.map((file, index) => (
               <div key={index} className='mb-4'>
@@ -338,10 +350,26 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               </div>
             ))}
           </div>
+        )}
+        {formData.files && formData.files.length > 0 ? (
+          <div className='grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2'>
+            {formData.files.map((file: any, index: number) => (
+              <div key={index} className='mb-4'>
+                <div className='flex items-center gap-4'>
+                  <p>{file.fileName}</p>
+                  <img
+                    src={DELETE_BUTTON}
+                    alt='delete'
+                    className='object-scale-down w-[34px]'
+                  />
+                </div>
+                {/* (Progress bar code here if needed) */}
+              </div>
+            ))}
+          </div>
         ) : (
           <p>No files uploaded</p>
         )}
-
         <Button
           variant='filled'
           color='indigo'

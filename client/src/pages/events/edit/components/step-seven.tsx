@@ -13,21 +13,25 @@ interface Requirement {
 }
 
 const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
-  const [Audio_Tech, setAudio_Tech] = useState(0);
-  const [Video_Tech, setVideo_Tech] = useState(0);
-  const [Lighting_Tech, setLighting_Tech] = useState(0);
-  const [Project_Manager, setProject_Manager] = useState(0);
+  const [Audio_Tech, setAudio_Tech] = useState(formData.Audio_Tech || 0);
+  const [Video_Tech, setVideo_Tech] = useState(formData.Video_Tech || 0);
+  const [Lighting_Tech, setLighting_Tech] = useState(
+    formData.Lighting_Tech || 0
+  );
+  const [Project_Manager, setProject_Manager] = useState(
+    formData.Project_Manager || 0
+  );
 
   const [Mobile_Hotspot_up_to_15_devices, setMobile_Hotspot_up_to_15_devices] =
-    useState(0);
+    useState(formData.Mobile_Hotspot_up_to_15_devices || 0);
   const [
     Event_WIFI_Network_more_than_15_devices,
     setEvent_WIFI_Network_more_than_15_devices,
-  ] = useState(0);
-  const [Laptops_PC, setLaptops_PC] = useState(0);
-  const [Laptops_Mac, setLaptops_Mac] = useState(0);
+  ] = useState(formData.Event_WIFI_Network_more_than_15_devices || 0);
+  const [Laptops_PC, setLaptops_PC] = useState(formData.Laptops_PC || 0);
+  const [Laptops_Mac, setLaptops_Mac] = useState(formData.Laptops_Mac || 0);
 
-  const [otherRequirements, setOtherRequirements] = useState<Requirement[]>([
+  const [otherRequirements, setOtherRequirements] = useState<Requirement[]>(formData.otherRequirements || [
     { label: '', count: 0 },
     { label: '', count: 0 },
     { label: '', count: 0 },
@@ -35,7 +39,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
     { label: '', count: 0 },
   ]);
 
-  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState(formData.comments || '');
 
   useEffect(() => {
     // Update formData when otherRequirements changes
@@ -87,10 +91,10 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
         return updatedRequirements;
       });
     }
-    else if (field === 'comment' && typeof value === 'string') {
-      setComment(value);
+    else if (field === 'comments' && typeof value === 'string') {
+      setComments(value);
       // @ts-ignore
-      updateFormData('comment', value);
+      updateFormData('comments', value);
     } else {
       switch (field) {
         case 'Audio_Tech':
@@ -230,8 +234,8 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
           <Textarea
             label='Description'
             className='bg-white border border-[#E4E4E4]'
-            value={comment}
-            onChange={(e) => handleAdjust('comment', e.target.value)}
+            value={comments}
+            onChange={(e) => handleAdjust('comments', e.target.value)}
           />
         </div>
       </div>

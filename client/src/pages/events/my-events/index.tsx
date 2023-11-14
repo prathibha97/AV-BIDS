@@ -1,43 +1,39 @@
 import { Card, Option, Select, Typography } from '@material-tailwind/react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../utils/api';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
+import { Event } from '../../../types';
+import {format} from 'date-fns'
+import { useDispatch } from 'react-redux';
+import { setEvent } from '../../../app/features/events/eventSlice';
 
 const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', ''];
 
-const TABLE_ROWS = [
-  {
-    id: 1,
-    name: 'General Session & 4 Breakouts',
-    job: '13 Aug, 2022',
-    date: '130 Proposals',
-  },
-  {
-    id: 2,
-    name: 'Alexa Liras',
-    job: '13 Aug, 2022',
-    date: '130 Proposals',
-  },
-  {
-    id: 3,
-    name: 'Laurent Perrier',
-    job: '13 Aug, 2022',
-    date: '130 Proposals',
-  },
-  {
-    id: 4,
-    name: 'Michael Levi',
-    job: '13 Aug, 2022',
-    date: '130 Proposals',
-  },
-  {
-    id: 5,
-    name: 'Richard Gran',
-    job: '13 Aug, 2022',
-    date: '130 Proposals',
-  },
-];
+
 
 function Index() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+const user = useAppSelector((state: RootState) => state.user.user);
+
+
+  const [myEvents, setMyEvents] = useState<Event[]>([])
+
+  useEffect(() => {
+    const fetchMyEvents = async () => {
+      const { data } = await api.get(`/events/${user?._id}`);
+      return setMyEvents(data);
+    };
+    fetchMyEvents()
+  }, []);
+
+  const handleEdit = (event: Event) => {
+    dispatch(setEvent(event));
+    navigate(`/events/edit/${event._id}`);
+  };
+  
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
@@ -69,55 +65,52 @@ function Index() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, job, date, id }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? 'p-4'
-                  : 'p-4 border-b border-blue-gray-50';
-
+              {myEvents.map(( event , index) => {
+               
                 return (
-                  <tr key={name}>
-                    <td className={classes}>
+                  <tr key={event._id}>
+                    <td className='p-4 border-b border-blue-gray-50'>
                       <Typography
                         variant='small'
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {name}
+                        {event.title}
                         <div>
                           <div className='rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins'>
-                            <p className='text-black text-[#178751] text-center text-[12px] font-semibold'>
-                              In-Person
+                            <p className='text-black text-center text-[12px] font-semibold'>
+                              {event.eventType}
                             </p>
                           </div>
                         </div>
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className='p-4 border-b border-blue-gray-50'>
                       <Typography
                         variant='small'
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {job}
+                        {format(new Date(event.createdAt), 'dd MMM yyyy')}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className='p-4 border-b border-blue-gray-50'>
                       <Typography
                         variant='small'
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {date}
+                        {/* {date} */}
+                        <p>10 Proposals</p>
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className='p-4 border-b border-blue-gray-50'>
                       <Typography
                         as='a'
                         variant='small'
                         color='blue-gray'
                         className='font-medium cursor-pointer'
-                        onClick={()=>navigate(`/events/edit/${id}`)}
+                        onClick={() => handleEdit(event)}
                       >
                         Edit
                       </Typography>
