@@ -11,6 +11,9 @@ import StepSix from './components/step-six';
 import StepThree from './components/step-three';
 import StepTwo from './components/step-two';
 import { EventFormFormValues, EventFormSchema } from '../../../utils/validations/event-form-validation';
+import api from '../../../utils/api';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
 
 interface Requirement {
   label: string;
@@ -25,6 +28,8 @@ export function Index() {
   });
   const [formData, setFormData] = useState({});
 
+  const user = useAppSelector((state: RootState) => state.user.user);
+
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -35,6 +40,14 @@ export function Index() {
 
   const onSubmit = async () => {
     console.log(formData);
+    try {
+      await api.post('/events', {
+        ...formData,
+        createdBy: user && user._id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateFormData = (

@@ -22,7 +22,7 @@ const memberRouter = express.Router();
 
 /**
  * @swagger
- * /members:
+ * /api/members:
  *   get:
  *     summary: Get all members
  *     tags: [Members]
@@ -40,7 +40,7 @@ const memberRouter = express.Router();
 
 /**
  * @swagger
- * /members/{id}:
+ * /api/members/{id}:
  *   get:
  *     summary: Get a member by ID
  *     tags: [Members]

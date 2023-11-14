@@ -40,6 +40,24 @@ const userSchema = new mongoose.Schema({
     default: 'Standard',
   },
   refreshToken: [String],
+  members: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Member', // Reference to the Member model
+    },
+  ],
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review', // Reference to the Review model
+    },
+  ],
+  events: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
 });
 
 module.exports = mongoose.model('User', userSchema);
