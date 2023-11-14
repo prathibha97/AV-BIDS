@@ -44,7 +44,7 @@ export function TopNav() {
               size='sm'
               className='hidden lg:inline-block mr-2 text-btn'
             >
-              <Link to='/6_existing_user'>
+              <Link to='/sign-in'>
                 <span className=' text-black'>Login</span>
               </Link>
             </Button>
@@ -53,7 +53,7 @@ export function TopNav() {
               size='sm'
               className='hidden lg:inline-block rounded-btn '
             >
-              <Link to='/5_01_create_event_planner'>
+              <Link to='/sign-up'>
                 <span className=' text-black'>Get Started</span>
               </Link>
             </Button>

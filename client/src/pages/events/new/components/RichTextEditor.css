@@ -1,0 +1,19 @@
+.custom-quill-container {
+  background-color: #f3f1fb; /* Set body background color */
+  border-radius: 10px;
+  border: none;
+}
+
+.custom-quill-editor .ql-toolbar {
+  background-color: #e3dff0; /* Set toolbar background color */
+  border-radius: 10px 10px 0 0;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-quill-editor .ql-container {
+  border: none; /* Remove border around text area */
+  border-radius: 0 0 10px 10px; /* Set border radius for the text area */
+}

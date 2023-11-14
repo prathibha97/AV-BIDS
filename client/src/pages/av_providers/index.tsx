@@ -6,44 +6,43 @@ import AVPROVIDER_3 from "../../assets/AV Providers/Search-rafiki (1) 1.png";
 import AVPROVIDER_4 from "../../assets/AV Providers/Files sent-rafiki 1.png";
 import Done_Icon from "../../assets/AV Providers/done-icon.png";
 
+import { MdArrowForward } from "react-icons/md";
+
+import Accordion from "./components/AccordionCustomIcon";
+
 function index() {
   return (
     // <div>index</div>
     <div className="mx-auto">
-      <section className="bg-primary mb-8 content-center">
-        <div className="grid lg:grid-cols-2 gap-4 content-center">
-          <div className="flex flex-col justify-center items-center px-8">
+      <section className="mb-8 content-center">
+        {/* <div className="grid lg:grid-cols-2 gap-4 content-center"> */}
+        <div className="my-8 md:my-16 grid md:grid-cols-2 content-center bg-[#060139]">
+          <div className="flex flex-col justify-center items-center px-8 mt-8 sm:mb-8">
             <div className="justify-center items-center text-center lg:text-left">
-              <div className="mb-4">
-                <Button
-                  variant="filled"
-                  color="green"
-                  size="sm"
-                  className="rounded-full w-40 py-3 px-4 bg-[#B5F9C4] font-poppins"
-                >
-                  <span className="text-black">For AV Providers</span>
-                </Button>
+              <div className="flex items-center justify-center sm:justify-start">
+                <div className="bg-[#B5F9C4] rounded-full w-44 mb-4">
+                  <p className="text-[#178751] font-semibold px-4 py-1 text-center">
+                    For AV Providers
+                  </p>
+                </div>
               </div>
-              <h2 className="font-poppins font-extrabold text-[50px] text-[#fff] mb-8 ">
+
+              <h2 className="font-poppins font-extrabold text-[#fff] mb-8 sm:text-left">
                 Why pay for AV Bids?
               </h2>
-              <div className="font-poppins font-normal text-[22px] text-[#fff] mb-8">
+              <p className="text-[#fff] my-4 text-left ">
                 We offer a unique listing site that is specific to the events
                 industry. We wanted to create a platform that connects av
                 providers to event planners to help companies get new clients
                 without having to cold call.
-              </div>
+              </p>
               <div className=" mb-8">
                 <div className="flex gap-3">
                   <div className="mt-1">
-                    <img
-                      src={Done_Icon}
-                      alt="aad"
-                      className="w-[23px] object-contain"
-                    />
+                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
                   </div>
 
-                  <p className="mb-8 text-[22px] text-[#fff]">
+                  <p className="mb-8  text-[#fff] text-left">
                     Browse event listings that actively need proposals and
                     simply submit yours.
                   </p>
@@ -51,37 +50,33 @@ function index() {
 
                 <div className="flex gap-3">
                   <div className="mt-1">
-                    <img
-                      src={Done_Icon}
-                      alt="aad"
-                      className="w-[23px] object-contain"
-                    />
+                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
                   </div>
-                  <p className="mb-8 text-[22px] text-[#fff]">
+                  <p className="mb-8 text-[#fff] text-left">
                     Add up to three members for your organization
                   </p>
                 </div>
 
                 <div className="flex gap-3">
                   <div className="mt-1">
-                    <img
-                      src={Done_Icon}
-                      alt="aad"
-                      className="w-[23px] object-contain"
-                    />
+                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
                   </div>
-                  <p className="mb-0 text-[22px] text-[#fff]">
+                  <p className="mb-0 text-[#fff] text-left">
                     Chat with event planners and send invoices all from our site
                   </p>
                 </div>
               </div>
-              <button className="bg-[#8645FF] text-white rounded-full py-2 px-4 text-center font-bold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF]">
-                Get Started
-              </button>
+
+              <div className="flex items-center justify-center sm:justify-start">
+                <button className="flex items-center bg-[#8645FF] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
+                  Get Started
+                  <MdArrowForward size={24} className="text-[#fff] ml-4" />
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center mt-16 sm:mt-8 md:mt-0">
+          <div className="flex flex-col justify-center items-center mt-16 sm:mt-8 md:mt-0 mb-6">
             <img
               src={AVPROVIDER_1}
               alt="aad"
@@ -92,20 +87,17 @@ function index() {
       </section>
 
       <section>
-        <div className="flex items-center justify-center mb-4">
-          <Button
-            variant="filled"
-            color="green"
-            size="sm"
-            className="rounded-full w-40 py-3 px-4 bg-[#B5F9C4] font-poppins"
-          >
-            <span className="text-black">Our Process</span>
-          </Button>
+        <div className="flex items-center justify-center">
+          <div className="bg-[#B5F9C4] rounded-full w-36 mb-4">
+            <p className="text-[#178751] text-center font-semibold px-4 py-1">
+              Our Process
+            </p>
+          </div>
         </div>
 
         <div>
           <h2 className="text-primary text-center mb-4">How to get started?</h2>
-          <div className="font-poppins font-normal text-[20px] text-[#353535] text-center mb-8">
+          <div className="font-poppins font-normal text-[#353535] text-center mb-8">
             We make it simple and easy to start getting more proposals sent to
             you without having to reach out independently yourself
           </div>
@@ -118,13 +110,20 @@ function index() {
                     <img
                       src={AVPROVIDER_2}
                       alt="aad"
-                      className="lg:w-full object-scale-down"
+                      className="w-[400px] object-scale-down"
                     />
                   </div>
-                  <div className="text-center font-poppins font-bold text-[25px] text-[#000000] mb-4">
+
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="flex items-center justify-center rounded-full w-12 h-12 bg-primary">
+                      <p className="text-white font-semibold">1</p>
+                    </div>
+                  </div>
+
+                  <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
                     create your account
                   </div>
-                  <div className="text-center font-poppins font-normal text-[20px] text-[#000000] p-8 pt-0">
+                  <div className="text-center font-poppins font-normal text-[16px] text-[#353535] p-8 pt-0">
                     Add as much detail about you or your organization as you
                     want. You can even add additional members who will have
                     access to your account.
@@ -137,17 +136,23 @@ function index() {
                   <img
                     src={AVPROVIDER_3}
                     alt="aad"
-                    className="lg:w-full object-scale-down"
+                    className="w-[400px] object-scale-down"
                   />
                 </div>
-                <div className="text-center font-poppins font-bold text-[25px] text-[#000000] mb-4">
-                  Post an event
+
+                <div className="flex items-center justify-center mb-3">
+                  <div className="flex items-center justify-center rounded-full w-12 h-12 bg-primary">
+                    <p className="text-white font-semibold">2</p>
+                  </div>
                 </div>
-                <div className="text-center font-poppins font-normal text-[20px] text-[#000000] p-8 pt-0">
-                  Put in as much info about your event as you wish. We offer a
-                  variety of input boxes about your event. If we are missing
-                  anything or you already your event info on a document, you can
-                  upload your document.
+                <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
+                  Browse the event listings
+                </div>
+                <div className="text-center font-poppins font-normal text-[16px] text-[#353535] p-8 pt-0">
+                  Choose from a multitude of options for events. You can start
+                  with in-person only or hybrid, from there you choose what
+                  categories of events you want to see. You can view the event
+                  categories on our “Event Categories” page.
                 </div>
               </div>
 
@@ -156,19 +161,37 @@ function index() {
                   <img
                     src={AVPROVIDER_4}
                     alt="aad"
-                    className="lg:w-full object-scale-down"
+                    className="w-[400px] object-scale-down"
                   />
                 </div>
-                <div className="text-center font-poppins font-bold text-[25px] text-[#000000] mb-4">
-                  Choose the best proposal
+
+                <div className="flex items-center justify-center mb-3">
+                  <div className="flex items-center justify-center rounded-full w-12 h-12 bg-primary">
+                    <p className="text-white font-semibold">3</p>
+                  </div>
                 </div>
-                <div className="text-center font-poppins font-normal text-[20px] text-[#000000] p-8 pt-0">
-                  After you post you event, you can expect multiple proposals to
-                  be submit to you. From here you can determine if you want the
-                  lowest bid or best value.
+                <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
+                  Submit your proposal
+                </div>
+                <div className="text-center font-poppins font-normal text-[16px] text-[#353535] p-8 pt-0">
+                  View or download the av requirements on the event listing
+                  post, from there simply type up your proposal or chat with the
+                  event planner for more info on the event.
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className=" my-8 mx-4 px-2 bg-[#F3F1FB] rounded-xl">
+        <div className="px-8">
+          <h2 className="text-primary text-center pt-10">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="pt-12 pb-8">
+            <Accordion />
           </div>
         </div>
       </section>
@@ -227,63 +250,23 @@ function index() {
               </div>
             </div>
 
-            {/* <div className="flex justify-center items-center ">
-              <div className="grid grid-cols-2 gap-4 ">
-                <div className="">
-                  <h2 className="text-[30px] text-[#fff]  ">
-                    9<span className="text-purple_two">+</span>
-                  </h2>
-                </div>
-
-                <div>
-                  <p className="text-[20px] text-[#fff]">
-                    Hours spent per week on client acquisition
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="text-[30px] text-[#fff]  ">
-                    $1,000<span className="text-purple_two">+</span>
-                  </h2>
-                </div>
-                <div>
-                  <p className="text-[20px] text-[#fff]">
-                    Amount spent per week on client acquisition
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="text-[30px] text-[#fff]">
-                    35<span className="text-purple_two">%</span>
-                  </h2>
-                </div>
-                <div>
-                  <p className="text-[20px] text-[#fff]">
-                    Company growth potential each year using AV Bids
-                  </p>
-                </div>
-              </div>
-            </div> */}
-            <div className="flex justify-center items-center gap-6">
-              <div>
+            <div className="sm:flex justify-center items-center gap-6">
+              <div className="mb-6 sm:mb-0">
                 <Button
                   variant="outlined"
                   size="sm"
-                  className="hidden lg:inline-block rounded-btn py-3 px-4 "
+                  className="w-full rounded-btn py-3 px-4 "
                 >
-                  <span className=" text-white">
+                  <span className=" text-white normal-case text-[13px] mb-5">
                     Client Acquisitions averages
                   </span>
                 </Button>
               </div>
-              <div>
-                <Button
-                  variant="filled"
-                  size="sm"
-                  className="hidden lg:inline-block bg-[#8645FF] rounded-btn py-3 px-6"
-                >
-                  <span className=" text-white">Get Started</span>
-                </Button>
+              <div className="flex items-center justify-center">
+                <button className="flex items-center bg-[#8645FF] text-[20px] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
+                  <span className="text-[13px]">Get Started</span>
+                  <MdArrowForward size={24} className="text-[#fff] ml-4" />
+                </button>
               </div>
             </div>
           </div>

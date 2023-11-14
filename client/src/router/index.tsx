@@ -1,197 +1,162 @@
-import { Fragment, Key, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import EmptyLayout from "../layout/empty-layout";
-import HomeLayout from "../layout/home-layout";
-import { AuthGuard, ReversGuard } from "./guards";
+import { Fragment, Key, lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import EmptyLayout from '../layout/empty-layout';
+import HomeLayout from '../layout/home-layout';
 
-import SuspenseScreen from "./suspense-screen";
-// import AuthLayout from "../layout/auth-layout";
-// import useAuth from "../utils/context/auth-context";
+import SuspenseScreen from './suspense-screen';
 
-import HomeLayout2 from "../layout/home-layout-dash";
-import Layout_02 from "../layout/layout_02";
+import RequireAuth from '../components/require-auth';
+import HomeLayout2 from '../layout/home-layout-dash';
+import Layout_02 from '../layout/layout_02';
 
 function Router() {
   const routes: any = [
     {
-      path: "/",
+      path: '/',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/home")) }],
+      routes: [{ element: lazy(() => import('../pages/home')) }],
     },
     {
-      path: "/event-planner",
+      path: '/event-planner',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/event_planner")) }],
+      routes: [{ element: lazy(() => import('../pages/event_planner')) }],
     },
     {
-      path: "/av_providers",
+      path: '/av_providers',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/av_providers")) }],
+      routes: [{ element: lazy(() => import('../pages/av_providers')) }],
     },
     {
-      path: "/3_services",
+      path: '/3_services',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/3_services")) }],
-    },
-
-    {
-      path: "/4_event_categories",
-      layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/4_event_categories")) }],
+      routes: [{ element: lazy(() => import('../pages/3_services')) }],
     },
 
     {
-      path: "/5_01_create_event_planner",
+      path: '/4_event_categories',
+      layout: HomeLayout,
+      routes: [{ element: lazy(() => import('../pages/4_event_categories')) }],
+    },
+
+    {
+      path: '/sign-up',
       layout: EmptyLayout,
       routes: [
-        { element: lazy(() => import("../pages/5_01_create_event_planner")) },
+        {
+          element: lazy(
+            () => import('../pages/auth/sign-up')
+          ),
+        },
       ],
     },
 
     {
-      path: "/8_about_us",
+      path: '/8_about_us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/8_about_us")) }],
+      routes: [{ element: lazy(() => import('../pages/8_about_us')) }],
     },
 
     {
-      path: "/6_existing_user",
+      path: '/sign-in',
       layout: EmptyLayout,
-      routes: [{ element: lazy(() => import("../pages/6_existing_user")) }],
+      routes: [{ element: lazy(() => import('../pages/auth/sign-in')) }],
     },
 
     {
-      path: "/7_contact_us",
+      path: '/7_contact_us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/7_contact_us")) }],
+      routes: [{ element: lazy(() => import('../pages/7_contact_us')) }],
     },
 
     {
-      path: "/09_events",
-      layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/09_events")) }],
-    },
-
-    {
-      path: "/10_event_details_page",
+      path: '/10_event_details_page',
       layout: HomeLayout,
       routes: [
-        { element: lazy(() => import("../pages/10_event_details_page")) },
+        { element: lazy(() => import('../pages/10_event_details_page')) },
       ],
     },
 
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
-      path: "/homedashboard",
+      path: '/dashboard',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/homedashboard")) }],
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/dashboard')) }],
+    },
+
+    {
+      path: '/events',
+      layout: HomeLayout,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
-      path: "/12_events",
+      path: '/events/new',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/12_events")) }],
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events/new')) }],
     },
     {
-      path: "/13_event_details_page",
+      path: '/events/my-events',
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events/my-events')) }],
+    },
+    {
+      path: '/events/edit/:id',
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events/edit')) }],
+    },
+    {
+      path: '/events/:id',
       layout: Layout_02,
+      guard: RequireAuth,
       routes: [
-        { element: lazy(() => import("../pages/13_event_details_page")) },
+        { element: lazy(() => import('../pages/events/event-details')) },
+      ],
+    },
+    {
+      path: '/14_messages',
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import('../pages/14_messages')) }],
+    },
+
+    {
+      path: '/14_messages_empty',
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import('../pages/14_messages_empty')) }],
+    },
+
+    {
+      path: '/15_dashboard',
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import('../pages/15_dashboard')) }],
+    },
+
+    {
+      path: '/17_billing',
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import('../pages/17_billing')) }],
+    },
+
+    {
+      path: '/11_dashboard_add_member',
+      layout: EmptyLayout,
+      routes: [
+        { element: lazy(() => import('../pages/11_dashboard_add_member')) },
       ],
     },
 
     {
-      path: "/13_edit_event",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event")) }],
+      path: '/11_dashboard_delete_member',
+      layout: EmptyLayout,
+      routes: [
+        { element: lazy(() => import('../pages/11_dashboard_delete_member')) },
+      ],
     },
-
-    {
-      path: "/13_edit_event_1",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_1")) }],
-    },
-
-    {
-      path: "/13_edit_event_2",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_2")) }],
-    },
-
-    {
-      path: "/13_edit_event_3",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_3")) }],
-    },
-
-    {
-      path: "/13_edit_event_4",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_4")) }],
-    },
-
-    {
-      path: "/13_edit_event_5",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_5")) }],
-    },
-
-    {
-      path: "/13_edit_event_6",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/13_edit_event_6")) }],
-    },
-
-    {
-      path: "/14_messages",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/14_messages")) }],
-    },
-
-    {
-      path: "/14_messages_empty",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/14_messages_empty")) }],
-    },
-
-    {
-      path: "/15_dashboard",
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/15_dashboard")) }],
-    },
-
-    { path: "*", element: lazy(() => import("./404")) },
-
-    // {
-    //   path: "/lesson",
-    //   layout: HomeLayout,
-    //   guard: AuthGuard,
-    //   routes: [
-    //     {
-    //       path: ":lid",
-    //       element: lazy(() => import("../pages/courses/lesson/index")),
-    //     },
-    //     { element: lazy(() => import("../pages/courses")) },
-    //   ],
-    // },
-
-    // {
-    //   path: "/auth",
-    //   layout: AuthLayout,
-    //   // guard: ReversGuard,
-    //   routes: [
-    //     {
-    //       path: "forget-password",
-    //       element: lazy(() => import("../pages/auth/forget-password")),
-    //     },
-    //     { path: "login", element: lazy(() => import("../pages/auth/login")) },
-    //     {
-    //       path: "register",
-    //       element: lazy(() => import("../pages/auth/register")),
-    //     },
-    //     { element: lazy(() => import("../pages/tutors")) },
-    //   ],
-    // },
+    { path: '*', element: lazy(() => import('./404')) },
   ];
 
   const routeRender = (
@@ -205,21 +170,22 @@ function Router() {
     i: Key | null | undefined
   ) => {
     const Element = route.element ? route.element : Fragment;
-    const Guard = route.guard ? route.guard : Fragment;
     const Layout = route.layout ? route.layout : Fragment;
     const isIndex: boolean = route.path ? false : true;
     let props: any = {};
     if (isIndex) {
-      props["index"] = true;
+      props['index'] = true;
     } else {
-      props["path"] = route.path;
+      props['path'] = route.path;
     }
+
+    // Check if the route has a guard and apply it
+    const Guard = route.guard || Fragment;
+
     return (
       <Route
         key={i}
         {...props}
-        // // index={isIndex}
-        // path={route.path}
         element={
           <Guard>
             <Layout>
@@ -238,3 +204,21 @@ function Router() {
 }
 
 export default Router;
+
+// {
+//   path: '/events',
+//   layout: HomeLayout,
+//   guard: RequireAuth,
+//   routes: [
+//     { path: '', element: lazy(() => import('../pages/events')) },
+//     { path: 'new', element: lazy(() => import('../pages/events/new')) },
+//     {
+//       path: 'my-events',
+//       element: lazy(() => import('../pages/events/my-events')),
+//     },
+//     {
+//       path: 'edit/:id',
+//       element: lazy(() => import('../pages/events/edit')),
+//     },
+//   ],
+// },
