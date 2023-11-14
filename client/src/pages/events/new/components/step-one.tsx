@@ -51,7 +51,9 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
     if (fileExtension) {
       try {
         // Get S3 upload config
-        const uploadConfig = await api.get('/upload?type=' + fileExtension);
+        const uploadConfig = await api.get(
+          'http://54.201.46.218/api/upload?type=' + fileExtension
+        );
 
         // Upload file to S3
         await axios.put(uploadConfig.data.url, file, {
