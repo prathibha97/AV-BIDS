@@ -18,7 +18,7 @@ export function Sidebar_dashboard() {
           </Typography>
         </div>
         <List>
-          <ListItem onClick={() => navigate('/homedashboard')}>
+          <ListItem onClick={() => navigate('/dashboard')}>
             <ListItemPrefix>
               <img
                 src={DASHBOARD}
@@ -28,7 +28,7 @@ export function Sidebar_dashboard() {
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem onClick={() => navigate('/12_events')}>
+          <ListItem onClick={() => navigate('/events/my-events')}>
             <ListItemPrefix>
               <img
                 src={EVENT}
