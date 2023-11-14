@@ -10,6 +10,9 @@ module.exports = withMT({
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
+    extends: {
+      backgroundColor: { input_background2: "#F3F1FB" },
+    },
     accentColor: ({ theme }) => ({
       ...theme("colors"),
       auto: "auto",
