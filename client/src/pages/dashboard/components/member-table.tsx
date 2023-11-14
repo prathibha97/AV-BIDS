@@ -18,33 +18,6 @@ import api from "../../../utils/api";
 
 const TABLE_HEAD = ["Name", "Role", "Email", ""];
 
-const TABLE_ROWS = [
-  {
-    name: "Dixie Normus",
-    Role: "Manager",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Developer",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Executive",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Developer",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Manager",
-    email: "dixie@anitameetings.com",
-  },
-];
 
 const MemberTable = () => {
   const [members, setMembers] = useState<Member[]>([]);
@@ -69,17 +42,6 @@ const MemberTable = () => {
     <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-[20px] font-semibold">Members</h2>
-        {/* <Button
-          variant="outlined"
-          size="sm"
-          className="hidden lg:inline-block rounded-btn "
-        >
-          <div className="flex items-center gap-2">
-            <img src={PLUS_ICON} alt="aad" className="object-contain" />
-            <span className="text-black normal-case">Add New Member</span>
-          </div>
-        </Button> */}
-
         <>
           <Button
             onClick={handleOpen}
@@ -234,14 +196,9 @@ const MemberTable = () => {
             </thead>
             <tbody>
               {members.map(({ name, role, email }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
-
                 return (
                   <tr key={name}>
-                    <td className={classes}>
+                    <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -250,7 +207,7 @@ const MemberTable = () => {
                         {name}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -259,7 +216,7 @@ const MemberTable = () => {
                         {role}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -268,7 +225,7 @@ const MemberTable = () => {
                         {email}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
                         as="a"
                         href="#"
