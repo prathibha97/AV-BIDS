@@ -1,102 +1,43 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@material-tailwind/react";
-import axios from "axios";
-import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { updateUser } from "../../../app/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { RootState } from "../../../app/store";
-import api from "../../../utils/api";
-import {
-  EditProfileFormSchema,
-  EditProfileFormValues,
-} from "../../../utils/validations/edit-profile-form-validation";
 
-interface EditProfileProps {}
+import { useState } from "react";
 
-const EditProfile: FC<EditProfileProps> = () => {
-  const [file, setFile] = useState(null);
-  const user = useAppSelector((state: RootState) => state.user.user);
-  const dispatch = useAppDispatch();
+// Renamed the function to start with an uppercase letter
+function EditMembers() {
+  const [open, setOpen] = useState(false);
 
-  const { register, handleSubmit } = useForm<EditProfileFormValues>({
-    resolver: zodResolver(EditProfileFormSchema),
-    defaultValues: {
-      firstName: user?.firstName ?? "",
-      lastName: user?.lastName ?? "",
-      email: user?.email ?? "",
-      company: user?.company ?? "",
-      phone: user?.phone ?? "",
-      website: user?.website ?? "",
-    },
-  });
-  const onFileChange = (event: any) => {
-    setFile(event.target.files[0]);
-  };
+  const handleOpen = () => setOpen(!open);
 
-  const onSubmit = async (values: EditProfileFormValues) => {
-    const fileExtension = file
-      ? // @ts-ignore
-        file.name.split(".").pop().toLowerCase()
-      : null;
+  const [open_1, setOpen_1] = useState(false);
 
-    if (fileExtension !== null) {
-      const uploadConfig = await api.get("/upload?type=" + fileExtension);
-
-      try {
-        await axios.put(uploadConfig.data.url, file, {
-          headers: {
-            // @ts-ignore
-            "Content-Type": file.type,
-          },
-        });
-        const { data } = await api.put(`/users/${user?._id}`, {
-          ...values,
-          imageUrl: uploadConfig.data.key,
-        });
-        dispatch(updateUser(data));
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const { data } = await api.put(`/users/${user?._id}`, {
-          ...values,
-        });
-        dispatch(updateUser(data));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
+  const handleOpen_1 = () => setOpen_1(!open_1);
   return (
-    <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
+      <div className="flex items-center justify-center mb-8">
+        <h2 className="text-[22px] font-semibold  text-black text-center">
+          Edit Member
+        </h2>
+      </div>
+      <div className="flex items-center justify-center mb-6">
         <div className="grid grid-cols-2 justify-items-center gap-8">
           <div>
-            <div className="flex items-center gap-4">
-              <img
+            <div className="flex flex-col items-center gap-4 mx-6">
+              {/* <img
                 src={`https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`}
                 alt="aad"
                 className="object-scale-down w-[67px]"
-              />
+              /> */}
               <Button
                 variant="filled"
                 color="indigo"
                 size="sm"
-                className="rounded-md w-52 py-2 mt-4 px-2 bg-primary font-poppins"
+                className="rounded-md w-full py-2 mt-4 px-2 bg-primary font-poppins"
               >
                 <span className="text-white normal-case font-normal">
                   Upload New Photo
                 </span>
               </Button>
-              <Input
-                type="file"
-                accept="image/*"
-                crossOrigin=""
-                onChange={onFileChange}
-              />
+              <Input type="file" accept="image/*" crossOrigin="" />
             </div>
           </div>
           <div></div>
@@ -111,8 +52,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
                   crossOrigin=""
-                  placeholder="Username"
-                  {...register("firstName")}
+                  placeholder="John Smith"
                 />
               </div>
             </div>
@@ -127,9 +67,8 @@ const EditProfile: FC<EditProfileProps> = () => {
                   className: "hidden",
                 }}
                 containerProps={{ className: "min-w-[100px]" }}
-                label="Username"
+                placeholder="John Smith"
                 crossOrigin=""
-                {...register("lastName")}
               />
             </div>
           </div>
@@ -144,9 +83,8 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="info@anitameetings.com"
                   crossOrigin=""
-                  {...register("email")}
                 />
               </div>
             </div>
@@ -161,9 +99,8 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="Anita Meetings LLC"
                   crossOrigin=""
-                  {...register("company")}
                 />
               </div>
             </div>
@@ -178,9 +115,8 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="+880 01723801729"
                   crossOrigin=""
-                  {...register("phone")}
                 />
               </div>
             </div>
@@ -195,9 +131,8 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="www.anitameetings.com"
                   crossOrigin=""
-                  {...register("website")}
                 />
               </div>
             </div>
@@ -205,21 +140,28 @@ const EditProfile: FC<EditProfileProps> = () => {
 
           <div></div>
         </div>
+      </div>
 
-        <div className="flex justify-end">
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            type="submit"
-            className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
-          >
-            <span className="text-white">Submit</span>
-          </Button>
-        </div>
-      </form>
-    </section>
+      <div className="flex items-center justify-center text-center gap-16 mb-6 ">
+        <Button
+          variant="filled"
+          size="sm"
+          className="w-28 py-3 mt-4  bg-[#D0D0D0] font-poppins rounded-full"
+          onClick={handleOpen_1}
+        >
+          <span className="text-white  normal-case text-center">Cancel</span>
+        </Button>
+
+        <Button
+          variant="filled"
+          size="sm"
+          className="w-28 py-3 mt-4 px-8 bg-primary font-poppins normal-case rounded-full "
+        >
+          <span className="text-white normal-case">Update</span>
+        </Button>
+      </div>
+    </div>
   );
-};
+}
 
-export default EditProfile;
+export default EditMembers;

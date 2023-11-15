@@ -19,10 +19,10 @@ function AddNewMember() {
             Add Member
           </h2>
           <p className="text-black mb-1">Name</p>
-          <div className="w-72 mb-4">
+          <div className="w-72 mb-4 bg-input_background rounded-full">
             <Input
               placeholder="Dixie Normus"
-              className="!border !border-gray-300 bg-input_background2 text-gray-900    ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+              className="!border !border-gray-300  text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
               labelProps={{
                 className: "hidden",
               }}
@@ -34,10 +34,10 @@ function AddNewMember() {
           <p className="text-black mb-1">
             Role <span className="text-[#DE5753]">*</span>
           </p>
-          <div className="w-72 mb-4">
+          <div className="w-72 mb-4 rounded-full bg-input_background">
             <Input
               placeholder="Event Planner"
-              className="!border !border-gray-300 bg-input_background2 text-gray-900    ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+              className="!border !border-gray-300  text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
               labelProps={{
                 className: "hidden",
               }}
@@ -49,10 +49,10 @@ function AddNewMember() {
           <p className="text-black mb-1">
             Email <span className="text-[#DE5753]">*</span>
           </p>
-          <div className="w-72 mb-4">
+          <div className="w-72 mb-4 rounded-full bg-input_background">
             <Input
               placeholder="dixie@anitameetings.com"
-              className="!border !border-gray-300 bg-input_background2 text-gray-900    ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+              className="!border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
               labelProps={{
                 className: "hidden",
               }}

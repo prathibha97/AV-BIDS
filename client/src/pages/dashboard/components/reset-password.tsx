@@ -62,12 +62,17 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
         <div className="grid grid-cols-1 gap-4">
           <div>
             <p className="mb-2">Current password</p>
-            <div className="w-72">
+
+            <div className="w-72 bg-input_background rounded-full">
               <Input
+                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                labelProps={{
+                  className: "hidden",
+                }}
+                containerProps={{ className: "min-w-[100px]" }}
                 type="password"
-                label="Password"
+                placeholder="********"
                 crossOrigin=""
-                className=" bg-[#f0edfc]"
                 {...register("password")}
               />
               {errors.password && <span>Password is required</span>}
@@ -76,26 +81,33 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
 
           <div>
             <p className="mb-2">New Password</p>
-            <div className="w-72">
+            <div className="w-72 bg-input_background rounded-full">
               <Input
+                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                labelProps={{
+                  className: "hidden",
+                }}
+                containerProps={{ className: "min-w-[100px]" }}
                 type="password"
-                label="Password"
+                placeholder="********"
                 crossOrigin=""
-                className=" bg-[#f0edfc]"
                 {...register("newPassword")}
               />
               {errors.password && <span>New Password is required</span>}
             </div>
           </div>
           <div>
-            {" "}
             <p className="mb-2">Confirm New Password</p>
-            <div className="w-72">
+            <div className="w-72 bg-input_background rounded-full">
               <Input
+                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                labelProps={{
+                  className: "hidden",
+                }}
+                containerProps={{ className: "min-w-[100px]" }}
                 type="password"
-                label="Password"
+                placeholder="********"
                 crossOrigin=""
-                className=" bg-[#f0edfc]"
                 {...register("confirmPassword")}
               />
               {errors.password && <span>Passwords does not match</span>}
@@ -112,7 +124,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
             onClick={handleDeleteAccount}
           >
-            <span className="text-white">Delete Account</span>
+            <span className="text-white normal-case">Delete Account</span>
           </Button>
 
           <Button
@@ -122,7 +134,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
             type="submit"
           >
-            <span className="text-white">Submit</span>
+            <span className="text-white normal-case">Submit</span>
           </Button>
         </div>
       </form>
