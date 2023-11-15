@@ -10,68 +10,78 @@ const StepFour: FC<StepFourProps> = ({ formData, updateStepTwoData }) => {
   const [
     Twenty_One_Nine_Large_Format_Screen,
     setTwenty_One_Nine_Large_Format_Screen,
-  ] = useState(0);
+  ] = useState(formData.Twenty_One_Nine_Large_Format_Screen || 0);
   const [
     Fast_Fold_Screen_16_9_Format_Large_Venue,
     setFast_Fold_Screen_16_9_Format_Large_Venue,
-  ] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_16_9_Format_Large_Venue || 0);
   const [
     Fast_Fold_Screen_16_9_Format_Medium_Venue,
     setFast_Fold_Screen_16_9_Format_Medium_Venue,
-  ] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_16_9_Format_Medium_Venue || 0);
   const [
     Fast_Fold_Screen_16_9_Format_Meeting_Room,
     setFast_Fold_Screen_16_9_Format_Meeting_Room,
-  ] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_16_9_Format_Meeting_Room || 0);
   const [
     Fast_Fold_Screen_4_3_Format_Large_Venue,
     setFast_Fold_Screen_4_3_Format_Large_Venue,
-  ] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_4_3_Format_Large_Venue || 0);
   const [
     Fast_Fold_Screen_4_3_Format_Medium_Venue,
     setFast_Fold_Screen_4_3_Format_Medium_Venue,
-  ] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_4_3_Format_Medium_Venue || 0);
   const [
     Fast_Fold_Screen_4_3_Format_Meeting_Room,
     setFast_Fold_Screen_4_3_Format_Meeting_Room,
-  ] = useState(0);
-  const [Fast_Fold_Drape_Kit, setFast_Fold_Drape_Kit] = useState(0);
-  const [Tripod_Screens_60_96, setTripod_Screens_60_96] = useState(0);
-  const [LCD_Monitor, setLCD_Monitor] = useState(0);
-  const [Video_LED_Wall, setVideo_LED_Wall] = useState(0);
-  const [Screen_Rigging_and_Truss, setScreen_Rigging_and_Truss] = useState(0);
+  ] = useState(formData.Fast_Fold_Screen_4_3_Format_Meeting_Room || 0);
+  const [Fast_Fold_Drape_Kit, setFast_Fold_Drape_Kit] = useState(
+    formData.Fast_Fold_Drape_Kit || 0
+  );
+  const [Tripod_Screens_60_96, setTripod_Screens_60_96] = useState(
+    formData.Tripod_Screens_60_96 || 0
+  );
+  const [LCD_Monitor, setLCD_Monitor] = useState(formData.LCD_Monitor || 0);
+  const [Video_LED_Wall, setVideo_LED_Wall] = useState(
+    formData.Video_LED_Wall || 0
+  );
+  const [Screen_Rigging_and_Truss, setScreen_Rigging_and_Truss] = useState(
+    formData.Screen_Rigging_and_Truss || 0
+  );
 
   const [
     Twenty_One_Nine_Format_Projection,
     setTwenty_One_Nine_Format_Projection,
-  ] = useState(0);
+  ] = useState(formData.Twenty_One_Nine_Format_Projection || 0);
   const [
     Large_Venue_Projector_Standard_Throw_Lens,
     setLarge_Venue_Projector_Standard_Throw_Lens,
-  ] = useState(0);
+  ] = useState(formData.Large_Venue_Projector_Standard_Throw_Lens || 0);
   const [
     Large_Venue_Projector_Long_Throw_Lens,
     setLarge_Venue_Projector_Long_Throw_Lens,
-  ] = useState(0);
+  ] = useState(formData.Large_Venue_Projector_Long_Throw_Lens || 0);
   const [
     Large_Venue_Projector_Short_Throw_Lens,
     setLarge_Venue_Projector_Short_Throw_Lens,
-  ] = useState(0);
+  ] = useState(formData.Large_Venue_Projector_Short_Throw_Lens || 0);
   const [
     Medium_Venue_Projector_Standard_Throw_Lens,
     setMedium_Venue_Projector_Standard_Throw_Lens,
-  ] = useState(0);
+  ] = useState(formData.Medium_Venue_Projector_Standard_Throw_Lens || 0);
   const [
     Medium_Venue_Projector_Long_Throw_Lens,
     setMedium_Venue_Projector_Long_Throw_Lens,
-  ] = useState(0);
+  ] = useState(formData.Medium_Venue_Projector_Long_Throw_Lens || 0);
   const [
     Medium_Venue_Projector_Short_Throw_Lens,
     setMedium_Venue_Projector_Short_Throw_Lens,
-  ] = useState(0);
-  const [Meeting_Room_Projector, setMeeting_Room_Projector] = useState(0);
+  ] = useState(formData.Medium_Venue_Projector_Short_Throw_Lens || 0);
+  const [Meeting_Room_Projector, setMeeting_Room_Projector] = useState(
+    formData.Meeting_Room_Projector || 0
+  );
   const [Projector_Rigging_and_Truss, setProjector_Rigging_and_Truss] =
-    useState(0);
+    useState(formData.Projector_Rigging_and_Truss || 0);
 
   const handleAdjust = (field: string, value: number) => {
     let updatedValue = 0;

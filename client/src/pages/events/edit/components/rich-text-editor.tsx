@@ -7,10 +7,12 @@ import { FC } from "react";
 interface RichTextEditorProps {
   control: Control;
   handleInputChange: any;
+  formData:any;
 }
 const RichTextEditor: FC<RichTextEditorProps> = ({
   control,
   handleInputChange,
+  formData
 }) => {
   const modules = {
     toolbar: [
@@ -31,21 +33,21 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
   };
   return (
     <Controller
-      name="description"
+      name='description'
       control={control}
-      defaultValue=""
+      defaultValue={formData?.description}
       render={({ field }) => (
-        <div className="custom-quill-container">
+        <div className='custom-quill-container'>
           <ReactQuill
-            theme="snow"
+            theme='snow'
             value={field.value}
             onChange={(content) => {
               field.onChange(content);
-              handleInputChange("description", content); // Add this line
+              handleInputChange('description', content);
             }}
             modules={modules}
-            className="custom-quill-editor"
-            style={{ height: "200px" }}
+            className='custom-quill-editor'
+            style={{ height: '200px' }}
           />
         </div>
       )}

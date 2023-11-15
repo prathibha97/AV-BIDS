@@ -8,54 +8,73 @@ interface StepSixProps {
 
 const StepSix: FC<StepSixProps> = ({formData,updateStepTwoData}) => {
 
-  const [Uplighting, setUplighting] = useState(0);
-  const [Stage_Wash, setStage_Wash] = useState(0);
-  const [Moving_Head_Lights, setMoving_Head_Lights] = useState(0);
-  const [Gobo, setGobo] = useState(0);
-  const [Inflatable_Balloon_Light, setInflatable_Balloon_Light] = useState(0);
-  const [LED_Lighting_Effects, setLED_Lighting_Effects] = useState(0);
-  const [Spotlight, setSpotlight] = useState(0);
-  const [Lighting_Rigging_and_Truss, setLighting_Rigging_and_Truss] =
-    useState(0);
+  const [Uplighting, setUplighting] = useState(formData.Uplighting || 0);
+  const [Stage_Wash, setStage_Wash] = useState(formData.Stage_Wash || 0);
+  const [Moving_Head_Lights, setMoving_Head_Lights] = useState(
+    formData.Moving_Head_Lights || 0
+  );
+  const [Gobo, setGobo] = useState(formData.Gobo || 0);
+  const [Inflatable_Balloon_Light, setInflatable_Balloon_Light] = useState(
+    formData.Inflatable_Balloon_Light || 0
+  );
+  const [LED_Lighting_Effects, setLED_Lighting_Effects] = useState(
+    formData.LED_Lighting_Effects || 0
+  );
+  const [Spotlight, setSpotlight] = useState(formData.Spotlight || 0);
+  const [Lighting_Rigging_and_Truss, setLighting_Rigging_and_Truss] = useState(
+    formData.Lighting_Rigging_and_Truss || 0
+  );
 
-    const [Drape_Kit_Black, setDrape_Kit_Black] = useState(0);
-    const [Drape_Kit_Grey, setDrape_Kit_Grey] = useState(0);
-    const [Drape_Kit_White, setDrape_Kit_White] = useState(0);
-    const [Scenic_Panels, setScenic_Panels] = useState(0);
-    const [Podium, setPodium] = useState(0);
+    const [Drape_Kit_Black, setDrape_Kit_Black] = useState(
+      formData.Drape_Kit_Black || 0
+    );
+    const [Drape_Kit_Grey, setDrape_Kit_Grey] = useState(
+      formData.Drape_Kit_Grey || 0
+    );
+    const [Drape_Kit_White, setDrape_Kit_White] = useState(
+      formData.Drape_Kit_White || 0
+    );
+    const [Scenic_Panels, setScenic_Panels] = useState(
+      formData.Scenic_Panels || 0
+    );
+    const [Podium, setPodium] = useState(formData.Podium || 0);
     const [
       Mobile_Hotspot_up_to_15_devices,
       setMobile_Hotspot_up_to_15_devices,
-    ] = useState(0);
+    ] = useState(formData.Mobile_Hotspot_up_to_15_devices || 0);
     const [
       Event_WIFI_Network_more_than_15_devices,
       setEvent_WIFI_Network_more_than_15_devices,
-    ] = useState(0);
-    const [Laptops_PC, setLaptops_PC] = useState(0);
-    const [Laptops_Mac, setLaptops_Mac] = useState(0);
+    ] = useState(formData.Event_WIFI_Network_more_than_15_devices || 0);
+    const [Laptops_PC, setLaptops_PC] = useState(formData.Laptops_PC || 0);
+    const [Laptops_Mac, setLaptops_Mac] = useState(formData.Laptops_Mac || 0);
 
-    const [Audience_Table_Power, setAudience_Table_Power] = useState(0);
-    const [Power_Strips_6x1, setPower_Strips_6x1] = useState(0);
+    const [Audience_Table_Power, setAudience_Table_Power] = useState(
+      formData.Audience_Table_Power || 0
+    );
+    const [Power_Strips_6x1, setPower_Strips_6x1] = useState(
+      formData.Power_Strips_6x1 || 0
+    );
     const [
       Portable_Distribution_Box_50_Amp,
       setPortable_Distribution_Box_50_Amp,
-    ] = useState(0);
+    ] = useState(formData.Portable_Distribution_Box_50_Amp || 0);
     const [
       Portable_Distribution_Box_100_Amp,
       setPortable_Distribution_Box_100_Amp,
-    ] = useState(0);
+    ] = useState(formData.Portable_Distribution_Box_100_Amp || 0);
     const [
       Portable_Distribution_Box_200_Amp,
       setPortable_Distribution_Box_200_Amp,
-    ] = useState(0);
+    ] = useState(formData.Portable_Distribution_Box_200_Amp || 0);
     const [
       Portable_Distribution_Box_300_Amp,
       setPortable_Distribution_Box_300_Amp,
-    ] = useState(0);
+    ] = useState(formData.Portable_Distribution_Box_300_Amp || 0);
     const [
       Portable_Distribution_Box_400_Amp,
       setPortable_Distribution_Box_400_Amp,
-    ] = useState(0);
+    ] = useState(formData.Portable_Distribution_Box_400_Amp || 0);
 
     const handleAdjust = (field: string, value: number) => {
       let updatedValue = 0;

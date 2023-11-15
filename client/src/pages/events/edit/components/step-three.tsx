@@ -7,42 +7,79 @@ interface StepThreeProps {
 }
 
 const StepThree: FC<StepThreeProps> = ({ formData, updateStepTwoData }) => {
-  const [wiredHandheld, setWiredHandheld] = useState(0);
-  const [wirelessHandheld, setWirelessHandheld] = useState(0);
-  const [wirelessLavalier, setWirelessLavalier] = useState(0);
-  const [headsetMicrophone, setHeadsetMicrophone] = useState(0);
-  const [earsetMicrophone, setEarsetMicrophone] = useState(0);
-  const [gooseneckMicrophone, setGooseneckMicrophone] = useState(0);
-  const [boundaryMicrophone, setBoundaryMicrophone] = useState(0);
-  const [audienceMicrophone, setAudienceMicrophone] = useState(0);
+  const [wiredHandheld, setWiredHandheld] = useState(formData.wiredHandheld || 0);
+  const [wirelessHandheld, setWirelessHandheld] = useState(
+    formData.wirelessHandheld || 0
+  );
+  const [wirelessLavalier, setWirelessLavalier] = useState(
+    formData.wirelessLavalier || 0
+  );
+  const [headsetMicrophone, setHeadsetMicrophone] = useState(
+    formData.headsetMicrophone || 0
+  );
+  const [earsetMicrophone, setEarsetMicrophone] = useState(
+    formData.earsetMicrophone || 0
+  );
+  const [gooseneckMicrophone, setGooseneckMicrophone] = useState(
+    formData.gooseneckMicrophone || 0
+  );
+  const [boundaryMicrophone, setBoundaryMicrophone] = useState(
+    formData.boundaryMicrophone || 0
+  );
+  const [audienceMicrophone, setAudienceMicrophone] = useState(
+    formData.audienceMicrophone || 0
+  );
 
-  const [speakers_8_15, setSpeakers_8_15] = useState(0);
-  const [line_array_speaker_system, setLine_array_speaker_system] = useState(0);
-  const [subwoofer_12_18, setSubwoofer_12_18] = useState(0);
-  const [reference_speaker_monitors, setReference_speaker_monitors] =
-    useState(0);
-  const [bluetooth_speaker_small, setBluetooth_speaker_small] = useState(0);
-  const [bluetooth_speaker_large, setBluetooth_speaker_large] = useState(0);
+  const [speakers_8_15, setSpeakers_8_15] = useState(
+    formData.speakers_8_15 || 0
+  );
+  const [line_array_speaker_system, setLine_array_speaker_system] = useState(
+    formData.line_array_speaker_system || 0
+  );
+  const [subwoofer_12_18, setSubwoofer_12_18] = useState(
+    formData.subwoofer_12_18 || 0
+  );
+  const [reference_speaker_monitors, setReference_speaker_monitors] = useState(
+    formData.reference_speaker_monitors || 0
+  );
+  const [bluetooth_speaker_small, setBluetooth_speaker_small] = useState(
+    formData.bluetooth_speaker_small || 0
+  );
+  const [bluetooth_speaker_large, setBluetooth_speaker_large] = useState(
+    formData.bluetooth_speaker_large || 0
+  );
   const [computer_audio_speaker_system, setComputer_audio_speaker_system] =
-    useState(0);
-  const [audio_rigging_and_truss, setAudio_rigging_and_truss] = useState(0);
+    useState(formData.computer_audio_speaker_system || 0);
+  const [audio_rigging_and_truss, setAudio_rigging_and_truss] = useState(
+    formData.audio_rigging_and_truss || 0
+  );
 
-  const [analog_mixer, setAnalog_mixer] = useState(0);
-  const [digital_mixer, setDigital_mixer] = useState(0);
-  const [computer_audio_interface, setComputer_audio_interface] = useState(0);
-  const [multi_media_DI_box, setMulti_media_DI_box] = useState(0);
+  const [analog_mixer, setAnalog_mixer] = useState(formData.analog_mixer || 0);
+  const [digital_mixer, setDigital_mixer] = useState(
+    formData.digital_mixer || 0
+  );
+  const [computer_audio_interface, setComputer_audio_interface] = useState(
+    formData.computer_audio_interface || 0
+  );
+  const [multi_media_DI_box, setMulti_media_DI_box] = useState(
+    formData.multi_media_DI_box || 0
+  );
   const [broadcast_phone_line_interface, setBroadcast_phone_line_interface] =
-    useState(0);
-  const [digital_audio_recording, setDigital_audio_recording] = useState(0);
+    useState(formData.broadcast_phone_line_interface || 0);
+  const [digital_audio_recording, setDigital_audio_recording] = useState(
+    formData.digital_audio_recording || 0
+  );
   const [audio_playback_instant_replay, setAudio_playback_instant_replay] =
-    useState(0);
-  const [cd_player, setCd_player] = useState(0);
-  const [audio_processing, setAudio_processing] = useState(0);
+    useState(formData.audio_playback_instant_replay || 0);
+  const [cd_player, setCd_player] = useState(formData.cd_player || 0);
+  const [audio_processing, setAudio_processing] = useState(
+    formData.audio_processing || 0
+  );
 
   const [wireless_belt_pack_and_headset, setWireless_belt_pack_and_headset] =
-    useState(0);
+    useState(formData.wireless_belt_pack_and_headset || 0);
   const [wired_belt_pack_and_headset, setWired_belt_pack_and_headset] =
-    useState(0);
+    useState(formData.wired_belt_pack_and_headset || 0);
 
   const handleAdjust = (field: string, value: number) => {
     let updatedValue = 0;

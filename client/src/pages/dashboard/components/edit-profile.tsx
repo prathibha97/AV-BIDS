@@ -77,9 +77,13 @@ const EditProfile: FC<EditProfileProps> = () => {
           <div>
             <div className="flex items-center gap-4">
               <img
-                src={`https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`}
-                alt="aad"
-                className="object-scale-down w-[67px]"
+                src={
+                  user?.imageUrl
+                    ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`
+                    : ''
+                }
+                alt='avatar'
+                className='object-scale-down w-[67px]'
               />
               <Button
                 variant="filled"
@@ -87,16 +91,16 @@ const EditProfile: FC<EditProfileProps> = () => {
                 size="sm"
                 className="rounded-md w-52 py-2 mt-4 px-2 bg-primary font-poppins"
               >
-                <span className="text-white normal-case font-normal">
+                <label className='text-white'>
                   Upload New Photo
-                </span>
+                  <input
+                    type='file'
+                    accept='image/*'
+                    onChange={onFileChange}
+                    className='hidden'
+                  />
+                </label>
               </Button>
-              <Input
-                type="file"
-                accept="image/*"
-                crossOrigin=""
-                onChange={onFileChange}
-              />
             </div>
           </div>
           <div></div>

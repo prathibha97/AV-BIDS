@@ -7,29 +7,51 @@ interface StepFiveProps {
 }
 
 const StepFive: FC<StepFiveProps> = ({ formData, updateStepTwoData }) => {
-  const [Broadcast_Camera, setBroadcast_Camera] = useState(0);
-  const [Roaming_Camera, setRoaming_Camera] = useState(0);
-  const [Camcorder, setCamcorder] = useState(0);
-  const [Video_and_Camera_Lighting, setVideo_and_Camera_Lighting] = useState(0);
-  const [Photography_Camera, setPhotography_Camera] = useState(0);
+  const [Broadcast_Camera, setBroadcast_Camera] = useState(
+    formData.Broadcast_Camera || 0
+  );
+  const [Roaming_Camera, setRoaming_Camera] = useState(
+    formData.Roaming_Camera || 0
+  );
+  const [Camcorder, setCamcorder] = useState(formData.Camcorder || 0);
+  const [Video_and_Camera_Lighting, setVideo_and_Camera_Lighting] = useState(
+    formData.Video_and_Camera_Lighting || 0
+  );
+  const [Photography_Camera, setPhotography_Camera] = useState(
+    formData.Photography_Camera || 0
+  );
 
   const [
     Video_Switching_and_Effects_Processing,
     setVideo_Switching_and_Effects_Processing,
-  ] = useState(0);
-  const [Video_Capture, setVideo_Capture] = useState(0);
+  ] = useState(formData.Video_Switching_and_Effects_Processing || 0);
+  const [Video_Capture, setVideo_Capture] = useState(
+    formData.Video_Capture || 0
+  );
   const [Screen_Blend_21_Nine_Format, setScreen_Blend_21_Nine_Format] =
-    useState(0);
-  const [Video_Streaming, setVideo_Streaming] = useState(0);
-  const [DVD_Blu_Ray_Player, setDVD_Blu_Ray_Player] = useState(0);
-  const [VHS_DVD_Player, setVHS_DVD_Player] = useState(0);
+    useState(formData.Screen_Blend_21_Nine_Format || 0);
+  const [Video_Streaming, setVideo_Streaming] = useState(
+    formData.Video_Streaming || 0
+  );
+  const [DVD_Blu_Ray_Player, setDVD_Blu_Ray_Player] = useState(
+    formData.DVD_Blu_Ray_Player || 0
+  );
+  const [VHS_DVD_Player, setVHS_DVD_Player] = useState(
+    formData.VHS_DVD_Player || 0
+  );
 
-  const [Speaker_Timer, setSpeaker_Timer] = useState(0);
+  const [Speaker_Timer, setSpeaker_Timer] = useState(
+    formData.Speaker_Timer || 0
+  );
   const [Presentation_Remote_Clicker, setPresentation_Remote_Clicker] =
-    useState(0);
-  const [Laser_Pointer, setLaser_Pointer] = useState(0);
-  const [Perfect_Cue_System, setPerfect_Cue_System] = useState(0);
-  const [Flipchart, setFlipchart] = useState(0);
+    useState(formData.Presentation_Remote_Clicker || 0);
+  const [Laser_Pointer, setLaser_Pointer] = useState(
+    formData.Laser_Pointer || 0
+  );
+  const [Perfect_Cue_System, setPerfect_Cue_System] = useState(
+    formData.Perfect_Cue_System || 0
+  );
+  const [Flipchart, setFlipchart] = useState(formData.Flipchart || 0);
 
   const handleAdjust = (field: string, value: number) => {
     let updatedValue = 0;

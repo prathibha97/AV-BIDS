@@ -4,13 +4,14 @@ const createUser = (values) =>
   new User(values).save().then((user) => user.toObject());
 
 const getUsers = async (req) =>
-  await User.find()
-  .select('-refreshToken')
-  .select('-password');
-  // .cache({ key: req.user.id })
+  await User.find().select('-refreshToken').select('-password');
+// .cache({ key: req.user.id })
 
 const getUserById = (id) =>
-  User.findById({ _id: id }).select('-refreshToken').select('-password');
+  User.findById(id)
+    .select('-refreshToken -password')
+    .populate('events')
+    .populate('reviews');
 
 const getUserByEmail = (email) => User.findOne({ email });
 

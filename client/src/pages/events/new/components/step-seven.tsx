@@ -35,7 +35,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
     { label: '', count: 0 },
   ]);
 
-  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState('')
 
   useEffect(() => {
     // Update formData when otherRequirements changes
@@ -87,8 +87,8 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
         return updatedRequirements;
       });
     }
-    else if (field === 'comment' && typeof value === 'string') {
-      setComment(value);
+    else if (field === 'comments' && typeof value === 'string') {
+      setComments(value);
       // @ts-ignore
       updateFormData('comment', value);
     } else {
@@ -230,8 +230,8 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
           <Textarea
             label='Description'
             className='bg-white border border-[#E4E4E4]'
-            value={comment}
-            onChange={(e) => handleAdjust('comment', e.target.value)}
+            value={comments}
+            onChange={(e) => handleAdjust('comments', e.target.value)}
           />
         </div>
       </div>

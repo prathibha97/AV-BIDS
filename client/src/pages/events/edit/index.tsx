@@ -1,8 +1,14 @@
 import { Button } from '@material-tailwind/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
+import {
+  EventFormFormValues,
+  EventFormSchema,
+} from '../../../utils/validations/event-form-validation';
 import StepFive from './components/step-five';
 import StepFour from './components/step-four';
 import StepOne from './components/step-one';
@@ -10,7 +16,8 @@ import StepSeven from './components/step-seven';
 import StepSix from './components/step-six';
 import StepThree from './components/step-three';
 import StepTwo from './components/step-two';
-import { EventFormFormValues, EventFormSchema } from '../../../utils/validations/event-form-validation';
+import api from '../../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 interface Requirement {
   label: string;
@@ -18,7 +25,10 @@ interface Requirement {
 }
 
 export function Index() {
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1);
+
+  const event = useAppSelector((state: RootState) => state.event.event);
 
   const { register, control } = useForm<EventFormFormValues>({
     resolver: zodResolver(EventFormSchema),
@@ -34,8 +44,24 @@ export function Index() {
   };
 
   const onSubmit = async () => {
-    console.log(formData);
+    try {
+      await api.put(`/events/${event?._id}`, {
+        ...formData,
+      });
+      navigate('/events/my-events');
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    // Populate formData with event data when component mounts
+    if (event) {
+      setFormData({
+        ...event
+      });
+    }
+  }, [event]);
 
   const updateFormData = (
     field: string,
@@ -50,6 +76,7 @@ export function Index() {
         : value,
     }));
   };
+
 
   return (
     <div className='container mx-auto mb-8'>
@@ -77,6 +104,7 @@ export function Index() {
             register={register}
             control={control}
             updateFormData={setFormData}
+            formData={formData}
           />
         )}
         {currentStep === 2 && (

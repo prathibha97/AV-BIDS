@@ -18,7 +18,16 @@ export interface Member {
   role: string;
 }
 
+type FileInformation = {
+  fileName: string;
+  url: string;
+  _id: string;
+};
+
+type FileInformationArray = FileInformation[];
+
 export interface Event {
+  _id: string;
   title: string;
   description: string;
   eventType: string;
@@ -168,4 +177,21 @@ export interface Event {
   comments: {
     description: string;
   };
+  files: FileInformationArray;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+}
+
+export type Review = {
+  _id: string;
+  rating: number;
+  comment: string;
+  eventPlanner: string;
+  createdBy: string;
+};
+
+export interface UserWithReviewWithEvent extends User {
+  reviews: Review[];
+  events: Event[];
 }
