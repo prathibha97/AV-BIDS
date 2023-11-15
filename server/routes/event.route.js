@@ -6,6 +6,7 @@ const {
   createNewEvent,
   getAllMembers,
   getUserEvents,
+  getEvent,
   update,
   remove,
 } = require('../controllers/event.controller');
@@ -63,7 +64,38 @@ const eventRouter = express.Router();
 
 /**
  * @swagger
- * /api/events/{userId}:
+ * /api/events/{id}:
+ *   get:
+ *     summary: Get an event by ID
+ *     tags: [Events]
+ *     description: Retrieve an event by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the event
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The event object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Event'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Event not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /api/events/user/{userId}:
  *   get:
  *     summary: Get events for a user by ID
  *     tags: [Events]
@@ -119,7 +151,7 @@ const eventRouter = express.Router();
  *         description: Event not found
  *       500:
  *         description: Internal Server Error
- *   
+ *
  *   delete:
  *     summary: Delete an event by ID
  *     tags: [Events]
@@ -146,7 +178,8 @@ const eventRouter = express.Router();
 
 eventRouter.post('/', protect, cleanCache, createNewEvent);
 eventRouter.get('/', protect, getAllMembers);
-eventRouter.get('/:userId', protect, getUserEvents);
+eventRouter.get('/:id', protect, getEvent);
+eventRouter.get('/user/:userId', protect, getUserEvents);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);
 

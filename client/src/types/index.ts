@@ -18,6 +18,14 @@ export interface Member {
   role: string;
 }
 
+type FileInformation = {
+  fileName: string;
+  url: string;
+  _id: string;
+};
+
+type FileInformationArray = FileInformation[];
+
 export interface Event {
   _id: string;
   title: string;
@@ -169,5 +177,8 @@ export interface Event {
   comments: {
     description: string;
   };
+  files: FileInformationArray;
   createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
 }

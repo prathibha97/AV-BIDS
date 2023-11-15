@@ -1,39 +1,36 @@
 import { Card, Option, Select, Typography } from '@material-tailwind/react';
+import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../utils/api';
+import { setEvent } from '../../../app/features/events/eventSlice';
 import { useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
 import { Event } from '../../../types';
-import {format} from 'date-fns'
-import { useDispatch } from 'react-redux';
-import { setEvent } from '../../../app/features/events/eventSlice';
+import api from '../../../utils/api';
 
 const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', ''];
 
-
-
 function Index() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-const user = useAppSelector((state: RootState) => state.user.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useAppSelector((state: RootState) => state.user.user);
 
-
-  const [myEvents, setMyEvents] = useState<Event[]>([])
+  const [myEvents, setMyEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     const fetchMyEvents = async () => {
-      const { data } = await api.get(`/events/${user?._id}`);
+      const { data } = await api.get(`/events/user/${user?._id}`);
       return setMyEvents(data);
     };
-    fetchMyEvents()
+    fetchMyEvents();
   }, []);
 
   const handleEdit = (event: Event) => {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
-  
+
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
@@ -65,11 +62,13 @@ const user = useAppSelector((state: RootState) => state.user.user);
               </tr>
             </thead>
             <tbody>
-              {myEvents.map(( event , index) => {
-               
+              {myEvents?.map((event, index) => {
                 return (
                   <tr key={event._id}>
-                    <td className='p-4 border-b border-blue-gray-50'>
+                    <td
+                      className='p-4 border-b border-blue-gray-50 cursor-pointer'
+                      onClick={() => navigate(`/events/${event._id}`)}
+                    >
                       <Typography
                         variant='small'
                         color='blue-gray'

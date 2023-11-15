@@ -2,6 +2,7 @@ const {
   createEvent,
   getEvents,
   getEventsByUser,
+  getEventsById,
   updateEvent,
   removeEvent,
 } = require('../models/event/event.model');
@@ -40,7 +41,7 @@ const getAllMembers = async (req, res) => {
 
 /* 
 ?@desc   Get event by user ID
-*@route  GET /api/events/:userId
+*@route  GET /api/events/user/:userId
 *@access Private
 */
 
@@ -51,6 +52,23 @@ const getUserEvents = async (req, res) => {
     res.status(200).json(events);
   } catch (error) {
     console.error('Failed to user events - ', error.message);
+    return res.status(500).json('Internal Server Error');
+  }
+};
+
+/* 
+?@desc   Get event by ID
+*@route  GET /api/events/:id
+*@access Private
+*/
+
+const getEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await getEventsById(id, req);
+    res.status(200).json(event);
+  } catch (error) {
+    console.error('Failed to event - ', error.message);
     return res.status(500).json('Internal Server Error');
   }
 };
@@ -92,6 +110,7 @@ module.exports = {
   createNewEvent,
   getAllMembers,
   getUserEvents,
+  getEvent,
   update,
   remove,
 };
