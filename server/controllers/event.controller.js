@@ -15,8 +15,7 @@ const {
 const createNewEvent = async (req, res) => {
   try {
     const eventDetails = { ...req.body };
-
-    const event = await createEvent(eventDetails);
+    const event = await createEvent(eventDetails, req.body.createdBy);
     res.status(200).json(event);
   } catch (error) {
     console.error('Failed to create event - ', error.message);

@@ -8,7 +8,7 @@ import { Button, Textarea } from '@material-tailwind/react';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Event } from '../../../types';
+import { Event, UserWithReviewWithEvent } from '../../../types';
 import api from '../../../utils/api';
 import Attachments from './components/attachments';
 import EventInfo from './components/event-info';
@@ -20,6 +20,8 @@ export function Index() {
   //@ts-ignore
   const [event, setEvent] = useState<Event>({});
   const [userEvents, setUserEvents] = useState<Event[]>([]);
+  //@ts-ignore
+  const [planner, setPlanner] = useState<UserWithReviewWithEvent>({});
   const [loading, setLoading] = useState(false);
 
   const fetchEventDetails = async () => {
@@ -48,12 +50,30 @@ export function Index() {
     }
   };
 
+  const fetchEventPlanner = async (createdBy: string | undefined) => {
+    try {
+      setLoading(true);
+      if (createdBy) {
+        const { data } = await api.get(`/users/${createdBy}`);
+        setPlanner(data);
+      }
+    } catch (error) {
+      console.error('Error fetching planner info:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchEventDetails();
   }, []);
 
   useEffect(() => {
     fetchUserEvents(event?.createdBy);
+  }, [event?.createdBy]);
+
+  useEffect(() => {
+    fetchEventPlanner(event?.createdBy);
   }, [event?.createdBy]);
 
   if (loading) {
@@ -181,7 +201,7 @@ export function Index() {
             </div>
             <EventInfo event={event} />
             <Attachments event={event} />
-            <EventPlanner />
+            <EventPlanner planner={planner} />
           </section>
         </div>
       </div>

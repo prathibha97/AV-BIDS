@@ -4,6 +4,10 @@
 *@access Private/Admin
 */
 
+const Event = require('../models/event/event.mongo');
+const Review = require('../models/review/review.mongo');
+
+
 const {
   getUsers,
   getUserById,
@@ -31,6 +35,7 @@ const getUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await getUserById(id);
+    console.log(user);
     res.status(200).json(user);
   } catch (error) {
     console.error('Failed to fetch user - ', error.message);

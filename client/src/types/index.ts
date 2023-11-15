@@ -182,3 +182,16 @@ export interface Event {
   updatedAt: Date;
   createdBy: string;
 }
+
+export type Review = {
+  _id: string;
+  rating: number;
+  comment: string;
+  eventPlanner: string;
+  createdBy: string;
+};
+
+export interface UserWithReviewWithEvent extends User {
+  reviews: Review[];
+  events: Event[];
+}

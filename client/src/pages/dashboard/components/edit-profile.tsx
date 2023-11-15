@@ -77,8 +77,12 @@ const EditProfile: FC<EditProfileProps> = () => {
           <div>
             <div className='flex items-center gap-4'>
               <img
-                src={`https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`}
-                alt='aad'
+                src={
+                  user?.imageUrl
+                    ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`
+                    : ''
+                }
+                alt='avatar'
                 className='object-scale-down w-[67px]'
               />
               <Button

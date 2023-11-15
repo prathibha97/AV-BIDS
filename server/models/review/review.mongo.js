@@ -8,6 +8,14 @@ const reviewSchema = new mongoose.Schema({
   comment: {
     type: String,
   },
+  eventPlanner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

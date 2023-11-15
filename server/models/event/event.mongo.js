@@ -201,10 +201,6 @@ const eventSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    modifiedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
   },
   { timestamps: true }
 );
