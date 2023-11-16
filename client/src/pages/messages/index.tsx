@@ -48,10 +48,6 @@ function Index() {
   useEffect(() => {
     // @ts-ignore
     socket?.current?.emit('addUser', user?._id);
-    // @ts-ignore
-    socket?.current?.on('getUsers', (users: any) => {
-      console.log(users);
-    });
   }, [user]);
 
   useEffect(() => {
