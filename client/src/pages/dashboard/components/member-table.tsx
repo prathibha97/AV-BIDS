@@ -80,7 +80,7 @@ const MemberTable = () => {
           <DeleteMember handleOpen={handleOpen_1} />
         </Dialog>
 
-        <Dialog open={open_2} handler={handleOpen_2} size="md">
+        <Dialog open={open_2} handler={handleOpen_2} size="xs">
           <div className="flex justify-end p-3">
             <MdOutlineCancel
               size={32}
