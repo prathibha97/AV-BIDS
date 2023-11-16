@@ -7,13 +7,13 @@ import SPAM_ICON from "../../assets//10_event_details_page/spam.png";
 import DOWN_ARROW from "../../assets//10_event_details_page/down-arrow.png";
 import STAR_ICON from "../../assets//10_event_details_page/Star.png";
 import STAR_OUTLINE from "../../assets//10_event_details_page/star-outline.png";
-import { Textarea, Button } from "@material-tailwind/react";
+import { Textarea, Button, Input } from "@material-tailwind/react";
 
 export function index() {
   return (
     <div className="mx-auto mb-8">
       {/* ------------------------------------------------------------------------------------- GRID STARTS HERE ------------------------------------------------------------------------------ */}
-      <div className="grid lg:grid-cols-3 gap-4 content-center">
+      <div className="grid sm:grid-cols-3 gap-4 content-center">
         {/* ---------------------------- GRID 01 STARTS ------------------------------------- */}
 
         <div className="col-span-2 flex justify-center items-center px-8">
@@ -24,36 +24,36 @@ export function index() {
                   <img
                     src={EVENTDETAILS_01}
                     alt="aad"
-                    className="object-scale-down w-[34px]"
+                    className="object-scale-down w-[25px]"
                   />
-                  <p className="text-[20px] text-[#C31717]">
+                  <p className="text-[16px] text-[#C31717]">
                     This event has expired
                   </p>
                 </div>
               </div>
 
               <div>
-                <h2 className="text-primary text-[40px] mb-4">
+                <h2 className="text-primary text-[30px] mb-4 text-center sm:text-left">
                   General Session & 4 Breakouts
                 </h2>
               </div>
-              <div className="flex mb-4 gap-8">
+              <div className="flex justify-center mb-4 gap-8">
                 <div className="flex items-center gap-2">
                   <img
                     src={EVENTDETAILS_02}
                     alt="aad"
-                    className="object-scale-down w-[32px]"
+                    className="object-scale-down w-[22px]"
                   />
-                  <p className="text-[18px]">Posted on 6/28/2023</p>
+                  <p className="text-[16px]">Posted on 6/28/2023</p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <img
                     src={EVENTDETAILS_02}
                     alt="aad"
-                    className="object-scale-down w-[32px]"
+                    className="object-scale-down w-[22px]"
                   />
-                  <p className="text-[18px]">Updated on 6/28/2023</p>
+                  <p className="text-[16px]">Updated on 6/28/2023</p>
                 </div>
               </div>
               <div className="mb-6">
@@ -64,31 +64,41 @@ export function index() {
                 />
               </div>
               <div className="bg-[#F3F1FB] p-6 mb-16 rounded-lg">
-                <h2 className="text-[22px] mb-4">Description</h2>
+                <h2 className="text-[20px] mb-4">Description</h2>
                 <div>
-                  <p className="text-[20px]">
+                  <p className="text-[16px] leading-7">
                     This event will empower and equip Christian Educators and
                     Administrators, home school families, and anyone who wants
                     to transform education. Want to start a school? Form a micro
                     school? Home school your children? Create Kingdom culture in
-                    your classroom? This Conference Is For You if:<br></br> You
-                    want to see kids saved from the current system of
-                    indoctrination
-                    <br></br> You want a plan of action to move forward<br></br>{" "}
-                    You want to use your church property to host a school or
-                    co-op ​<br></br>- You want to network with like-minded
-                    reformers
+                    your classroom? This Conference Is For You if:
                   </p>
+
+                  <div className="text-[17px]">
+                    <li>
+                      You want to see kids saved from the current system of
+                      indoctrination
+                    </li>
+                    <li>You want a plan of action to move forward</li>
+                    <li>
+                      You want to use your church property to host a school or
+                      co-op
+                    </li>
+                    <li>You want to network with like-minded reformers</li>
+                  </div>
                 </div>
               </div>
               <div>
-                <h2 className="text-[22px] mb-4">
+                <h2 className="text-[20px] mb-4">
                   Submit a question about the event
                 </h2>
-                <p className="text-[20px] mb-2">Description</p>
-                <div className="rounded-lg">
-                  <div className="mb-6">
-                    <Textarea label="Description" className="bg-[#f1eefc]" />
+                <p className="text-[16px] mb-2">Description</p>
+                <div>
+                  <div className="w-full">
+                    <textarea
+                      placeholder="Description"
+                      className="p-4 bg-input_background border border-[#E4E4E4] w-full rounded-lg h-[145px]"
+                    />
                   </div>
 
                   <div className="flex justify-end mb-16">
@@ -98,13 +108,13 @@ export function index() {
                       size="sm"
                       className="rounded-full w-30 py-3 px-6 mt-4  bg-primary font-poppins"
                     >
-                      <span className="text-white">Submit</span>
+                      <span className="text-white normal-case">Submit</span>
                     </Button>
                   </div>
                 </div>
               </div>
               <div>
-                <h2 className="text-[22px] mb-4">
+                <h2 className="text-[20px] mb-4">
                   Other events by this client
                 </h2>
 
@@ -124,10 +134,10 @@ export function index() {
                       </h2>
 
                       <div className="flex gap-36">
-                        <p className="text-[18px]">
+                        <p className="text-[16px]">
                           Event Date: 10/10/2023 - 10/15/2023
                         </p>
-                        <p className="text-[18px]">$70,000 - $150,000</p>
+                        <p className="text-[16px]">$70,000 - $150,000</p>
                       </div>
 
                       <div className="flex items-center gap-16 mt-4">
@@ -145,16 +155,11 @@ export function index() {
                         <p className="text-[16px]">
                           Corporate, General Meeting
                         </p>
-                        <Button
-                          variant="filled"
-                          color="green"
-                          size="sm"
-                          className="rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins"
-                        >
-                          <h2 className="text-[#178751] text-[12px]">
-                            In-Person
-                          </h2>
-                        </Button>
+                        <div className="bg-[#E4FFEA] rounded-full w-28 mb-4">
+                          <p className="text-[#178751] text-[14px] text-center font-semibold px-4 py-1">
+                            In Person
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -174,10 +179,10 @@ export function index() {
                       <h2 className="text-[20px]">Virtual Sales Training</h2>
 
                       <div className="flex gap-36">
-                        <p className="text-[18px]">
+                        <p className="text-[16px]">
                           Event Date: 10/10/2023 - 10/15/2023
                         </p>
-                        <p className="text-[18px]">$70,000 - $150,000</p>
+                        <p className="text-[16px]">$70,000 - $150,000</p>
                       </div>
 
                       <div className="flex items-center gap-16 mt-4">
@@ -195,16 +200,11 @@ export function index() {
                         <p className="text-[16px]">
                           Corporate, General Meeting
                         </p>
-                        <Button
-                          variant="filled"
-                          color="green"
-                          size="sm"
-                          className="rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins"
-                        >
-                          <h2 className="text-[#178751] text-[12px]">
+                        <div className="bg-[#E4FFEA] rounded-full w-28 mb-4">
+                          <p className="text-[#178751] text-[14px] text-center font-semibold px-4 py-1">
                             Virtual
-                          </h2>
-                        </Button>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -218,16 +218,17 @@ export function index() {
 
         {/* ---------------------------- GRID 02 STARTS ------------------------------------- */}
         <div className="flex justify-center items-center">
-          {" "}
           <section>
-            <div className="mb-4">
+            <div className="">
               <Button
                 variant="filled"
                 color="indigo"
                 size="sm"
                 className="rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins"
               >
-                <span className="text-white">Submit Proposal</span>
+                <span className="text-white normal-case text-[18px] text-center">
+                  Submit Proposal
+                </span>
               </Button>
 
               <Button
@@ -235,63 +236,65 @@ export function index() {
                 size="sm"
                 className="rounded-full w-full py-4 mt-4 px-8 font-poppins"
               >
-                <span className=" text-black">Save Event</span>
+                <span className="text-black normal-case text-center text-[18px]">
+                  Save Event
+                </span>
               </Button>
             </div>
 
-            <div className="flex items-center gap-3 mb-6 ">
+            <div className="flex items-center justify-center gap-3 mb-6 my-8">
               <img
                 src={SPAM_ICON}
                 alt="aad"
                 className="object-scale-down w-[24px]"
               />
-              <p className="text-[18px] underline">Flag as spam</p>
+              <p className="text-[16px] underline text-center">Flag as spam</p>
             </div>
             <div className="grid grid-cols-2 gap-4 bg-[#F3F1FB] p-6 rounded-lg">
               <div>
                 <div>
-                  <h2 className="text-[18px]">Event Type</h2>
-                  <p className="text-[18px]">In-Person</p>
+                  <h2 className="text-[16px]">Event Type</h2>
+                  <p className="text-[16px]">In-Person</p>
                 </div>
               </div>
               <div>
                 <div>
-                  <h2 className="text-[18px]">Budget</h2>
-                  <p className="text-[18px]">$70,000 - $150,000</p>
-                </div>
-              </div>
-
-              <div>
-                <div>
-                  <h2 className="text-[18px]">Event Category</h2>
-                  <p className="text-[18px]">Corporate</p>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h2 className="text-[18px]">Location</h2>
-                  <p className="text-[18px]">Phoenix, AZ</p>
+                  <h2 className="text-[16px]">Budget</h2>
+                  <p className="text-[16px]">$70,000 - $150,000</p>
                 </div>
               </div>
 
               <div>
                 <div>
-                  <h2 className="text-[18px]">Sub Category</h2>
-                  <p className="text-[18px]">General Meeting</p>
+                  <h2 className="text-[16px]">Event Category</h2>
+                  <p className="text-[16px]">Corporate</p>
                 </div>
               </div>
               <div>
                 <div>
-                  <h2 className="text-[18px]">Proposals Due</h2>
-                  <p className="text-[18px]">August 24, 2023</p>
+                  <h2 className="text-[16px]">Location</h2>
+                  <p className="text-[16px]">Phoenix, AZ</p>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <h2 className="text-[16px]">Sub Category</h2>
+                  <p className="text-[16px]">General Meeting</p>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <h2 className="text-[16px]">Proposals Due</h2>
+                  <p className="text-[16px]">August 24, 2023</p>
                 </div>
               </div>
             </div>
             <div className="bg-[#F3F1FB] mt-8 p-6 rounded-lg">
-              <h2 className="text-[22px]">Attachments</h2>
+              <h2 className="text-[20px] mb-4">Attachments</h2>
 
-              <div className="flex items-center gap-20 bg-[#fff] rounded-lg p-6 mb-4">
-                <p className="text-[18px]">AV Requirements.pdf</p>
+              <div className="flex items-center justify-between   bg-[#fff] rounded-lg p-6 mb-4">
+                <p className="text-[16px]">AV Requirements.pdf</p>
                 <div className="flex items-center justify-center rounded-full w-10 h-10 bg-purple_two">
                   <img
                     src={DOWN_ARROW}
@@ -301,8 +304,8 @@ export function index() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-20 bg-[#fff] rounded-lg p-6 mb-4">
-                <p className="text-[18px]">AV room layout.Doc</p>
+              <div className="flex items-center justify-between  bg-[#fff] rounded-lg p-6 mb-4">
+                <p className="text-[16px]">AV room layout.Doc</p>
                 <div className="flex items-center justify-center rounded-full w-10 h-10 bg-purple_two">
                   <img
                     src={DOWN_ARROW}
@@ -312,8 +315,9 @@ export function index() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-20 bg-[#fff] rounded-lg p-6">
-                <p className="text-[18px]">Event Content.Xls</p>
+              <div className="flex items-center justify-between bg-[#fff] rounded-lg p-6">
+                <p className="text-[16px]">Event Content.Xls</p>
+
                 <div className="flex items-center justify-center rounded-full w-10 h-10 bg-purple_two">
                   <img
                     src={DOWN_ARROW}
@@ -324,7 +328,7 @@ export function index() {
               </div>
             </div>
             <div className="bg-[#F3F1FB] mt-8 p-6 rounded-lg">
-              <h2 className="text-[22px] mb-6">About the event planner</h2>
+              <h2 className="text-[20px] mb-6">About the event planner</h2>
               <div className="flex items-center gap-4">
                 <div className="flex items-center">
                   <img
@@ -354,22 +358,22 @@ export function index() {
                   />
                 </div>
                 <div>
-                  <p className="text-18px">4.59 of 99 reviews</p>
+                  <p className="text-16px">4.59 of 99 reviews</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-12 mt-4">
                 <div>
-                  <h2 className="text-[18px]">United States</h2>
-                  <p className="text-[18px]">United States</p>
+                  <h2 className="text-[16px]">United States</h2>
+                  <p className="text-[16px]">United States</p>
                 </div>
 
                 <div>
-                  <h2 className="text-[18px]">85 Events Posted</h2>
-                  <p className="text-[18px]">2 currently listed</p>
+                  <h2 className="text-[16px]">85 Events Posted</h2>
+                  <p className="text-[16px]">2 currently listed</p>
                 </div>
               </div>
-              <p className="text-[18px] mt-6">Member since 03/19/2023 </p>
+              <p className="text-[16px] mt-6">Member since 03/19/2023 </p>
             </div>
           </section>
         </div>
