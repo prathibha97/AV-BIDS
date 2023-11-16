@@ -123,12 +123,6 @@ function Router() {
     },
 
     {
-      path: '/14_messages_empty',
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import('../pages/14_messages_empty')) }],
-    },
-
-    {
       path: '/15_dashboard',
       layout: HomeLayout2,
       routes: [{ element: lazy(() => import('../pages/15_dashboard')) }],
