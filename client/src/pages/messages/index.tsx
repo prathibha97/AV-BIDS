@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
 import SEND from '../../assets/14_messages/send.png';
+import api from '../../utils/api';
 import Conversation from './components/conversation';
 import ConversationFilter from './components/conversation-filter';
 import EmptyMessage from './components/empty-message';
@@ -7,6 +11,36 @@ import MessageHeader from './components/message-header';
 
 function Index() {
   const messagesAvailable = true;
+
+  const [conversations, setConversations] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const user = useAppSelector((state: RootState) => state.user.user);
+
+  useEffect(() => {
+    const getConversations = async () => {
+      try {
+        const { data } = await api.get(`/conversations/${user && user._id}`);
+        setConversations(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getConversations();
+  }, [user && user._id]);
+
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        // @ts-ignore
+        const { data } = await api.get('/messages/' + currentChat?._id);
+        setMessages(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMessages();
+  }, [currentChat]);
 
   return (
     <div className='container mx-auto'>
@@ -22,26 +56,39 @@ function Index() {
                 placeholder='Search to chat'
                 className='w-full p-2 mx-auto'
               />
-              <Conversation messagesAvailable={messagesAvailable} />
+              {conversations.map((conversation) => (
+                <div
+                  // @ts-ignore
+                  key={conversation._id}
+                  onClick={() => setCurrentChat(conversation)}
+                  className='cursor-pointer hover:bg-[#F3F1FB]'
+                >
+                  <Conversation
+                    conversation={conversation}
+                    // @ts-ignore
+                    currentUser={user}
+                    messagesAvailable={messagesAvailable}
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Right Column */}
           <div className='col-span-2 grid grid-rows-7 h-full'>
-            {messagesAvailable ? (
+            {currentChat ? (
               <>
                 <MessageHeader />
 
                 <div className='border-b border-[#EDECF1] row-span-5 p-4 h-full overflow-y-scroll'>
                   <div className='max-h-[780px] space-y-3'>
-                    <Message />
-                    <Message own={true} />
-                    <Message />
-                    <Message own={true} />
-                    <Message />
-                    <Message own={true} />
-                    <Message />
-                    <Message />
+                    {messages.map((message: any) => (
+                      <Message
+                        key={message._id}
+                        message={message}
+                        own={message.sender === user?._id}
+                      />
+                    ))}
                   </div>
                 </div>
 

@@ -1,12 +1,35 @@
 import { Avatar } from '@material-tailwind/react';
+import { FC, useEffect, useState } from 'react';
 import PROFILE_PHOTO from '../../../assets/14_messages/profile photo.jpg';
-import { FC } from 'react'
+import { User } from '../../../types';
+import api from '../../../utils/api';
 
 interface ConversationProps {
-  messagesAvailable:boolean;
+  messagesAvailable: boolean;
+  currentUser: User;
+  conversation: any;
 }
 
-const Conversation: FC<ConversationProps> = ({messagesAvailable}) => {
+const Conversation: FC<ConversationProps> = ({
+  messagesAvailable,
+  conversation,
+  currentUser,
+}) => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    // @ts-ignore
+    const friendId = conversation.members.find((m) => m !== currentUser._id);
+
+    const getUser = async () => {
+      try {
+        const res = await api(`/users/${friendId}`);
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [currentUser, conversation]);
   return (
     <div>
       <div className='border-b border-[#EDECF1] p-4'>
@@ -22,7 +45,10 @@ const Conversation: FC<ConversationProps> = ({messagesAvailable}) => {
               />
 
               <div className='flex flex-col'>
-                <h2 className='text-[20px] font-semibold'>Holden Cox</h2>
+                <h2 className='text-[20px] font-semibold'>
+                  {/* @ts-ignore */}
+                  {user && user.firstName} {user && user.lastName}
+                </h2>
                 <p>Subject: AV Requirements</p>
               </div>
             </div>
@@ -36,6 +62,6 @@ const Conversation: FC<ConversationProps> = ({messagesAvailable}) => {
       </div>
     </div>
   );
-}
+};
 
-export default Conversation
+export default Conversation;
