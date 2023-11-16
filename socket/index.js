@@ -45,4 +45,3 @@ io.on('connection', (socket) => {
     io.emit('getUsers', users);
   });
 });
-

@@ -26,9 +26,9 @@ function Index() {
 
   useEffect(() => {
     // @ts-ignore
-    socket.current = io('http://localhost:5005');
+    socket.current = io('ws://localhost:5005');
     // @ts-ignore
-    socket?.current?.on('getMessage', (data: any) => {
+    socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         // @ts-ignore
         sender: data.senderId,
@@ -48,6 +48,10 @@ function Index() {
   useEffect(() => {
     // @ts-ignore
     socket?.current?.emit('addUser', user?._id);
+    // @ts-ignore
+    socket?.current?.on('getUsers', (users: any) => {
+      console.log(users);
+    });
   }, [user]);
 
   useEffect(() => {
