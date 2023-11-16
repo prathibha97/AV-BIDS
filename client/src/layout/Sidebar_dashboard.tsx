@@ -38,7 +38,7 @@ export function Sidebar_dashboard() {
             </ListItemPrefix>
             My Event
           </ListItem>
-          <ListItem onClick={() => navigate('/14_messages')}>
+          <ListItem onClick={() => navigate('/messages')}>
             <ListItemPrefix>
               <img
                 src={MESSAGES}
