@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import SEND from '../../assets/14_messages/send.png';
@@ -15,7 +15,11 @@ function Index() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+
   const user = useAppSelector((state: RootState) => state.user.user);
+
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -41,6 +45,30 @@ function Index() {
     };
     getMessages();
   }, [currentChat]);
+
+  useEffect(() => {
+    // @ts-ignore
+    scrollRef?.current?.scrollIntoView({ bevior: 'smooth' });
+  }, [messages]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const message = {
+      // @ts-ignore
+      sender: user._id,
+      text: newMessage,
+      // @ts-ignore
+      conversationId: currentChat?._id,
+    };
+    try {
+      const { data } = await api.post('/messages', message);
+      // @ts-ignore
+      setMessages([...messages, data]);
+      setNewMessage('');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className='container mx-auto'>
@@ -83,11 +111,13 @@ function Index() {
                 <div className='border-b border-[#EDECF1] row-span-5 p-4 h-full overflow-y-scroll'>
                   <div className='max-h-[780px] space-y-3'>
                     {messages.map((message: any) => (
-                      <Message
-                        key={message._id}
-                        message={message}
-                        own={message.sender === user?._id}
-                      />
+                      <div ref={scrollRef}>
+                        <Message
+                          key={message._id}
+                          message={message}
+                          own={message.sender === user?._id}
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -96,9 +126,12 @@ function Index() {
                   <textarea
                     placeholder='Write Your Message'
                     className='flex-1 border-none p-2 ring-0 focus:ring-0 focus-visible:ring-offset-0'
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
                     rows={4}
                   />
-                  <button>
+                  {/* @ts-ignore */}
+                  <button onClick={handleSubmit}>
                     <img
                       src={SEND}
                       alt='send'
