@@ -8,6 +8,7 @@ import ConversationFilter from './components/conversation-filter';
 import EmptyMessage from './components/empty-message';
 import Message from './components/message';
 import MessageHeader from './components/message-header';
+import { io } from 'socket.io-client';
 
 function Index() {
   const messagesAvailable = true;
@@ -16,10 +17,42 @@ function Index() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [arrivalMessage, setArrivalMessage] = useState(null);
 
   const user = useAppSelector((state: RootState) => state.user.user);
 
   const scrollRef = useRef(null);
+  const socket = useRef();
+
+  useEffect(() => {
+    // @ts-ignore
+    socket.current = io('http://localhost:5005');
+    // @ts-ignore
+    socket?.current?.on('getMessage', (data: any) => {
+      setArrivalMessage({
+        // @ts-ignore
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      // @ts-ignore
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    // @ts-ignore
+    socket?.current?.emit('addUser', user?._id);
+    // @ts-ignore
+    socket?.current?.on('getUsers', (users: any) => {
+      console.log(users);
+    });
+  }, [user]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -60,6 +93,18 @@ function Index() {
       // @ts-ignore
       conversationId: currentChat?._id,
     };
+    // @ts-ignore
+    const receiverId = currentChat?.members.find(
+      // @ts-ignore
+      (member) => member !== user._id
+    );
+
+    // @ts-ignore
+    socket.current.emit('sendMessage', {
+      senderId: user?._id,
+      receiverId,
+      text: newMessage,
+    });
     try {
       const { data } = await api.post('/messages', message);
       // @ts-ignore
