@@ -6,7 +6,7 @@ const createConversation = (values) =>
     .then((conversation) => conversation.toObject());
 
 const getConversation = (userId) =>
-  Conversation.findOne({
+  Conversation.find({
     members: { $in: userId},
   });
 
