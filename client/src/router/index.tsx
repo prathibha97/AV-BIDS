@@ -116,9 +116,10 @@ function Router() {
       ],
     },
     {
-      path: '/14_messages',
+      path: '/messages',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import('../pages/14_messages')) }],
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/messages')) }],
     },
 
     {
