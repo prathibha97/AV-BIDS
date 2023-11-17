@@ -8,6 +8,8 @@ import PLUS_ICON from '../../../assets/11_dashboard/plus.png';
 import { Member } from '../../../types';
 import api from '../../../utils/api';
 
+import { setMember } from '../../../app/features/members/memberSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import AddNewMember from '../components/add-new-member';
 import DeleteMember from '../components/delete-member';
 import EditMember from '../components/edit-members';
@@ -15,6 +17,8 @@ import EditMember from '../components/edit-members';
 const TABLE_HEAD = ['Name', 'Role', 'Email', ''];
 
 const MemberTable = () => {
+  const dispatch = useAppDispatch();
+
   const [members, setMembers] = useState<Member[]>([]);
   const [open, setOpen] = useState(false);
   const [open_1, setOpen_1] = useState(false);
@@ -31,17 +35,33 @@ const MemberTable = () => {
     };
 
     fetchMembers();
-  }, [open]);
+  }, [open, open_1, open_2]);
 
   const handleOpen = () => setOpen(!open);
   const handleOpen_1 = () => setOpen_1(!open_1);
   const handleOpen_2 = () => setOpen_2(!open_2);
 
-const handleMemberAdded = () => {
-  // This function will be called when a new member is added
-  // You can trigger a re-fetch of members by changing the 'open' state
-  setOpen(!open);
-};
+  const handleMemberAdded = () => {
+    setOpen(!open);
+  };
+
+  const handleMemberDeleted = () => {
+    setOpen_1(!open_1);
+  };
+
+  const handleMemberEdited = () => {
+    setOpen_1(!open_2);
+  };
+
+  const selectMemberToDelete = (member: Member) => {
+    setOpen_1(!open_1);
+    dispatch(setMember(member))
+  };
+
+   const selectMemberToEdit = (member: Member) => {
+     setOpen_2(!open_2);
+     dispatch(setMember(member));
+   };
 
   return (
     <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
@@ -72,9 +92,7 @@ const handleMemberAdded = () => {
               onClick={handleOpen}
             />
           </div>
-          <AddNewMember
-            onMemberAdded={handleMemberAdded}
-          />
+          <AddNewMember onMemberAdded={handleMemberAdded} />
         </Dialog>
 
         <Dialog open={open_1} handler={handleOpen_1} size='xs'>
@@ -85,7 +103,10 @@ const handleMemberAdded = () => {
               onClick={handleOpen_1}
             />
           </div>
-          <DeleteMember handleOpen={handleOpen_1} />
+          <DeleteMember
+            handleOpen={handleOpen_1}
+            onDeleteMember={handleMemberDeleted}
+          />
         </Dialog>
 
         <Dialog open={open_2} handler={handleOpen_2} size='xs'>
@@ -96,7 +117,10 @@ const handleMemberAdded = () => {
               onClick={handleOpen_2}
             />
           </div>
-          <EditMember />
+          <EditMember
+            handleMemberEdited={handleMemberEdited}
+            handleOpen={handleOpen_2}
+          />
         </Dialog>
       </div>
 
@@ -118,16 +142,16 @@ const handleMemberAdded = () => {
               </tr>
             </thead>
             <tbody>
-              {members.map(({ name, role, email }, index) => {
+              {members.map((member) => {
                 return (
-                  <tr key={name}>
+                  <tr key={member._id}>
                     <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
                         variant='small'
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {name}
+                        {member.name}
                       </Typography>
                     </td>
                     <td className={'p-4 border-b border-blue-gray-50'}>
@@ -136,7 +160,7 @@ const handleMemberAdded = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {role}
+                        {member.role}
                       </Typography>
                     </td>
                     <td className={'p-4 border-b border-blue-gray-50'}>
@@ -145,7 +169,7 @@ const handleMemberAdded = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {email}
+                        {member.email}
                       </Typography>
                     </td>
                     <td className={'p-4 border-b border-blue-gray-50'}>
@@ -160,12 +184,12 @@ const handleMemberAdded = () => {
                           <MdEdit
                             size={24}
                             className='text-[#A2A1A7]'
-                            onClick={handleOpen_2}
+                            onClick={() => selectMemberToEdit(member)}
                           />
                           <MdDeleteOutline
                             size={24}
                             className='text-[#A2A1A7]'
-                            onClick={handleOpen_1}
+                            onClick={() => selectMemberToDelete(member)}
                           />
                         </div>
                       </Typography>

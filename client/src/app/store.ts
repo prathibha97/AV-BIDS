@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import userReducer from './features/user/userSlice';
 import EventReducer from './features/events/eventSlice';
+import memberReducer from './features/members/memberSlice';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     user: userReducer,
     event: EventReducer,
+    member: memberReducer,
   })
 );
 
