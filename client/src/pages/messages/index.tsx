@@ -26,7 +26,7 @@ function Index() {
 
   useEffect(() => {
     // @ts-ignore
-    socket.current = io('ws://localhost:5005');
+    socket.current = io('ws://web-socket-server:5005');
     // @ts-ignore
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
