@@ -4,6 +4,7 @@ const util = require("util");
 const keys = require("../config/keys");
 
 const client = redis.createClient(keys.redisUrl);
+// const client = redis.createClient('redis://redis:6379');
 
 // use promisify to aviod using callbacks
 client.hget = util.promisify(client.hget);

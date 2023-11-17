@@ -13,8 +13,8 @@ RUN npm install
 # Copy the current directory contents to the container at /app
 COPY . .
 
-# Expose the port that the application will run on
-EXPOSE 5005
-
 # Command to run your application
 CMD ["npm", "start"]
+
+# Expose the port that the application will run on
+EXPOSE 5005
