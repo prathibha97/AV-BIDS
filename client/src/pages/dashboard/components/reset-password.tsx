@@ -89,7 +89,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
                 }}
                 containerProps={{ className: "min-w-[100px]" }}
                 type="password"
-                placeholder="********"
+                placeholder="New Password"
                 crossOrigin=""
                 {...register("newPassword")}
               />
@@ -106,7 +106,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
                 }}
                 containerProps={{ className: "min-w-[100px]" }}
                 type="password"
-                placeholder="********"
+                placeholder="Confirm New Password"
                 crossOrigin=""
                 {...register("confirmPassword")}
               />
@@ -121,7 +121,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             color="indigo"
             size="sm"
             type="button"
-            className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
+            className="w-30 py-3 mt-4 px-6 bg-[#E12929] font-poppins rounded-full"
             onClick={handleDeleteAccount}
           >
             <span className="text-white normal-case">Delete Account</span>
