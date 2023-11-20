@@ -5,9 +5,8 @@ import EVENTDETAILS_04 from "../../assets//10_event_details_page/location.png";
 import EVENTDETAILS_05 from "../../assets//10_event_details_page/Rectangle 3760.png";
 import SPAM_ICON from "../../assets//10_event_details_page/spam.png";
 import DOWN_ARROW from "../../assets//10_event_details_page/down-arrow.png";
-import STAR_ICON from "../../assets//10_event_details_page/Star.png";
-import STAR_OUTLINE from "../../assets//10_event_details_page/star-outline.png";
-import { Textarea, Button, Input } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import Rating from "./components/rating";
 
 export function index() {
   return (
@@ -330,32 +329,8 @@ export function index() {
             <div className="bg-[#F3F1FB] mt-8 p-6 rounded-lg">
               <h2 className="text-[20px] mb-6">About the event planner</h2>
               <div className="flex items-center gap-4">
-                <div className="flex items-center">
-                  <img
-                    src={STAR_ICON}
-                    alt="aad"
-                    className="object-scale-down w-[26px]"
-                  />
-                  <img
-                    src={STAR_ICON}
-                    alt="aad"
-                    className="object-scale-down w-[26px]"
-                  />
-                  <img
-                    src={STAR_ICON}
-                    alt="aad"
-                    className="object-scale-down w-[26px]"
-                  />
-                  <img
-                    src={STAR_ICON}
-                    alt="aad"
-                    className="object-scale-down w-[26px]"
-                  />
-                  <img
-                    src={STAR_OUTLINE}
-                    alt="aad"
-                    className="object-scale-down w-[26px]"
-                  />
+                <div>
+                  <Rating />
                 </div>
                 <div>
                   <p className="text-16px">4.59 of 99 reviews</p>
