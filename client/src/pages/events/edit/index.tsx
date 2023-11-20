@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Stepper, Step } from "@material-tailwind/react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import StepThree from "./components/step-three";
 import StepTwo from "./components/step-two";
 import api from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
-import Stepper from "./components/stepper";
+// import Stepper from "./components/stepper";
 
 interface Requirement {
   label: string;
@@ -78,6 +78,17 @@ export function Index() {
     }));
   };
 
+  /////////////////////////////////////////////////////////
+
+  const [activeStep, setActiveStep] = useState(0);
+  const [isLastStep, setIsLastStep] = useState(false);
+  const [isFirstStep, setIsFirstStep] = useState(false);
+
+  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
+  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+
+  //////////////////////////////////////////////////////
+
   return (
     <div className="container mx-auto mb-8">
       <section className="bg-white px-8 py-8 rounded-xl drop-shadow-md">
@@ -85,8 +96,38 @@ export function Index() {
 
         <div className="flex justify-center mb-10">
           <div>
-            <div className="mx-5">
-              <Stepper />
+            <div>
+              {/* <Stepper /> */}
+
+              <div className="mx-12 mb-4">
+                <Stepper
+                  activeStep={activeStep}
+                  isLastStep={(value) => setIsLastStep(value)}
+                  isFirstStep={(value) => setIsFirstStep(value)}
+                >
+                  <Step
+                    onClick={() => setActiveStep(0)}
+                    className="!bg-[#42D27A]"
+                  >
+                    <span>1</span>
+                  </Step>
+
+                  <Step
+                    onClick={() => setActiveStep(1)}
+                    className={activeStep === 1 ? "active-step" : ""}
+                  >
+                    <span>2</span>
+                  </Step>
+                </Stepper>
+
+                <div className="w-full flex justify-between"></div>
+
+                <style>
+                  {`.active-step {
+          background-color: #42D27A; /* Change this to the desired color */
+        }`}
+                </style>
+              </div>
             </div>
 
             <div className="flex items-center justify-between gap-16">
@@ -196,7 +237,10 @@ export function Index() {
                 variant="outlined"
                 size="sm"
                 className="rounded-full py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px] mr-4"
-                onClick={handlePrevStep}
+                onClick={() => {
+                  handlePrev();
+                  handlePrevStep();
+                }}
               >
                 <span className="text-black">Previous</span>
               </Button>
@@ -208,7 +252,10 @@ export function Index() {
                 color="indigo"
                 size="sm"
                 className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
-                onClick={handleNextStep}
+                onClick={() => {
+                  handleNext();
+                  handleNextStep();
+                }}
               >
                 <span className="text-white">Next</span>
               </Button>

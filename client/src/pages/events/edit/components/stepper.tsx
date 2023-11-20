@@ -26,12 +26,6 @@ function DefaultStepper() {
         >
           <span>2</span>
         </Step>
-        {/* <Step
-          onClick={() => setActiveStep(2)}
-          className={activeStep === 2 ? "active-step" : ""}
-        >
-          <span>3</span>
-        </Step> */}
       </Stepper>
 
       <div className="w-full flex justify-between"></div>
