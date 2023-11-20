@@ -1,7 +1,7 @@
 import { FC } from "react";
-
+import { Rating } from "@material-tailwind/react";
 import { UserWithReviewWithEvent } from "../../../../types";
-import Rating from "./rating";
+// import Rating from "./rating";
 
 interface EventPlannerProps {
   planner: UserWithReviewWithEvent;
@@ -28,7 +28,12 @@ const EventPlanner: FC<EventPlannerProps> = ({ planner }) => {
               className="object-scale-down w-[26px]"
             />
           ))} */}
-          <Rating />
+
+          <Rating
+            value={averageRating}
+            unratedColor="amber"
+            ratedColor="amber"
+          />
         </div>
         <div>
           <p className="text-18px">{`${averageRating.toFixed(2)} of ${
