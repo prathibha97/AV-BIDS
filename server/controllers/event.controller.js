@@ -1,6 +1,6 @@
 const {
   createEvent,
-  getEvents,
+  getFilteredEvents,
   getEventsByUser,
   getEventsById,
   updateEvent,
@@ -28,9 +28,21 @@ const createNewEvent = async (req, res) => {
 *@route  GET /api/events
 *@access Private
 */
-const getAllMembers = async (req, res) => {
+
+const getAllEvents = async (req, res) => {
   try {
-    const events = await getEvents(req);
+    const { eventType, eventCategory, priceRange, audienceSize } = req.query;
+
+    // Construct a filter object based on provided parameters
+    const filters = {};
+    if (eventType) filters.eventType = eventType;
+    if (eventCategory) filters.eventCategory = eventCategory;
+    if (priceRange) filters.eventBudget = priceRange;
+    // Add more filters as needed...
+
+    // Fetch events based on the constructed filters
+    const events = await getFilteredEvents(filters, req);
+
     res.status(200).json(events);
   } catch (error) {
     console.error('Failed to fetch events - ', error.message);
@@ -107,7 +119,7 @@ const remove = async (req, res) => {
 
 module.exports = {
   createNewEvent,
-  getAllMembers,
+  getAllEvents,
   getUserEvents,
   getEvent,
   update,

@@ -4,7 +4,7 @@ const cleanCache = require('../middlewares/cleanCache');
 
 const {
   createNewEvent,
-  getAllMembers,
+  getAllEvents,
   getUserEvents,
   getEvent,
   update,
@@ -177,7 +177,7 @@ const eventRouter = express.Router();
  */
 
 eventRouter.post('/', protect, cleanCache, createNewEvent);
-eventRouter.get('/', protect, getAllMembers);
+eventRouter.get('/', protect, getAllEvents);
 eventRouter.get('/:id', protect, getEvent);
 eventRouter.get('/user/:userId', protect, getUserEvents);
 eventRouter.put('/:id', protect, cleanCache, update);

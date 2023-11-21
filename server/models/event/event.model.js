@@ -25,7 +25,12 @@ const createEvent = async (values, userId) => {
 };
 
 
-const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
+// const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
+
+const getFilteredEvents = async (filters, req) => {
+  // Apply caching to the filtered events
+  return Event.find(filters).cache({ key: req.user.id });
+};
 
 const getEventsByUser = (id, req) =>
   Event.find({ createdBy: id }).cache({ key: req.user.id });
@@ -52,7 +57,7 @@ const removeEvent = (id) => {
 
 module.exports = {
   createEvent,
-  getEvents,
+  getFilteredEvents,
   getEventsByUser,
   getEventsById,
   updateEvent,

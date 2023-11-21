@@ -9,29 +9,53 @@ import Sidebar from './components/sidebar';
 export function Index() {
   const navigate = useNavigate();
   const [events, setEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchAllEvents = async () => {
-      try {
-        setLoading(true);
-        const { data } = await api.get('/events');
-        setEvents(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAllEvents();
-  }, []);
+  // Inside the Index component
+  const [selectedEventType, setSelectedEventType] = useState([]);
+  const [selectedEventCategory, setSelectedEventCategory] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState([]);
+  const [selectedAudienceSize, setSelectedAudienceSize] = useState([]);
 
+  // useEffect(() => {
+  //   const fetchAllEvents = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const { data } = await api.get('/events');
+  //       setEvents(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchAllEvents();
+  // }, []);
   useEffect(() => {
-    // Initialize filtered events with all events on initial load
-    setFilteredEvents(events);
-  }, [events]);
+    applyFilters({
+      eventType: selectedEventType,
+      eventCategory: selectedEventCategory,
+      priceRange: selectedPriceRange,
+      audienceSize: selectedAudienceSize,
+    });
+  }, [
+    selectedEventType,
+    selectedEventCategory,
+    selectedPriceRange,
+    selectedAudienceSize,
+  ]);
 
+  const applyFilters = async (filters: any) => {
+    try {
+      setLoading(true);
+      const { data } = await api.get('/events', { params: filters });
+      setEvents(data);
+    } catch (error) {
+      console.log('API Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   return (
@@ -41,7 +65,17 @@ export function Index() {
       </div>
 
       <div className='flex justify-center gap-8'>
-        <Sidebar />
+        <Sidebar
+          selectedEventType={selectedEventType}
+          setSelectedEventType={setSelectedEventType}
+          selectedEventCategory={selectedEventCategory}
+          setSelectedEventCategory={setSelectedEventCategory}
+          selectedPriceRange={selectedPriceRange}
+          setSelectedPriceRange={setSelectedPriceRange}
+          selectedAudienceSize={selectedAudienceSize}
+          setSelectedAudienceSize={setSelectedAudienceSize}
+          applyFilters={applyFilters}
+        />
 
         <div>
           <div className='flex items-center justify-between mb-6 mx-4'>
@@ -57,7 +91,7 @@ export function Index() {
               </Select>
             </div>
           </div>
-          {filteredEvents?.map((event) => (
+          {events?.map((event) => (
             <div
               key={event._id}
               className='hover:cursor-pointer'
