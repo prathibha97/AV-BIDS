@@ -13,6 +13,7 @@ export interface User {
 }
 
 export interface Member {
+  _id:string
   name: string;
   email: string;
   role: string;
@@ -195,3 +196,19 @@ export interface UserWithReviewWithEvent extends User {
   reviews: Review[];
   events: Event[];
 }
+
+export type Message = {
+  _id?: string;
+  conversationId?: string;
+  sender: string;
+  text: string;
+  createdAt: Date;
+  updatedAt?: Date;
+};
+
+export type Conversation = {
+  _id?: string;
+  members: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
+};

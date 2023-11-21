@@ -1,28 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
+import { Socket, io } from 'socket.io-client';
 import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import SEND from '../../assets/14_messages/send.png';
+import {
+  Conversation as ConversationType,
+  Message as MessageType,
+} from '../../types';
 import api from '../../utils/api';
 import Conversation from './components/conversation';
 import ConversationFilter from './components/conversation-filter';
 import EmptyMessage from './components/empty-message';
 import Message from './components/message';
 import MessageHeader from './components/message-header';
-import { io } from 'socket.io-client';
 
 function Index() {
-  const messagesAvailable = true;
-
-  const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [conversations, setConversations] = useState<ConversationType[]>([]);
+  const [currentChat, setCurrentChat] = useState<ConversationType | null>(null);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [arrivalMessage, setArrivalMessage] = useState<MessageType | null>(
+    null
+  );
 
   const user = useAppSelector((state: RootState) => state.user.user);
 
-  const scrollRef = useRef(null);
-  const socket = useRef();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const socket = useRef<Socket>();
 
   useEffect(() => {
     // @ts-ignore
@@ -31,28 +35,24 @@ function Index() {
     // @ts-ignore
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
-        // @ts-ignore
         sender: data.senderId,
         text: data.text,
-        createdAt: Date.now(),
+        createdAt: new Date(),
       });
     });
   }, []);
 
   useEffect(() => {
     arrivalMessage &&
-      // @ts-ignore
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    // @ts-ignore
     socket?.current?.emit('addUser', user?._id);
-    // @ts-ignore
-    socket?.current?.on('getUsers', (users: any) => {
-      console.log(users);
-    });
+    // socket?.current?.on('getUsers', (users: any) => {
+    //   console.log(users);
+    // });
   }, [user]);
 
   useEffect(() => {
@@ -65,12 +65,11 @@ function Index() {
       }
     };
     getConversations();
-  }, [user && user._id]);
+  }, [user]);
 
   useEffect(() => {
     const getMessages = async () => {
       try {
-        // @ts-ignore
         const { data } = await api.get('/messages/' + currentChat?._id);
         setMessages(data);
       } catch (error) {
@@ -81,34 +80,33 @@ function Index() {
   }, [currentChat]);
 
   useEffect(() => {
-    // @ts-ignore
-    scrollRef?.current?.scrollIntoView({ bevior: 'smooth' });
+    scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // Ensure that user is not null before accessing its properties
+    if (!user) {
+      console.error('User is null');
+      return;
+    }
+
     const message = {
-      // @ts-ignore
       sender: user._id,
       text: newMessage,
-      // @ts-ignore
       conversationId: currentChat?._id,
     };
-    // @ts-ignore
+
     const receiverId = currentChat?.members.find(
-      // @ts-ignore
       (member) => member !== user._id
     );
 
-    // @ts-ignore
-    socket.current.emit('sendMessage', {
+    socket?.current?.emit('sendMessage', {
       senderId: user?._id,
       receiverId,
       text: newMessage,
     });
     try {
       const { data } = await api.post('/messages', message);
-      // @ts-ignore
       setMessages([...messages, data]);
       setNewMessage('');
     } catch (error) {
@@ -132,16 +130,13 @@ function Index() {
               />
               {conversations.map((conversation) => (
                 <div
-                  // @ts-ignore
                   key={conversation._id}
                   onClick={() => setCurrentChat(conversation)}
                   className='cursor-pointer hover:bg-[#F3F1FB]'
                 >
                   <Conversation
                     conversation={conversation}
-                    // @ts-ignore
                     currentUser={user}
-                    messagesAvailable={messagesAvailable}
                   />
                 </div>
               ))}
@@ -152,7 +147,7 @@ function Index() {
           <div className='col-span-2 grid grid-rows-7 h-full'>
             {currentChat ? (
               <>
-                <MessageHeader />
+                <MessageHeader conversation={currentChat} currentUser={user} />
 
                 <div className='border-b border-[#EDECF1] row-span-5 p-4 h-full overflow-y-scroll'>
                   <div className='max-h-[780px] space-y-3'>
@@ -176,7 +171,6 @@ function Index() {
                     onChange={(e) => setNewMessage(e.target.value)}
                     rows={4}
                   />
-                  {/* @ts-ignore */}
                   <button onClick={handleSubmit}>
                     <img
                       src={SEND}

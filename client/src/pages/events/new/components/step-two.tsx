@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import Counter from '../../../../components/counter';
+import { FC, useState } from "react";
+import Counter from "../../../../components/counter";
 
 interface StepTwoProps {
   formData: {
@@ -25,19 +25,19 @@ const StepTwo: FC<StepTwoProps> = ({ formData, updateStepTwoData }) => {
     let updatedValue = 0;
 
     switch (field) {
-      case 'roomCount':
+      case "roomCount":
         updatedValue = Math.max(0, rooms + value);
         setRooms(updatedValue);
         break;
-      case 'generalSessionCount':
+      case "generalSessionCount":
         updatedValue = Math.max(0, generalSessions + value);
         setGeneralSessions(updatedValue);
         break;
-      case 'breakoutSessionCount':
+      case "breakoutSessionCount":
         updatedValue = Math.max(0, breakoutSessions + value);
         setBreakoutSessions(updatedValue);
         break;
-      case 'presenterCount':
+      case "presenterCount":
         updatedValue = Math.max(0, presenters + value);
         setPresenters(updatedValue);
         break;
@@ -51,30 +51,30 @@ const StepTwo: FC<StepTwoProps> = ({ formData, updateStepTwoData }) => {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-4 mb-6' id='step2'>
+    <div className="grid grid-cols-2 gap-4 mb-6" id="step2">
       <div>
         <p>How many rooms will be used?</p>
       </div>
       <Counter
         value={rooms}
-        onDecrease={() => handleAdjust('roomCount', -1)}
-        onIncrease={() => handleAdjust('roomCount', 1)}
+        onDecrease={() => handleAdjust("roomCount", -1)}
+        onIncrease={() => handleAdjust("roomCount", 1)}
       />
       <div>
         <p>How many general sessions?</p>
       </div>
       <Counter
         value={generalSessions}
-        onDecrease={() => handleAdjust('generalSessionCount', -1)}
-        onIncrease={() => handleAdjust('generalSessionCount', 1)}
+        onDecrease={() => handleAdjust("generalSessionCount", -1)}
+        onIncrease={() => handleAdjust("generalSessionCount", 1)}
       />
       <div>
         <p>How many breakout sessions?</p>
       </div>
       <Counter
         value={breakoutSessions}
-        onDecrease={() => handleAdjust('breakoutSessionCount', -1)}
-        onIncrease={() => handleAdjust('breakoutSessionCount', 1)}
+        onDecrease={() => handleAdjust("breakoutSessionCount", -1)}
+        onIncrease={() => handleAdjust("breakoutSessionCount", 1)}
       />
 
       <div>
@@ -83,8 +83,8 @@ const StepTwo: FC<StepTwoProps> = ({ formData, updateStepTwoData }) => {
 
       <Counter
         value={presenters}
-        onDecrease={() => handleAdjust('presenterCount', -1)}
-        onIncrease={() => handleAdjust('presenterCount', 1)}
+        onDecrease={() => handleAdjust("presenterCount", -1)}
+        onIncrease={() => handleAdjust("presenterCount", 1)}
       />
     </div>
   );

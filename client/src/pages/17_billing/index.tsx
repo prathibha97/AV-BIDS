@@ -23,41 +23,46 @@ import DISCOVER from "../../assets/17_billing/Discover.png";
 import { MdDeleteOutline } from "react-icons/md";
 
 // ------------------------------------Table Contents--------------------------------------------------
-const TABLE_HEAD = ["Name", "Role", "Email", ""];
 
-const TABLE_ROWS = [
-  {
-    name: "Dixie Normus",
-    Role: "Manager",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Developer",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Executive",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Developer",
-    email: "dixie@anitameetings.com",
-  },
-  {
-    name: "Jane Smith",
-    Role: "Manager",
-    email: "dixie@anitameetings.com",
-  },
-];
 // ------------------------------------Table Contents--------------------------------------------------
 
 function index() {
   return (
     <div className="container mx-auto">
       <h2 className="text-[20px] font-semibold mb-4">Billing & Membership</h2>
+
+      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
+        {" "}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <div>
+              <h2 className="text-[18px] font-semibold mb-3">
+                Current Plan (Standard)
+              </h2>
+
+              <p className="text-14 text-[#353535]">
+                Full access to the AV Bids site and two company users are
+                included.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <h2 className="text-purple_two text-[20px] mb-2">$399</h2>
+              <h2 className="text-[14px] text-[#000] mb-2">Monthly Plan</h2>
+              <p className="text-[#353535] mb-3">
+                Your subscription renews July 12th, 2023
+              </p>
+
+              <p className="text-purple_two text-[14px] underline">
+                Cancel Current Plan
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
         <div>
           <div className="grid grid-cols-2  gap-8">
@@ -134,7 +139,7 @@ function index() {
       </section>
 
       <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-6">
           <div className="w-72">
             <h2 className="text-[18px] font-semibold text-left">
               Card on File
@@ -159,8 +164,8 @@ function index() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-5 gap-4">
-          <div>
+        <div className="grid grid-cols-5 gap-4 justify-items-end">
+          <div className="justify-self-start">
             <div className="flex items-center gap-6">
               <img src={VISA} alt="aad" className="object-contain w-[49px]" />
               <p className="font-semibold">Visa (**** 0000)</p>
@@ -179,7 +184,7 @@ function index() {
             <MdDeleteOutline size={24} className="text-[#DE5753]" />
           </div>
 
-          <div>
+          <div className="justify-self-start">
             <div className="flex items-center gap-6">
               <img src={MASTER} alt="aad" className="object-contain w-[49px]" />
               <p className="font-semibold">MasterCard (**** 0000)</p>
@@ -198,7 +203,7 @@ function index() {
             <MdDeleteOutline size={24} className="text-[#DE5753]" />
           </div>
 
-          <div>
+          <div className="justify-self-start">
             <div className="flex items-center gap-6">
               <img
                 src={DISCOVER}
@@ -222,10 +227,6 @@ function index() {
           </div>
         </div>
       </section>
-
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6"></section>
-
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6"></section>
     </div>
   );
 }
