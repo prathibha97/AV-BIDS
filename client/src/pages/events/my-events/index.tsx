@@ -77,7 +77,7 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                {myEvents?.map((event, index) => {
+                {myEvents && myEvents?.map((event, index) => {
                   return (
                     <tr key={event._id}>
                       <td
