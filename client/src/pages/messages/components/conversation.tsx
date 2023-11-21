@@ -1,24 +1,19 @@
 import { Avatar } from '@material-tailwind/react';
+import { format } from 'date-fns';
 import { FC, useEffect, useState } from 'react';
 import PROFILE_PHOTO from '../../../assets/14_messages/profile photo.jpg';
-import { User } from '../../../types';
+import { Conversation as ConversationType, User } from '../../../types';
 import api from '../../../utils/api';
 
 interface ConversationProps {
-  messagesAvailable: boolean;
-  currentUser: User;
-  conversation: any;
+  currentUser: User | null;
+  conversation: ConversationType;
 }
 
-const Conversation: FC<ConversationProps> = ({
-  messagesAvailable,
-  conversation,
-  currentUser,
-}) => {
-  const [user, setUser] = useState(null);
+const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    // @ts-ignore
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
+    const friendId = conversation.members.find((m) => m !== currentUser?._id);
 
     const getUser = async () => {
       try {
@@ -33,32 +28,25 @@ const Conversation: FC<ConversationProps> = ({
   return (
     <div>
       <div className='border-b border-[#EDECF1] p-4'>
-        {messagesAvailable ? (
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-4'>
-              <Avatar
-                variant='circular'
-                size='sm'
-                alt='avatar'
-                className='border border-gray-900'
-                src={PROFILE_PHOTO}
-              />
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center gap-4'>
+            <Avatar
+              variant='circular'
+              size='sm'
+              alt='avatar'
+              className='border border-gray-900'
+              src={PROFILE_PHOTO}
+            />
 
-              <div className='flex flex-col'>
-                <h2 className='text-[20px] font-semibold'>
-                  {/* @ts-ignore */}
-                  {user && user.firstName} {user && user.lastName}
-                </h2>
-                <p>Subject: AV Requirements</p>
-              </div>
+            <div className='flex flex-col'>
+              <h2 className='text-[20px] font-semibold'>
+                {user && user?.firstName} {user && user?.lastName}
+              </h2>
+              <p>Subject: AV Requirements</p>
             </div>
-            <p>May 9</p>
           </div>
-        ) : (
-          <div className='flex items-center justify-center mt-4'>
-            <h2 className='text-[17px] font-semibold'>You have no messages</h2>
-          </div>
-        )}
+          <p>{format(new Date(conversation.createdAt as Date), 'MMM dd')}</p>
+        </div>
       </div>
     </div>
   );
