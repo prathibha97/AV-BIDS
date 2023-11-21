@@ -41,8 +41,6 @@ function Index() {
     navigate(`/events/edit/${event._id}`);
   };
 
-  console.log(myEvents);
-
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
