@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  server:
+    image: prathibha097/av-bids
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+      - socket
+    restart: always
+
+  socket:
+    image: prathibha097/av-bids-web-socket
+    ports:
+      - "5005:5005"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
