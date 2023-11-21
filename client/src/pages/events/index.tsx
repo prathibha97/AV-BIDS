@@ -1,8 +1,39 @@
 import { Option, Select } from '@material-tailwind/react';
-import EventLists from './components/eventLists';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Event } from '../../types';
+import api from '../../utils/api';
+import EventListingCard from './components/eventListingCard';
 import Sidebar from './components/sidebar';
 
 export function Index() {
+  const navigate = useNavigate();
+  const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchAllEvents = async () => {
+      try {
+        setLoading(true);
+        const { data } = await api.get('/events');
+        setEvents(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllEvents();
+  }, []);
+
+  useEffect(() => {
+    // Initialize filtered events with all events on initial load
+    setFilteredEvents(events);
+  }, [events]);
+
+
+  if (loading) return <p>Loading...</p>;
   return (
     <div>
       <div>
@@ -10,11 +41,11 @@ export function Index() {
       </div>
 
       <div className='flex justify-center gap-8'>
-        <div>{<Sidebar />}</div>
+        <Sidebar />
 
         <div>
           <div className='flex items-center justify-between mb-6 mx-4'>
-            <p className='text-[14px]'>500 events Found</p>
+            <p className='text-[14px]'>{events.length} events Found</p>
 
             <div className='w-[200px] '>
               <Select label='Sort: Ending Soonest '>
@@ -26,13 +57,15 @@ export function Index() {
               </Select>
             </div>
           </div>
-
-          <EventLists />
-          <EventLists />
-          <EventLists />
-          <EventLists />
-          <EventLists />
-          <EventLists />
+          {filteredEvents?.map((event) => (
+            <div
+              key={event._id}
+              className='hover:cursor-pointer'
+              onClick={() => navigate(`/events/${event._id}`)}
+            >
+              <EventListingCard event={event} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

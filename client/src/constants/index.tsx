@@ -52,12 +52,12 @@ export const usStates = [
 ] as const;
 
 export const eventBudgetOptions = [
-  { label: '<$70,000', value: '<70000' },
-  { label: '$70,000 - $150,000', value: '70000-150000' },
-  { label: '$150,000 - $500,000', value: '150000-500000' },
-  { label: '$500,000 - $1,000,000', value: '500000-1000000' },
-  { label: '$1,000,000+', value: '1000000+' },
-]as const;
+  { label: '<$70,000', value: '<$70,000' },
+  { label: '$70,000 - $150,000', value: '$70,000 - $150,000' },
+  { label: '$150,000 - $500,000', value: '$150,000 - $500,000' },
+  { label: '$500,000 - $1,000,000', value: '$500,000 - $1,000,000' },
+  { label: '$1,000,000+', value: '$1,000,000+' },
+] as const;
 
 export const eventTypes = [
   { label: 'In-Person', value: 'In-Person' },
@@ -68,11 +68,11 @@ export const eventTypes = [
 export const eventCategories = [
   { label: 'Corporate', value: 'Corporate' },
   { label: 'Non-Corporate', value: 'Non-Corporate' },
-]as const;
+] as const;
 
 export const eventSubCategories = [
   { label: 'Awards', value: 'Awards' },
   { label: 'Banquet', value: 'Banquet' },
   { label: 'Board Meeting', value: 'Board Meeting' },
   { label: 'Breakout Session', value: 'Breakout Session' },
-]as const;
+] as const;
