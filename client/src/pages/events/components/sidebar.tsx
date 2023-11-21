@@ -8,15 +8,17 @@ import {
 import { FC } from 'react';
 
 interface SidebarProps {
-  selectedEventType: any;
-  setSelectedEventType: any;
-  selectedEventCategory: any;
-  setSelectedEventCategory: any;
-  selectedPriceRange: any;
-  setSelectedPriceRange: any;
-  selectedAudienceSize: any;
-  setSelectedAudienceSize: any;
-  applyFilters: any;
+  selectedEventType: string[];
+  setSelectedEventType: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedEventCategory: string[];
+  setSelectedEventCategory: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedPriceRange: string[];
+  setSelectedPriceRange: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedAudienceSize: string[];
+  setSelectedAudienceSize: React.Dispatch<React.SetStateAction<string[]>>;
+  applyFilters: (filters: any) => void;
+  selectedEventSubCategory: string;
+  setSelectedEventSubCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Sidebar: FC<SidebarProps> = ({
@@ -29,6 +31,8 @@ const Sidebar: FC<SidebarProps> = ({
   setSelectedEventCategory,
   setSelectedEventType,
   setSelectedPriceRange,
+  selectedEventSubCategory,
+  setSelectedEventSubCategory,
 }) => {
   const handleCheckboxChange = (value: any, setState: any, state: any) => {
     console.log('Before Update:', state);
@@ -44,11 +48,13 @@ const Sidebar: FC<SidebarProps> = ({
     setState(updatedState);
   };
 
+
   // Apply filters button click handler
   const handleApplyFilters = () => {
     applyFilters({
       eventType: selectedEventType,
       eventCategory: selectedEventCategory,
+      eventSubCategory: selectedEventSubCategory,
       priceRange: selectedPriceRange,
       audienceSize: selectedAudienceSize,
     });
@@ -144,12 +150,17 @@ const Sidebar: FC<SidebarProps> = ({
           <div className='mb-4'>
             <h6 className='mb-4'>Coporate Categories</h6>
             <div className='w-full '>
-              <Select label='Select Version' className='bg-white'>
-                <Option>All</Option>
-                <Option>Awards</Option>
-                <Option>Banquet</Option>
-                <Option>Board Meeting</Option>
-                <Option>Breakout Session</Option>
+              <Select
+                label='Select Sub Category'
+                className='bg-white'
+                value={selectedEventSubCategory}
+                onChange={(value:any) => setSelectedEventSubCategory(value)}
+              >
+                <Option value=''>All</Option>
+                <Option value='Awards'>Awards</Option>
+                <Option value='Banquet'>Banquet</Option>
+                <Option value='Board Meeting'>Board Meeting</Option>
+                <Option value='Breakout Session'>Breakout Session</Option>
               </Select>
             </div>
           </div>

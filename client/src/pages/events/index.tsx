@@ -12,35 +12,29 @@ export function Index() {
   const [loading, setLoading] = useState(false);
 
   // Inside the Index component
-  const [selectedEventType, setSelectedEventType] = useState([]);
-  const [selectedEventCategory, setSelectedEventCategory] = useState([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState([]);
-  const [selectedAudienceSize, setSelectedAudienceSize] = useState([]);
+  const [selectedEventType, setSelectedEventType] = useState<string[]>([]);
+  const [selectedEventCategory, setSelectedEventCategory] = useState<string[]>(
+    []
+  );
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string[]>([]);
+  const [selectedAudienceSize, setSelectedAudienceSize] = useState<string[]>(
+    []
+  );
+  const [selectedEventSubCategory, setSelectedEventSubCategory] =
+    useState<string>('');
 
-  // useEffect(() => {
-  //   const fetchAllEvents = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const { data } = await api.get('/events');
-  //       setEvents(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchAllEvents();
-  // }, []);
   useEffect(() => {
     applyFilters({
       eventType: selectedEventType,
       eventCategory: selectedEventCategory,
+      eventSubCategory: selectedEventSubCategory,
       priceRange: selectedPriceRange,
       audienceSize: selectedAudienceSize,
     });
   }, [
     selectedEventType,
     selectedEventCategory,
+    selectedEventSubCategory,
     selectedPriceRange,
     selectedAudienceSize,
   ]);
@@ -70,6 +64,8 @@ export function Index() {
           setSelectedEventType={setSelectedEventType}
           selectedEventCategory={selectedEventCategory}
           setSelectedEventCategory={setSelectedEventCategory}
+          selectedEventSubCategory={selectedEventSubCategory}
+          setSelectedEventSubCategory={setSelectedEventSubCategory}
           selectedPriceRange={selectedPriceRange}
           setSelectedPriceRange={setSelectedPriceRange}
           selectedAudienceSize={selectedAudienceSize}
