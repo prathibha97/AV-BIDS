@@ -40,7 +40,6 @@ function Index() {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
-
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
@@ -77,61 +76,62 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                {myEvents && myEvents?.map((event, index) => {
-                  return (
-                    <tr key={event._id}>
-                      <td
-                        className='p-4 border-b border-blue-gray-50 cursor-pointer'
-                        onClick={() => navigate(`/events/${event._id}`)}
-                      >
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
+                {Array.isArray(myEvents) &&
+                  myEvents?.map((event, index) => {
+                    return (
+                      <tr key={event._id}>
+                        <td
+                          className='p-4 border-b border-blue-gray-50 cursor-pointer'
+                          onClick={() => navigate(`/events/${event._id}`)}
                         >
-                          {event.title}
-                          <div>
-                            <div className='rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins'>
-                              <p className='text-black text-center text-[12px] font-semibold'>
-                                {event.eventType}
-                              </p>
+                          <Typography
+                            variant='small'
+                            color='blue-gray'
+                            className='font-normal'
+                          >
+                            {event.title}
+                            <div>
+                              <div className='rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins'>
+                                <p className='text-black text-center text-[12px] font-semibold'>
+                                  {event.eventType}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </Typography>
-                      </td>
-                      <td className='p-4 border-b border-blue-gray-50'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {format(new Date(event.createdAt), 'dd MMM yyyy')}
-                        </Typography>
-                      </td>
-                      <td className='p-4 border-b border-blue-gray-50'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {/* {date} */}
-                          <p>10 Proposals</p>
-                        </Typography>
-                      </td>
-                      <td className='p-4 border-b border-blue-gray-50'>
-                        <Typography
-                          as='a'
-                          variant='small'
-                          color='blue-gray'
-                          className='font-medium cursor-pointer'
-                          onClick={() => handleEdit(event)}
-                        >
-                          Edit
-                        </Typography>
-                      </td>
-                    </tr>
-                  );
-                })}
+                          </Typography>
+                        </td>
+                        <td className='p-4 border-b border-blue-gray-50'>
+                          <Typography
+                            variant='small'
+                            color='blue-gray'
+                            className='font-normal'
+                          >
+                            {format(new Date(event.createdAt), 'dd MMM yyyy')}
+                          </Typography>
+                        </td>
+                        <td className='p-4 border-b border-blue-gray-50'>
+                          <Typography
+                            variant='small'
+                            color='blue-gray'
+                            className='font-normal'
+                          >
+                            {/* {date} */}
+                            <p>10 Proposals</p>
+                          </Typography>
+                        </td>
+                        <td className='p-4 border-b border-blue-gray-50'>
+                          <Typography
+                            as='a'
+                            variant='small'
+                            color='blue-gray'
+                            className='font-medium cursor-pointer'
+                            onClick={() => handleEdit(event)}
+                          >
+                            Edit
+                          </Typography>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </Card>
