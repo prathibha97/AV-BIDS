@@ -110,10 +110,33 @@ const Sidebar: FC<SidebarProps> = ({
           <div className='mb-4'>
             <h6>Event Categories</h6>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' /> <span>Corporate</span>
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedEventCategory.includes('Corporate')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    'Corporate',
+                    setSelectedEventCategory,
+                    selectedEventCategory
+                  )
+                }
+              />{' '}
+              <span>Corporate</span>
             </div>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />{' '}
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedEventCategory.includes('Non-Corporate')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    'Non-Corporate',
+                    setSelectedEventCategory,
+                    selectedEventCategory
+                  )
+                }
+              />{' '}
               <span>Non-Corporate</span>
             </div>
           </div>
@@ -134,22 +157,78 @@ const Sidebar: FC<SidebarProps> = ({
           <div className='mb-4'>
             <h6>Price Range</h6>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' /> <span>$70,000</span>
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedPriceRange.includes('$70,000')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    '$70,000',
+                    setSelectedPriceRange,
+                    selectedPriceRange
+                  )
+                }
+              />{' '}
+              <span>$70,000</span>
             </div>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedPriceRange.includes('$70,000 - $150,000')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    '$70,000 - $150,000',
+                    setSelectedPriceRange,
+                    selectedPriceRange
+                  )
+                }
+              />
               <span>$70,000 - $150,000</span>
             </div>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedPriceRange.includes('$150,000 - $500,000')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    '$150,000 - $500,000',
+                    setSelectedPriceRange,
+                    selectedPriceRange
+                  )
+                }
+              />
               <span>$150,000 - $500,000</span>
             </div>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedPriceRange.includes('$150,000 - $1,000,000')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    '$150,000 - $1,000,000',
+                    setSelectedPriceRange,
+                    selectedPriceRange
+                  )
+                }
+              />
               <span>$150,000 - $1,000,000</span>
             </div>
             <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />{' '}
+              <Checkbox
+                defaultChecked
+                crossOrigin=''
+                checked={selectedPriceRange.includes('$1,000,000+')}
+                onChange={() =>
+                  handleCheckboxChange(
+                    '$1,000,000+',
+                    setSelectedPriceRange,
+                    selectedPriceRange
+                  )
+                }
+              />{' '}
               <span>$1,000,000+</span>
             </div>
           </div>
