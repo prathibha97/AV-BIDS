@@ -1,141 +1,23 @@
-import Sidebar from "./components/sidebar";
-import MobileSidebar from "./components/mobileSidebar";
-import EventLists from "./components/eventLists";
-import { Select, Option, Button } from "@material-tailwind/react";
+import { Option, Select } from '@material-tailwind/react';
+import EventLists from './components/eventLists';
+import Sidebar from './components/sidebar';
 
-export function index() {
+export function Index() {
   return (
     <div>
       <div>
-        <h2 className="text-center text-primary mb-16">Event Listings</h2>
+        <h2 className='text-center text-primary mb-16'>Event Listings</h2>
       </div>
 
-      <div className="flex justify-center gap-8">
-        {/* <Card className="h-[calc(125vh-2rem)] w-full max-w-[20rem] p-4  bg-[#F3F1FB]">
-          <div className="mb-2 p-4">
-            <div className="mb-4">
-              <h6>Event Type</h6>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />{" "}
-                <span>In-Person</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" /> <span>Virtual</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" /> <span>Hybrid</span>
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h6>Event Categories</h6>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />{" "}
-                <span>Corporate</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />{" "}
-                <span>Non-Corporate</span>
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h6 className="mb-4">Coporate Categories</h6>
-              <div className="w-72">
-                <Select label="Select Version">
-                  <Option>All</Option>
-                  <Option>Awards</Option>
-                  <Option>Banquet</Option>
-                  <Option>Board Meeting</Option>
-                  <Option>Breakout Session</Option>
-                </Select>
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h6>Price Range</h6>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" /> <span>$70,000</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>$70,000 - $150,000</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>$150,000 - $500,000</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>$150,000 - $1,000,000</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />{" "}
-                <span>$1,000,000+</span>
-              </div>
-            </div>
-
-            <div>
-              <h6>Audience Size </h6>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" /> <span>Any</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>10 - 100</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>100 - 250</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>250 - 750</span>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>750 - 1,500</span>
-              </div>
-
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>1,500 - 5,000</span>
-              </div>
-
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>5,000 - 10,000</span>
-              </div>
-
-              <div className="flex  items-center">
-                <Checkbox defaultChecked crossOrigin="" />
-                <span>over 10,000</span>
-              </div>
-            </div>
-
-            <div>
-              <Button
-                variant="filled"
-                color="indigo"
-                size="sm"
-                className="rounded-md  py-4 mt-4 px-8 bg-primary font-poppins"
-              >
-                <span className="text-white">Apply Filters</span>
-              </Button>
-            </div>
-          </div>
-        </Card> */}
-
+      <div className='flex justify-center gap-8'>
         <div>{<Sidebar />}</div>
 
         <div>
-          <div className="flex items-center justify-between mb-6 mx-4">
-            <div>{/* <MobileSidebar /> */}</div>
+          <div className='flex items-center justify-between mb-6 mx-4'>
+            <p className='text-[14px]'>500 events Found</p>
 
-            <p className="text-[14px]">500 events Found</p>
-
-            <div className="w-[200px] ">
-              <Select label="Sort: Ending Soonest ">
+            <div className='w-[200px] '>
+              <Select label='Sort: Ending Soonest '>
                 <Option>Ending Soonest</Option>
                 <Option>Budget Lowest</Option>
                 <Option>Budget Highest</Option>
@@ -157,4 +39,4 @@ export function index() {
   );
 }
 
-export default index;
+export default Index;

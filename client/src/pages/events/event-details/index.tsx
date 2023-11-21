@@ -17,11 +17,9 @@ import OtherEvents from './components/other-events';
 
 export function Index() {
   const { id } = useParams();
-  //@ts-ignore
-  const [event, setEvent] = useState<Event>({});
+  const [event, setEvent] = useState<Event | null>(null);
   const [userEvents, setUserEvents] = useState<Event[]>([]);
-  //@ts-ignore
-  const [planner, setPlanner] = useState<UserWithReviewWithEvent>({});
+  const [planner, setPlanner] = useState<UserWithReviewWithEvent | null>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchEventDetails = async () => {
@@ -142,7 +140,7 @@ export function Index() {
               </div>
               <div className='bg-[#F3F1FB] p-6 mb-16 rounded-lg'>
                 <h2 className='text-[22px] mb-4'>Description</h2>
-                <div dangerouslySetInnerHTML={{ __html: event.description }} />
+                <div dangerouslySetInnerHTML={{ __html: event?.description! }} />
               </div>
               <div>
                 <h2 className='text-[22px] mb-4'>
