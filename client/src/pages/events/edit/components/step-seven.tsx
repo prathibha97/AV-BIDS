@@ -1,6 +1,6 @@
-import { Textarea } from '@material-tailwind/react';
-import { FC, useEffect, useState } from 'react';
-import CardDetails from './card-details';
+import { Textarea } from "@material-tailwind/react";
+import { FC, useEffect, useState } from "react";
+import CardDetails from "./card-details";
 
 interface StepSevenProps {
   formData: any;
@@ -31,19 +31,21 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
   const [Laptops_PC, setLaptops_PC] = useState(formData.Laptops_PC || 0);
   const [Laptops_Mac, setLaptops_Mac] = useState(formData.Laptops_Mac || 0);
 
-  const [otherRequirements, setOtherRequirements] = useState<Requirement[]>(formData.otherRequirements || [
-    { label: '', count: 0 },
-    { label: '', count: 0 },
-    { label: '', count: 0 },
-    { label: '', count: 0 },
-    { label: '', count: 0 },
-  ]);
+  const [otherRequirements, setOtherRequirements] = useState<Requirement[]>(
+    formData.otherRequirements || [
+      { label: "", count: 0 },
+      { label: "", count: 0 },
+      { label: "", count: 0 },
+      { label: "", count: 0 },
+      { label: "", count: 0 },
+    ]
+  );
 
-  const [comments, setComments] = useState(formData.comments || '');
+  const [comments, setComments] = useState(formData.comments || "");
 
   useEffect(() => {
     // Update formData when otherRequirements changes
-    updateFormData('otherRequirements', otherRequirements);
+    updateFormData("otherRequirements", otherRequirements);
   }, [otherRequirements]);
 
   const handleAdjust = (
@@ -53,7 +55,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
   ) => {
     let updatedValue: number | Requirement[] = 0;
 
-    if (field === 'count' && typeof value === 'number' && index !== undefined) {
+    if (field === "count" && typeof value === "number" && index !== undefined) {
       setOtherRequirements((prevRequirements) => {
         const updatedRequirements = prevRequirements.map((requirement, i) => {
           if (index !== undefined && i === index) {
@@ -66,13 +68,13 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
         });
 
         // Pass the correct label to updateFormData directly from the updated state
-        updateFormData('otherRequirements', updatedRequirements);
+        updateFormData("otherRequirements", updatedRequirements);
 
         return updatedRequirements;
       });
     } else if (
-      field === 'label' &&
-      typeof value === 'string' &&
+      field === "label" &&
+      typeof value === "string" &&
       index !== undefined
     ) {
       setOtherRequirements((prevRequirements) => {
@@ -86,43 +88,42 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
           return requirement;
         });
 
-        updateFormData('otherRequirements', updatedRequirements);
+        updateFormData("otherRequirements", updatedRequirements);
 
         return updatedRequirements;
       });
-    }
-    else if (field === 'comments' && typeof value === 'string') {
+    } else if (field === "comments" && typeof value === "string") {
       setComments(value);
       // @ts-ignore
-      updateFormData('comments', value);
+      updateFormData("comments", value);
     } else {
       switch (field) {
-        case 'Audio_Tech':
+        case "Audio_Tech":
           // @ts-ignore
           updatedValue = Math.max(0, Audio_Tech + value);
           setAudio_Tech(updatedValue);
           break;
-        case 'Video_Tech':
+        case "Video_Tech":
           // @ts-ignore
           updatedValue = Math.max(0, Video_Tech + value);
           setVideo_Tech(updatedValue);
           break;
-        case 'Lighting_Tech':
+        case "Lighting_Tech":
           // @ts-ignore
           updatedValue = Math.max(0, Lighting_Tech + value);
           setLighting_Tech(updatedValue);
           break;
-        case 'Project_Manager':
+        case "Project_Manager":
           // @ts-ignore
           updatedValue = Math.max(0, Project_Manager + value);
           setProject_Manager(updatedValue);
           break;
-        case 'Mobile_Hotspot_up_to_15_devices':
+        case "Mobile_Hotspot_up_to_15_devices":
           // @ts-ignore
           updatedValue = Math.max(0, Mobile_Hotspot_up_to_15_devices + value);
           setMobile_Hotspot_up_to_15_devices(updatedValue);
           break;
-        case 'Event_WIFI_Network_more_than_15_devices':
+        case "Event_WIFI_Network_more_than_15_devices":
           updatedValue = Math.max(
             0,
             // @ts-ignore
@@ -130,12 +131,12 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
           );
           setEvent_WIFI_Network_more_than_15_devices(updatedValue);
           break;
-        case 'Laptops_PC':
+        case "Laptops_PC":
           // @ts-ignore
           updatedValue = Math.max(0, Laptops_PC + value);
           setLaptops_PC(updatedValue);
           break;
-        case 'Laptops_Mac':
+        case "Laptops_Mac":
           // @ts-ignore
           updatedValue = Math.max(0, Laptops_Mac + value);
           setLaptops_Mac(updatedValue);
@@ -151,91 +152,91 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Staff</p>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Staff</p>
         <CardDetails
-          name='Audio Tech'
+          name="Audio Tech"
           value={Audio_Tech}
-          onDecrease={() => handleAdjust('Audio_Tech', -1)}
-          onIncrease={() => handleAdjust('Audio_Tech', 1)}
+          onDecrease={() => handleAdjust("Audio_Tech", -1)}
+          onIncrease={() => handleAdjust("Audio_Tech", 1)}
         />
         <CardDetails
-          name='Video Tech'
+          name="Video Tech"
           value={Video_Tech}
-          onDecrease={() => handleAdjust('Video_Tech', -1)}
-          onIncrease={() => handleAdjust('Video_Tech', 1)}
+          onDecrease={() => handleAdjust("Video_Tech", -1)}
+          onIncrease={() => handleAdjust("Video_Tech", 1)}
         />
         <CardDetails
-          name='Lighting Tech'
+          name="Lighting Tech"
           value={Lighting_Tech}
-          onDecrease={() => handleAdjust('Lighting_Tech', -1)}
-          onIncrease={() => handleAdjust('Lighting_Tech', 1)}
+          onDecrease={() => handleAdjust("Lighting_Tech", -1)}
+          onIncrease={() => handleAdjust("Lighting_Tech", 1)}
         />
         <CardDetails
-          name='Project Manager'
+          name="Project Manager"
           value={Project_Manager}
-          onDecrease={() => handleAdjust('Project_Manager', -1)}
-          onIncrease={() => handleAdjust('Project_Manager', 1)}
+          onDecrease={() => handleAdjust("Project_Manager", -1)}
+          onIncrease={() => handleAdjust("Project_Manager", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Scenic</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Scenic</p>
         <CardDetails
-          name='Mobile Hotspot (up to 15 devices)'
+          name="Mobile Hotspot (up to 15 devices)"
           value={Mobile_Hotspot_up_to_15_devices}
-          onDecrease={() => handleAdjust('Mobile_Hotspot_up_to_15_devices', -1)}
-          onIncrease={() => handleAdjust('Mobile_Hotspot_up_to_15_devices', 1)}
+          onDecrease={() => handleAdjust("Mobile_Hotspot_up_to_15_devices", -1)}
+          onIncrease={() => handleAdjust("Mobile_Hotspot_up_to_15_devices", 1)}
         />
         <CardDetails
-          name='Event WIFI Network (more than 15 devices)'
+          name="Event WIFI Network (more than 15 devices)"
           value={Event_WIFI_Network_more_than_15_devices}
           onDecrease={() =>
-            handleAdjust('Event_WIFI_Network_more_than_15_devices', -1)
+            handleAdjust("Event_WIFI_Network_more_than_15_devices", -1)
           }
           onIncrease={() =>
-            handleAdjust('Event_WIFI_Network_more_than_15_devices', 1)
+            handleAdjust("Event_WIFI_Network_more_than_15_devices", 1)
           }
         />
         <CardDetails
-          name='Laptops-PC'
+          name="Laptops-PC"
           value={Laptops_PC}
-          onDecrease={() => handleAdjust('Laptops_PC', -1)}
-          onIncrease={() => handleAdjust('Laptops_PC', 1)}
+          onDecrease={() => handleAdjust("Laptops_PC", -1)}
+          onIncrease={() => handleAdjust("Laptops_PC", 1)}
         />
         <CardDetails
-          name='Laptops-Mac'
+          name="Laptops-Mac"
           value={Laptops_Mac}
-          onDecrease={() => handleAdjust('Laptops_Mac', -1)}
-          onIncrease={() => handleAdjust('Laptops_Mac', 1)}
+          onDecrease={() => handleAdjust("Laptops_Mac", -1)}
+          onIncrease={() => handleAdjust("Laptops_Mac", 1)}
         />
       </div>
 
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Other Requirements</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Other Requirements</p>
         {otherRequirements.map((requirement, index) => (
           <RequirementInput
             key={index}
             label={`Requirement ${index + 1}`}
             requirement={requirement}
             onRequirementChange={(newRequirement) => {
-              handleAdjust('label', newRequirement.label, index);
-              handleAdjust('count', newRequirement.count, index);
+              handleAdjust("label", newRequirement.label, index);
+              handleAdjust("count", newRequirement.count, index);
             }}
           />
         ))}
       </div>
 
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Comments</p>
-        <p className='text-[15px] font-medium mb-3 '>Description</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Comments</p>
+        <p className="text-[15px] font-medium mb-3 ">Description</p>
 
         <div>
           <Textarea
-            label='Description'
-            className='bg-white border border-[#E4E4E4]'
+            label="Description"
+            className="bg-white border border-[#E4E4E4]"
             value={comments}
-            onChange={(e) => handleAdjust('comments', e.target.value)}
+            onChange={(e) => handleAdjust("comments", e.target.value)}
           />
         </div>
       </div>
@@ -269,27 +270,27 @@ function RequirementInput(props: RequirementInputProps) {
   };
 
   return (
-    <div className='flex items-center space-x-8'>
+    <div className="flex items-center space-x-8">
       <input
-        className='border rounded-lg p-2 mb-4 border-[#E4E4E4]'
+        className="border rounded-lg p-2 mb-4 border-[#E4E4E4]"
         placeholder={label}
         value={requirement.label}
         onChange={(e) => handleLabelChange(e.target.value)}
       />
 
-      <div className='flex items-center gap-4'>
-        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]'>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]">
           <button
-            type='button'
+            type="button"
             onClick={() => handleCountChange(requirement.count - 1)}
           >
             -
           </button>
         </div>
         <p>{requirement.count}</p>
-        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]'>
+        <div className="flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]">
           <button
-            type='button'
+            type="button"
             onClick={() => handleCountChange(requirement.count + 1)}
           >
             +

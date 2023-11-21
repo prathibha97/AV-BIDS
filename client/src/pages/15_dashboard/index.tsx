@@ -68,7 +68,9 @@ function index() {
                   size="sm"
                   className="rounded-md w-41 py-2 mt-4 px-4 bg-primary font-poppins"
                 >
-                  <span className="text-white">Upload New Photo</span>
+                  <span className="text-white normal-case">
+                    Upload New Photo
+                  </span>
                 </Button>
               </div>
             </div>

@@ -80,24 +80,24 @@ const EditProfile: FC<EditProfileProps> = () => {
                 src={
                   user?.imageUrl
                     ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`
-                    : ''
+                    : ""
                 }
-                alt='avatar'
-                className='object-scale-down w-[67px]'
+                alt="avatar"
+                className="object-scale-down w-[67px]"
               />
               <Button
                 variant="filled"
                 color="indigo"
                 size="sm"
-                className="rounded-md w-52 py-2 mt-4 px-2 bg-primary font-poppins"
+                className="rounded-md w-40 py-2 mt-4 px-2 bg-primary font-poppins"
               >
-                <label className='text-white'>
+                <label className="text-white normal-case text-center">
                   Upload New Photo
                   <input
-                    type='file'
-                    accept='image/*'
+                    type="file"
+                    accept="image/*"
                     onChange={onFileChange}
-                    className='hidden'
+                    className="hidden"
                   />
                 </label>
               </Button>
@@ -106,7 +106,9 @@ const EditProfile: FC<EditProfileProps> = () => {
           <div></div>
           <div>
             <div>
-              <p className="text-[16px] mb-2">First Name</p>
+              <p className="text-[16px] mb-2">
+                Full Name <span className="text-[#DE5753]">*</span>
+              </p>
               <div className="w-72 bg-input_background rounded-full">
                 <Input
                   className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
@@ -115,7 +117,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
                   crossOrigin=""
-                  placeholder="Username"
+                  placeholder="John Smith"
                   {...register("firstName")}
                 />
               </div>
@@ -131,7 +133,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                   className: "hidden",
                 }}
                 containerProps={{ className: "min-w-[100px]" }}
-                label="Username"
+                placeholder="Smith"
                 crossOrigin=""
                 {...register("lastName")}
               />
@@ -165,7 +167,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="Anita Meetings LLC"
                   crossOrigin=""
                   {...register("company")}
                 />
@@ -174,7 +176,9 @@ const EditProfile: FC<EditProfileProps> = () => {
           </div>
           <div>
             <div>
-              <p className="text-[16px] mb-2">Phone Number</p>
+              <p className="text-[16px] mb-2">
+                Phone Number <span className="text-[#DE5753]">*</span>
+              </p>
               <div className="w-72 bg-input_background rounded-full">
                 <Input
                   className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
@@ -182,7 +186,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="+880 01723801729"
                   crossOrigin=""
                   {...register("phone")}
                 />
@@ -199,7 +203,7 @@ const EditProfile: FC<EditProfileProps> = () => {
                     className: "hidden",
                   }}
                   containerProps={{ className: "min-w-[100px]" }}
-                  label="Username"
+                  placeholder="www.anitameetings.com"
                   crossOrigin=""
                   {...register("website")}
                 />
@@ -218,7 +222,7 @@ const EditProfile: FC<EditProfileProps> = () => {
             type="submit"
             className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
           >
-            <span className="text-white">Submit</span>
+            <span className="text-white normal-case">Submit</span>
           </Button>
         </div>
       </form>
