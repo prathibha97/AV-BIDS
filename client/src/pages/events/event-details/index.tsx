@@ -31,7 +31,7 @@ export function Index() {
     } catch (error) {
       console.error("Error fetching event details:", error);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
