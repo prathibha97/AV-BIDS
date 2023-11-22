@@ -31,7 +31,14 @@ const createNewEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
   try {
-    const { eventType, eventCategory, eventSubCategory, priceRange, audienceSize } = req.query;
+    const {
+      eventType,
+      eventCategory,
+      eventSubCategory,
+      priceRange,
+      audienceSize,
+      sortOption,
+    } = req.query;
 
     // Construct a filter object based on provided parameters
     const filters = {};
@@ -39,7 +46,9 @@ const getAllEvents = async (req, res) => {
     if (eventCategory) filters.eventCategory = eventCategory;
     if (priceRange) filters.eventBudget = priceRange;
     if (eventSubCategory) filters.eventSubCategory = eventSubCategory;
-    // Add more filters as needed...
+
+    // Add sortOption to the filters
+    if (sortOption) filters.sortOption = sortOption;
 
     // Fetch events based on the constructed filters
     const events = await getFilteredEvents(filters, req);

@@ -6,6 +6,12 @@ import {
   Select,
 } from '@material-tailwind/react';
 import { FC } from 'react';
+import {
+  CheckboxItem,
+  audienceSizeCheckboxes,
+  checkboxes,
+  priceRangeCheckboxes,
+} from '../../../constants';
 
 interface SidebarProps {
   selectedEventType: string[];
@@ -34,22 +40,34 @@ const Sidebar: FC<SidebarProps> = ({
   selectedEventSubCategory,
   setSelectedEventSubCategory,
 }) => {
-  const handleCheckboxChange = (value: any, setState: any, state: any) => {
-    console.log('Before Update:', state);
-    const updatedState = [...state];
-    const index = updatedState.indexOf(value);
-
-    if (index === -1) {
-      updatedState.push(value);
-    } else {
-      updatedState.splice(index, 1);
-    }
-    console.log('After Update:', updatedState);
+  const handleCheckboxChange = (
+    value: string,
+    setState: any,
+    state: string[]
+  ) => {
+    const updatedState = state.includes(value)
+      ? state.filter((item) => item !== value)
+      : [...state, value];
     setState(updatedState);
   };
 
+  const renderCheckboxes = (
+    checkboxData: CheckboxItem[],
+    state: string[],
+    setState: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    return checkboxData.map(({ value, label }) => (
+      <div className='flex items-center' key={value}>
+        <Checkbox
+          crossOrigin=''
+          checked={state.includes(value)}
+          onChange={() => handleCheckboxChange(value, setState, state)}
+        />
+        <span>{label}</span>
+      </div>
+    ));
+  };
 
-  // Apply filters button click handler
   const handleApplyFilters = () => {
     applyFilters({
       eventType: selectedEventType,
@@ -59,6 +77,7 @@ const Sidebar: FC<SidebarProps> = ({
       audienceSize: selectedAudienceSize,
     });
   };
+
   return (
     <div className='mb-6'>
       <h2 className='text-primary text-[16px] mb-2'>Filters: </h2>
@@ -66,95 +85,33 @@ const Sidebar: FC<SidebarProps> = ({
         <div className='mb-2 p-4'>
           <div className='mb-4'>
             <h6>Event Type</h6>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedEventType.includes('In-Person')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    'In-Person',
-                    setSelectedEventType,
-                    selectedEventType
-                  )
-                }
-              />{' '}
-              <span>In-Person</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedEventType.includes('Virtual')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    'Virtual',
-                    setSelectedEventType,
-                    selectedEventType
-                  )
-                }
-              />{' '}
-              <span>Virtual</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedEventType.includes('Hybrid')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    'Hybrid',
-                    setSelectedEventType,
-                    selectedEventType
-                  )
-                }
-              />{' '}
-              <span>Hybrid</span>
-            </div>
+            {renderCheckboxes(
+              checkboxes,
+              selectedEventType,
+              setSelectedEventType
+            )}
           </div>
 
           <div className='mb-4'>
             <h6>Event Categories</h6>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedEventCategory.includes('Corporate')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    'Corporate',
-                    setSelectedEventCategory,
-                    selectedEventCategory
-                  )
-                }
-              />{' '}
-              <span>Corporate</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedEventCategory.includes('Non-Corporate')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    'Non-Corporate',
-                    setSelectedEventCategory,
-                    selectedEventCategory
-                  )
-                }
-              />{' '}
-              <span>Non-Corporate</span>
-            </div>
+            {renderCheckboxes(
+              [
+                { value: 'Corporate', label: 'Corporate' },
+                { value: 'Non-Corporate', label: 'Non-Corporate' },
+              ],
+              selectedEventCategory,
+              setSelectedEventCategory
+            )}
           </div>
 
           <div className='mb-4'>
-            <h6 className='mb-4'>Coporate Categories</h6>
+            <h6 className='mb-4'>Corporate Categories</h6>
             <div className='w-full '>
               <Select
                 label='Select Sub Category'
                 className='bg-white'
                 value={selectedEventSubCategory}
-                onChange={(value:any) => setSelectedEventSubCategory(value)}
+                onChange={(value: any) => setSelectedEventSubCategory(value)}
               >
                 <Option value=''>All</Option>
                 <Option value='Awards'>Awards</Option>
@@ -167,119 +124,20 @@ const Sidebar: FC<SidebarProps> = ({
 
           <div className='mb-4'>
             <h6>Price Range</h6>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedPriceRange.includes('$70,000')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    '$70,000',
-                    setSelectedPriceRange,
-                    selectedPriceRange
-                  )
-                }
-              />{' '}
-              <span>$70,000</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedPriceRange.includes('$70,000 - $150,000')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    '$70,000 - $150,000',
-                    setSelectedPriceRange,
-                    selectedPriceRange
-                  )
-                }
-              />
-              <span>$70,000 - $150,000</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedPriceRange.includes('$150,000 - $500,000')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    '$150,000 - $500,000',
-                    setSelectedPriceRange,
-                    selectedPriceRange
-                  )
-                }
-              />
-              <span>$150,000 - $500,000</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedPriceRange.includes('$150,000 - $1,000,000')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    '$150,000 - $1,000,000',
-                    setSelectedPriceRange,
-                    selectedPriceRange
-                  )
-                }
-              />
-              <span>$150,000 - $1,000,000</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox
-                defaultChecked
-                crossOrigin=''
-                checked={selectedPriceRange.includes('$1,000,000+')}
-                onChange={() =>
-                  handleCheckboxChange(
-                    '$1,000,000+',
-                    setSelectedPriceRange,
-                    selectedPriceRange
-                  )
-                }
-              />{' '}
-              <span>$1,000,000+</span>
-            </div>
+            {renderCheckboxes(
+              priceRangeCheckboxes,
+              selectedPriceRange,
+              setSelectedPriceRange
+            )}
           </div>
 
           <div>
             <h6>Audience Size </h6>
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' /> <span>Any</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>10 - 100</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>100 - 250</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>250 - 750</span>
-            </div>
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>750 - 1,500</span>
-            </div>
-
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>1,500 - 5,000</span>
-            </div>
-
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>5,000 - 10,000</span>
-            </div>
-
-            <div className='flex  items-center'>
-              <Checkbox defaultChecked crossOrigin='' />
-              <span>over 10,000</span>
-            </div>
+            {renderCheckboxes(
+              audienceSizeCheckboxes,
+              selectedAudienceSize,
+              setSelectedAudienceSize
+            )}
           </div>
 
           <div>

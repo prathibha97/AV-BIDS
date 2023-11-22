@@ -76,3 +76,33 @@ export const eventSubCategories = [
   { label: 'Board Meeting', value: 'Board Meeting' },
   { label: 'Breakout Session', value: 'Breakout Session' },
 ] as const;
+
+export interface CheckboxItem {
+  value: string;
+  label: string;
+}
+
+export const checkboxes: CheckboxItem[] = [
+  { value: 'In-Person', label: 'In-Person' },
+  { value: 'Virtual', label: 'Virtual' },
+  { value: 'Hybrid', label: 'Hybrid' },
+];
+
+export const priceRangeCheckboxes: CheckboxItem[] = [
+  { label: '<$70,000', value: '<$70,000' },
+  { label: '$70,000 - $150,000', value: '$70,000 - $150,000' },
+  { label: '$150,000 - $500,000', value: '$150,000 - $500,000' },
+  { label: '$500,000 - $1,000,000', value: '$500,000 - $1,000,000' },
+  { label: '$1,000,000+', value: '$1,000,000+' },
+];
+
+export const audienceSizeCheckboxes: CheckboxItem[] = [
+  { value: 'Any', label: 'Any' },
+  { value: '10-100', label: '10 - 100' },
+  { value: '100-250', label: '100 - 250' },
+  { value: '250-750', label: '250 - 750' },
+  { value: '750-1500', label: '750 - 1,500' },
+  { value: '1500-5000', label: '1,500 - 5,000' },
+  { value: '5000-10000', label: '5,000 - 10,000' },
+  { value: '10000+', label: 'over 10,000' },
+];

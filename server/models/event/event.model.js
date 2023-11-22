@@ -1,5 +1,5 @@
 const Event = require('./event.mongo');
-const User = require('../user/user.mongo')
+const User = require('../user/user.mongo');
 
 const createEvent = async (values, userId) => {
   try {
@@ -24,11 +24,9 @@ const createEvent = async (values, userId) => {
   }
 };
 
-
 // const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
 
 const getFilteredEvents = async (filters, req) => {
-  // Apply caching to the filtered events
   return Event.find(filters).cache({ key: req.user.id });
 };
 
@@ -36,7 +34,7 @@ const getEventsByUser = (id, req) =>
   Event.find({ createdBy: id }).cache({ key: req.user.id });
 
 const getEventsById = (id, req) =>
-    Event.findById({ _id: id }).cache({ key: req.user.id });
+  Event.findById({ _id: id }).cache({ key: req.user.id });
 
 const updateEvent = (id, updates) => {
   return Event.findOneAndUpdate({ _id: id }, updates, {
