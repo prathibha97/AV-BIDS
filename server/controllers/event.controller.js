@@ -6,6 +6,7 @@ const {
   updateEvent,
   removeEvent,
 } = require('../models/event/event.model');
+const { getUserById } = require('../models/user/user.model');
 
 /* 
 ?@desc   Create a new event
@@ -127,6 +128,44 @@ const remove = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Save event
+*@route  POST /api/events/save/:eventId
+*@access Private
+*/
+const saveEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const { _id } = req.user;
+
+    // Check if the user exists
+    const user = await getUserById(_id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the event exists
+    const event = await getEventsById(eventId, req);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Check if the event is already saved by the user
+    if (user.savedEvents.includes(eventId)) {
+      return res.status(400).json({ message: 'Event already saved' });
+    }
+
+    // Save the event to the user's savedEvents array
+    user.savedEvents.push(eventId);
+    await user.save();
+
+    res.status(200).json({ message: 'Event saved successfully' });
+  } catch (error) {
+    console.error('Failed to save event - ', error.message);
+    return res.status(500).json('Internal Server Error');
+  }
+};
+
 module.exports = {
   createNewEvent,
   getAllEvents,
@@ -134,4 +173,5 @@ module.exports = {
   getEvent,
   update,
   remove,
+  saveEvent,
 };

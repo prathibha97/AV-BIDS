@@ -12,7 +12,8 @@ const getUserById = (id) =>
     .select('-refreshToken -password')
     .populate('events')
     .populate('members')
-    .populate('reviews');
+    .populate('reviews')
+    .populate('savedEvents');
 
 const getUserByEmail = (email) => User.findOne({ email }).populate('members');
 

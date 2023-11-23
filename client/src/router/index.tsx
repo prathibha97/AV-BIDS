@@ -66,14 +66,6 @@ function Router() {
       routes: [{ element: lazy(() => import('../pages/7_contact_us')) }],
     },
 
-    {
-      path: '/10_event_details_page',
-      layout: HomeLayout,
-      routes: [
-        { element: lazy(() => import('../pages/10_event_details_page')) },
-      ],
-    },
-
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
