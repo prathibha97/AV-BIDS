@@ -1,10 +1,10 @@
 import EVENTDETAILS_03 from "../../../assets/13_event_details_page/Rectangle 3759.png";
 import EVENTDETAILS_02 from "../../../assets/13_event_details_page/carbon_time.png";
 import EVENTDETAILS_01 from "../../../assets/13_event_details_page/exclamation-circle.png";
-
+import { MdOutlineCancel } from "react-icons/md";
 import SPAM_ICON from "../../../assets/13_event_details_page/spam.png";
 
-import { Button, Textarea } from "@material-tailwind/react";
+import { Button, Textarea, Dialog } from "@material-tailwind/react";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import EventInfo from "./components/event-info";
 import EventPlanner from "./components/event-planner";
 import OtherEvents from "./components/other-events";
 import Spinner from "../../../components/spinner";
+import SubmitProposal from "./components/SubmitProposal";
 
 export function Index() {
   const { id } = useParams();
@@ -22,6 +23,9 @@ export function Index() {
   const [userEvents, setUserEvents] = useState<Event[]>([]);
   const [planner, setPlanner] = useState<UserWithReviewWithEvent | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
 
   const fetchEventDetails = async () => {
     try {
@@ -176,6 +180,20 @@ export function Index() {
               <OtherEvents events={userEvents} />
             </div>
           </section>
+          {/* ///////////////////////////////// */}
+          <section>
+            <Dialog open={open} handler={handleOpen} size="xs">
+              <div className="flex justify-end p-3">
+                <MdOutlineCancel
+                  size={32}
+                  className="text-black cursor-pointer"
+                  onClick={handleOpen}
+                />
+              </div>
+              <SubmitProposal />
+            </Dialog>
+          </section>
+          {/* //////////////////////////////// */}
         </div>
         <div className="flex justify-center items-center">
           <section>
@@ -185,6 +203,7 @@ export function Index() {
                 color="indigo"
                 size="sm"
                 className="rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins"
+                onClick={handleOpen}
               >
                 <span className="text-white normal-case text-[14px]">
                   Submit Proposal

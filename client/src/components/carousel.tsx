@@ -1,6 +1,6 @@
-// src/Carousel.js
-import React from "react";
-import Slider from "react-slick";
+// src/Carousel.tsx
+import React, { RefObject } from "react";
+import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ICON from "../../src/assets/icon.png";
@@ -8,17 +8,26 @@ import {
   MdOutlineCalendarMonth,
   MdLens,
   MdBookmarkBorder,
-} from "react-icons/md";
-
-import {
-  MdAccessTime,
   MdArrowBack,
   MdArrowForward,
-  MdCalendarMonth,
 } from "react-icons/md";
 
-const Carousel = ({ data }) => {
-  const settings = {
+interface CarouselItem {
+  title: string;
+  date: string;
+  title_two: string;
+  location: string;
+  hybrid: string;
+  price: string;
+  button: string;
+}
+
+interface CarouselProps {
+  data: CarouselItem[];
+}
+
+const Carousel: React.FC<CarouselProps> = ({ data }) => {
+  const settings: Settings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -44,33 +53,23 @@ const Carousel = ({ data }) => {
     ],
   };
 
-  const sliderRef = React.createRef();
+  const sliderRef: RefObject<Slider> = React.createRef();
 
   const nextSlide = () => {
-    sliderRef.current.slickNext();
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
   };
 
   const prevSlide = () => {
-    sliderRef.current.slickPrev();
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
   };
 
   return (
     <div>
-      {/* <div className="mt-4 text-center">
-        <button
-          onClick={prevSlide}
-          className="mr-2 px-4 py-2 bg-gray-500 text-white rounded"
-        >
-          Previous
-        </button>
-        <button
-          onClick={nextSlide}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Next
-        </button>
-      </div> */}
-
+      {/* Buttons for navigation */}
       <div className="flex items-center justify-end gap-4 mb-2">
         <div className="hidden sm:block">
           <div className="flex  items-center justify-center rounded-full w-12 h-12 bg-primary ">
@@ -89,6 +88,7 @@ const Carousel = ({ data }) => {
         </div>
       </div>
 
+      {/* Slider component */}
       <Slider ref={sliderRef} {...settings}>
         {data.map((item, index) => (
           <div key={index} className="p-4">
@@ -96,12 +96,7 @@ const Carousel = ({ data }) => {
             <div className="bg-[#F3F1FB] w-full h-[360px] flex-grow rounded-lg aspect-card p-4">
               <div className="flex items-center justify-between">
                 <div className="flex-grow px-4">
-                  {/* <img
-                    src={item.imgSrc}
-                    alt=""
-                    className="w-8 aspect-square rounded-full"
-                  /> */}
-
+                  {/* Card content */}
                   <div className="flex items-center gap-3 mb-6">
                     <img src={ICON} alt="aad" className="" />
                     <div className="grow">
@@ -133,14 +128,6 @@ const Carousel = ({ data }) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="my-4">
-                <h6>{item.category}</h6>
-                <p className="text-xs">
-                  {item.location}{" "}
-                  <span className="text-secondary text-xl -mb-2">•</span>{" "}
-                  {item.daysLeft}
-                </p>
-              </div> */}
             </div>
           </div>
         ))}
