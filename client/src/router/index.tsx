@@ -12,129 +12,135 @@ import Layout_02 from "../layout/layout_02";
 function Router() {
   const routes: any = [
     {
-      path: "/",
+      path: '/',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/home")) }],
+      routes: [{ element: lazy(() => import('../pages/home')) }],
     },
     {
-      path: "/event-planner",
+      path: '/event-planner',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/event_planner")) }],
+      routes: [{ element: lazy(() => import('../pages/event_planner')) }],
     },
 
     {
-      path: "/16_saved_events",
+      path: '/16_saved_events',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/16_saved_events")) }],
+      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
     },
 
     {
-      path: "/av_providers",
+      path: '/av_providers',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/av_providers")) }],
+      routes: [{ element: lazy(() => import('../pages/av_providers')) }],
     },
     {
-      path: "/3_services",
+      path: '/3_services',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/3_services")) }],
-    },
-
-    {
-      path: "/4_event_categories",
-      layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/4_event_categories")) }],
+      routes: [{ element: lazy(() => import('../pages/3_services')) }],
     },
 
     {
-      path: "/sign-up",
+      path: '/4_event_categories',
+      layout: HomeLayout,
+      routes: [{ element: lazy(() => import('../pages/4_event_categories')) }],
+    },
+
+    {
+      path: '/sign-up',
       layout: EmptyLayout,
       routes: [
         {
-          element: lazy(() => import("../pages/auth/sign-up")),
+          element: lazy(() => import('../pages/auth/sign-up')),
         },
       ],
     },
 
     {
-      path: "/8_about_us",
+      path: '/8_about_us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/8_about_us")) }],
+      routes: [{ element: lazy(() => import('../pages/8_about_us')) }],
     },
 
     {
-      path: "/sign-in",
+      path: '/sign-in',
       layout: EmptyLayout,
-      routes: [{ element: lazy(() => import("../pages/auth/sign-in")) }],
+      routes: [{ element: lazy(() => import('../pages/auth/sign-in')) }],
     },
 
     {
-      path: "/7_contact_us",
+      path: '/7_contact_us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/7_contact_us")) }],
+      routes: [{ element: lazy(() => import('../pages/7_contact_us')) }],
     },
 
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
-      path: "/dashboard",
+      path: '/dashboard',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/dashboard")) }],
+      routes: [{ element: lazy(() => import('../pages/dashboard')) }],
     },
 
     {
-      path: "/events",
+      path: '/events',
       layout: HomeLayout,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/events")) }],
+      routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
-      path: "/events/new",
+      path: '/events/new',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/events/new")) }],
+      routes: [{ element: lazy(() => import('../pages/events/new')) }],
     },
     {
-      path: "/events/my-events",
+      path: '/events/my-events',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/events/my-events")) }],
+      routes: [{ element: lazy(() => import('../pages/events/my-events')) }],
     },
     {
-      path: "/events/edit/:id",
+      path: '/events/edit/:id',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/events/edit")) }],
+      routes: [{ element: lazy(() => import('../pages/events/edit')) }],
     },
     {
-      path: "/events/:id",
+      path: '/events/:id',
       layout: Layout_02,
       guard: RequireAuth,
       routes: [
-        { element: lazy(() => import("../pages/events/event-details")) },
+        { element: lazy(() => import('../pages/events/event-details')) },
       ],
     },
     {
-      path: "/messages",
+      path: '/events/saved-events',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/messages")) }],
+      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
+    },
+    {
+      path: '/messages',
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/messages')) }],
     },
 
     {
-      path: "/15_dashboard",
+      path: '/15_dashboard',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/15_dashboard")) }],
+      routes: [{ element: lazy(() => import('../pages/15_dashboard')) }],
     },
 
     {
-      path: "/17_billing",
+      path: '/17_billing',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/17_billing")) }],
+      routes: [{ element: lazy(() => import('../pages/17_billing')) }],
     },
 
-    { path: "*", element: lazy(() => import("./404")) },
+    { path: '*', element: lazy(() => import('./404')) },
   ];
 
   const routeRender = (

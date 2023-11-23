@@ -11,6 +11,7 @@ export interface User {
   website: string;
   company: string;
   members: [Member]
+  savedEvents: [Event]
 }
 
 export interface Member {
