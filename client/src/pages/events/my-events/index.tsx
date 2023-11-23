@@ -19,8 +19,8 @@ function Index() {
   const user = useGetCurrentUser();
 
   const [myEvents, setMyEvents] = useState<Event[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const eventsPerPage = 5;
 
@@ -28,6 +28,14 @@ function Index() {
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
 
   let currentEvents = myEvents?.slice(indexOfFirstEvent, indexOfLastEvent);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [myEvents]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchMyEvents = async () => {
@@ -44,18 +52,14 @@ function Index() {
     fetchMyEvents();
   }, [user?._id]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [myEvents]);
+  
 
   const handleEdit = (event: Event) => {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+  
 
   return (
     // <div>event_planner</div>

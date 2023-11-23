@@ -5,13 +5,13 @@ import { Event } from '../../types';
 import api from '../../utils/api';
 import EventListingCard from './components/eventListingCard';
 import Sidebar from './components/sidebar';
+import Pagination from '../../components/pagination';
 
 export function Index() {
   const navigate = useNavigate();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>('');
+  const [selectedSortOption, setSelectedSortOption] = useState<string>('');
 
   const [selectedEventType, setSelectedEventType] = useState<string[]>([]);
   const [selectedEventCategory, setSelectedEventCategory] = useState<string[]>(
@@ -23,6 +23,23 @@ export function Index() {
   );
   const [selectedEventSubCategory, setSelectedEventSubCategory] =
     useState<string>('');
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const eventsPerPage = 10;
+
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+
+  let currentEvents = events?.slice(indexOfFirstEvent, indexOfLastEvent);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [events]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     applyFilters({
@@ -42,18 +59,6 @@ export function Index() {
     selectedSortOption,
   ]);
 
-  // const applyFilters = async (filters: any) => {
-  //   try {
-  //     setLoading(true);
-  //     const { data } = await api.get('/events', { params: filters });
-  //     setEvents(data);
-  //   } catch (error) {
-  //     console.log('API Error:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const applyFilters = async (filters: any) => {
     try {
       setLoading(true);
@@ -71,7 +76,6 @@ export function Index() {
       setLoading(false);
     }
   };
-
 
   if (loading) return <p>Loading...</p>;
   return (
@@ -117,7 +121,7 @@ export function Index() {
               </Select>
             </div>
           </div>
-          {events?.map((event) => (
+          {currentEvents?.map((event) => (
             <div
               key={event._id}
               className='hover:cursor-pointer'
@@ -126,6 +130,14 @@ export function Index() {
               <EventListingCard event={event} />
             </div>
           ))}
+        <div className='flex justify-end mr-5'>
+          <Pagination
+            currentPage={currentPage}
+            totalItems={events.length || 0}
+            itemsPerPage={eventsPerPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
         </div>
       </div>
     </div>
