@@ -6,13 +6,12 @@ import {
 } from '@material-tailwind/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../app/hooks';
-import { RootState } from '../app/store';
+import { useGetCurrentUser } from '../app/hooks/useUser';
 import LOGO from '../assets/logo.png';
 
 export function TopNav() {
   const [openNav, setOpenNav] = React.useState(false);
-  const user = useAppSelector((state: RootState) => state.user.user);
+  const user = useGetCurrentUser();
 
   React.useEffect(() => {
     window.addEventListener(
