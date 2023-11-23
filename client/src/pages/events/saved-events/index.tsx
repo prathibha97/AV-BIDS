@@ -100,15 +100,15 @@
 
 import { Option, Select } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
-import { MdArrowForwardIos } from 'react-icons/md';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import Pagination from '../../../components/pagination';
 import EventListingCard from './components/eventListingCard';
 
 function Index() {
   const user = useGetCurrentUser();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState('datePosted'); // Default sorting option
-  const eventsPerPage = 10;
+  const eventsPerPage = 5;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -149,7 +149,7 @@ function Index() {
     pageNumbers.push(i);
   }
 
-  const handlePageChange = (pageNumber: any) => {
+  const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
@@ -189,37 +189,12 @@ function Index() {
         </div>
 
         <div className='flex justify-end'>
-          <nav className='mt-8'>
-            <ul className='flex'>
-              {pageNumbers.map((number) => (
-                <li key={number}>
-                  <button
-                    className={`mx-1 flex h-9 w-9 items-center justify-center rounded-full ${
-                      currentPage === number
-                        ? 'bg-primary text-white shadow-md'
-                        : 'border border-blue-gray-100 bg-transparent text-blue-gray-500 hover:bg-light-300'
-                    } p-0 text-sm transition duration-150 ease-in-out`}
-                    onClick={() => handlePageChange(number)}
-                    disabled={currentPage === number}
-                  >
-                    {number}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300'
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === pageNumbers.length}
-                  aria-label='Next'
-                >
-                  <span className='material-icons text-sm'>
-                    <MdArrowForwardIos />
-                  </span>
-                </button>
-              </li>
-            </ul>
-          </nav>
+          <Pagination
+            currentPage={currentPage}
+            totalItems={user?.savedEvents?.length || 0}
+            itemsPerPage={eventsPerPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </section>
     </div>
