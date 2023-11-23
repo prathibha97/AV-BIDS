@@ -5,12 +5,22 @@ import EVENTS_01 from '../../../assets/09_events/events01.png';
 import EVENTS_02 from '../../../assets/09_events/location.png';
 import SAVE_ICON from '../../../assets/09_events/save-icon.png';
 import { Event } from '../../../types';
+import api from '../../../utils/api';
 
 interface EventListingCardProps {
   event: Event;
 }
 
+
 const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
+
+  const handleSaveEvent = async () => {
+    try {
+      await api.post(`/events/save/${event._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className='mb-6'>
       <div className='flex items-center justify-center bg-[#fff] drop-shadow-lg gap-8 p-8 rounded-lg mx-4'>
@@ -43,7 +53,9 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
                 </p>
               </div>
 
-              <p className='text-[16px] mb-1'>{event.eventCategory}, {event.eventSubCategory}</p>
+              <p className='text-[16px] mb-1'>
+                {event.eventCategory}, {event.eventSubCategory}
+              </p>
             </div>
           </div>
 
@@ -74,7 +86,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
         </div>
 
         <div className=''>
-          <div className='flex justify-end'>
+          <div className='flex justify-end' onClick={() => handleSaveEvent()}>
             <img src={SAVE_ICON} alt='aad' className='w-[23px]' />
           </div>
 
@@ -86,7 +98,9 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
           >
             <span className='text-white normal-case'>Apply Now</span>
           </Button>
-          <p className='text-[16px] mt-4 text-center text-red-500'>23 days left to apply</p>
+          <p className='text-[16px] mt-4 text-center text-red-500'>
+            23 days left to apply
+          </p>
         </div>
       </div>
     </div>

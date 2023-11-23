@@ -1,6 +1,7 @@
 import { Button } from '@material-tailwind/react';
 
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EVENTS_01 from '../../../../assets/09_events/events01.png';
 import EVENTS_02 from '../../../../assets/09_events/location.png';
 import { Event } from '../../../../types';
@@ -10,11 +11,15 @@ interface EventListingCardProps {
 }
 
 export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className='w-full gap-8 mb-6'>
         <div>
-          <div className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full'>
+          <div
+            className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full hover:cursor-pointer'
+            onClick={() => navigate(`/events/${event._id}`)}
+          >
             <div>
               <img
                 src={EVENTS_01}
@@ -45,14 +50,18 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
                   </p>
                 </div>
 
-                <p className='text-[16px]'>{event.eventCategory}, {event.eventSubCategory}</p>
+                <p className='text-[16px]'>
+                  {event.eventCategory}, {event.eventSubCategory}
+                </p>
                 <Button
                   variant='filled'
                   color='green'
                   size='sm'
                   className='rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins'
                 >
-                  <h2 className='text-[#178751] text-[12px]'>{event.eventType}</h2>
+                  <h2 className='text-[#178751] text-[12px]'>
+                    {event.eventType}
+                  </h2>
                 </Button>
               </div>
             </div>
@@ -66,7 +75,9 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
               >
                 <span className='text-white'>Apply Now</span>
               </Button>
-              <p className='text-[16px] mt-4 text-red-500'>23 days left to apply</p>
+              <p className='text-[16px] mt-4 text-red-500'>
+                23 days left to apply
+              </p>
             </div>
           </div>
         </div>

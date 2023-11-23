@@ -26,6 +26,7 @@ import { useAppDispatch } from '../app/hooks';
 import NOTIFICATION_ICON from '../assets/navigation bar/bell.png';
 import PLUS_ICON from '../assets/navigation bar/plus.png';
 import api from '../utils/api';
+import { useGetCurrentUser } from '../app/hooks/useUser';
 
 function ProfileMenu() {
   const navigate = useNavigate();
@@ -143,6 +144,8 @@ export function NavbarDashboard() {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = React.useState(false);
 
+  const user = useGetCurrentUser()
+
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
@@ -157,6 +160,7 @@ export function NavbarDashboard() {
       <div className='w-full'>
         <Navbar className='mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#f7f6fd] shadow-none border-none py-6'>
           <div className='relative mx-auto flex items-center justify-between text-blue-gray-900'>
+            {user?.userType === 'PLANNER' && (
             <Button
               variant='outlined'
               size='sm'
@@ -168,6 +172,7 @@ export function NavbarDashboard() {
                 <span className='text-black normal-case'>Post New Event</span>
               </div>
             </Button>
+            )}
             <div className='hidden lg:block'></div>
             <IconButton
               size='sm'
