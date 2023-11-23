@@ -11,9 +11,10 @@ const getUserById = (id) =>
   User.findById(id)
     .select('-refreshToken -password')
     .populate('events')
+    .populate('members')
     .populate('reviews');
 
-const getUserByEmail = (email) => User.findOne({ email });
+const getUserByEmail = (email) => User.findOne({ email }).populate('members');
 
 const getUserByRefreshToken = (refreshToken) =>
   User.findOne({ refreshToken: { $in: [refreshToken] } });

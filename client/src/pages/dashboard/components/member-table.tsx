@@ -2,10 +2,10 @@ import { Button, Card, Dialog, Typography } from '@material-tailwind/react';
 
 import { MdDeleteOutline, MdEdit, MdOutlineCancel } from 'react-icons/md';
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import PLUS_ICON from '../../../assets/11_dashboard/plus.png';
-import { Member } from '../../../types';
+import { Member, User } from '../../../types';
 import api from '../../../utils/api';
 
 import { setMember } from '../../../app/features/members/memberSlice';
@@ -13,29 +13,36 @@ import { useAppDispatch } from '../../../app/hooks';
 import AddNewMember from '../components/add-new-member';
 import DeleteMember from '../components/delete-member';
 import EditMember from '../components/edit-members';
+import { updateUser } from '../../../app/features/user/userSlice';
 
 const TABLE_HEAD = ['Name', 'Role', 'Email', ''];
 
-const MemberTable = () => {
+interface MemberTableProps {
+  user: User | null;
+}
+
+const MemberTable: FC<MemberTableProps> = ({ user }) => {
   const dispatch = useAppDispatch();
 
-  const [members, setMembers] = useState<Member[]>([]);
+  const [userData, setUserData] = useState<User| null>(null);
   const [open, setOpen] = useState(false);
   const [open_1, setOpen_1] = useState(false);
   const [open_2, setOpen_2] = useState(false);
 
   useEffect(() => {
-    const fetchMembers = async () => {
+    const fetchUserData = async () => {
       try {
-        const { data } = await api.get('/members');
-        setMembers(() => data); // Use a function to set the state
+        const { data } = await api.get(`/users/${user?._id}`);
+        setUserData(() => data); // Use a function to set the state
+        dispatch(updateUser(data));
       } catch (error) {
-        console.error('Error fetching members:', error);
+        console.error('Error fetching user Data:', error);
       }
     };
 
-    fetchMembers();
+    fetchUserData();
   }, [open, open_1, open_2]);
+
 
   const handleOpen = () => setOpen(!open);
   const handleOpen_1 = () => setOpen_1(!open_1);
@@ -55,13 +62,13 @@ const MemberTable = () => {
 
   const selectMemberToDelete = (member: Member) => {
     setOpen_1(!open_1);
-    dispatch(setMember(member))
+    dispatch(setMember(member));
   };
 
-   const selectMemberToEdit = (member: Member) => {
-     setOpen_2(!open_2);
-     dispatch(setMember(member));
-   };
+  const selectMemberToEdit = (member: Member) => {
+    setOpen_2(!open_2);
+    dispatch(setMember(member));
+  };
 
   return (
     <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
@@ -142,8 +149,8 @@ const MemberTable = () => {
               </tr>
             </thead>
             <tbody>
-              {members.map((member) => {
-                return (
+              {user?.members?.length! > 0 ? (
+                user?.members.map((member) => (
                   <tr key={member._id}>
                     <td className={'p-4 border-b border-blue-gray-50'}>
                       <Typography
@@ -195,8 +202,10 @@ const MemberTable = () => {
                       </Typography>
                     </td>
                   </tr>
-                );
-              })}
+                ))
+              ) : (
+                <p className='text-center'>Add a member to display</p>
+              )}
             </tbody>
           </table>
         </Card>

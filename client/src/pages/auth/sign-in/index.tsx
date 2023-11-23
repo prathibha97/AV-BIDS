@@ -38,11 +38,11 @@ export function Index() {
       const { data } = await api.post('/auth/login', { ...values });
       localStorage.setItem('userInfo', JSON.stringify(data));
       dispatch(setUser(data.user));
-      if (data.user.userType === 'PROVIDER') {
-        navigate('/provider-dashboard');
-      } else {
+      // if (data.user.userType === 'PROVIDER') {
+      //   navigate('/provider-dashboard');
+      // } else {
         navigate('/dashboard');
-      }
+      // }
     } catch (error) {
       console.log(error);
     }

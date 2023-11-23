@@ -10,6 +10,7 @@ export interface User {
   phone: string;
   website: string;
   company: string;
+  members: [Member]
 }
 
 export interface Member {
