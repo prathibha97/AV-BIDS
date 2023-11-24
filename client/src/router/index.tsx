@@ -135,9 +135,9 @@ function Router() {
     },
 
     {
-      path: '/17_billing',
+      path: '/billing',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import('../pages/17_billing')) }],
+      routes: [{ element: lazy(() => import('../pages/billing')) }],
     },
 
     { path: '*', element: lazy(() => import('./404')) },
