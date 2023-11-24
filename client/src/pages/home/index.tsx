@@ -12,7 +12,7 @@ import HOME_3 from "../../assets/home_3.png";
 import ICON from "../../assets/icon.png";
 import ICON2 from "../../assets/icon2.png";
 import HomeCard from "../../components/home-card";
-import CardCarousel from "../../components/CardCarousel";
+import CardCarousel from "../../components/carousel";
 
 function index() {
   const carouselData = [
