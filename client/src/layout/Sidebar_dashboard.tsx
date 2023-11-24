@@ -1,74 +1,82 @@
-import { Card, Typography } from '@material-tailwind/react';
+import { Card, Typography } from "@material-tailwind/react";
+import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
+import DASHBOARD from "../assets/sidebar/dashboard.png";
+import MESSAGES from "../assets/sidebar/message.png";
+import EVENT from "../assets/sidebar/event_alerts.png";
+import SAVED_EVENTS from "../assets/sidebar/saved_events.png";
+import BILLING_MEMBERSHIP from "../assets/sidebar/billing_membership.png";
+import { useGetCurrentUser } from "../app/hooks/useUser";
 
-import { List, ListItem, ListItemPrefix } from '@material-tailwind/react';
+const SidebarDashboard = () => {
+  const navigate = useNavigate();
+  const user = useGetCurrentUser();
 
-import DASHBOARD from '../assets/sidebar/dashboard.png';
-import MESSAGES from '../assets/sidebar/message.png';
-import EVENT from '../assets/sidebar/my events.png';
-import { useNavigate } from 'react-router-dom';
+  const imageStyles = "object-scale-down w-[18px]";
 
-export function Sidebar_dashboard() {
-  const navigate = useNavigate()
   return (
     <div>
-      <Card className='h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]'>
-        <div className='mb-2 p-4'>
-          <Typography variant='h5' color='blue-gray'>
+      <Card className="h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]">
+        <div className="mb-2 p-4">
+          <Typography variant="h5" color="blue-gray">
             Sidebar
           </Typography>
         </div>
         <List>
-          <ListItem onClick={() => navigate('/dashboard')}>
+          <ListItem onClick={() => navigate("/dashboard")}>
             <ListItemPrefix>
-              <img
-                src={DASHBOARD}
-                alt='aad'
-                className='object-scale-down w-[18px]'
-              />
+              <img src={DASHBOARD} alt="Dashboard" className={imageStyles} />
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem onClick={() => navigate('/events/my-events')}>
+          {user?.userType === "PLANNER" && (
+            <ListItem onClick={() => navigate("/events/my-events")}>
+              <ListItemPrefix>
+                <img src={EVENT} alt="My Event" className={imageStyles} />
+              </ListItemPrefix>
+              My Event
+            </ListItem>
+          )}
+          <ListItem onClick={() => navigate("/messages")}>
             <ListItemPrefix>
-              <img
-                src={EVENT}
-                alt='aad'
-                className='object-scale-down w-[18px]'
-              />
-            </ListItemPrefix>
-            My Event
-          </ListItem>
-          <ListItem onClick={() => navigate('/messages')}>
-            <ListItemPrefix>
-              <img
-                src={MESSAGES}
-                alt='aad'
-                className='object-scale-down w-[18px]'
-              />
+              <img src={MESSAGES} alt="Messages" className={imageStyles} />
             </ListItemPrefix>
             Messages
           </ListItem>
-          {/* <ListItem>
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Profile
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Settings
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Log Out
-          </ListItem> */}
+          {user?.userType === "PROVIDER" && (
+            <>
+              <ListItem onClick={() => navigate("/events/event-alerts")}>
+                <ListItemPrefix>
+                  <img src={EVENT} alt="Event Alerts" className={imageStyles} />
+                </ListItemPrefix>
+                Event Alerts
+              </ListItem>
+              <ListItem onClick={() => navigate("/events/saved-events")}>
+                <ListItemPrefix>
+                  <img
+                    src={SAVED_EVENTS}
+                    alt="Saved Events"
+                    className={imageStyles}
+                  />
+                </ListItemPrefix>
+                Saved Events
+              </ListItem>
+              <ListItem onClick={() => navigate("/billing")}>
+                <ListItemPrefix>
+                  <img
+                    src={BILLING_MEMBERSHIP}
+                    alt="Billing & Membership"
+                    className={imageStyles}
+                  />
+                </ListItemPrefix>
+                Billing & Membership
+              </ListItem>
+            </>
+          )}
         </List>
       </Card>
-      ;
     </div>
   );
-}
+};
+
+export default SidebarDashboard;

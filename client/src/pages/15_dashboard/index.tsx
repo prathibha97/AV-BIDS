@@ -1,13 +1,18 @@
-import React from "react";
-
 import {
   Button,
-  Input,
   Card,
-  Typography,
-  Select,
+  Input,
   Option,
+  Select,
+  Typography,
 } from "@material-tailwind/react";
+
+import React, { useCallback } from "react";
+import {
+  useDropzone,
+  DropzoneRootProps,
+  DropzoneInputProps,
+} from "react-dropzone";
 
 import AVATAR from "../../assets/11_dashboard/avatar.png";
 
@@ -48,7 +53,62 @@ const TABLE_ROWS = [
   },
 ];
 // ------------------------------------Table Contents--------------------------------------------------
+const cityNames = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming",
+];
 
+//////////////////////////////////////////////////
+
+///////////////////////////////////////////////////
 function index() {
   return (
     <div className="container mx-auto">
@@ -87,7 +147,6 @@ function index() {
                 </div>
               </div>
             </div>
-
             <div>
               <div>
                 <p className="text-[16px] mb-2">Email Address</p>
@@ -136,22 +195,18 @@ function index() {
                 </div>
               </div>
             </div>
-
             <div></div>
-
             {/* <div>
               <h2 className="text-[20px] font-semibold text-left">
                 Company Address
               </h2>
             </div> */}
-
             <div className="w-72">
               <h2 className="text-[20px] font-semibold text-left">
                 Company Address
               </h2>
             </div>
             <div></div>
-
             <div className="col-span-2">
               <p className="text-[16px] mb-2">Address</p>
               <div>
@@ -162,7 +217,6 @@ function index() {
                 />
               </div>
             </div>
-
             <div className="...">
               <p className="mb-2">Country</p>
               <div className="mb-5">
@@ -181,17 +235,14 @@ function index() {
 
             <div className="...">
               <p className="mb-2">City</p>
-              <div className="mb-5">
-                <Select label="Phoenix" className="bg-[#eeebfc]">
-                  <Option>Option 01</Option>
-                  <Option>Option 02</Option>
-                  <Option>Option 03</Option>
-                  <Option>Option 04</Option>
-                  <Option>Option 05</Option>
+              <div>
+                <Select label="Select a City" className="bg-[#eeebfc]">
+                  {cityNames.map((city, index) => (
+                    <Option key={index}>{city}</Option>
+                  ))}
                 </Select>
               </div>
             </div>
-
             <div>
               <p className="text-[16px] mb-2">Zip</p>
               <div className="w-full">
@@ -202,7 +253,6 @@ function index() {
                 />
               </div>
             </div>
-
             <div className="...">
               <p className="mb-2">State</p>
               <div className="mb-5">

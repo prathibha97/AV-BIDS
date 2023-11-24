@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Socket, io } from 'socket.io-client';
-import { useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
+import { useGetCurrentUser } from '../../app/hooks/useUser';
 import SEND from '../../assets/14_messages/send.png';
 import {
   Conversation as ConversationType,
@@ -23,7 +22,7 @@ function Index() {
     null
   );
 
-  const user = useAppSelector((state: RootState) => state.user.user);
+  const user = useGetCurrentUser();
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const socket = useRef<Socket>();

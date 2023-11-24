@@ -10,6 +10,8 @@ export interface User {
   phone: string;
   website: string;
   company: string;
+  members: [Member]
+  savedEvents: [Event]
 }
 
 export interface Member {
@@ -27,7 +29,7 @@ type FileInformation = {
 
 type FileInformationArray = FileInformation[];
 
-export interface Event {
+export type Event = {
   _id: string;
   title: string;
   description: string;
@@ -179,6 +181,7 @@ export interface Event {
     description: string;
   };
   files: FileInformationArray;
+  proposals: [string]
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
@@ -195,6 +198,7 @@ export type Review = {
 export interface UserWithReviewWithEvent extends User {
   reviews: Review[];
   events: Event[];
+  createdAt: Date
 }
 
 export type Message = {

@@ -4,22 +4,38 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setEvent } from '../../../app/features/events/eventSlice';
-import { useAppSelector } from '../../../app/hooks';
-import { RootState } from '../../../app/store';
+import Spinner from '../../../components/spinner';
 import { Event } from '../../../types';
 import api from '../../../utils/api';
 
-import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import Pagination from '../../../components/pagination';
 
 const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', ''];
 
 function Index() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useAppSelector((state: RootState) => state.user.user);
+  const user = useGetCurrentUser();
 
   const [myEvents, setMyEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const eventsPerPage = 5;
+
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+
+  let currentEvents = myEvents?.slice(indexOfFirstEvent, indexOfLastEvent);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [myEvents]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchMyEvents = async () => {
@@ -36,10 +52,15 @@ function Index() {
     fetchMyEvents();
   }, [user?._id]);
 
+  
+
   const handleEdit = (event: Event) => {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
+
+  
+
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
@@ -55,7 +76,9 @@ function Index() {
           </div>
         </div>
         {loading ? (
-          <p>Loading</p>
+          <div className='flex items-center justify-center h-32'>
+            <Spinner />
+          </div>
         ) : myEvents.length === 0 ? (
           <p>No events found.</p>
         ) : (
@@ -77,7 +100,8 @@ function Index() {
               </thead>
               <tbody>
                 {Array.isArray(myEvents) &&
-                  myEvents?.map((event, index) => {
+                  currentEvents?.length! > 0 &&
+                  currentEvents?.map((event, index) => {
                     return (
                       <tr key={event._id}>
                         <td
@@ -115,7 +139,7 @@ function Index() {
                             className='font-normal'
                           >
                             {/* {date} */}
-                            <p>10 Proposals</p>
+                            <p className='text-red-500'>10 Proposals</p>
                           </Typography>
                         </td>
                         <td className='p-4 border-b border-blue-gray-50'>
@@ -138,56 +162,12 @@ function Index() {
         )}
 
         <div className='flex justify-end'>
-          <nav className='mt-8'>
-            <ul className='flex'>
-              <li>
-                <a
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300'
-                  href='#'
-                  aria-label='Previous'
-                >
-                  <span className='material-icons text-sm'>
-                    <MdArrowBackIosNew />
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full bg-primary p-0 text-sm text-white shadow-md transition duration-150 ease-in-out'
-                  href='#'
-                >
-                  1
-                </a>
-              </li>
-              <li>
-                <a
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300'
-                  href='#'
-                >
-                  2
-                </a>
-              </li>
-              <li>
-                <a
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300'
-                  href='#'
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300'
-                  href='#'
-                  aria-label='Next'
-                >
-                  <span className='material-icons text-sm'>
-                    <MdArrowForwardIos />
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Pagination
+            currentPage={currentPage}
+            totalItems={myEvents.length || 0}
+            itemsPerPage={eventsPerPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </section>
     </div>

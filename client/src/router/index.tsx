@@ -1,13 +1,13 @@
-import { Fragment, Key, lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import EmptyLayout from '../layout/empty-layout';
-import HomeLayout from '../layout/home-layout';
+import { Fragment, Key, lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import EmptyLayout from "../layout/empty-layout";
+import HomeLayout from "../layout/home-layout";
 
-import SuspenseScreen from './suspense-screen';
+import SuspenseScreen from "./suspense-screen";
 
-import RequireAuth from '../components/require-auth';
-import HomeLayout2 from '../layout/home-layout-dash';
-import Layout_02 from '../layout/layout_02';
+import RequireAuth from "../components/require-auth";
+import HomeLayout2 from "../layout/home-layout-dash";
+import Layout_02 from "../layout/layout_02";
 
 function Router() {
   const routes: any = [
@@ -21,6 +21,14 @@ function Router() {
       layout: HomeLayout,
       routes: [{ element: lazy(() => import('../pages/event_planner')) }],
     },
+
+    {
+      path: '/16_saved_events',
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
+    },
+
     {
       path: '/av_providers',
       layout: HomeLayout,
@@ -66,14 +74,6 @@ function Router() {
       routes: [{ element: lazy(() => import('../pages/7_contact_us')) }],
     },
 
-    {
-      path: '/10_event_details_page',
-      layout: HomeLayout,
-      routes: [
-        { element: lazy(() => import('../pages/10_event_details_page')) },
-      ],
-    },
-
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
@@ -116,6 +116,12 @@ function Router() {
       ],
     },
     {
+      path: '/events/saved-events',
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
+    },
+    {
       path: '/messages',
       layout: HomeLayout2,
       guard: RequireAuth,
@@ -129,9 +135,9 @@ function Router() {
     },
 
     {
-      path: '/17_billing',
+      path: '/billing',
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import('../pages/17_billing')) }],
+      routes: [{ element: lazy(() => import('../pages/billing')) }],
     },
 
     { path: '*', element: lazy(() => import('./404')) },
@@ -152,9 +158,9 @@ function Router() {
     const isIndex: boolean = route.path ? false : true;
     let props: any = {};
     if (isIndex) {
-      props['index'] = true;
+      props["index"] = true;
     } else {
-      props['path'] = route.path;
+      props["path"] = route.path;
     }
 
     // Check if the route has a guard and apply it

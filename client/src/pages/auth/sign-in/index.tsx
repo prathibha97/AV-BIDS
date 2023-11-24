@@ -6,11 +6,13 @@ import {
   Input,
   Typography,
 } from '@material-tailwind/react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../../../app/features/user/userSlice';
 import { useAppDispatch } from '../../../app/hooks';
 import LOGO from '../../../assets/register/logo.png';
+import AlertBox from '../../../components/alert-box';
 import api from '../../../utils/api';
 import {
   LoginFormSchema,
@@ -20,6 +22,8 @@ import {
 export function Index() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [open, setOpen] = useState(true);
 
   const {
     register,
@@ -38,18 +42,31 @@ export function Index() {
       const { data } = await api.post('/auth/login', { ...values });
       localStorage.setItem('userInfo', JSON.stringify(data));
       dispatch(setUser(data.user));
-      if (data.user.userType === 'PROVIDER') {
-        navigate('/provider-dashboard');
+      navigate('/dashboard');
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        setErrorMessage(errorMessage);
+      } else if (error.request) {
+        console.log('No response received from the server.');
       } else {
-        navigate('/dashboard');
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
   return (
-    <div className='flex items-center justify-center h-screen bg-[#f3f1fb]'>
+    <div className='flex flex-col items-center justify-center h-screen bg-[#f3f1fb]'>
+      {errorMessage && (
+        <AlertBox
+          color='red'
+          variant='ghost'
+          text={errorMessage}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
       <div>
         <div className='flex items-center justify-center mb-6'>
           <img src={LOGO} alt='aad' className=' w-[150px] object-contain' />

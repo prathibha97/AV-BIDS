@@ -1,39 +1,30 @@
 import { Button } from '@material-tailwind/react';
-import { FC, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import EVENTDETAILS_03 from '../../../../assets/13_event_details_page/Rectangle 3759.png';
-import EVENTDETAILS_04 from '../../../../assets/13_event_details_page/location.png';
+
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import EVENTS_01 from '../../../../assets/09_events/events01.png';
+import EVENTS_02 from '../../../../assets/09_events/location.png';
 import { Event } from '../../../../types';
 
-interface OtherEventsProps {
-  events: Event[];
+interface EventListingCardProps {
+  event: Event;
 }
 
-const OtherEvents: FC<OtherEventsProps> = ({ events }) => {
+export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
-
-  const filteredEvents = events.filter((event) => event._id !== id);
-
   return (
     <div>
-      <h2 className='text-[22px] mb-4'>Other events by this client</h2>
-
-      {filteredEvents?.map((event) => (
-        <div key={event._id} className='mb-6'>
+      <div className='w-full gap-8 mb-6'>
+        <div>
           <div
-            className='flex items-center bg-[#fff] gap-8 p-3 rounded-lg hover:cursor-pointer'
-            onClick={() =>{ 
-              navigate(`/events/${event._id}`)
-              window.location.reload();
-            }
-          }
+            className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full hover:cursor-pointer'
+            onClick={() => navigate(`/events/${event._id}`)}
           >
             <div>
               <img
-                src={EVENTDETAILS_03}
-                alt='Event Poster'
-                className='object-scale-down w-[181px] h-[121px]'
+                src={EVENTS_01}
+                alt='aad'
+                className='object-scale-down w-[73px]'
               />
             </div>
 
@@ -48,16 +39,17 @@ const OtherEvents: FC<OtherEventsProps> = ({ events }) => {
               </div>
 
               <div className='flex items-center gap-16 mt-4'>
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-8 items-center'>
                   <img
-                    src={EVENTDETAILS_04}
-                    alt='Location Icon'
+                    src={EVENTS_02}
+                    alt='aad'
                     className='object-scale-down w-[20px]'
                   />
                   <p className='text-[16px] text-[#9381FF]'>
                     {event.address.city}, {event.address.state}
                   </p>
                 </div>
+
                 <p className='text-[16px]'>
                   {event.eventCategory}, {event.eventSubCategory}
                 </p>
@@ -67,17 +59,31 @@ const OtherEvents: FC<OtherEventsProps> = ({ events }) => {
                   size='sm'
                   className='rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins'
                 >
-                  <p className='text-[#178751] font-semibold'>
+                  <h2 className='text-[#178751] text-[12px]'>
                     {event.eventType}
-                  </p>
+                  </h2>
                 </Button>
               </div>
             </div>
+
+            <div className='ml-24'>
+              <Button
+                variant='filled'
+                color='indigo'
+                size='sm'
+                className='rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins'
+              >
+                <span className='text-white'>Apply Now</span>
+              </Button>
+              <p className='text-[16px] mt-4 text-red-500'>
+                23 days left to apply
+              </p>
+            </div>
           </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
 
-export default OtherEvents;
+export default EventListingCard;

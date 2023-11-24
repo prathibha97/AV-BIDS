@@ -4,11 +4,12 @@ const cleanCache = require('../middlewares/cleanCache');
 
 const {
   createNewEvent,
-  getAllMembers,
+  getAllEvents,
   getUserEvents,
   getEvent,
   update,
   remove,
+  saveEvent
 } = require('../controllers/event.controller');
 
 const eventRouter = express.Router();
@@ -176,10 +177,52 @@ const eventRouter = express.Router();
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /api/events/save/{eventId}:
+ *   post:
+ *     summary: Save an event
+ *     tags: [Events]
+ *     description: Save an event for the authenticated user
+ *     parameters:
+ *       - in: path
+ *         name: eventId
+ *         required: true
+ *         description: ID of the event to be saved
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: ID of the user saving the event
+ *             required:
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: Event saved successfully
+ *       400:
+ *         description: Event already saved
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Event not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 eventRouter.post('/', protect, cleanCache, createNewEvent);
-eventRouter.get('/', protect, getAllMembers);
+eventRouter.get('/', protect, getAllEvents);
 eventRouter.get('/:id', protect, getEvent);
 eventRouter.get('/user/:userId', protect, getUserEvents);
+eventRouter.post('/save/:eventId', protect, saveEvent);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);
 

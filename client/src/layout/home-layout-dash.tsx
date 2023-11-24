@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { NavbarDashboard } from "./NavbarDashboard";
-import { Sidebar_dashboard } from "./Sidebar_dashboard";
+import  SidebarDashboard  from './Sidebar_dashboard';
 
 function HomeLayout() {
   return (
     <>
-      <main className="w-full h-screen overflow-auto bg-[#f7f6fd]">
+      <main className='w-full h-screen overflow-auto bg-[#f7f6fd]'>
         <NavbarDashboard />
-        <div className="flex">
-          <Sidebar_dashboard />
+        <div className='flex'>
+          <SidebarDashboard />
           <Outlet />
         </div>
       </main>

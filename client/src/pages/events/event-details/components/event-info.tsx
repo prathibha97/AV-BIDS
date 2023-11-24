@@ -2,20 +2,18 @@ import { FC } from 'react';
 import { Event } from '../../../../types';
 
 interface EventInfoProps {
-  event: Event;
+  event: Event | null;
 }
 
 const EventInfo: FC<EventInfoProps> = ({ event }) => {
-  const { eventType, eventBudget, eventCategory, eventSubCategory } =
-    event;
 
   return (
     <div className='grid grid-cols-2 gap-4 bg-[#F3F1FB] p-6 rounded-lg'>
-      {renderInfo('Event Type', eventType)}
-      {renderInfo('Budget', eventBudget)}
-      {renderInfo('Event Category', eventCategory)}
-      {renderInfo('Location', `${event.address?.city}, ${event.address?.state}`)}
-      {renderInfo('Sub Category', eventSubCategory)}
+      {renderInfo('Event Type', event?.eventType!)}
+      {renderInfo('Budget', event?.eventBudget!)}
+      {renderInfo('Event Category', event?.eventCategory!)}
+      {renderInfo('Location', `${event?.address?.city}, ${event?.address?.state}`)}
+      {renderInfo('Sub Category', event?.eventSubCategory!)}
       {renderInfo('Proposals Due', 'August 24, 2023')}
     </div>
   );

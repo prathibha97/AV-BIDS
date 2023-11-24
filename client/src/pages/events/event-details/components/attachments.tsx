@@ -3,7 +3,7 @@ import DOWN_ARROW from '../../../../assets/13_event_details_page/down-arrow.png'
 import { Event } from '../../../../types';
 
 interface AttachmentsProps {
-  event: Event;
+  event: Event | null;
 }
 
 const Attachments: FC<AttachmentsProps> = ({ event }) => {
@@ -41,7 +41,7 @@ const Attachments: FC<AttachmentsProps> = ({ event }) => {
           </button>
         </div>
       ))}
-      {event.files?.length === 0 && <p>No attachments available</p>}
+      {event?.files?.length === 0 && <p>No attachments available</p>}
     </div>
   );
 };

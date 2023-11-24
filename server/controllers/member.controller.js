@@ -14,8 +14,7 @@ const {
 const createNewMember = async (req, res) => {
   try {
     const { name, role, email } = req.body;
-
-    const member = await createMember({ name, role, email });
+    const member = await createMember({ name, role, email }, req.user._id);
     res.status(200).json(member);
   } catch (error) {
     console.error('Failed to create member - ', error.message);
