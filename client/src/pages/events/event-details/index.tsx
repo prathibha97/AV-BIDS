@@ -67,6 +67,14 @@ export function Index() {
     }
   };
 
+  const handleSaveEvent = async () => {
+    try {
+      await api.post(`/events/save/${event?._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchEventDetails();
   }, []);
@@ -88,89 +96,89 @@ export function Index() {
   }
 
   return (
-    <div className="mx-auto mb-8">
-      <div className="grid lg:grid-cols-3 gap-4 content-center">
-        <div className="col-span-2 flex justify-center items-center px-8">
+    <div className='mx-auto mb-8'>
+      <div className='grid lg:grid-cols-3 gap-4 content-center'>
+        <div className='col-span-2 flex justify-center items-center px-8'>
           <section>
             <div>
-              <div className="bg-[#FFE8E8] p-4 rounded-lg mb-4">
-                <div className="flex items-center gap-2">
+              <div className='bg-[#FFE8E8] p-4 rounded-lg mb-4'>
+                <div className='flex items-center gap-2'>
                   <img
                     src={EVENTDETAILS_01}
-                    alt="aad"
-                    className="object-scale-down w-[34px]"
+                    alt='aad'
+                    className='object-scale-down w-[34px]'
                   />
-                  <p className="text-[20px] text-[#C31717]">
+                  <p className='text-[20px] text-[#C31717]'>
                     This event has expired
                   </p>
                 </div>
               </div>
 
               <div>
-                <h2 className="text-primary text-[40px] mb-4">
+                <h2 className='text-primary text-[40px] mb-4'>
                   {event?.title}
                 </h2>
               </div>
-              <div className="flex mb-4 gap-8">
-                <div className="flex items-center gap-2">
+              <div className='flex mb-4 gap-8'>
+                <div className='flex items-center gap-2'>
                   <img
                     src={EVENTDETAILS_02}
-                    alt="aad"
-                    className="object-scale-down w-[32px]"
+                    alt='aad'
+                    className='object-scale-down w-[32px]'
                   />
-                  <p className="text-[18px]">
-                    Posted on{" "}
+                  <p className='text-[18px]'>
+                    Posted on{' '}
                     {event?.createdAt
-                      ? format(new Date(event.createdAt), "M/dd/yyyy")
-                      : "N/A"}
+                      ? format(new Date(event.createdAt), 'M/dd/yyyy')
+                      : 'N/A'}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   <img
                     src={EVENTDETAILS_02}
-                    alt="aad"
-                    className="object-scale-down w-[32px]"
+                    alt='aad'
+                    className='object-scale-down w-[32px]'
                   />
-                  <p className="text-[18px]">
-                    Updated on{" "}
+                  <p className='text-[18px]'>
+                    Updated on{' '}
                     {event?.createdAt
-                      ? format(new Date(event.updatedAt), "M/dd/yyyy")
-                      : "N/A"}
+                      ? format(new Date(event.updatedAt), 'M/dd/yyyy')
+                      : 'N/A'}
                   </p>
                 </div>
               </div>
-              <div className="mb-6">
+              <div className='mb-6'>
                 <img
                   src={EVENTDETAILS_03}
-                  alt="aad"
-                  className="object-scale-down"
+                  alt='aad'
+                  className='object-scale-down'
                 />
               </div>
-              <div className="bg-[#F3F1FB] p-6 mb-16 rounded-lg">
-                <h2 className="text-[22px] mb-4">Description</h2>
+              <div className='bg-[#F3F1FB] p-6 mb-16 rounded-lg'>
+                <h2 className='text-[22px] mb-4'>Description</h2>
                 <div
                   dangerouslySetInnerHTML={{ __html: event?.description! }}
                 />
               </div>
               <div>
-                <h2 className="text-[22px] mb-4">
+                <h2 className='text-[22px] mb-4'>
                   Submit a question about the event
                 </h2>
-                <p className="text-[20px] mb-2">Description</p>
-                <div className="rounded-lg">
-                  <div className="mb-6">
-                    <Textarea label="Description" className="bg-[#f1eefc]" />
+                <p className='text-[20px] mb-2'>Description</p>
+                <div className='rounded-lg'>
+                  <div className='mb-6'>
+                    <Textarea label='Description' className='bg-[#f1eefc]' />
                   </div>
 
-                  <div className="flex justify-end mb-16">
+                  <div className='flex justify-end mb-16'>
                     <Button
-                      variant="filled"
-                      color="indigo"
-                      size="sm"
-                      className="rounded-full w-30 py-3 px-6 mt-4  bg-primary font-poppins"
+                      variant='filled'
+                      color='indigo'
+                      size='sm'
+                      className='rounded-full w-30 py-3 px-6 mt-4  bg-primary font-poppins'
                     >
-                      <span className="text-white normal-case text-[14px]">
+                      <span className='text-white normal-case text-[14px]'>
                         Submit
                       </span>
                     </Button>
@@ -182,11 +190,11 @@ export function Index() {
           </section>
           {/* ///////////////////////////////// */}
           <section>
-            <Dialog open={open} handler={handleOpen} size="xs">
-              <div className="flex justify-end p-3">
+            <Dialog open={open} handler={handleOpen} size='xs'>
+              <div className='flex justify-end p-3'>
                 <MdOutlineCancel
                   size={32}
-                  className="text-black cursor-pointer"
+                  className='text-black cursor-pointer'
                   onClick={handleOpen}
                 />
               </div>
@@ -195,39 +203,40 @@ export function Index() {
           </section>
           {/* //////////////////////////////// */}
         </div>
-        <div className="flex justify-center items-center">
+        <div className='flex justify-center items-center'>
           <section>
-            <div className="mb-4">
+            <div className='mb-4'>
               <Button
-                variant="filled"
-                color="indigo"
-                size="sm"
-                className="rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins"
+                variant='filled'
+                color='indigo'
+                size='sm'
+                className='rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins'
                 onClick={handleOpen}
               >
-                <span className="text-white normal-case text-[14px]">
+                <span className='text-white normal-case text-[14px]'>
                   Submit Proposal
                 </span>
               </Button>
 
               <Button
-                variant="outlined"
-                size="sm"
-                className="rounded-full w-full py-4 mt-4 px-8 font-poppins"
+                variant='outlined'
+                size='sm'
+                className='rounded-full w-full py-4 mt-4 px-8 font-poppins'
+                onClick={() => handleSaveEvent()}
               >
-                <span className=" text-black normal-case text-[14px]">
+                <span className=' text-black normal-case text-[14px]'>
                   Save Event
                 </span>
               </Button>
             </div>
 
-            <div className="flex items-center gap-3 mb-6 ">
+            <div className='flex items-center gap-3 mb-6 '>
               <img
                 src={SPAM_ICON}
-                alt="aad"
-                className="object-scale-down w-[24px]"
+                alt='aad'
+                className='object-scale-down w-[24px]'
               />
-              <p className="text-[18px] underline">Flag as spam</p>
+              <p className='text-[18px] underline'>Flag as spam</p>
             </div>
             <EventInfo event={event} />
             <Attachments event={event} />
