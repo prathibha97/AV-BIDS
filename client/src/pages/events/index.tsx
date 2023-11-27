@@ -121,23 +121,27 @@ export function Index() {
               </Select>
             </div>
           </div>
-          {currentEvents?.map((event) => (
-            <div
-              key={event._id}
-              className='hover:cursor-pointer'
-              onClick={() => navigate(`/events/${event._id}`)}
-            >
-              <EventListingCard event={event} />
-            </div>
-          ))}
-        <div className='flex justify-end mr-5'>
-          <Pagination
-            currentPage={currentPage}
-            totalItems={events.length || 0}
-            itemsPerPage={eventsPerPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          {Array.isArray(currentEvents) ? (
+            currentEvents.map((event) => (
+              <div
+                key={event._id}
+                className='hover:cursor-pointer'
+                onClick={() => navigate(`/events/${event._id}`)}
+              >
+                <EventListingCard event={event} />
+              </div>
+            ))
+          ) : (
+            <p>No events found</p>
+          )}
+          <div className='flex justify-end mr-5'>
+            <Pagination
+              currentPage={currentPage}
+              totalItems={events.length || 0}
+              itemsPerPage={eventsPerPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
     </div>

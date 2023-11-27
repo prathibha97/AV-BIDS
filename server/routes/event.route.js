@@ -220,9 +220,9 @@ const eventRouter = express.Router();
 
 eventRouter.post('/', protect, cleanCache, createNewEvent);
 eventRouter.get('/', protect, getAllEvents);
-eventRouter.get('/:id', protect, getEvent);
 eventRouter.get('/user/:userId', protect, getUserEvents);
 eventRouter.post('/save/:eventId', protect, saveEvent);
+eventRouter.get('/:id', protect, getEvent);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);
 
