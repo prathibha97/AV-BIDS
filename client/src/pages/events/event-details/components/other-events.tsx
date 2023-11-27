@@ -1,5 +1,5 @@
 import { Button } from '@material-tailwind/react';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EVENTDETAILS_03 from '../../../../assets/13_event_details_page/Rectangle 3759.png';
 import EVENTDETAILS_04 from '../../../../assets/13_event_details_page/location.png';
@@ -23,11 +23,10 @@ const OtherEvents: FC<OtherEventsProps> = ({ events }) => {
         <div key={event._id} className='mb-6'>
           <div
             className='flex items-center bg-[#fff] gap-8 p-3 rounded-lg hover:cursor-pointer'
-            onClick={() =>{ 
-              navigate(`/events/${event._id}`)
+            onClick={() => {
+              navigate(`/events/${event._id}`);
               window.location.reload();
-            }
-          }
+            }}
           >
             <div>
               <img

@@ -4,7 +4,7 @@ interface CurrentPlanProps {
   
 }
 
-const CurrentPlan: FC<CurrentPlanProps> = ({}) => {
+const CurrentPlan: FC<CurrentPlanProps> = () => {
   return (
     <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
       <div className='grid grid-cols-2 gap-4'>

@@ -5,7 +5,7 @@ interface BillingDetailsProps {
   
 }
 
-const BillingDetails: FC<BillingDetailsProps> = ({}) => {
+const BillingDetails: FC<BillingDetailsProps> = () => {
   return <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
         <div>
           <div className='grid grid-cols-2  gap-8'>
