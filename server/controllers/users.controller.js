@@ -50,7 +50,7 @@ const getUser = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, email, company, phone, website, imageUrl } =
+    const { firstName, lastName, email, company, phone, website, imageUrl, insurance } =
       req.body;
     const user = await updateUser(id, {
       firstName,
@@ -60,6 +60,7 @@ const update = async (req, res) => {
       phone,
       website,
       imageUrl,
+      insurance
     });
     res.status(200).json(user);
   } catch (error) {
