@@ -1,13 +1,13 @@
-import { Fragment, Key, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import EmptyLayout from "../layout/empty-layout";
-import HomeLayout from "../layout/home-layout";
+import { Fragment, Key, lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import EmptyLayout from '../layout/empty-layout';
+import HomeLayout from '../layout/home-layout';
 
-import SuspenseScreen from "./suspense-screen";
+import SuspenseScreen from './suspense-screen';
 
-import RequireAuth from "../components/require-auth";
-import HomeLayout2 from "../layout/home-layout-dash";
-import Layout_02 from "../layout/layout_02";
+import RequireAuth from '../components/require-auth';
+import HomeLayout2 from '../layout/home-layout-dash';
+import Layout_02 from '../layout/layout_02';
 
 function Router() {
   const routes: any = [
@@ -129,12 +129,6 @@ function Router() {
     },
 
     {
-      path: '/15_dashboard',
-      layout: HomeLayout2,
-      routes: [{ element: lazy(() => import('../pages/15_dashboard')) }],
-    },
-
-    {
       path: '/billing',
       layout: HomeLayout2,
       routes: [{ element: lazy(() => import('../pages/billing')) }],
@@ -158,9 +152,9 @@ function Router() {
     const isIndex: boolean = route.path ? false : true;
     let props: any = {};
     if (isIndex) {
-      props["index"] = true;
+      props['index'] = true;
     } else {
-      props["path"] = route.path;
+      props['path'] = route.path;
     }
 
     // Check if the route has a guard and apply it
