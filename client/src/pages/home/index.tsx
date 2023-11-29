@@ -1,17 +1,9 @@
 import { Button } from "@material-tailwind/react";
-import {
-  MdAccessTime,
-  MdArrowBack,
-  MdArrowForward,
-  MdCalendarMonth,
-} from "react-icons/md";
+import { MdAccessTime, MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
 import HOME_1 from "../../assets/home_1.png";
 import HOME_2 from "../../assets/home_2.png";
 import HOME_3 from "../../assets/home_3.png";
-import ICON from "../../assets/icon.png";
-import ICON2 from "../../assets/icon2.png";
-import HomeCard from "../../components/home-card";
 import CardCarousel from "../../components/carousel";
 
 function index() {
@@ -74,7 +66,13 @@ function index() {
 
   return (
     <div className="container mx-auto">
-      <section className="py-0 md:py-16 grid md:grid-cols-2 content-center px-2">
+      <section className="py-0 md:py-0 grid md:grid-cols-2 content-center px-2">
+        <img
+          src={HOME_1}
+          alt="aad"
+          className="w-full object-scale-down block md:hidden"
+        />
+
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left mb-8">
           <p>The worlds first AV Event Bidding Platform</p>
           <h1 className="text-primary">
@@ -85,25 +83,31 @@ function index() {
             variant="filled"
             color="indigo"
             size="sm"
-            className="rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
             <Link to="/sign-in">
-              <span className="text-white">Get Started</span>
+              <span className="text-white normal-case text-[13px]">
+                Get Started
+              </span>
             </Link>
           </Button>
         </div>
 
-        <img src={HOME_1} alt="aad" className="w-full object-scale-down" />
+        <img
+          src={HOME_1}
+          alt="aad"
+          className="w-full object-scale-down hidden md:block"
+        />
       </section>
 
-      <section className="py-8 md:py-16 grid md:grid-cols-2 content-center px-2">
+      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-2">
         <img src={HOME_2} alt="aad" className="w-full object-scale-down" />
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
           <h2 className="text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug">
             Want to Get More Proposals?
           </h2>
           <p className="mt-4">Post your event on our events listing page. </p>
-          <div className="mt-6">
+          <div className="mt-6 mb-4">
             <div className="flex items-center">
               <div className="flex items-center justify-center rounded-full w-12 h-12 bg-gray-200">
                 <MdCalendarMonth size={24} className="text-secondary" />
@@ -125,40 +129,18 @@ function index() {
             variant="filled"
             color="indigo"
             size="sm"
-            className="rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
             <Link to="/event-planner">
-              <span className="text-white">Learn More</span>
+              <span className="text-white normal-case text-[13px]">
+                Learn More
+              </span>
             </Link>
           </Button>
         </div>
       </section>
 
       <section>
-        <div className="flex items-center justify-between">
-          <h2 className="text-black">Recently Posted Events</h2>
-          {/* <div className="flex items-center justify-between gap-4">
-            <div className="hidden sm:block">
-              <div className="flex  items-center justify-center rounded-full w-12 h-12 bg-primary ">
-                <MdArrowBack size={24} className="text-white" />
-              </div>
-            </div>
-
-            <div className="hidden sm:block">
-              <div className="flex  items-center justify-center rounded-full w-12 h-12 bg-primary ">
-                <MdArrowForward size={24} className="text-white" />
-              </div>
-            </div>
-          </div> */}
-        </div>
-        {/* <div className="py-8 w-full ov flex items-center justify-start gap-4">
-          <HomeCard IMG={ICON} />
-          <HomeCard IMG={ICON2} />
-          <HomeCard IMG={ICON} />
-          <HomeCard IMG={ICON2} />
-          <HomeCard IMG={ICON} />
-        </div> */}
-
         <CardCarousel data={carouselData} />
       </section>
 
@@ -167,7 +149,7 @@ function index() {
           <h2 className="text-black">
             Want to Get More <span className="text-white">Clients?</span>
           </h2>
-          <p className="text-white mt-4">
+          <p className="text-white mt-4 mb-3">
             Browse the events listing page, and submit your proposal. No more
             cold calling or emailing for new clients.
           </p>
@@ -175,10 +157,12 @@ function index() {
             variant="filled"
             color="indigo"
             size="sm"
-            className="rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
             <Link to="/av_providers">
-              <span className="text-white">Learn More</span>
+              <span className="text-white normal-case text-[13px]">
+                Learn More
+              </span>
             </Link>
           </Button>
         </div>
@@ -187,7 +171,7 @@ function index() {
 
       <section className="bg-[#E2E5FA] rounded-lg p-6 ">
         <h2 className="text-[25px] text-center text-primary mb-4">Site Map</h2>
-        <div className="flex justify-center gap-16">
+        <div>
           <div className="text-[16px] font-medium">
             <Link to="/event-planner">
               <div className="mb-2">1_event Planner</div>
@@ -229,7 +213,7 @@ function index() {
         </div>
 
         <h2 className="text-[25px] text-center text-primary mb-4">Dashboard</h2>
-        <div className="flex justify-center gap-28 mt-6">
+        <div>
           <div className="text-[16px] font-medium">
             <Link to="/dashboard">
               <div className="mb-2">Dashboard Home</div>
