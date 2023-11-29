@@ -12,6 +12,7 @@ export interface User {
   company: string;
   members: [Member]
   savedEvents: [Event]
+  insurance: string
 }
 
 export interface Member {

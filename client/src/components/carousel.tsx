@@ -31,7 +31,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -69,6 +69,9 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
 
   return (
     <div>
+      <h2 className="text-black text-center sm:text-left">
+        Recently Posted Events
+      </h2>
       {/* Buttons for navigation */}
       <div className="flex items-center justify-end gap-4 mb-2">
         <div className="hidden sm:block">
@@ -93,9 +96,9 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
         {data.map((item, index) => (
           <div key={index} className="p-4">
             {/* Your updated card content goes here */}
-            <div className="bg-[#F3F1FB] w-full h-[360px] flex-grow rounded-lg aspect-card p-4">
+            <div className="bg-[#F3F1FB] w-full 2xl:h-[380px] rounded-lg  p-4">
               <div className="flex items-center justify-between">
-                <div className="flex-grow px-4">
+                <div className="px-4">
                   {/* Card content */}
                   <div className="flex items-center gap-3 mb-6">
                     <img src={ICON} alt="aad" className="" />
@@ -123,8 +126,11 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                   </div>
 
                   <h2 className="text-[18px] mb-6">{item.price}</h2>
-                  <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full">
+                  {/* <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full">
                     <h2 className="text-[16px] text-primary">{item.button}</h2>
+                  </div> */}
+                  <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full mb-4">
+                    Apply Now
                   </div>
                 </div>
               </div>

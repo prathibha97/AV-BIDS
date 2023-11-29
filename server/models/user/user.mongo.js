@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema(
       default: 'Standard',
     },
     refreshToken: [String],
+    insurance: String,
     members: [
       {
         type: mongoose.Schema.Types.ObjectId,
