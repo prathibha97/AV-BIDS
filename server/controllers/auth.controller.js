@@ -16,12 +16,14 @@ const register = async (req, res) => {
     const { firstName, lastName, email, password, userType } = req.body;
 
     if (!firstName || !lastName || !email || !password || !userType) {
-      return res.status(400).json('All fields are required');
+      return res.status(400).json({ message: 'All fields are required' });
     }
 
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
-      return res.status(409).json('User with this email already exists');
+      return res
+        .status(409)
+        .json({ message: 'User with this email already exists' });
     }
 
     const salt = await bcrypt.genSalt(10);

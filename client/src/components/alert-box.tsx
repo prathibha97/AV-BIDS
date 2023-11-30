@@ -36,18 +36,20 @@ const AlertBox: FC<AlertBoxProps> = ({
   setOpen,
 }) => {
   return (
-    <Alert
-      color={color}
-      variant={variant}
-      open={open}
-      onClose={() => setOpen(false)}
-      animate={{
-        mount: { y: 0 },
-        unmount: { y: 100 },
-      }}
-    >
-      {text}
-    </Alert>
+    <>
+      <Alert
+        open={open}
+        onClose={() => setOpen(false)}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+        color={color}
+        variant={variant}
+      >
+        {text}
+      </Alert>
+    </>
   );
 };
 

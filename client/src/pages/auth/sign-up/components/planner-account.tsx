@@ -11,9 +11,15 @@ import {
 
 interface PlannerAccountFormProps {
   userType: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PlannerAccountForm: FC<PlannerAccountFormProps> = ({ userType }) => {
+const PlannerAccountForm: FC<PlannerAccountFormProps> = ({
+  userType,
+  setErrorMessage,
+  setOpen,
+}) => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
 
@@ -33,123 +39,135 @@ const PlannerAccountForm: FC<PlannerAccountFormProps> = ({ userType }) => {
 
   const onSubmit = async (values: RegisterFormValues) => {
     try {
-      const { data } = await api.post('/auth/register', {
+      await api.post('/auth/register', {
         ...values,
         userType,
       });
+      navigate('/dashboard');
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        setErrorMessage(errorMessage);
+        setOpen(true);
 
-      if (data.userType === 'PROVIDER') {
-        navigate('/provider-dashboard');
-      } else if (data.userType === 'PLANNER') {
-        navigate('/dashboard');
+        // Set a timer to clear the error message after 5 seconds
+        setTimeout(() => {
+          setOpen(false);
+          setErrorMessage(null);
+        }, 5000);
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
   return (
-    <form
-      className='mt-6 flex flex-col gap-4'
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div>
-        <Input
-          type='text'
-          placeholder='First Name'
-          className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
-          labelProps={{
-            className: 'before:content-none after:content-none',
-          }}
-          crossOrigin='anonymous'
-          {...register('firstName')}
-        />
-        {errors.firstName && (
-          <span className='text-red-500'>First Name is required</span>
-        )}
-      </div>
-      <div>
-        <Input
-          type='text'
-          placeholder='Last Name'
-          className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
-          labelProps={{
-            className: 'before:content-none after:content-none',
-          }}
-          crossOrigin='anonymous'
-          {...register('lastName')}
-        />
-        {errors.lastName && (
-          <span className='text-red-500'>Last Name is required</span>
-        )}
-      </div>
-      <div>
-        <Input
-          type='email'
-          placeholder='Email Address'
-          className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
-          labelProps={{
-            className: 'before:content-none after:content-none',
-          }}
-          crossOrigin='anonymous'
-          {...register('email')}
-        />
-        {errors.email && (
-          <span className='text-red-500'>Email is required</span>
-        )}
-      </div>
-      <div>
-        <Input
-          type='password'
-          placeholder='Password'
-          className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
-          labelProps={{
-            className: 'before:content-none after:content-none',
-          }}
-          crossOrigin='anonymous'
-          {...register('password')}
-        />
-        {errors.password && (
-          <span className='text-red-500'>Password is required</span>
-        )}
-      </div>
-
-      <div className='flex'>
-        <div className='self-start p-0 m-0'>
-          <Checkbox
-            className='border-black items-start'
-            crossOrigin=''
-            onClick={() => setChecked((prev) => !prev)}
+    <>
+      <form
+        className='mt-6 flex flex-col gap-4'
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>
+          <Input
+            type='text'
+            placeholder='First Name'
+            className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
+            labelProps={{
+              className: 'before:content-none after:content-none',
+            }}
+            crossOrigin='anonymous'
+            {...register('firstName')}
           />
+          {errors.firstName && (
+            <span className='text-red-500'>First Name is required</span>
+          )}
+        </div>
+        <div>
+          <Input
+            type='text'
+            placeholder='Last Name'
+            className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
+            labelProps={{
+              className: 'before:content-none after:content-none',
+            }}
+            crossOrigin='anonymous'
+            {...register('lastName')}
+          />
+          {errors.lastName && (
+            <span className='text-red-500'>Last Name is required</span>
+          )}
+        </div>
+        <div>
+          <Input
+            type='email'
+            placeholder='Email Address'
+            className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
+            labelProps={{
+              className: 'before:content-none after:content-none',
+            }}
+            crossOrigin='anonymous'
+            {...register('email')}
+          />
+          {errors.email && (
+            <span className='text-red-500'>Email is required</span>
+          )}
+        </div>
+        <div>
+          <Input
+            type='password'
+            placeholder='Password'
+            className=' !border-t-blue-gray-200 focus:!border-t-gray-900 bg-input_background rounded-full'
+            labelProps={{
+              className: 'before:content-none after:content-none',
+            }}
+            crossOrigin='anonymous'
+            {...register('password')}
+          />
+          {errors.password && (
+            <span className='text-red-500'>Password is required</span>
+          )}
         </div>
 
-        <p color='blue-gray' className='text-[14px] text-black'>
-          By hitting the "Create Account" button,<br></br> you agree to the
-          <span className='text-purple_two underline mx-[5px]'>
-            Terms of Service
-          </span>
-          &<br></br>
-          <span className='text-purple_two underline'>Privacy Policy</span>
-        </p>
-      </div>
+        <div className='flex'>
+          <div className='self-start p-0 m-0'>
+            <Checkbox
+              className='border-black items-start'
+              crossOrigin=''
+              onClick={() => setChecked((prev) => !prev)}
+            />
+          </div>
 
-      <Button
-        size='lg'
-        className='rounded-full bg-primary normal-case text-[15px] mt-2'
-        type='submit'
-        disabled={checked === false}
-      >
-        Create Account
-      </Button>
-      <p className='mt-2 flex items-center justify-center gap-2 text-[14px] text-black'>
-        Have an account?
-        <span
-          className='text-purple_two underline cursor-pointer'
-          onClick={() => navigate('/sign-in')}
+          <p color='blue-gray' className='text-[14px] text-black'>
+            By hitting the "Create Account" button,<br></br> you agree to the
+            <span className='text-purple_two underline mx-[5px]'>
+              Terms of Service
+            </span>
+            &<br></br>
+            <span className='text-purple_two underline'>Privacy Policy</span>
+          </p>
+        </div>
+
+        <Button
+          size='lg'
+          className='rounded-full bg-primary normal-case text-[15px] mt-2'
+          type='submit'
+          disabled={checked === false}
         >
-          Sign In
-        </span>
-      </p>
-    </form>
+          Create Account
+        </Button>
+        <p className='mt-2 flex items-center justify-center gap-2 text-[14px] text-black'>
+          Have an account?
+          <span
+            className='text-purple_two underline cursor-pointer'
+            onClick={() => navigate('/sign-in')}
+          >
+            Sign In
+          </span>
+        </p>
+      </form>
+    </>
   );
 };
 
