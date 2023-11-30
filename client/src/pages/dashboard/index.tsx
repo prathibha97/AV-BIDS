@@ -41,7 +41,11 @@ function Index() {
       </div>
 
       {user?.userType === 'PROVIDER' && <UploadInsurance />}
-      <ResetPassword />
+      <ResetPassword
+        setMessage={setMessage}
+        setAlertOpen={setOpen}
+        setColor={setColor}
+      />
     </div>
   );
 }

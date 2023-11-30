@@ -177,7 +177,7 @@ const resetPassword = async (req, res) => {
     console.error(err.message);
     return res
       .status(500)
-      .json({ message: 'Error occurred while resetting the password' });
+      .json({ error: 'Error occurred while resetting the password' });
   }
 };
 
