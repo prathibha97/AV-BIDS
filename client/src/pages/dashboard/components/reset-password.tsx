@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@material-tailwind/react';
+import { colors } from '@material-tailwind/react/types/generic';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +13,17 @@ import {
   ResetPasswordFormValues,
 } from '../../../utils/validations/reset-password-form-validation';
 
-interface ResetPasswordProps {}
+interface ResetPasswordProps {
+  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setColor: React.Dispatch<React.SetStateAction<colors | undefined>>;
+}
 
-const ResetPassword: FC<ResetPasswordProps> = ({}) => {
+const ResetPassword: FC<ResetPasswordProps> = ({
+  setAlertOpen,
+  setColor,
+  setMessage,
+}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -40,8 +49,35 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
         password: values.newPassword,
       });
       dispatch(updateUser(data.user));
-    } catch (error) {
-      console.log(error);
+      const message = data.message;
+      setMessage(message);
+      setAlertOpen(true);
+
+      // Set a timer to clear the error message after 5 seconds
+      setTimeout(() => {
+        setAlertOpen(false);
+        setMessage(null);
+      }, 5000);
+
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setMessage(errorMessage);
+        setColor('red');
+        setAlertOpen(true);
+
+        // Set a timer to clear the error message after 5 seconds
+        setTimeout(() => {
+          setAlertOpen(false);
+          setMessage(null);
+          setColor('green');
+        }, 5000);
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
@@ -65,7 +101,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
 
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}
@@ -83,7 +119,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             <p className='mb-2'>New Password</p>
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}
@@ -100,7 +136,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             <p className='mb-2'>Confirm New Password</p>
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}

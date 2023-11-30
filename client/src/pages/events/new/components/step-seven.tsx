@@ -39,8 +39,8 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
 
   useEffect(() => {
     // Update formData when otherRequirements changes
-    updateFormData("otherRequirements", otherRequirements);
-  }, [otherRequirements]);
+    updateFormData('otherRequirements', otherRequirements);
+  }, [otherRequirements, updateFormData]);
 
   const handleAdjust = (
     field: string,

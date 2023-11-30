@@ -4,16 +4,13 @@
 *@access Private/Admin
 */
 
-const Event = require('../models/event/event.mongo');
-const Review = require('../models/review/review.mongo');
-
-
 const {
   getUsers,
   getUserById,
   updateUser,
   removeUser,
 } = require('../models/user/user.model');
+const { isValidEmail, isValidPhone, } = require('../utils');
 
 const getAllUsers = async (req, res) => {
   try {
@@ -50,8 +47,29 @@ const getUser = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, email, company, phone, website, imageUrl, insurance } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      company,
+      phone,
+      website,
+      imageUrl,
+      insurance,
+    } = req.body;
+
+    if (!id || !firstName || !lastName || !email) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
+    if (phone && !isValidPhone(phone)) {
+      return res.status(400).json({ message: 'Invalid phone number format' });
+    }
+
     const user = await updateUser(id, {
       firstName,
       lastName,
@@ -60,12 +78,13 @@ const update = async (req, res) => {
       phone,
       website,
       imageUrl,
-      insurance
+      insurance,
     });
-    res.status(200).json(user);
+
+    res.status(200).json({ user, message: 'User updated successfully' });
   } catch (error) {
     console.error('Failed to update user - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
