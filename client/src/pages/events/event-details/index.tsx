@@ -1,6 +1,5 @@
 import EVENTDETAILS_03 from "../../../assets/13_event_details_page/Rectangle 3759.png";
 import EVENTDETAILS_02 from "../../../assets/13_event_details_page/carbon_time.png";
-import EVENTDETAILS_01 from "../../../assets/13_event_details_page/exclamation-circle.png";
 import { MdOutlineCancel } from "react-icons/md";
 import SPAM_ICON from "../../../assets/13_event_details_page/spam.png";
 
@@ -96,7 +95,7 @@ export function Index() {
   }
 
   return (
-    <div className="mx-auto h-screen bg-[#fff]">
+    <div className="mx-auto mt-16">
       <div className="grid lg:grid-cols-3 gap-4 content-center">
         <div className="col-span-2 flex justify-center items-center px-8">
           <section>
@@ -150,13 +149,13 @@ export function Index() {
                 />
               </div>
               <div className="bg-[#F3F1FB] p-6 mb-16 rounded-lg">
-                <h2 className="text-[22px] mb-4">Description</h2>
+                <h2 className="text-[20px] mb-4">Description</h2>
                 <div
                   dangerouslySetInnerHTML={{ __html: event?.description! }}
                 />
               </div>
               <div>
-                <h2 className="text-[22px] mb-4">
+                <h2 className="text-[20px] mb-4">
                   Submit a question about the event
                 </h2>
                 <p className="text-[20px] mb-2">Description</p>
@@ -200,7 +199,7 @@ export function Index() {
           </section>
           {/* //////////////////////////////// */}
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-start">
           <section>
             <div className="mb-4">
               <Button
@@ -227,7 +226,7 @@ export function Index() {
               </Button>
             </div>
 
-            <div className="flex items-center gap-3 mb-6 ">
+            <div className="flex items-center justify-center gap-3 mb-6 ">
               <img
                 src={SPAM_ICON}
                 alt="aad"
