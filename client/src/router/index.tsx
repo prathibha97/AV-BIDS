@@ -1,6 +1,7 @@
 import { Fragment, Key, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import EmptyLayout from "../layout/empty-layout";
+import EmptyLayout2 from "../layout/empty-layout2";
 import HomeLayout from "../layout/home-layout";
 
 import SuspenseScreen from "./suspense-screen";
@@ -136,10 +137,21 @@ function Router() {
 
     {
       path: "/18_order_page",
-      layout: EmptyLayout,
+      layout: EmptyLayout2,
       routes: [{ element: lazy(() => import("../pages/18_order_page")) }],
     },
 
+    {
+      path: "/19_add_card",
+      layout: EmptyLayout2,
+      routes: [{ element: lazy(() => import("../pages/19_add_card")) }],
+    },
+
+    {
+      path: "/20_place_order",
+      layout: EmptyLayout2,
+      routes: [{ element: lazy(() => import("../pages/20_place_order")) }],
+    },
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
