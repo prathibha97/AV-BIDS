@@ -32,7 +32,12 @@ function Index() {
       </div>
 
       <div>
-        <MemberTable user={user} />
+        <MemberTable
+          user={user}
+          setMessage={setMessage}
+          setAlertOpen={setOpen}
+          setColor={setColor}
+        />
       </div>
 
       {user?.userType === 'PROVIDER' && <UploadInsurance />}

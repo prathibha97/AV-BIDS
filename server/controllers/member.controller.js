@@ -5,6 +5,7 @@ const {
   updateMember,
   removeMember,
 } = require('../models/member/member.model');
+const { isValidEmail } = require('../utils');
 
 /* 
 ?@desc   Create a new member
@@ -14,11 +15,21 @@ const {
 const createNewMember = async (req, res) => {
   try {
     const { name, role, email } = req.body;
+
+    // Validate that required fields are provided
+    if (!name || !role || !email) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     const member = await createMember({ name, role, email }, req.user._id);
-    res.status(200).json(member);
+    res.status(200).json({ member, message: 'Member created successfully' });
   } catch (error) {
     console.error('Failed to create member - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
@@ -63,15 +74,21 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email, role } = req.body;
-    const member = await updateMember(id, {
-      name,
-      email,
-      role,
-    });
-    res.status(200).json(member);
+
+    if (!id || !name || !email || !role) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    const member = await updateMember(id, { name, email, role });
+
+    res.status(200).json({ member, message: 'Member updated successfully' });
   } catch (error) {
     console.error('Failed to update member - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
@@ -83,11 +100,23 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: 'Member ID is required' });
+    }
+
+    // Check if the member exists before attempting to remove
+    const existingMember = await getMemberById(id);
+    if (!existingMember) {
+      return res.status(404).json({ error: 'Member not found' });
+    }
+
     const deletedMember = await removeMember(id);
-    res.status(200).json(deletedMember);
+    res
+      .status(200)
+      .json({ member: deletedMember, message: 'Member removed successfully' });
   } catch (error) {
     console.error('Failed to remove member - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 

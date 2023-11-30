@@ -1,6 +1,7 @@
 import { Button } from '@material-tailwind/react';
 import { MdDeleteOutline } from 'react-icons/md';
 
+import { colors } from '@material-tailwind/react/types/generic';
 import { FC } from 'react';
 import { clearMember } from '../../../app/features/members/memberSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
@@ -10,24 +11,55 @@ import api from '../../../utils/api';
 interface DeleteMemberProps {
   handleOpen: () => void;
   onDeleteMember: () => void;
+  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setColor: React.Dispatch<React.SetStateAction<colors | undefined>>;
 }
 const DeleteMember: FC<DeleteMemberProps> = ({
   handleOpen,
   onDeleteMember,
+  setAlertOpen,
+  setColor,
+  setMessage,
 }) => {
   const dispatch = useAppDispatch();
   const member = useAppSelector((state: RootState) => state.member.member);
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/members/${member?._id}`);
-      // Notify the parent component that a member is deleted
+      const { data } = await api.delete(`/members/${member?._id}`);
       onDeleteMember();
-      // Close the dialog after deletion
       handleOpen();
+      const message = data.message;
+      setMessage(message);
+      setAlertOpen(true);
+
+      // Set a timer to clear the error message after 5 seconds
+      setTimeout(() => {
+        setAlertOpen(false);
+        setMessage(null);
+      }, 5000);
+
       dispatch(clearMember());
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setMessage(errorMessage);
+        setColor('red');
+        setAlertOpen(true);
+
+        // Set a timer to clear the error message after 5 seconds
+        setTimeout(() => {
+          setAlertOpen(false);
+          setMessage(null);
+          setColor('green');
+        }, 5000);
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
   return (
