@@ -17,7 +17,19 @@ const eventSchema = new mongoose.Schema(
     eventSubCategory: {
       type: String,
     },
+    proposalDueDate: {
+      type: String,
+    },
+    eventStartDate: {
+      type: String,
+    },
+    eventEndDate: {
+      type: String,
+    },
     eventBudget: {
+      type: String,
+    },
+    audienceSize: {
       type: String,
     },
     address: {
@@ -179,23 +191,23 @@ const eventSchema = new mongoose.Schema(
         url: String,
       },
     ],
-    proposals: [
-      {
-        provider: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        },
-        proposalText: String,
-        files: [
-          {
-            fileName: String,
-            url: String,
-          },
-        ],
-      },
-    ],
+    // proposals: [
+    //   {
+    //     provider: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: 'User',
+    //     },
+    //     proposalText: String,
+    //     files: [
+    //       {
+    //         fileName: String,
+    //         url: String,
+    //       },
+    //     ],
+    //   },
+    // ],
     comments: {
-      description: String,
+      type: String,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

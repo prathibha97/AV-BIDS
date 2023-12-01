@@ -7,6 +7,10 @@ export const EventFormSchema = z.object({
   eventCategory: z.string().optional(),
   eventSubCategory: z.string().optional(),
   eventBudget: z.string().optional(),
+  proposalDueDate: z.string().optional(),
+  eventStartDate: z.string().optional(),
+  eventEndDate: z.string().optional(),
+  audienceSize: z.string().optional(),
   address: z.object({
     venueName: z.string().optional(),
     venueAddress: z.string().optional(),
