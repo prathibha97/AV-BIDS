@@ -124,8 +124,10 @@ const StepOne: FC<StepOneProps> = ({
       <form>
         <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
           <div className="col-span-2">
-            <p className="mb-2">Event Title </p>
-            <div className="mb-5 bg-input_background rounded-full">
+            <p className="mb-2 font-medium">
+              Event Title <span className="text-[#DE5753]">*</span>
+            </p>
+            <div className="mb-8 bg-input_background rounded-full">
               <Input
                 placeholder="Ex: 2023 Meeting Expo San Deigo"
                 crossOrigin=""
@@ -141,9 +143,58 @@ const StepOne: FC<StepOneProps> = ({
                 value={formData.title}
               />
             </div>
+
+            <div className="">
+              <div className="grid grid-cols-3 gap-8">
+                <div>
+                  <p className="mb-2 font-medium">Proposal Due Date</p>
+                  <div className="mb-5 bg-input_background rounded-full">
+                    <Input
+                      placeholder="Enter Date"
+                      crossOrigin=""
+                      className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                      labelProps={{
+                        className: "hidden",
+                      }}
+                      containerProps={{ className: "min-w-[100px]" }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 font-medium">Event Start Date</p>
+                  <div className="mb-5 bg-input_background rounded-full">
+                    <Input
+                      placeholder="Enter Date"
+                      crossOrigin=""
+                      className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                      labelProps={{
+                        className: "hidden",
+                      }}
+                      containerProps={{ className: "min-w-[100px]" }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 font-medium">Event End Date</p>
+                  <div className="mb-5 bg-input_background rounded-full">
+                    <Input
+                      placeholder="Enter Date"
+                      crossOrigin=""
+                      className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
+                      labelProps={{
+                        className: "hidden",
+                      }}
+                      containerProps={{ className: "min-w-[100px]" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="col-span-2">
-            <p className="mb-2">Event Description </p>
+            <p className="mb-2 font-medium">
+              Event Description <span className="text-[#DE5753]">*</span>
+            </p>
             <div className="mb-5">
               {/* @ts-ignore */}
               <RichTextEditor
@@ -154,7 +205,9 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
           <div className="">
-            <p className="mb-2">Event Type </p>
+            <p className="mb-2 font-medium">
+              Event Type<span className="text-[#DE5753]">*</span>{" "}
+            </p>
             <div className="mb-5">
               <Select
                 label="In-Person"
@@ -174,7 +227,9 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
           <div className="">
-            <p className="mb-2">Event Category </p>
+            <p className="mb-2 font-medium">
+              Event Category<span className="text-[#DE5753]">*</span>{" "}
+            </p>
             <div className="mb-5">
               <Select
                 label="Coporate"
@@ -194,7 +249,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
           <div className="">
-            <p className="mb-2">Event Sub Category</p>
+            <p className="mb-2 font-medium">Event Sub Category</p>
             <div className=" mb-5">
               <Select
                 label="General Meeting"
@@ -214,7 +269,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
           <div className="">
-            <p className="mb-2">Event Budget</p>
+            <p className="mb-2 font-medium">Event Budget</p>
             <div className=" mb-8">
               <Select
                 label="$70,000 - $150,000"
@@ -233,12 +288,31 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
+
+          <div className="">
+            <p className="mb-2 font-medium">Audience Size</p>
+            <div className=" mb-8">
+              <Select
+                label="750 - 1,500"
+                className="!bg-input_background"
+                name="eventBudget"
+                onChange={(e: any) => {
+                  handleSelect("eventBudget", e);
+                }}
+                value={formData.eventBudget}
+              >
+                <Option>option 1</Option>
+                <Option>option 2</Option>
+                <Option>option 3</Option>
+              </Select>
+            </div>
+          </div>
         </div>
 
         <p className="font-medium text-[18px] mb-4">Address & Location</p>
         <div className="grid grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]">
           <div className="">
-            <p className="mb-2">Venue Name</p>
+            <p className="mb-2 font-medium">Venue Name</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
@@ -258,7 +332,7 @@ const StepOne: FC<StepOneProps> = ({
           </div>
 
           <div className="...">
-            <p className="mb-2">Address</p>
+            <p className="mb-2 font-medium">Address</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
@@ -280,7 +354,9 @@ const StepOne: FC<StepOneProps> = ({
 
         <div className="grid grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
           <div className="...">
-            <p className="mb-2">City </p>
+            <p className="mb-2 font-medium">
+              City<span className="text-[#DE5753]">*</span>
+            </p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
@@ -300,7 +376,7 @@ const StepOne: FC<StepOneProps> = ({
           </div>
 
           <div className="...">
-            <p className="mb-2">State</p>
+            <p className="mb-2 font-medium">State</p>
             <div className="mb-5">
               <Select
                 label="Select State"
@@ -321,7 +397,7 @@ const StepOne: FC<StepOneProps> = ({
           </div>
 
           <div className="...">
-            <p className="mb-2">Zip</p>
+            <p className="mb-2 font-medium">Zip</p>
             <div className="mb-8 bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
