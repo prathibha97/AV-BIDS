@@ -193,11 +193,10 @@ const eventSchema = new mongoose.Schema(
     ],
     // proposals: [
     //   {
-    //     provider: {
+    //     submittedBy: {
     //       type: mongoose.Schema.Types.ObjectId,
     //       ref: 'User',
     //     },
-    //     proposalText: String,
     //     files: [
     //       {
     //         fileName: String,
@@ -206,6 +205,12 @@ const eventSchema = new mongoose.Schema(
     //     ],
     //   },
     // ],
+    proposals: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Proposal',
+      },
+    ],
     comments: {
       type: String,
     },

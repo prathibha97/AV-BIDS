@@ -41,8 +41,8 @@ const OtherEvents: FC<OtherEventsProps> = ({ events }) => {
                 <h2 className='text-[20px]'>{event.title}</h2>
 
                 <div className='flex gap-36'>
-                  <p className='text-[18px] text-red-500'>
-                    Event Date: 10/10/2023 - 10/15/2023
+                  <p className='text-[18px]'>
+                    Event Date: {event.eventStartDate} - {event.eventEndDate}
                   </p>
                   <p className='text-[18px]'>{event.eventBudget}</p>
                 </div>
