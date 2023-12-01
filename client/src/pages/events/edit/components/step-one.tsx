@@ -118,7 +118,7 @@ const StepOne: FC<StepOneProps> = ({
   };
 
   return (
-    <div>
+    <div className="mx-2">
       <p className="font-medium text-[18px] mb-4">Event Details</p>
 
       <form>
@@ -145,7 +145,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
 
             <div className="">
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 <div>
                   <p className="mb-2 font-medium">Proposal Due Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
@@ -191,7 +191,10 @@ const StepOne: FC<StepOneProps> = ({
               </div>
             </div>
           </div>
-          <div className="col-span-2">
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535] justify-items-center">
+          <div className="col-span-1">
             <p className="mb-2 font-medium">
               Event Description <span className="text-[#DE5753]">*</span>
             </p>

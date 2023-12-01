@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import CardDetails from './card-details';
+import { FC, useState } from "react";
+import CardDetails from "./card-details";
 
 interface StepFiveProps {
   formData: any;
@@ -35,70 +35,70 @@ const StepFive: FC<StepFiveProps> = ({ formData, updateStepTwoData }) => {
     let updatedValue = 0;
 
     switch (field) {
-      case 'Broadcast_Camera':
+      case "Broadcast_Camera":
         updatedValue = Math.max(0, Broadcast_Camera + value);
         setBroadcast_Camera(updatedValue);
         break;
-      case 'Roaming_Camera':
+      case "Roaming_Camera":
         updatedValue = Math.max(0, Roaming_Camera + value);
         setRoaming_Camera(updatedValue);
         break;
-      case 'Camcorder':
+      case "Camcorder":
         updatedValue = Math.max(0, Camcorder + value);
         setCamcorder(updatedValue);
         break;
-      case 'Video_and_Camera_Lighting':
+      case "Video_and_Camera_Lighting":
         updatedValue = Math.max(0, Video_and_Camera_Lighting + value);
         setVideo_and_Camera_Lighting(updatedValue);
         break;
-      case 'Photography_Camera':
+      case "Photography_Camera":
         updatedValue = Math.max(0, Photography_Camera + value);
         setPhotography_Camera(updatedValue);
         break;
-      case 'Video_Switching_and_Effects_Processing':
+      case "Video_Switching_and_Effects_Processing":
         updatedValue = Math.max(
           0,
           Video_Switching_and_Effects_Processing + value
         );
         setVideo_Switching_and_Effects_Processing(updatedValue);
         break;
-      case 'Video_Capture':
+      case "Video_Capture":
         updatedValue = Math.max(0, Video_Capture + value);
         setVideo_Capture(updatedValue);
         break;
-      case 'Video_Streaming':
+      case "Video_Streaming":
         updatedValue = Math.max(0, Video_Streaming + value);
         setVideo_Streaming(updatedValue);
         break;
-      case 'Screen_Blend_21_Nine_Format':
+      case "Screen_Blend_21_Nine_Format":
         updatedValue = Math.max(0, Screen_Blend_21_Nine_Format + value);
         setScreen_Blend_21_Nine_Format(updatedValue);
         break;
-      case 'DVD_Blu_Ray_Player':
+      case "DVD_Blu_Ray_Player":
         updatedValue = Math.max(0, DVD_Blu_Ray_Player + value);
         setDVD_Blu_Ray_Player(updatedValue);
         break;
-      case 'VHS_DVD_Player':
+      case "VHS_DVD_Player":
         updatedValue = Math.max(0, VHS_DVD_Player + value);
         setVHS_DVD_Player(updatedValue);
         break;
-      case 'Speaker_Timer':
+      case "Speaker_Timer":
         updatedValue = Math.max(0, Speaker_Timer + value);
         setSpeaker_Timer(updatedValue);
         break;
-      case 'Presentation_Remote_Clicker':
+      case "Presentation_Remote_Clicker":
         updatedValue = Math.max(0, Presentation_Remote_Clicker + value);
         setPresentation_Remote_Clicker(updatedValue);
         break;
-      case 'Laser_Pointer':
+      case "Laser_Pointer":
         updatedValue = Math.max(0, Laser_Pointer + value);
         setLaser_Pointer(updatedValue);
         break;
-      case 'Perfect_Cue_System':
+      case "Perfect_Cue_System":
         updatedValue = Math.max(0, Perfect_Cue_System + value);
         setPerfect_Cue_System(updatedValue);
         break;
-      case 'Flipchart':
+      case "Flipchart":
         updatedValue = Math.max(0, Flipchart + value);
         setFlipchart(updatedValue);
         break;
@@ -111,114 +111,114 @@ const StepFive: FC<StepFiveProps> = ({ formData, updateStepTwoData }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Video & Camera</p>
+    <div className="grid sm:grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Video & Camera</p>
         <CardDetails
-          name='Broadcast Camera'
+          name="Broadcast Camera"
           value={Broadcast_Camera}
-          onDecrease={() => handleAdjust('Broadcast_Camera', -1)}
-          onIncrease={() => handleAdjust('Broadcast_Camera', 1)}
+          onDecrease={() => handleAdjust("Broadcast_Camera", -1)}
+          onIncrease={() => handleAdjust("Broadcast_Camera", 1)}
         />
         <CardDetails
-          name='Roaming Camera'
+          name="Roaming Camera"
           value={Roaming_Camera}
-          onDecrease={() => handleAdjust('Roaming_Camera', -1)}
-          onIncrease={() => handleAdjust('Roaming_Camera', 1)}
+          onDecrease={() => handleAdjust("Roaming_Camera", -1)}
+          onIncrease={() => handleAdjust("Roaming_Camera", 1)}
         />
         <CardDetails
-          name='Camcorder'
+          name="Camcorder"
           value={Camcorder}
-          onDecrease={() => handleAdjust('Camcorder', -1)}
-          onIncrease={() => handleAdjust('Camcorder', 1)}
+          onDecrease={() => handleAdjust("Camcorder", -1)}
+          onIncrease={() => handleAdjust("Camcorder", 1)}
         />
         <CardDetails
-          name='Video & Camera Lighting'
+          name="Video & Camera Lighting"
           value={Video_and_Camera_Lighting}
-          onDecrease={() => handleAdjust('Video_and_Camera_Lighting', -1)}
-          onIncrease={() => handleAdjust('Video_and_Camera_Lighting', 1)}
+          onDecrease={() => handleAdjust("Video_and_Camera_Lighting", -1)}
+          onIncrease={() => handleAdjust("Video_and_Camera_Lighting", 1)}
         />
         <CardDetails
-          name='Photography Camera'
+          name="Photography Camera"
           value={Photography_Camera}
-          onDecrease={() => handleAdjust('Photography_Camera', -1)}
-          onIncrease={() => handleAdjust('Photography_Camera', 1)}
+          onDecrease={() => handleAdjust("Photography_Camera", -1)}
+          onIncrease={() => handleAdjust("Photography_Camera", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Video Processing</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Video Processing</p>
         <CardDetails
-          name='Video Switching & Effects Processing'
+          name="Video Switching & Effects Processing"
           value={Video_Switching_and_Effects_Processing}
           onDecrease={() =>
-            handleAdjust('Video_Switching_and_Effects_Processing', -1)
+            handleAdjust("Video_Switching_and_Effects_Processing", -1)
           }
           onIncrease={() =>
-            handleAdjust('Video_Switching_and_Effects_Processing', 1)
+            handleAdjust("Video_Switching_and_Effects_Processing", 1)
           }
         />
         <CardDetails
-          name='Video Capture'
+          name="Video Capture"
           value={Video_Capture}
-          onDecrease={() => handleAdjust('Video_Capture', -1)}
-          onIncrease={() => handleAdjust('Video_Capture', 1)}
+          onDecrease={() => handleAdjust("Video_Capture", -1)}
+          onIncrease={() => handleAdjust("Video_Capture", 1)}
         />
         <CardDetails
-          name='Screen Blend (21:9 Format)'
+          name="Screen Blend (21:9 Format)"
           value={Screen_Blend_21_Nine_Format}
-          onDecrease={() => handleAdjust('Screen_Blend_21_Nine_Format', -1)}
-          onIncrease={() => handleAdjust('Screen_Blend_21_Nine_Format', 1)}
+          onDecrease={() => handleAdjust("Screen_Blend_21_Nine_Format", -1)}
+          onIncrease={() => handleAdjust("Screen_Blend_21_Nine_Format", 1)}
         />
         <CardDetails
-          name='Video Streaming'
+          name="Video Streaming"
           value={Video_Streaming}
-          onDecrease={() => handleAdjust('Video_Streaming', -1)}
-          onIncrease={() => handleAdjust('Video_Streaming', 1)}
+          onDecrease={() => handleAdjust("Video_Streaming", -1)}
+          onIncrease={() => handleAdjust("Video_Streaming", 1)}
         />
         <CardDetails
-          name='DVD-Blu-Ray Player'
+          name="DVD-Blu-Ray Player"
           value={DVD_Blu_Ray_Player}
-          onDecrease={() => handleAdjust('DVD_Blu_Ray_Player', -1)}
-          onIncrease={() => handleAdjust('DVD_Blu_Ray_Player', 1)}
+          onDecrease={() => handleAdjust("DVD_Blu_Ray_Player", -1)}
+          onIncrease={() => handleAdjust("DVD_Blu_Ray_Player", 1)}
         />
         <CardDetails
-          name='VHS/DVD Player'
+          name="VHS/DVD Player"
           value={VHS_DVD_Player}
-          onDecrease={() => handleAdjust('VHS_DVD_Player', -1)}
-          onIncrease={() => handleAdjust('VHS_DVD_Player', 1)}
+          onDecrease={() => handleAdjust("VHS_DVD_Player", -1)}
+          onIncrease={() => handleAdjust("VHS_DVD_Player", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Presenter Tools</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Presenter Tools</p>
         <CardDetails
-          name='Speaker Timer'
+          name="Speaker Timer"
           value={Speaker_Timer}
-          onDecrease={() => handleAdjust('Speaker_Timer', -1)}
-          onIncrease={() => handleAdjust('Speaker_Timer', 1)}
+          onDecrease={() => handleAdjust("Speaker_Timer", -1)}
+          onIncrease={() => handleAdjust("Speaker_Timer", 1)}
         />
         <CardDetails
-          name='Presentation Remote Clicker'
+          name="Presentation Remote Clicker"
           value={Presentation_Remote_Clicker}
-          onDecrease={() => handleAdjust('Presentation_Remote_Clicker', -1)}
-          onIncrease={() => handleAdjust('Presentation_Remote_Clicker', 1)}
+          onDecrease={() => handleAdjust("Presentation_Remote_Clicker", -1)}
+          onIncrease={() => handleAdjust("Presentation_Remote_Clicker", 1)}
         />
         <CardDetails
-          name='Laser Pointer'
+          name="Laser Pointer"
           value={Laser_Pointer}
-          onDecrease={() => handleAdjust('Laser_Pointer', -1)}
-          onIncrease={() => handleAdjust('Laser_Pointer', 1)}
+          onDecrease={() => handleAdjust("Laser_Pointer", -1)}
+          onIncrease={() => handleAdjust("Laser_Pointer", 1)}
         />
         <CardDetails
-          name='Perfect Cue System'
+          name="Perfect Cue System"
           value={Perfect_Cue_System}
-          onDecrease={() => handleAdjust('Perfect_Cue_System', -1)}
-          onIncrease={() => handleAdjust('Perfect_Cue_System', 1)}
+          onDecrease={() => handleAdjust("Perfect_Cue_System", -1)}
+          onIncrease={() => handleAdjust("Perfect_Cue_System", 1)}
         />
         <CardDetails
-          name='Flipchart'
+          name="Flipchart"
           value={Flipchart}
-          onDecrease={() => handleAdjust('Flipchart', -1)}
-          onIncrease={() => handleAdjust('Flipchart', 1)}
+          onDecrease={() => handleAdjust("Flipchart", -1)}
+          onIncrease={() => handleAdjust("Flipchart", 1)}
         />
       </div>
     </div>
