@@ -152,6 +152,12 @@ function Router() {
       layout: EmptyLayout2,
       routes: [{ element: lazy(() => import("../pages/20_place_order")) }],
     },
+
+    {
+      path: "/Proposal-Tab",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/Proposal-Tab")) }],
+    },
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
