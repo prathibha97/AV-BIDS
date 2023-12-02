@@ -208,6 +208,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
 
       <div className="bg-[#F3F1FB] rounded-lg p-6">
         <p className="text-[18px] font-medium mb-4">Other Requirements</p>
+
         {otherRequirements.map((requirement, index) => (
           <RequirementInput
             key={index}
@@ -264,15 +265,15 @@ function RequirementInput(props: RequirementInputProps) {
   };
 
   return (
-    <div className="flex items-center space-x-8">
+    <div className="flex items-center space-x-2">
       <input
-        className="border rounded-lg p-2 mb-4 border-[#E4E4E4]"
+        className="border rounded-lg p-2 mb-4 border-[#E4E4E4] w-[140px]"
         placeholder={label}
         value={requirement.label}
         onChange={(e) => handleLabelChange(e.target.value)}
       />
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 mb-4 ">
         <div className="flex items-center justify-center rounded-full w-7 h-7 bg-[#fff] text-[#000]">
           <button
             type="button"
