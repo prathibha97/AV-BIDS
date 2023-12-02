@@ -18,7 +18,7 @@ const createNewEvent = async (req, res) => {
   try {
     const { body } = req;
     const event = await createEvent({ ...body }, body.createdBy);
-    res.status(200).json({event, message: 'Event created successfully'});
+    res.status(200).json({ event, message: 'Event created successfully' });
   } catch (error) {
     console.error('Failed to create event:', error);
 
@@ -30,7 +30,6 @@ const createNewEvent = async (req, res) => {
       .json({ error: error.message || 'Internal Server Error' });
   }
 };
-
 
 /* 
 ?@desc   Get all events
@@ -157,30 +156,35 @@ const remove = async (req, res) => {
 const saveEvent = async (req, res) => {
   try {
     const { eventId } = req.params;
+    console.log(eventId);
     const { _id } = req.user;
 
     // Check if the user exists
     const user = await getUserById(_id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Check if the event exists
     const event = await getEventsById(eventId, req);
     if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({ error: 'Event not found' });
     }
 
     // Check if the event is already saved by the user
-    if (user.savedEvents.includes(eventId)) {
-      return res.status(400).json({ message: 'Event already saved' });
+    const isEventAlreadySaved = user.savedEvents.some((savedEventId) =>
+      savedEventId.equals(event._id)
+    );
+
+    if (isEventAlreadySaved) {
+      return res.status(400).json({ error: 'Event already saved' });
     }
 
     // Save the event to the user's savedEvents array
     user.savedEvents.push(eventId);
     await user.save();
 
-    res.status(200).json({ message: 'Event saved successfully' });
+    res.status(200).json({ message: 'Event saved successfully', user, event });
   } catch (error) {
     console.error('Failed to save event - ', error.message);
     return res.status(500).json('Internal Server Error');

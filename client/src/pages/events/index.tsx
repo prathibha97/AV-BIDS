@@ -1,16 +1,24 @@
 import { Option, Select } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { setAlert } from '../../app/features/alerts/alertSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
+import AlertBox from '../../components/alert-box';
+import Pagination from '../../components/pagination';
 import { Event } from '../../types';
 import api from '../../utils/api';
 import EventListingCard from './components/eventListingCard';
 import Sidebar from './components/sidebar';
-import Pagination from '../../components/pagination';
 
 export function Index() {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const { message, color, open } = useAppSelector(
+    (state: RootState) => state.alert
+  );
+
   const [selectedSortOption, setSelectedSortOption] = useState<string>('');
 
   const [selectedEventType, setSelectedEventType] = useState<string[]>([]);
@@ -84,6 +92,15 @@ export function Index() {
         <h2 className='text-center text-primary mb-16'>Event Listings</h2>
       </div>
 
+        <AlertBox
+          color={color}
+          variant='ghost'
+          text={message!}
+          open={open}
+          setOpen={() =>
+            dispatch(setAlert({ open: false, message: '', color: 'green' }))
+          }
+        />
       <div className='flex justify-center gap-8'>
         <Sidebar
           selectedEventType={selectedEventType}
@@ -122,22 +139,18 @@ export function Index() {
             </div>
           </div>
           {currentEvents?.map((event) => (
-            <div
-              key={event._id}
-              className='hover:cursor-pointer'
-              onClick={() => navigate(`/events/${event._id}`)}
-            >
+            <div key={event._id}>
               <EventListingCard event={event} />
             </div>
           ))}
-        <div className='flex justify-end mr-5'>
-          <Pagination
-            currentPage={currentPage}
-            totalItems={events.length || 0}
-            itemsPerPage={eventsPerPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          <div className='flex justify-end mr-5'>
+            <Pagination
+              currentPage={currentPage}
+              totalItems={events.length || 0}
+              itemsPerPage={eventsPerPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -7,17 +7,44 @@ import EVENTS_02 from '../../../assets/09_events/location.png';
 import SAVE_ICON from '../../../assets/09_events/save-icon.png';
 import { Event } from '../../../types';
 import api from '../../../utils/api';
+import { useNavigate } from 'react-router-dom';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
+import { useAppDispatch } from '../../../app/hooks';
+import { updateUser } from '../../../app/features/user/userSlice';
 
 interface EventListingCardProps {
   event: Event;
 }
 
 const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const handleSaveEvent = async () => {
     try {
-      await api.post(`/events/save/${event._id}`);
-    } catch (error) {
-      console.log(error);
+      const { data } = await api.post(`/events/save/${event._id}`);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+      dispatch(updateUser(data.user))
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
@@ -35,7 +62,10 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
             </div>
 
             <div>
-              <div className='flex items-center justify-end'>
+              <div
+                className='flex items-center justify-end cursor-pointer'
+                onClick={() => navigate(`/events/${event._id}`)}
+              >
                 <h2 className='text-[18px] mb-1'>{event.title}</h2>
               </div>
 
@@ -53,7 +83,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
                   className='object-scale-down w-[20px]'
                 />
                 <p className='text-[16px] text-[#9381FF]'>
-                  {event?.address?.city}, {event?.address?.state}
+                  {event?.address?.city ?? ''}, {event?.address?.state ?? ''}
                 </p>
               </div>
 
@@ -90,7 +120,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
         </div>
 
         <div className=''>
-          <div className='flex justify-end' onClick={() => handleSaveEvent()}>
+          <div className='flex justify-end cursor-pointer' onClick={() => handleSaveEvent()}>
             <img src={SAVE_ICON} alt='aad' className='w-[23px]' />
           </div>
 
