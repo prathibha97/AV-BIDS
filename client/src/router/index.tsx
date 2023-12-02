@@ -154,9 +154,9 @@ function Router() {
     },
 
     {
-      path: "/Proposal-Tab",
+      path: "/proposals",
       layout: HomeLayout2,
-      routes: [{ element: lazy(() => import("../pages/Proposal-Tab")) }],
+      routes: [{ element: lazy(() => import("../pages/proposals")) }],
     },
     { path: "*", element: lazy(() => import("./404")) },
   ];
