@@ -5,6 +5,7 @@ const {
   getEventsById,
   updateEvent,
   removeEvent,
+  getLatestEvents,
 } = require('../models/event/event.model');
 const { getUserById } = require('../models/user/user.model');
 
@@ -166,6 +167,22 @@ const saveEvent = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Get latest events
+*@route  GET /api/events/recent
+*@access Public
+*/
+
+const getRecentEvent = async (req, res) => {
+  try {
+    const event = await getLatestEvents();
+    res.status(200).json(event);
+  } catch (error) {
+    console.error('Failed to event - ', error.message);
+    return res.status(500).json('Internal Server Error');
+  }
+};
+
 module.exports = {
   createNewEvent,
   getAllEvents,
@@ -174,4 +191,5 @@ module.exports = {
   update,
   remove,
   saveEvent,
+  getRecentEvent,
 };

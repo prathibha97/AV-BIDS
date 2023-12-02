@@ -216,7 +216,7 @@ export function Index() {
               variant="outlined"
               size="sm"
               className="rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]"
-              onClick={() => setCurrentStep(1)}
+              onClick={() => navigate('/events/my-events')}
             >
               <span className="text-black">Cancel</span>
             </Button>

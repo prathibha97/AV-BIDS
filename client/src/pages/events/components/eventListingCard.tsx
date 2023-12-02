@@ -1,5 +1,6 @@
 import { Button } from '@material-tailwind/react';
 
+import { differenceInDays, parseISO } from 'date-fns';
 import { FC } from 'react';
 import EVENTS_01 from '../../../assets/09_events/events01.png';
 import EVENTS_02 from '../../../assets/09_events/location.png';
@@ -11,9 +12,7 @@ interface EventListingCardProps {
   event: Event;
 }
 
-
 const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
-
   const handleSaveEvent = async () => {
     try {
       await api.post(`/events/save/${event._id}`);
@@ -21,6 +20,11 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
       console.log(error);
     }
   };
+
+  const proposalDueDate = parseISO(event.proposalDueDate);
+  const currentDate = new Date();
+
+  const daysLeft = differenceInDays(proposalDueDate, currentDate);
   return (
     <div className='mb-6'>
       <div className='flex items-center justify-center bg-[#fff] drop-shadow-lg gap-8 p-8 rounded-lg mx-4'>
@@ -72,8 +76,8 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
               <p className="text-[16px] mb-1">Corporate, General Meeting</p> */}
 
             <div className='flex gap-36'>
-              <p className='text-[16px] mb-1 text-red-500'>
-                Event Date: 10/10/2023 - 10/15/2023
+              <p className='text-[16px] mb-1'>
+                Event Date: {event.eventStartDate} - {event.eventEndDate}
               </p>
               <p className='text-[16px] mb-1'>{event.eventBudget}</p>
             </div>
@@ -98,8 +102,10 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
           >
             <span className='text-white normal-case'>Apply Now</span>
           </Button>
-          <p className='text-[16px] mt-4 text-center text-red-500'>
-            23 days left to apply
+          <p className='text-[16px] mt-4 text-center'>
+            {daysLeft > 0
+              ? `${daysLeft} days left to apply`
+              : 'Application closed'}
           </p>
         </div>
       </div>

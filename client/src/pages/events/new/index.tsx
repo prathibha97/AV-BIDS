@@ -202,10 +202,10 @@ export function Index() {
         <div className="flex items-center justify-between mt-6">
           <div>
             <Button
-              variant="outlined"
-              size="sm"
-              className="rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]"
-              onClick={() => setCurrentStep(1)}
+              variant='outlined'
+              size='sm'
+              className='rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]'
+              onClick={() => navigate('/events/my-events')}
             >
               <span className="text-black">Cancel</span>
             </Button>

@@ -38,6 +38,10 @@ export type Event = {
   eventCategory: string;
   eventSubCategory: string;
   eventBudget: string;
+  proposalDueDate: string;
+  eventStartDate: string;
+  eventEndDate: string;
+  audienceSize: string;
   address: {
     venueName: string;
     venueAddress: string;

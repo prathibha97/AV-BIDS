@@ -1,18 +1,23 @@
-import { Card, Typography } from "@material-tailwind/react";
-import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
-import DASHBOARD from "../assets/sidebar/dashboard.png";
-import MESSAGES from "../assets/sidebar/message.png";
-import EVENT from "../assets/sidebar/event_alerts.png";
-import SAVED_EVENTS from "../assets/sidebar/saved_events.png";
-import BILLING_MEMBERSHIP from "../assets/sidebar/billing_membership.png";
-import { useGetCurrentUser } from "../app/hooks/useUser";
+import {
+  Card,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from '@material-tailwind/react';
+import { useNavigate } from 'react-router-dom';
+import { useGetCurrentUser } from '../app/hooks/useUser';
+import BILLING_MEMBERSHIP from '../assets/sidebar/billing_membership.png';
+import DASHBOARD from '../assets/sidebar/dashboard.png';
+import EVENT from '../assets/sidebar/event_alerts.png';
+import MESSAGES from '../assets/sidebar/message.png';
+import SAVED_EVENTS from '../assets/sidebar/saved_events.png';
 
 const SidebarDashboard = () => {
   const navigate = useNavigate();
   const user = useGetCurrentUser();
 
-  const imageStyles = "object-scale-down w-[18px]";
+  const imageStyles = 'object-scale-down w-[18px]';
 
   return (
     <div>
@@ -43,12 +48,14 @@ const SidebarDashboard = () => {
             </ListItemPrefix>
             Messages
           </ListItem>
-          <ListItem onClick={() => navigate('/proposals')}>
-            <ListItemPrefix>
-              <img src={MESSAGES} alt='Proposals' className={imageStyles} />
-            </ListItemPrefix>
-            Proposals
-          </ListItem>
+          {user?.userType === 'PLANNER' && (
+            <ListItem onClick={() => navigate('/proposals')}>
+              <ListItemPrefix>
+                <img src={MESSAGES} alt='Proposals' className={imageStyles} />
+              </ListItemPrefix>
+              Proposals
+            </ListItem>
+          )}
           {user?.userType === 'PROVIDER' && (
             <>
               <ListItem onClick={() => navigate('/events/event-alerts')}>

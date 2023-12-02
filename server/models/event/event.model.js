@@ -53,6 +53,10 @@ const removeEvent = (id) => {
   );
 };
 
+const getLatestEvents = async () => {
+  return Event.find().sort({ createdAt: -1 }).limit(6);
+};
+
 module.exports = {
   createEvent,
   getFilteredEvents,
@@ -60,4 +64,5 @@ module.exports = {
   getEventsById,
   updateEvent,
   removeEvent,
+  getLatestEvents,
 };
