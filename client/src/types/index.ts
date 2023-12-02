@@ -13,6 +13,13 @@ export interface User {
   members: [Member];
   savedEvents: [Event];
   insurance: string;
+  companyAddress:{
+    address: string
+    country: string
+    city: string
+    zip: string
+    state: string
+  }
 }
 
 export interface Member {

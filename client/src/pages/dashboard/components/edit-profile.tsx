@@ -4,9 +4,10 @@ import { Button, Input, Option, Select } from '@material-tailwind/react';
 import axios from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { resetAlert, setAlert, setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { updateUser } from '../../../app/features/user/userSlice';
 import { useAppDispatch } from '../../../app/hooks';
+import { usStates } from '../../../constants';
 import { User } from '../../../types';
 import api from '../../../utils/api';
 import {
@@ -22,7 +23,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
   const [file, setFile] = useState(null);
   const dispatch = useAppDispatch();
 
-  const { register, handleSubmit } = useForm<EditProfileFormValues>({
+  const { register, handleSubmit, setValue } = useForm<EditProfileFormValues>({
     resolver: zodResolver(EditProfileFormSchema),
     defaultValues: {
       firstName: user?.firstName ?? '',
@@ -31,11 +32,25 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
       company: user?.company ?? '',
       phone: user?.phone ?? '',
       website: user?.website ?? '',
+      companyAddress: {
+        address: user?.companyAddress?.address ?? '',
+        city: user?.companyAddress?.city ?? '',
+        state: user?.companyAddress?.state ?? '',
+        country: user?.companyAddress?.country ?? '',
+        zip: user?.companyAddress?.zip ?? '',
+      },
     },
   });
   const onFileChange = (event: any) => {
     setFile(event.target.files[0]);
   };
+
+  const [selectedCountry, setSelectedCountry] = useState(
+    user?.companyAddress?.country ?? ''
+  );
+  const [selectedState, setSelectedState] = useState(
+    user?.companyAddress?.state ?? ''
+  );
 
   const onSubmit = async (values: EditProfileFormValues) => {
     const fileExtension = file
@@ -260,6 +275,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                       containerProps={{ className: '' }}
                       placeholder='740 West Elm St. Unit 235'
                       crossOrigin=''
+                      {...register('companyAddress.address')}
                     />
                   </div>
                 </div>
@@ -270,17 +286,31 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                   <p className='mb-2'>
                     Country <span className='text-[#DE5753]'>*</span>
                   </p>
-                  <div className=''>
+                  {/* <div className=''>
                     <Select
-                      label='United States of America'
+                      label='Select a Country'
                       className='!bg-input_background'
+                      value={selectedCountry}
+                      onChange={(value) =>
+                        setValue('companyAddress.country', value || '')
+                      }
                     >
-                      <Option>Option 01</Option>
-                      <Option>Option 02</Option>
-                      <Option>Option 03</Option>
-                      <Option>Option 04</Option>
-                      <Option>Option 05</Option>
+                      <Option value='United States'>United States</Option>
+                      <Option value='United Kingdom'>United Kingdom</Option>
+                      <Option value='Canada'>Canada</Option>
                     </Select>
+                  </div> */}
+                  <div className='bg-input_background rounded-full'>
+                    <Input
+                      className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
+                      labelProps={{
+                        className: 'hidden',
+                      }}
+                      containerProps={{ className: '' }}
+                      value='United States'
+                      crossOrigin=''
+                      {...register('companyAddress.country')}
+                    />
                   </div>
                 </div>
               </div>
@@ -299,6 +329,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                       containerProps={{ className: 'min-w-[50px]' }}
                       placeholder='City'
                       crossOrigin=''
+                      {...register('companyAddress.city')}
                     />
                   </div>
                 </div>
@@ -318,6 +349,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                       containerProps={{ className: 'min-w-[100px]' }}
                       placeholder='Enter Zip Code'
                       crossOrigin=''
+                      {...register('companyAddress.zip')}
                     />
                   </div>
                 </div>
@@ -331,14 +363,18 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                   <div className='mb-5'>
                     <div>
                       <Select
-                        label='United States of America'
+                        label='Select a State'
                         className='!bg-input_background'
+                        value={selectedCountry}
+                        onChange={(value) =>
+                          setValue('companyAddress.state', value || '')
+                        }
                       >
-                        <Option>Option 01</Option>
-                        <Option>Option 02</Option>
-                        <Option>Option 03</Option>
-                        <Option>Option 04</Option>
-                        <Option>Option 05</Option>
+                        {usStates.map((state) => (
+                          <Option key={state.value} value={state.value}>
+                            {state.label}
+                          </Option>
+                        ))}
                       </Select>
                     </div>
                   </div>

@@ -56,13 +56,14 @@ const update = async (req, res) => {
       website,
       imageUrl,
       insurance,
+      companyAddress
     } = req.body;
 
-    if (!id || !firstName || !lastName || !email) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
+    // if (!id || !firstName || !lastName || !email) {
+    //   return res.status(400).json({ message: 'Missing required fields' });
+    // }
 
-    if (!isValidEmail(email)) {
+    if (email && !isValidEmail(email)) {
       return res.status(400).json({ message: 'Invalid email format' });
     }
 
@@ -79,6 +80,7 @@ const update = async (req, res) => {
       website,
       imageUrl,
       insurance,
+      companyAddress,
     });
 
     res.status(200).json({ user, message: 'User updated successfully' });

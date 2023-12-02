@@ -40,6 +40,13 @@ const userSchema = new mongoose.Schema(
       enum: ['Admin', 'Standard'],
       default: 'Standard',
     },
+    companyAddress: {
+      address: String,
+      country: String,
+      city: String,
+      zip: String,
+      state: String,
+    },
     refreshToken: [String],
     insurance: String,
     members: [
