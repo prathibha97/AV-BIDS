@@ -26,10 +26,42 @@ const createEvent = async (values, userId) => {
 
 // const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
 
-const getFilteredEvents = async (filters, req) => {
-  return Event.find(filters)
-  // .cache({ key: req.user.id });
+// const getFilteredEvents = async (filters, req) => {
+//   return Event.find(filters)
+//   // .cache({ key: req.user.id });
+// };
+
+
+const getFilteredEvents = async (filters, page, pageSize) => {
+  const skip = (page - 1) * pageSize;
+
+  let query = Event.find(filters).skip(skip).limit(parseInt(pageSize));
+
+  // Add sorting logic based on your sortOption
+  if (filters.sortOption) {
+    let sortField;
+    switch (filters.sortOption) {
+      case 'Ending Soonest':
+        sortField = 'endDate';
+        break;
+      case 'Budget Lowest':
+        sortField = 'budget';
+        break;
+      // Add cases for other sort options
+      default:
+        sortField = 'createdAt';
+        break;
+    }
+
+    query = query.sort({ [sortField]: 1 });
+  }
+
+  const events = await query.exec();
+
+  return events;
 };
+
+
 
 const getEventsByUser = (id, req) =>
   Event.find({ createdBy: id }).cache({ key: req.user.id });

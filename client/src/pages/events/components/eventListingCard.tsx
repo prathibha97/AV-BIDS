@@ -2,23 +2,27 @@ import { Button } from '@material-tailwind/react';
 
 import { differenceInDays, parseISO } from 'date-fns';
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
+import { updateUser } from '../../../app/features/user/userSlice';
+import { useAppDispatch } from '../../../app/hooks';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import EVENTS_01 from '../../../assets/09_events/events01.png';
 import EVENTS_02 from '../../../assets/09_events/location.png';
 import SAVE_ICON from '../../../assets/09_events/save-icon.png';
 import { Event } from '../../../types';
 import api from '../../../utils/api';
-import { useNavigate } from 'react-router-dom';
-import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
-import { useAppDispatch } from '../../../app/hooks';
-import { updateUser } from '../../../app/features/user/userSlice';
 
 interface EventListingCardProps {
   event: Event;
 }
 
 const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const user = useGetCurrentUser();
+
   const handleSaveEvent = async () => {
     try {
       const { data } = await api.post(`/events/save/${event._id}`);
@@ -29,7 +33,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
           open: true,
         })
       );
-      dispatch(updateUser(data.user))
+      dispatch(updateUser(data.user));
     } catch (error: any) {
       if (error.response) {
         dispatch(
@@ -120,9 +124,14 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
         </div>
 
         <div className=''>
-          <div className='flex justify-end cursor-pointer' onClick={() => handleSaveEvent()}>
-            <img src={SAVE_ICON} alt='aad' className='w-[23px]' />
-          </div>
+          {user?.userType === 'PROVIDER' && (
+            <div
+              className='flex justify-end cursor-pointer'
+              onClick={() => handleSaveEvent()}
+            >
+              <img src={SAVE_ICON} alt='aad' className='w-[23px]' />
+            </div>
+          )}
 
           <Button
             variant='filled'

@@ -33,7 +33,7 @@ function Index() {
     useState<string>('');
 
   const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 10;
+  const eventsPerPage = 6;
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -61,7 +61,7 @@ function Index() {
     selectedSortOption,
   ]);
 
-  const applyFilters = async (filters: any) => {
+  const applyFilters = async (filters: any, page: number = 1) => {
     try {
       setLoading(true);
 
@@ -69,7 +69,10 @@ function Index() {
         Object.entries(filters).filter(([key, value]) => Boolean(value))
       );
 
-      const { data } = await api.get('/events', { params: filteredParams });
+      const { data } = await api.get('/events', {
+        params: { ...filteredParams, page },
+      });
+
       setEvents(data);
     } catch (error) {
       console.error('API Error:', error);
@@ -87,7 +90,7 @@ function Index() {
   };
 
   return (
-    <div className='h-full'>
+    <div className=''>
       {loading ? (
         <div className='flex items-center justify-center h-full'>
           <Spinner />

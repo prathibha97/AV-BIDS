@@ -37,6 +37,7 @@ const createNewEvent = async (req, res) => {
 *@access Private
 */
 
+
 const getAllEvents = async (req, res) => {
   try {
     const {
@@ -46,6 +47,8 @@ const getAllEvents = async (req, res) => {
       priceRange,
       audienceSize,
       sortOption,
+      page, // default to page 1 if not provided
+      pageSize , // default page size
     } = req.query;
 
     // Construct a filter object based on provided parameters
@@ -59,8 +62,8 @@ const getAllEvents = async (req, res) => {
     // Add sortOption to the filters
     if (sortOption) filters.sortOption = sortOption;
 
-    // Fetch events based on the constructed filters
-    const events = await getFilteredEvents(filters, req);
+    // Fetch events based on the constructed filters and pagination parameters
+    const events = await getFilteredEvents(filters, page, pageSize);
 
     res.status(200).json(events);
   } catch (error) {
@@ -68,6 +71,7 @@ const getAllEvents = async (req, res) => {
     return res.status(500).json('Internal Server Error');
   }
 };
+
 
 /* 
 ?@desc   Get event by user ID
