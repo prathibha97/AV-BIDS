@@ -12,7 +12,7 @@ function Index() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [user?.savedEvents]);
+  }, [user?.savedEvents, sortingOption]);
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -23,27 +23,28 @@ function Index() {
   );
 
   // Sorting logic
-  if (sortingOption === 'expiringSoonest') {
-    currentEvents = currentEvents?.sort(
-      (a, b) =>
-        // @ts-ignore
-        new Date(a.expiryDate as string).getTime() -
-        // @ts-ignore
-        new Date(b.expiryDate as string).getTime()
-    );
-  } else {
-    // Default sorting by datePosted
-    currentEvents = currentEvents?.sort(
-      (a, b) =>
+  const sortedEvents = [...(currentEvents || [])].sort((a, b) => {
+    const dateA = a.proposalDueDate && new Date(a.proposalDueDate).getTime();
+    const dateB = b.proposalDueDate && new Date(b.proposalDueDate).getTime();
+
+    if (sortingOption === 'expiringSoonest') {
+      // @ts-ignore
+      return dateA - dateB;
+    } else {
+      // Default sorting by datePosted
+      return (
         new Date(a.createdAt as unknown as string).getTime() -
         new Date(b.createdAt as unknown as string).getTime()
-    );
-  }
+      );
+    }
+  });
+
+  currentEvents = sortedEvents;
 
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(user?.savedEvents?.length! / eventsPerPage);
+    i <= Math.ceil((user?.savedEvents?.length || 0) / eventsPerPage);
     i++
   ) {
     pageNumbers.push(i);

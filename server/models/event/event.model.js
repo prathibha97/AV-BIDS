@@ -27,7 +27,8 @@ const createEvent = async (values, userId) => {
 // const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
 
 const getFilteredEvents = async (filters, req) => {
-  return Event.find(filters).cache({ key: req.user.id });
+  return Event.find(filters)
+  // .cache({ key: req.user.id });
 };
 
 const getEventsByUser = (id, req) =>
