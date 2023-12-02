@@ -39,7 +39,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
 
   useEffect(() => {
     // Update formData when otherRequirements changes
-    updateFormData('otherRequirements', otherRequirements);
+    updateFormData("otherRequirements", otherRequirements);
   }, [otherRequirements, updateFormData]);
 
   const handleAdjust = (
@@ -146,7 +146,7 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid xl:grid-cols-2 gap-6">
       <div className="bg-[#F3F1FB] rounded-lg p-6">
         <p className="text-[18px] font-medium mb-4">Staff</p>
         <CardDetails

@@ -115,12 +115,12 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
   };
 
   return (
-    <div>
+    <div className="">
       <p className="font-medium text-[18px] mb-4">Event Details</p>
 
       <form>
-        <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
-          <div className="col-span-2">
+        <div className="grid sm:grid-cols-2 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
+          <div className="sm:col-span-2">
             <p className="mb-2">Event Title </p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
@@ -137,29 +137,15 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 }}
               />
             </div>
-            {/* ////////////////
-            <div className="w-72 mb-4 bg-input_background rounded-full">
-              <Input
-                placeholder="Dixie Normus"
-                className="!border !border-gray-300  text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full"
-                labelProps={{
-                  className: "hidden",
-                }}
-                containerProps={{ className: "min-w-[100px]" }}
-                crossOrigin=""
-              />
-            </div>
-            /////////// */}
           </div>
-          <div className="col-span-2">
-            <p className="mb-2">Event Description </p>
-            <div className="mb-5">
-              {/* @ts-ignore */}
+          <div className="sm:col-span-2">
+            <p className="mb-2">Event Description</p>
+            {/* <div className="mb-5">
               <RichTextEditor
                 control={control}
                 handleInputChange={handleInputChange}
               />
-            </div>
+            </div> */}
           </div>
           <div className="">
             <p className="mb-2">Event Type </p>
@@ -241,7 +227,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
 
         <p className="font-medium text-[18px] mb-4">Address & Location</p>
 
-        <div className="grid grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]">
+        <div className="grid sm:grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]">
           <div className="">
             <p className="mb-2">Venue Name</p>
             <div className="mb-5">
@@ -281,7 +267,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
+        <div className="grid md:grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
           <div className="...">
             <p className="mb-2">City </p>
             <div className="mb-5">
