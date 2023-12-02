@@ -208,7 +208,7 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
                 control={control}
                 handleInputChange={handleInputChange}
               />
-            </div> */}
+            </div>
           </div>
           <div className=''>
             <p className='mb-2'>Event Type </p>
