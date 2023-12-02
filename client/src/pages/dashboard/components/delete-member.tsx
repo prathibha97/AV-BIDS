@@ -1,8 +1,8 @@
 import { Button } from '@material-tailwind/react';
 import { MdDeleteOutline } from 'react-icons/md';
 
-import { colors } from '@material-tailwind/react/types/generic';
 import { FC } from 'react';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { clearMember } from '../../../app/features/members/memberSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
@@ -11,16 +11,10 @@ import api from '../../../utils/api';
 interface DeleteMemberProps {
   handleOpen: () => void;
   onDeleteMember: () => void;
-  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  setAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setColor: React.Dispatch<React.SetStateAction<colors | undefined>>;
 }
 const DeleteMember: FC<DeleteMemberProps> = ({
   handleOpen,
   onDeleteMember,
-  setAlertOpen,
-  setColor,
-  setMessage,
 }) => {
   const dispatch = useAppDispatch();
   const member = useAppSelector((state: RootState) => state.member.member);
@@ -30,30 +24,24 @@ const DeleteMember: FC<DeleteMemberProps> = ({
       const { data } = await api.delete(`/members/${member?._id}`);
       onDeleteMember();
       handleOpen();
-      const message = data.message;
-      setMessage(message);
-      setAlertOpen(true);
-
-      // Set a timer to clear the error message after 5 seconds
-      setTimeout(() => {
-        setAlertOpen(false);
-        setMessage(null);
-      }, 5000);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
 
       dispatch(clearMember());
     } catch (error: any) {
       if (error.response) {
-        const errorMessage = error.response.data.error;
-        setMessage(errorMessage);
-        setColor('red');
-        setAlertOpen(true);
-
-        // Set a timer to clear the error message after 5 seconds
-        setTimeout(() => {
-          setAlertOpen(false);
-          setMessage(null);
-          setColor('green');
-        }, 5000);
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
       } else if (error.request) {
         console.log('No response received from the server.');
       } else {

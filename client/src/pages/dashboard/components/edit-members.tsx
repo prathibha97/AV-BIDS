@@ -1,9 +1,9 @@
 import { Button, Input } from '@material-tailwind/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { colors } from '@material-tailwind/react/types/generic';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { resetAlert, setAlert, setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { clearMember } from '../../../app/features/members/memberSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
@@ -16,16 +16,10 @@ import {
 interface EditMembersProps {
   handleMemberEdited: () => void;
   handleOpen: () => void;
-  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  setAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setColor: React.Dispatch<React.SetStateAction<colors | undefined>>;
 }
 const EditMembers: FC<EditMembersProps> = ({
   handleMemberEdited,
   handleOpen,
-  setAlertOpen,
-  setColor,
-  setMessage,
 }) => {
   const dispatch = useAppDispatch();
   const member = useAppSelector((state: RootState) => state.member.member);
@@ -46,29 +40,23 @@ const EditMembers: FC<EditMembersProps> = ({
       handleOpen();
       reset();
       dispatch(clearMember());
-      const message = data.message;
-      setMessage(message);
-      setAlertOpen(true);
-
-      // Set a timer to clear the error message after 5 seconds
-      setTimeout(() => {
-        setAlertOpen(false);
-        setMessage(null);
-      }, 5000);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
     } catch (error: any) {
       if (error.response) {
-        const errorMessage = error.response.data.error;
-        setMessage(errorMessage);
-        setColor('red');
-        setAlertOpen(true);
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
         handleOpen();
-
-        // Set a timer to clear the error message after 5 seconds
-        setTimeout(() => {
-          setAlertOpen(false);
-          setMessage(null);
-          setColor('green');
-        }, 5000);
       } else if (error.request) {
         console.log('No response received from the server.');
       } else {

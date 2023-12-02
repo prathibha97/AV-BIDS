@@ -1,4 +1,9 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  ThunkAction,
+  Action,
+} from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -13,6 +18,9 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './features/user/userSlice';
 import EventReducer from './features/events/eventSlice';
 import memberReducer from './features/members/memberSlice';
+import alertReducer from './features/alerts/alertSlice';
+
+
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +33,7 @@ const persistedReducer = persistReducer(
     user: userReducer,
     event: EventReducer,
     member: memberReducer,
+    alert: alertReducer,
   })
 );
 
@@ -45,3 +54,6 @@ export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+// Define AppThunk type
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

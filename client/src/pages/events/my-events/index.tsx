@@ -1,4 +1,4 @@
-import { Card, Option, Select, Typography } from '@material-tailwind/react';
+import { AlertProps, Card, Option, Select, Typography } from '@material-tailwind/react';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import api from '../../../utils/api';
 
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import Pagination from '../../../components/pagination';
+import AlertBox from '../../../components/alert-box';
 
 const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', ''];
 
@@ -21,6 +22,10 @@ function Index() {
   const [myEvents, setMyEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [message, setMessage] = useState<string | null>(null);
+  const [color, setColor] = useState<AlertProps['color']>('green');
+  const [open, setOpen] = useState(true);
 
   const eventsPerPage = 5;
 
@@ -64,6 +69,13 @@ function Index() {
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
+      <AlertBox
+        color={color}
+        variant='ghost'
+        text={message!}
+        open={open}
+        setOpen={setOpen}
+      />
       <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
         <div className='flex items-center justify-between mb-4 '>
           <h2 className='text-[20px] font-semibold '>My Events</h2>

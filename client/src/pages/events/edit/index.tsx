@@ -1,23 +1,24 @@
-import { Button, Stepper, Step } from "@material-tailwind/react";
+import { AlertProps, Button, Step, Stepper } from '@material-tailwind/react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useAppSelector } from "../../../app/hooks";
-import { RootState } from "../../../app/store";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
+import AlertBox from '../../../components/alert-box';
+import api from '../../../utils/api';
 import {
   EventFormFormValues,
   EventFormSchema,
-} from "../../../utils/validations/event-form-validation";
-import StepFive from "./components/step-five";
-import StepFour from "./components/step-four";
-import StepOne from "./components/step-one";
-import StepSeven from "./components/step-seven";
-import StepSix from "./components/step-six";
-import StepThree from "./components/step-three";
-import StepTwo from "./components/step-two";
-import api from "../../../utils/api";
-import { useNavigate } from "react-router-dom";
+} from '../../../utils/validations/event-form-validation';
+import StepFive from './components/step-five';
+import StepFour from './components/step-four';
+import StepOne from './components/step-one';
+import StepSeven from './components/step-seven';
+import StepSix from './components/step-six';
+import StepThree from './components/step-three';
+import StepTwo from './components/step-two';
 // import Stepper from "./components/stepper";
 
 interface Requirement {
@@ -28,6 +29,13 @@ interface Requirement {
 export function Index() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
+  const [isLastStep, setIsLastStep] = useState(false);
+  const [isFirstStep, setIsFirstStep] = useState(false);
+
+  const [message, setMessage] = useState<string | null>(null);
+  const [color, setColor] = useState<AlertProps['color']>('green');
+  const [open, setOpen] = useState(true);
 
   const event = useAppSelector((state: RootState) => state.event.event);
 
@@ -49,7 +57,7 @@ export function Index() {
       await api.put(`/events/${event?._id}`, {
         ...formData,
       });
-      navigate("/events/my-events");
+      navigate('/events/my-events');
     } catch (error) {
       console.log(error);
     }
@@ -78,203 +86,202 @@ export function Index() {
     }));
   };
 
-  /////////////////////////////////////////////////////////
-
-  const [activeStep, setActiveStep] = useState(0);
-  const [isLastStep, setIsLastStep] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(false);
-
   const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
 
-  //////////////////////////////////////////////////////
-
   return (
-    <div className="container mx-auto mb-8">
-      <section className="bg-white px-8 py-8 rounded-xl drop-shadow-md">
-        <h2 className="text-[20px] font-semibold mb-6">Edit Event</h2>
+    <>
+      <div className='container mx-auto mb-8'>
+        <AlertBox
+          color={color}
+          variant='ghost'
+          text={message!}
+          open={open}
+          setOpen={setOpen}
+        />
+        <section className='bg-white px-8 py-8 rounded-xl drop-shadow-md'>
+          <h2 className='text-[20px] font-semibold mb-6'>Edit Event</h2>
 
-        <div className="flex justify-center mb-10">
-          <div>
+          <div className='flex justify-center mb-10'>
             <div>
-              {/* <Stepper /> */}
-
-              <div className="mx-12 mb-4">
-                <Stepper
-                  activeStep={activeStep}
-                  isLastStep={(value) => setIsLastStep(value)}
-                  isFirstStep={(value) => setIsFirstStep(value)}
-                >
-                  <Step
-                    onClick={() => setActiveStep(0)}
-                    className="!bg-[#42D27A]"
+              <div>
+                <div className='mx-12 mb-4'>
+                  <Stepper
+                    activeStep={activeStep}
+                    isLastStep={(value) => setIsLastStep(value)}
+                    isFirstStep={(value) => setIsFirstStep(value)}
                   >
-                    <span>1</span>
-                  </Step>
+                    <Step
+                      onClick={() => setActiveStep(0)}
+                      className='!bg-[#42D27A]'
+                    >
+                      <span>1</span>
+                    </Step>
 
-                  <Step
-                    onClick={() => setActiveStep(1)}
-                    className={activeStep === 1 ? "active-step" : ""}
-                  >
-                    <span>2</span>
-                  </Step>
-                </Stepper>
+                    <Step
+                      onClick={() => setActiveStep(1)}
+                      className={activeStep === 1 ? 'active-step' : ''}
+                    >
+                      <span>2</span>
+                    </Step>
+                  </Stepper>
 
-                <div className="w-full flex justify-between"></div>
+                  <div className='w-full flex justify-between'></div>
 
-                <style>
-                  {`.active-step {
+                  <style>
+                    {`.active-step {
           background-color: #42D27A; /* Change this to the desired color */
         }`}
-                </style>
+                  </style>
+                </div>
+              </div>
+
+              <div className='flex items-center justify-between gap-16'>
+                <div>
+                  <p className='font-medium text-[16px]'>Update Information </p>
+                </div>
+
+                <div>
+                  <p className='text-[16px] font-medium '>Update Settings</p>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between gap-16">
-              <div>
-                <p className="font-medium text-[16px]">Update Information </p>
-              </div>
+          {currentStep === 1 && (
+            <StepOne
+              register={register}
+              control={control}
+              updateFormData={setFormData}
+              formData={formData}
+            />
+          )}
+          {currentStep === 2 && (
+            <StepTwo
+              // @ts-ignore
+              formData={formData}
+              updateStepTwoData={(field: any, value: any) => {
+                setFormData({
+                  ...formData,
+                  [field]: value,
+                });
+              }}
+            />
+          )}
+          {currentStep === 3 && (
+            <StepThree
+              formData={formData}
+              updateStepTwoData={(field: any, value: any) => {
+                setFormData({
+                  ...formData,
+                  [field]: value,
+                });
+              }}
+            />
+          )}
+          {currentStep === 4 && (
+            <StepFour
+              formData={formData}
+              updateStepTwoData={(field: any, value: any) => {
+                setFormData({
+                  ...formData,
+                  [field]: value,
+                });
+              }}
+            />
+          )}
+          {currentStep === 5 && (
+            <StepFive
+              formData={formData}
+              updateStepTwoData={(field: any, value: any) => {
+                setFormData({
+                  ...formData,
+                  [field]: value,
+                });
+              }}
+            />
+          )}
+          {currentStep === 6 && (
+            <StepSix
+              formData={formData}
+              updateStepTwoData={(field: any, value: any) => {
+                setFormData({
+                  ...formData,
+                  [field]: value,
+                });
+              }}
+            />
+          )}
+          {currentStep === 7 && (
+            <StepSeven formData={formData} updateFormData={updateFormData} />
+          )}
 
-              <div>
-                <p className="text-[16px] font-medium ">Update Settings</p>
-              </div>
+          <div className='flex items-center justify-between mt-6'>
+            <div>
+              <Button
+                variant='outlined'
+                size='sm'
+                className='rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]'
+                onClick={() => navigate('/events/my-events')}
+              >
+                <span className='text-black'>Cancel</span>
+              </Button>
+            </div>
+
+            <div>
+              <Button
+                variant='outlined'
+                color='indigo'
+                size='sm'
+                className='rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6'
+              >
+                <span className='text-primary '>Save as Draft</span>
+              </Button>
+
+              {currentStep > 1 && (
+                <Button
+                  variant='outlined'
+                  size='sm'
+                  className='rounded-full py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px] mr-4'
+                  onClick={() => {
+                    handlePrev();
+                    handlePrevStep();
+                  }}
+                >
+                  <span className='text-black'>Previous</span>
+                </Button>
+              )}
+
+              {currentStep < 7 ? (
+                <Button
+                  variant='filled'
+                  color='indigo'
+                  size='sm'
+                  className='rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]'
+                  onClick={() => {
+                    handleNext();
+                    handleNextStep();
+                  }}
+                >
+                  <span className='text-white'>Next</span>
+                </Button>
+              ) : (
+                <Button
+                  variant='filled'
+                  color='indigo'
+                  size='sm'
+                  className='rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]'
+                  type='button'
+                  onClick={onSubmit}
+                >
+                  <span className='text-white'>Submit</span>
+                </Button>
+              )}
             </div>
           </div>
-        </div>
-
-        {currentStep === 1 && (
-          <StepOne
-            register={register}
-            control={control}
-            updateFormData={setFormData}
-            formData={formData}
-          />
-        )}
-        {currentStep === 2 && (
-          <StepTwo
-            // @ts-ignore
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
-        )}
-        {currentStep === 3 && (
-          <StepThree
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
-        )}
-        {currentStep === 4 && (
-          <StepFour
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
-        )}
-        {currentStep === 5 && (
-          <StepFive
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
-        )}
-        {currentStep === 6 && (
-          <StepSix
-            formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
-              setFormData({
-                ...formData,
-                [field]: value,
-              });
-            }}
-          />
-        )}
-        {currentStep === 7 && (
-          <StepSeven formData={formData} updateFormData={updateFormData} />
-        )}
-
-        <div className="flex items-center justify-between mt-6">
-          <div>
-            <Button
-              variant="outlined"
-              size="sm"
-              className="rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]"
-              onClick={() => navigate('/events/my-events')}
-            >
-              <span className="text-black">Cancel</span>
-            </Button>
-          </div>
-
-          <div>
-            <Button
-              variant="outlined"
-              color="indigo"
-              size="sm"
-              className="rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6"
-            >
-              <span className="text-primary ">Save as Draft</span>
-            </Button>
-
-            {currentStep > 1 && (
-              <Button
-                variant="outlined"
-                size="sm"
-                className="rounded-full py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px] mr-4"
-                onClick={() => {
-                  handlePrev();
-                  handlePrevStep();
-                }}
-              >
-                <span className="text-black">Previous</span>
-              </Button>
-            )}
-
-            {currentStep < 7 ? (
-              <Button
-                variant="filled"
-                color="indigo"
-                size="sm"
-                className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
-                onClick={() => {
-                  handleNext();
-                  handleNextStep();
-                }}
-              >
-                <span className="text-white">Next</span>
-              </Button>
-            ) : (
-              <Button
-                variant="filled"
-                color="indigo"
-                size="sm"
-                className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
-                type="button"
-                onClick={onSubmit}
-              >
-                <span className="text-white">Submit</span>
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }
 
