@@ -54,6 +54,7 @@ const getAllEvents = async (req, res) => {
     if (eventCategory) filters.eventCategory = eventCategory;
     if (priceRange) filters.eventBudget = priceRange;
     if (eventSubCategory) filters.eventSubCategory = eventSubCategory;
+    if (audienceSize) filters.audienceSize = audienceSize;
 
     // Add sortOption to the filters
     if (sortOption) filters.sortOption = sortOption;

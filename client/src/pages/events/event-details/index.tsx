@@ -99,7 +99,7 @@ export function Index() {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-32'>
+      <div className='flex items-center justify-center h-full'>
         <Spinner />
       </div>
     );
