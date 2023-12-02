@@ -9,7 +9,8 @@ const {
   getEvent,
   update,
   remove,
-  saveEvent
+  saveEvent,
+  getRecentEvent
 } = require('../controllers/event.controller');
 
 const eventRouter = express.Router();
@@ -218,11 +219,30 @@ const eventRouter = express.Router();
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /api/events/recent:
+ *   get:
+ *     summary: Get recent events
+ *     tags: [Events]
+ *     description: Retrieve a list of recent events
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of recent events
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+
 eventRouter.post('/', protect, cleanCache, createNewEvent);
 eventRouter.get('/', protect, getAllEvents);
-eventRouter.get('/:id', protect, getEvent);
+eventRouter.get('/recent', getRecentEvent);
 eventRouter.get('/user/:userId', protect, getUserEvents);
 eventRouter.post('/save/:eventId', protect, saveEvent);
+eventRouter.get('/:id', protect, getEvent);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);
 
