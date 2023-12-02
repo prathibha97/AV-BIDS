@@ -16,14 +16,21 @@ const { getUserById } = require('../models/user/user.model');
 */
 const createNewEvent = async (req, res) => {
   try {
-    const eventDetails = { ...req.body };
-    const event = await createEvent(eventDetails, req.body.createdBy);
-    res.status(200).json(event);
+    const { body } = req;
+    const event = await createEvent({ ...body }, body.createdBy);
+    res.status(200).json({event, message: 'Event created successfully'});
   } catch (error) {
-    console.error('Failed to create event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    console.error('Failed to create event:', error);
+
+    // Choose an appropriate status code based on the type of error
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
+
 
 /* 
 ?@desc   Get all events
@@ -105,11 +112,24 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const eventDetails = { ...req.body };
+
     const event = await updateEvent(id, eventDetails);
-    res.status(200).json(event);
+
+    if (!event) {
+      // Assuming updateEvent returns null if the event is not found
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json({ event, message: 'Event successfully updated' });
   } catch (error) {
-    console.error('Failed to update event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    console.error('Failed to update event:', error);
+
+    // Choose an appropriate status code based on the type of error
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 

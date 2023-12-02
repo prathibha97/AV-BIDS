@@ -17,6 +17,8 @@ import StepSeven from "./components/step-seven";
 import StepSix from "./components/step-six";
 import StepThree from "./components/step-three";
 import StepTwo from "./components/step-two";
+import { useAppDispatch } from "../../../app/hooks";
+import { setAlertWithTimeout } from "../../../app/features/alerts/alertSlice";
 
 interface Requirement {
   label: string;
@@ -26,6 +28,7 @@ interface Requirement {
 export function Index() {
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { register, control } = useForm<EventFormFormValues>({
     resolver: zodResolver(EventFormSchema),
@@ -44,13 +47,33 @@ export function Index() {
 
   const onSubmit = async () => {
     try {
-      await api.post("/events", {
+      const { data } = await api.post('/events', {
         ...formData,
         createdBy: user && user._id,
       });
-      navigate("/events/my-events");
-    } catch (error) {
-      console.log(error);
+      navigate('/events/my-events');
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
