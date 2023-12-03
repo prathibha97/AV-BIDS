@@ -58,7 +58,7 @@ const SidebarDashboard = () => {
           )}
           {user?.userType === 'PROVIDER' && (
             <>
-              <ListItem onClick={() => navigate('/events/event-alerts')}>
+              <ListItem onClick={() => navigate('/events/alerts')}>
                 <ListItemPrefix>
                   <img src={EVENT} alt='Event Alerts' className={imageStyles} />
                 </ListItemPrefix>
