@@ -222,8 +222,8 @@ export function Index() {
           <StepSeven formData={formData} updateFormData={updateFormData} />
         )}
 
-        <div className="flex items-center justify-between mt-6">
-          <div>
+        <div className="sm:flex items-center justify-between mt-6 ">
+          <div className="hidden sm:block">
             <Button
               variant='outlined'
               size='sm'
@@ -234,12 +234,12 @@ export function Index() {
             </Button>
           </div>
 
-          <div>
+          <div className="flex items-center hidden sm:block">
             <Button
               variant="outlined"
               color="indigo"
               size="sm"
-              className="rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6"
+              className="rounded-full py-3 px-2 mt-4  font-poppins normal-case border-primary w-[130px]  mr-6"
             >
               <span className="text-primary ">Save as Draft</span>
             </Button>
@@ -283,6 +283,80 @@ export function Index() {
                 <span className="text-white">Submit</span>
               </Button>
             )}
+          </div>
+        </div>
+
+        <div className="sm:flex items-center justify-center mt-6 block sm:hidden">
+          <div className="flex items-center justify-center">
+            <Button
+              variant="outlined"
+              color="indigo"
+              size="sm"
+              className="rounded-full  py-2 sm:py-3 px-0 sm:px-6 mt-4  font-poppins normal-case border-primary w-[90px] sm:w-[135px] mr-3"
+            >
+              <span className="text-primary text-[10px] sm:text-[16px]">
+                Save as Draft
+              </span>
+            </Button>
+
+            {currentStep > 1 && (
+              <Button
+                variant="outlined"
+                size="sm"
+                className="rounded-full py-2 sm:py-3 px-0 sm:px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[90px] sm:w-[135px] mr-3"
+                onClick={() => {
+                  handlePrev();
+                  handlePrevStep();
+                }}
+              >
+                <span className="text-black text-[10px] sm:text-[16px]">
+                  Previous
+                </span>
+              </Button>
+            )}
+
+            {currentStep < 7 ? (
+              <Button
+                variant="filled"
+                color="indigo"
+                size="sm"
+                className="rounded-full py-2 sm:py-3 px-0 sm:px-6 mt-4 font-poppins normal-case bg-primary w-[90px] sm:w-[135px]"
+                onClick={() => {
+                  handleNext();
+                  handleNextStep();
+                }}
+              >
+                <span className="text-white text-[10px] sm:text-[16px]">
+                  Next
+                </span>
+              </Button>
+            ) : (
+              <Button
+                variant="filled"
+                color="indigo"
+                size="sm"
+                className="rounded-full sm:py-3 px-0 sm:px-6 mt-4 font-poppins normal-case bg-primary w-[110px] sm:w-[135px]"
+                type="button"
+                onClick={onSubmit}
+              >
+                <span className="text-white text-[10px] sm:text-[16px]">
+                  Submit
+                </span>
+              </Button>
+            )}
+          </div>
+
+          <div className="flex items-center justify-center ">
+            <Button
+              variant="outlined"
+              size="sm"
+              className="rounded-full sm:py-3 px-0 sm:px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[90px] sm:w-[135px]"
+              onClick={() => setCurrentStep(1)}
+            >
+              <span className="text-black text-[10px] sm:text-[16px]">
+                Cancel
+              </span>
+            </Button>
           </div>
         </div>
       </section>

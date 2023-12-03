@@ -158,6 +158,12 @@ function Router() {
       layout: HomeLayout2,
       routes: [{ element: lazy(() => import("../pages/proposals")) }],
     },
+
+    {
+      path: "/15_event_alerts",
+      layout: HomeLayout2,
+      routes: [{ element: lazy(() => import("../pages/15_event_alerts")) }],
+    },
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
