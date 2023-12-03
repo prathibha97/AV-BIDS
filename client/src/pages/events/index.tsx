@@ -39,19 +39,22 @@ function Index() {
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
   const currentEvents = events?.slice(indexOfFirstEvent, indexOfLastEvent);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [events]);
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  // }, [events]);
 
   useEffect(() => {
-    applyFilters({
-      eventType: selectedEventType,
-      eventCategory: selectedEventCategory,
-      eventSubCategory: selectedEventSubCategory,
-      priceRange: selectedPriceRange,
-      audienceSize: selectedAudienceSize,
-      sortOption: selectedSortOption,
-    });
+    applyFilters(
+      {
+        eventType: selectedEventType,
+        eventCategory: selectedEventCategory,
+        eventSubCategory: selectedEventSubCategory,
+        priceRange: selectedPriceRange,
+        audienceSize: selectedAudienceSize,
+        sortOption: selectedSortOption,
+      },
+      currentPage
+    ); // Pass currentPage directly instead of relying on state
   }, [
     selectedEventType,
     selectedEventCategory,
@@ -60,6 +63,7 @@ function Index() {
     selectedAudienceSize,
     selectedSortOption,
   ]);
+
 
   const applyFilters = async (filters: any, page: number = 1) => {
     try {
@@ -81,8 +85,26 @@ function Index() {
     }
   };
 
-  const handlePageChange = (pageNumber: number) => {
+  // const handlePageChange = (pageNumber: number) => {
+  //   setCurrentPage(pageNumber);
+  // };
+
+  const handlePageChange = async (pageNumber: number) => {
+    // Update currentPage directly here
     setCurrentPage(pageNumber);
+
+    // Call applyFilters with the updated currentPage
+    await applyFilters(
+      {
+        eventType: selectedEventType,
+        eventCategory: selectedEventCategory,
+        eventSubCategory: selectedEventSubCategory,
+        priceRange: selectedPriceRange,
+        audienceSize: selectedAudienceSize,
+        sortOption: selectedSortOption,
+      },
+      pageNumber
+    );
   };
 
   const handleSortChange = (value: string) => {

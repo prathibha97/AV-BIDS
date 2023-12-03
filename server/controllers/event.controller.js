@@ -47,8 +47,8 @@ const getAllEvents = async (req, res) => {
       priceRange,
       audienceSize,
       sortOption,
-      page, // default to page 1 if not provided
-      pageSize , // default page size
+      page, 
+      pageSize,
     } = req.query;
 
     // Construct a filter object based on provided parameters
