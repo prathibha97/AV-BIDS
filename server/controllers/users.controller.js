@@ -56,7 +56,8 @@ const update = async (req, res) => {
       website,
       imageUrl,
       insurance,
-      companyAddress
+      companyAddress,
+      subscription,
     } = req.body;
 
     // if (!id || !firstName || !lastName || !email) {
@@ -81,6 +82,7 @@ const update = async (req, res) => {
       imageUrl,
       insurance,
       companyAddress,
+      subscription,
     });
 
     res.status(200).json({ user, message: 'User updated successfully' });

@@ -1,4 +1,4 @@
-import { Fragment, Key, lazy, Suspense } from "react";
+import { FC, Fragment, Key, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import EmptyLayout from "../layout/empty-layout";
 import EmptyLayout2 from "../layout/empty-layout2";
@@ -9,8 +9,18 @@ import SuspenseScreen from "./suspense-screen";
 import RequireAuth from "../components/require-auth";
 import HomeLayout2 from "../layout/home-layout-dash";
 import Layout_02 from "../layout/layout_02";
+import SubscriptionGuard from "./subscription-guard";
 
 function Router() {
+  // Higher-order guard combining SubscriptionGuard and RequireAuth
+  const SubscriptionAndAuthGuard: FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => (
+    <SubscriptionGuard>
+      <RequireAuth>{children}</RequireAuth>
+    </SubscriptionGuard>
+  );
+
   const routes: any = [
     {
       path: '/',
@@ -87,7 +97,7 @@ function Router() {
     {
       path: '/events',
       layout: HomeLayout,
-      guard: RequireAuth,
+      guard: SubscriptionAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
@@ -182,9 +192,9 @@ function Router() {
     const isIndex: boolean = route.path ? false : true;
     let props: any = {};
     if (isIndex) {
-      props["index"] = true;
+      props['index'] = true;
     } else {
-      props["path"] = route.path;
+      props['path'] = route.path;
     }
 
     // Check if the route has a guard and apply it

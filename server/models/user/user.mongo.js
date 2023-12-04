@@ -1,5 +1,25 @@
 const mongoose = require('mongoose');
 
+const addressSchema = new mongoose.Schema({
+  address: String,
+  country: String,
+  city: String,
+  zip: String,
+  state: String,
+});
+
+const subscriptionSchema = new mongoose.Schema({
+  plan: {
+    type: String,
+    enum: ['BASIC', 'PREMIUM'],
+    default: 'BASIC',
+  },
+  startDate: {
+    type: Date,
+  },
+  endDate: Date,
+});
+
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -40,25 +60,20 @@ const userSchema = new mongoose.Schema(
       enum: ['Admin', 'Standard'],
       default: 'Standard',
     },
-    companyAddress: {
-      address: String,
-      country: String,
-      city: String,
-      zip: String,
-      state: String,
-    },
+    companyAddress: addressSchema,
+    subscription: subscriptionSchema,
     refreshToken: [String],
     insurance: String,
     members: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member', // Reference to the Member model
+        ref: 'Member',
       },
     ],
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review', // Reference to the Review model
+        ref: 'Review',
       },
     ],
     events: [
