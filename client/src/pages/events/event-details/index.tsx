@@ -15,32 +15,37 @@ import Attachments from './components/attachments';
 import EventInfo from './components/event-info';
 import EventPlanner from './components/event-planner';
 import OtherEvents from './components/other-events';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
 
 export function Index() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const [userEvents, setUserEvents] = useState<Event[]>([]);
   const [planner, setPlanner] = useState<UserWithReviewWithEvent | null>(null);
-  const [loading, setLoading] = useState(false);
-
+  const [eventLoading, setEventLoading] = useState(false);
+  const [userEventLoading, setUserEventLoading] = useState(false);
+  const [plannerLoading, setPlannerLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const user = useGetCurrentUser()
+
   const handleOpen = () => setOpen((cur) => !cur);
 
   const fetchEventDetails = async () => {
     try {
-      setLoading(true);
+      setEventLoading(true);
       const { data } = await api.get(`/events/${id}`);
       setEvent(data);
     } catch (error) {
       console.error('Error fetching event details:', error);
     } finally {
-      setLoading(false);
+      setEventLoading(false);
     }
   };
 
   const fetchUserEvents = async (createdBy: string | undefined) => {
     try {
-      setLoading(true);
+      setUserEventLoading(true);
       if (createdBy) {
         const { data } = await api.get(`/events/user/${createdBy}`);
         setUserEvents(data);
@@ -48,13 +53,13 @@ export function Index() {
     } catch (error) {
       console.error('Error fetching user events:', error);
     } finally {
-      setLoading(false);
+      setUserEventLoading(false);
     }
   };
 
   const fetchEventPlanner = async (createdBy: string | undefined) => {
     try {
-      setLoading(true);
+      setPlannerLoading(true);
       if (createdBy) {
         const { data } = await api.get(`/users/${createdBy}`);
         setPlanner(data);
@@ -62,7 +67,7 @@ export function Index() {
     } catch (error) {
       console.error('Error fetching planner info:', error);
     } finally {
-      setLoading(false);
+      setPlannerLoading(false);
     }
   };
 
@@ -97,7 +102,7 @@ export function Index() {
         : 'Expired'
       : 'N/A';
 
-  if (loading) {
+  if (eventLoading) {
     return (
       <div className='flex items-center justify-center h-full'>
         <Spinner />
@@ -196,7 +201,7 @@ export function Index() {
                   </div>
                 </div>
               </div>
-              <OtherEvents events={userEvents} />
+              <OtherEvents events={userEvents} loading={userEventLoading} />
             </div>
           </section>
           <section>
@@ -214,42 +219,47 @@ export function Index() {
         </div>
         <div className='flex items-start'>
           <section>
-            <div className='mb-4'>
-              <Button
-                variant='filled'
-                color='indigo'
-                size='sm'
-                className='rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins'
-                onClick={handleOpen}
-              >
-                <span className='text-white normal-case text-[14px]'>
-                  Submit Proposal
-                </span>
-              </Button>
+            {/* Only provider can submit proposals and save events */}
+            {user?.userType === 'PROVIDER' && (
+              <>
+                <div className='mb-4'>
+                  <Button
+                    variant='filled'
+                    color='indigo'
+                    size='sm'
+                    className='rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins'
+                    onClick={handleOpen}
+                  >
+                    <span className='text-white normal-case text-[14px]'>
+                      Submit Proposal
+                    </span>
+                  </Button>
 
-              <Button
-                variant='outlined'
-                size='sm'
-                className='rounded-full w-full py-4 mt-4 px-8 font-poppins'
-                onClick={() => handleSaveEvent()}
-              >
-                <span className=' text-black normal-case text-[14px]'>
-                  Save Event
-                </span>
-              </Button>
-            </div>
+                  <Button
+                    variant='outlined'
+                    size='sm'
+                    className='rounded-full w-full py-4 mt-4 px-8 font-poppins'
+                    onClick={() => handleSaveEvent()}
+                  >
+                    <span className=' text-black normal-case text-[14px]'>
+                      Save Event
+                    </span>
+                  </Button>
+                </div>
 
-            <div className='flex items-center justify-center gap-3 mb-6 '>
-              <img
-                src={SPAM_ICON}
-                alt='aad'
-                className='object-scale-down w-[24px]'
-              />
-              <p className='text-[18px] underline'>Flag as spam</p>
-            </div>
+                <div className='flex items-center justify-center gap-3 mb-6 '>
+                  <img
+                    src={SPAM_ICON}
+                    alt='aad'
+                    className='object-scale-down w-[24px]'
+                  />
+                  <p className='text-[18px] underline'>Flag as spam</p>
+                </div>
+              </>
+            )}
             <EventInfo event={event} />
             <Attachments event={event} />
-            <EventPlanner planner={planner} />
+            <EventPlanner planner={planner} loading={plannerLoading} />
           </section>
         </div>
       </div>

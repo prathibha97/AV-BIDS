@@ -1,11 +1,13 @@
+import { Spinner } from '@material-tailwind/react';
 import { FC } from 'react';
 import { UserWithReviewWithEvent } from '../../../../types';
 
 interface EventPlannerProps {
   planner: UserWithReviewWithEvent | null;
+  loading: boolean;
 }
 
-const EventPlanner: FC<EventPlannerProps> = ({ planner }) => {
+const EventPlanner: FC<EventPlannerProps> = ({ planner, loading }) => {
   // Calculate the average rating
   // const averageRating =
   //   planner &&
@@ -26,27 +28,37 @@ const EventPlanner: FC<EventPlannerProps> = ({ planner }) => {
 
   return (
     <div className='bg-[#F3F1FB] mt-8 p-6 rounded-lg'>
-      <h2 className='text-[20px] mb-6'>About the event planner</h2>
-
-      <div className='flex items-center gap-12 mt-4'>
-        {/* TODO: update address dynamically */}
-        <div className='text-red-500'>
-          <h2 className='text-[16px]'>United States</h2>
-          <p className='text-[16px]'>Arizona</p>
+      {loading ? (
+        <div className='flex items-center justify-center h-full'>
+          <Spinner />
         </div>
+      ) : (
+        <>
+          <h2 className='text-[20px] mb-6'>About the event planner</h2>
 
-        <div>
-          <h2 className='text-[18px]'>{`${planner?.events?.length} Events Posted`}</h2>
-          <p className='text-[18px]'>
-            {`${activeEventsCount} currently listed`}
+          <div className='flex items-center gap-12 mt-4'>
+            {/* TODO: update address dynamically */}
+            <div className='text-red-500'>
+              <h2 className='text-[16px]'>United States</h2>
+              <p className='text-[16px]'>Arizona</p>
+            </div>
+
+            <div>
+              <h2 className='text-[18px]'>{`${planner?.events?.length} Events Posted`}</h2>
+              <p className='text-[18px]'>
+                {`${activeEventsCount} currently listed`}
+              </p>
+            </div>
+          </div>
+          <p className='text-[18px] mt-6'>
+            {planner && planner.createdAt
+              ? `Member since ${new Date(
+                  planner.createdAt
+                ).toLocaleDateString()}`
+              : 'Member since N/A'}
           </p>
-        </div>
-      </div>
-      <p className='text-[18px] mt-6'>
-        {planner && planner.createdAt
-          ? `Member since ${new Date(planner.createdAt).toLocaleDateString()}`
-          : 'Member since N/A'}
-      </p>
+        </>
+      )}
     </div>
   );
 };
