@@ -32,34 +32,74 @@ const createEvent = async (values, userId) => {
 // };
 
 
+// const getFilteredEvents = async (filters, page, pageSize) => {
+//   const skip = (page - 1) * pageSize;
+
+//   let sortField;
+
+//   if (filters.sortOption) {
+//     switch (filters.sortOption) {
+//       case 'Ending Soonest':
+//         sortField = 'eventEndDate';
+//         break;
+//       case 'Budget Lowest':
+//         sortField = 'EventBudget';
+//         break;
+//       default:
+//         sortField = 'createdAt';
+//         break;
+//     }
+//   }
+
+//   let query = Event.find(filters)
+//     .skip(skip)
+//     .limit(parseInt(pageSize))
+//     .sort({ [sortField]: 1 });
+
+//   const events = await query.exec();
+
+//   return events;
+// };
+
 const getFilteredEvents = async (filters, page, pageSize) => {
-  const skip = (page - 1) * pageSize;
+  try {
+    const skip = (page - 1) * pageSize;
 
-  let query = Event.find(filters).skip(skip).limit(parseInt(pageSize));
-
-  // Add sorting logic based on your sortOption
-  if (filters.sortOption) {
     let sortField;
-    switch (filters.sortOption) {
-      case 'Ending Soonest':
-        sortField = 'endDate';
-        break;
-      case 'Budget Lowest':
-        sortField = 'budget';
-        break;
-      // Add cases for other sort options
-      default:
-        sortField = 'createdAt';
-        break;
+
+    if (filters.sortOption) {
+      switch (filters.sortOption) {
+        case 'Ending Soonest':
+          sortField = 'eventEndDate';
+          break;
+        case 'Budget Lowest':
+          sortField = 'EventBudget';
+          break;
+        default:
+          sortField = 'createdAt';
+          break;
+      }
     }
 
-    query = query.sort({ [sortField]: 1 });
+    // Use lean() to get plain JavaScript objects instead of mongoose documents
+    const query = Event.find(filters).lean();
+
+    // Use countDocuments() separately to avoid the "Query was already executed" error
+    const totalCount = await Event.countDocuments(filters);
+
+    const events = await query
+      .skip(skip)
+      .limit(parseInt(pageSize))
+      .sort({ [sortField]: 1 })
+      .exec();
+
+    return { events, totalCount };
+  } catch (error) {
+    console.error('Error in getFilteredEvents:', error.message);
+    throw error;
   }
-
-  const events = await query.exec();
-
-  return events;
 };
+
 
 
 

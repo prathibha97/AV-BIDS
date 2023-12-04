@@ -51,6 +51,8 @@ const getAllEvents = async (req, res) => {
       pageSize,
     } = req.query;
 
+
+
     // Construct a filter object based on provided parameters
     const filters = {};
     if (eventType) filters.eventType = eventType;
@@ -63,9 +65,13 @@ const getAllEvents = async (req, res) => {
     if (sortOption) filters.sortOption = sortOption;
 
     // Fetch events based on the constructed filters and pagination parameters
-    const events = await getFilteredEvents(filters, page, pageSize);
+    const { events, totalCount } = await getFilteredEvents(
+      filters,
+      page,
+      pageSize
+    );
 
-    res.status(200).json(events);
+    res.status(200).json({ events, totalCount });
   } catch (error) {
     console.error('Failed to fetch events - ', error.message);
     return res.status(500).json('Internal Server Error');

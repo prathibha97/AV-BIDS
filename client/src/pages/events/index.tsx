@@ -13,6 +13,7 @@ import Sidebar from './components/sidebar';
 function Index() {
   const dispatch = useAppDispatch();
   const [events, setEvents] = useState<Event[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const { message, color, open } = useAppSelector(
@@ -37,11 +38,7 @@ function Index() {
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = events?.slice(indexOfFirstEvent, indexOfLastEvent);
-
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  // }, [events]);
+  let currentEvents = events?.slice(indexOfFirstEvent, indexOfLastEvent);
 
   useEffect(() => {
     applyFilters(
@@ -62,8 +59,8 @@ function Index() {
     selectedPriceRange,
     selectedAudienceSize,
     selectedSortOption,
+    currentPage,
   ]);
-
 
   const applyFilters = async (filters: any, page: number = 1) => {
     try {
@@ -74,10 +71,20 @@ function Index() {
       );
 
       const { data } = await api.get('/events', {
-        params: { ...filteredParams, page },
+        params: {
+          ...filteredParams,
+          page,
+          // pageSize: eventsPerPage
+        },
       });
 
-      setEvents(data);
+      if (!data.events || data.events.length === 0) {
+        setEvents([]);
+        setTotalItems(0);
+      } else {
+        setEvents(data.events);
+        setTotalItems(data.totalCount);
+      }
     } catch (error) {
       console.error('API Error:', error);
     } finally {
@@ -85,15 +92,9 @@ function Index() {
     }
   };
 
-  // const handlePageChange = (pageNumber: number) => {
-  //   setCurrentPage(pageNumber);
-  // };
-
   const handlePageChange = async (pageNumber: number) => {
-    // Update currentPage directly here
     setCurrentPage(pageNumber);
 
-    // Call applyFilters with the updated currentPage
     await applyFilters(
       {
         eventType: selectedEventType,
@@ -112,7 +113,7 @@ function Index() {
   };
 
   return (
-    <div className=''>
+    <div>
       {loading ? (
         <div className='flex items-center justify-center h-full'>
           <Spinner />
@@ -187,7 +188,8 @@ function Index() {
                 {currentEvents?.length > 0 && (
                   <Pagination
                     currentPage={currentPage}
-                    totalItems={events.length || 0}
+                    // totalItems={events.length || 0}
+                    totalItems={totalItems}
                     itemsPerPage={eventsPerPage}
                     onPageChange={handlePageChange}
                   />
