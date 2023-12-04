@@ -16,20 +16,29 @@ import EventInfo from './components/event-info';
 import EventPlanner from './components/event-planner';
 import OtherEvents from './components/other-events';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import AlertBox from '../../../components/alert-box';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
+import { setAlert, setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 
 export function Index() {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const [event, setEvent] = useState<Event | null>(null);
   const [userEvents, setUserEvents] = useState<Event[]>([]);
   const [planner, setPlanner] = useState<UserWithReviewWithEvent | null>(null);
   const [eventLoading, setEventLoading] = useState(false);
   const [userEventLoading, setUserEventLoading] = useState(false);
   const [plannerLoading, setPlannerLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openProposalDialog, setOpenProposalDialog] = useState(false);
+
+  const { message, color, open } = useAppSelector(
+    (state: RootState) => state.alert
+  );
 
   const user = useGetCurrentUser()
 
-  const handleOpen = () => setOpen((cur) => !cur);
+  const handleOpen = () => setOpenProposalDialog((cur) => !cur);
 
   const fetchEventDetails = async () => {
     try {
@@ -73,9 +82,29 @@ export function Index() {
 
   const handleSaveEvent = async () => {
     try {
-      await api.post(`/events/save/${event?._id}`);
-    } catch (error) {
-      console.log(error);
+      const {data} = await api.post(`/events/save/${event?._id}`);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
@@ -112,6 +141,15 @@ export function Index() {
 
   return (
     <div className='mx-auto mt-16'>
+      <AlertBox
+        color={color}
+        variant='ghost'
+        text={message!}
+        open={open}
+        setOpen={() =>
+          dispatch(setAlert({ open: false, message: '', color: 'green' }))
+        }
+      />
       <div className='grid lg:grid-cols-3 gap-4 content-center'>
         <div className='col-span-2 flex justify-center items-center px-8'>
           <section>
@@ -205,7 +243,7 @@ export function Index() {
             </div>
           </section>
           <section>
-            <Dialog open={open} handler={handleOpen} size='xs'>
+            <Dialog open={openProposalDialog} handler={handleOpen} size='xs'>
               <div className='flex justify-end p-3'>
                 <MdOutlineCancel
                   size={32}
@@ -213,7 +251,7 @@ export function Index() {
                   onClick={handleOpen}
                 />
               </div>
-              <SubmitProposal />
+              <SubmitProposal handleOpen={handleOpen}/>
             </Dialog>
           </section>
         </div>

@@ -1,9 +1,16 @@
 import { Button } from '@material-tailwind/react';
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { setAlertWithTimeout } from '../../../../app/features/alerts/alertSlice';
+import { useAppDispatch } from '../../../../app/hooks';
 import UPLOAD_ICON from '../../../../assets/10_event_details_page/Upload icon.png';
 
-export function SubmitProposal() {
+interface SubmitProposalProps {
+  handleOpen: () => void;
+}
+
+export const SubmitProposal: FC<SubmitProposalProps> = ({ handleOpen }) => {
+  const dispatch = useAppDispatch();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -14,7 +21,19 @@ export function SubmitProposal() {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleFileUpload = () => {
-    console.log(uploadedFile);
+    try {
+      console.log(uploadedFile);
+      handleOpen();
+      dispatch(
+        setAlertWithTimeout({
+          message: 'Proposal submited',
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className='m-5'>
@@ -67,6 +86,6 @@ export function SubmitProposal() {
       </div>
     </div>
   );
-}
+};
 
 export default SubmitProposal;
