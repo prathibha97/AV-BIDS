@@ -57,13 +57,13 @@ export const SubmitProposal: FC<SubmitProposalProps> = ({ handleOpen }) => {
                 : 'Drag files here or click to upload'}
             </p>
             {uploadedFile && (
-              <div>
+              <div className='flex flex-col'>
                 <p>File Name: {uploadedFile.name}</p>
                 <p>File Size: {uploadedFile.size} bytes</p>
                 <img
                   src={URL.createObjectURL(uploadedFile)}
                   alt='File Preview'
-                  className='max-h-40 mt-2'
+                  className='flex items-center justify-center max-h-40 mt-2 object-contain'
                 />
               </div>
             )}
