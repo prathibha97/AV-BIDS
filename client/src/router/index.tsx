@@ -10,6 +10,7 @@ import RequireAuth from "../components/require-auth";
 import HomeLayout2 from "../layout/home-layout-dash";
 import Layout_02 from "../layout/layout_02";
 import SubscriptionGuard from "./subscription-guard";
+import PlannerGuard from "./planner-guard";
 
 function Router() {
   // Higher-order guard combining SubscriptionGuard and RequireAuth
@@ -20,6 +21,15 @@ function Router() {
       <RequireAuth>{children}</RequireAuth>
     </SubscriptionGuard>
   );
+
+  const PlannerAndAuthGuard: FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => (
+    <PlannerGuard>
+      <RequireAuth>{children}</RequireAuth>
+    </PlannerGuard>
+  );
+
 
   const routes: any = [
     {
@@ -103,19 +113,19 @@ function Router() {
     {
       path: '/events/new',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: PlannerAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events/new')) }],
     },
     {
       path: '/events/my-events',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: PlannerAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events/my-events')) }],
     },
     {
       path: '/events/edit/:id',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: PlannerAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events/edit')) }],
     },
     {
@@ -148,30 +158,35 @@ function Router() {
     {
       path: '/billing',
       layout: HomeLayout2,
+      guard: RequireAuth,
       routes: [{ element: lazy(() => import('../pages/billing')) }],
     },
 
     {
       path: '/18_order_page',
       layout: EmptyLayout2,
+      guard: RequireAuth,
       routes: [{ element: lazy(() => import('../pages/18_order_page')) }],
     },
 
     {
       path: '/19_add_card',
       layout: EmptyLayout2,
+      guard: RequireAuth,
       routes: [{ element: lazy(() => import('../pages/19_add_card')) }],
     },
 
     {
       path: '/20_place_order',
       layout: EmptyLayout2,
+      guard: RequireAuth,
       routes: [{ element: lazy(() => import('../pages/20_place_order')) }],
     },
 
     {
       path: '/proposals',
       layout: HomeLayout2,
+      guard: PlannerAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/proposals')) }],
     },
 
