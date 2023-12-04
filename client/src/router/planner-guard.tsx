@@ -11,7 +11,7 @@ const PlannerGuard: FC<PlannerGuardProps> = ({ children }) => {
   const storedUser = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
   // Check if the userType is "PLANNER"
-  const isPlanner = storedUser.user.userType === 'PLANNER';
+  const isPlanner = storedUser.user?.userType === 'PLANNER';
 
   return isPlanner ? (
     <>{children}</>

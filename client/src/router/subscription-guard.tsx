@@ -14,10 +14,10 @@ const SubscriptionGuard: FC<SubscriptionGuardProps> = ({ children }) => {
   const hasSubscription = storedUser.user?.subscription?.plan === 'PREMIUM';
   
   // Check if the userType is "PROVIDER"
-  const isProvider = storedUser.user.userType === 'PROVIDER';
+  const isProvider = storedUser.user?.userType === 'PROVIDER';
 
   // Allow access without restrictions for planner users
-  const isPlanner = storedUser.user.userType === 'PLANNER';
+  const isPlanner = storedUser.user?.userType === 'PLANNER';
 
   return isPlanner || (storedUser.token && isProvider && hasSubscription) ? (
     <>{children}</>

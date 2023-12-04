@@ -1,36 +1,18 @@
-import { FC, Fragment, Key, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import EmptyLayout from "../layout/empty-layout";
-import EmptyLayout2 from "../layout/empty-layout2";
-import HomeLayout from "../layout/home-layout";
+import { Fragment, Key, lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import EmptyLayout from '../layout/empty-layout';
+import EmptyLayout2 from '../layout/empty-layout2';
+import HomeLayout from '../layout/home-layout';
 
-import SuspenseScreen from "./suspense-screen";
+import SuspenseScreen from './suspense-screen';
 
-import RequireAuth from "../components/require-auth";
-import HomeLayout2 from "../layout/home-layout-dash";
-import Layout_02 from "../layout/layout_02";
-import SubscriptionGuard from "./subscription-guard";
-import PlannerGuard from "./planner-guard";
+import RequireAuth from '../components/require-auth';
+import HomeLayout2 from '../layout/home-layout-dash';
+import Layout_02 from '../layout/layout_02';
+import SubscriptionAndAuthWrapper from './guards/SubscriptionAndAuthWrapper';
+import PlannerAndAuthWrapper from './guards/PlannerAndAuthWrapper';
 
 function Router() {
-  // Higher-order guard combining SubscriptionGuard and RequireAuth
-  const SubscriptionAndAuthGuard: FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => (
-    <SubscriptionGuard>
-      <RequireAuth>{children}</RequireAuth>
-    </SubscriptionGuard>
-  );
-
-  const PlannerAndAuthGuard: FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => (
-    <PlannerGuard>
-      <RequireAuth>{children}</RequireAuth>
-    </PlannerGuard>
-  );
-
-
   const routes: any = [
     {
       path: '/',
@@ -41,13 +23,6 @@ function Router() {
       path: '/event-planner',
       layout: HomeLayout,
       routes: [{ element: lazy(() => import('../pages/event_planner')) }],
-    },
-
-    {
-      path: '/16_saved_events',
-      layout: HomeLayout2,
-      guard: RequireAuth,
-      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
     },
 
     {
@@ -100,32 +75,32 @@ function Router() {
     {
       path: '/dashboard',
       layout: HomeLayout2,
-      guard: SubscriptionAndAuthGuard,
+      guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/dashboard')) }],
     },
 
     {
       path: '/events',
       layout: HomeLayout,
-      guard: SubscriptionAndAuthGuard,
+      guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
       path: '/events/new',
       layout: HomeLayout2,
-      guard: PlannerAndAuthGuard,
+      guard: PlannerAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events/new')) }],
     },
     {
       path: '/events/my-events',
       layout: HomeLayout2,
-      guard: PlannerAndAuthGuard,
+      guard: PlannerAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events/my-events')) }],
     },
     {
       path: '/events/edit/:id',
       layout: HomeLayout2,
-      guard: PlannerAndAuthGuard,
+      guard: PlannerAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events/edit')) }],
     },
     {
@@ -139,19 +114,19 @@ function Router() {
     {
       path: '/events/saved-events',
       layout: HomeLayout2,
-      guard: SubscriptionAndAuthGuard,
+      guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
     },
     {
       path: '/events/alerts',
       layout: HomeLayout2,
-      guard: SubscriptionAndAuthGuard,
+      guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events/event-alerts')) }],
     },
     {
       path: '/messages',
       layout: HomeLayout2,
-      guard: SubscriptionAndAuthGuard,
+      guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/messages')) }],
     },
 
@@ -186,7 +161,7 @@ function Router() {
     {
       path: '/proposals',
       layout: HomeLayout2,
-      guard: PlannerAndAuthGuard,
+      guard: PlannerAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/proposals')) }],
     },
 
@@ -238,21 +213,3 @@ function Router() {
 }
 
 export default Router;
-
-// {
-//   path: '/events',
-//   layout: HomeLayout,
-//   guard: RequireAuth,
-//   routes: [
-//     { path: '', element: lazy(() => import('../pages/events')) },
-//     { path: 'new', element: lazy(() => import('../pages/events/new')) },
-//     {
-//       path: 'my-events',
-//       element: lazy(() => import('../pages/events/my-events')),
-//     },
-//     {
-//       path: 'edit/:id',
-//       element: lazy(() => import('../pages/events/edit')),
-//     },
-//   ],
-// },
