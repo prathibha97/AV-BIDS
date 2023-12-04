@@ -8,7 +8,11 @@ import Spinner from '../../../components/spinner';
 import { Event } from '../../../types';
 import api from '../../../utils/api';
 
+import { setAlert } from '../../../app/features/alerts/alertSlice';
+import { useAppSelector } from '../../../app/hooks';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { RootState } from '../../../app/store';
+import AlertBox from '../../../components/alert-box';
 import Pagination from '../../../components/pagination';
 
 const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', ''];
@@ -17,6 +21,10 @@ function Index() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useGetCurrentUser();
+
+  const { message, color, open } = useAppSelector(
+    (state: RootState) => state.alert
+  );
 
   const [myEvents, setMyEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,18 +60,23 @@ function Index() {
     fetchMyEvents();
   }, [user?._id]);
 
-  
-
   const handleEdit = (event: Event) => {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
 
-  
-
   return (
     // <div>event_planner</div>
     <div className='container mx-auto'>
+      <AlertBox
+        color={color}
+        variant='ghost'
+        text={message!}
+        open={open}
+        setOpen={() =>
+          dispatch(setAlert({ open: false, message: '', color: 'green' }))
+        }
+      />
       <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
         <div className='flex items-center justify-between mb-4 '>
           <h2 className='text-[20px] font-semibold '>My Events</h2>

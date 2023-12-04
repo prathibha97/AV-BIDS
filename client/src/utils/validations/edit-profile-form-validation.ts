@@ -7,6 +7,13 @@ export const EditProfileFormSchema = z.object({
   company: z.string(),
   phone: z.string(),
   website: z.string(),
+  companyAddress: z.object({
+    address: z.string(),
+    city: z.string(),
+    country: z.string(),
+    state: z.string(),
+    zip: z.string(),
+  }),
 });
 
 export type EditProfileFormValues = z.infer<typeof EditProfileFormSchema>;

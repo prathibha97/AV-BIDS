@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@material-tailwind/react';
-import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { clearUser, updateUser } from '../../../app/features/user/userSlice';
 import { useAppDispatch } from '../../../app/hooks';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
@@ -12,9 +12,7 @@ import {
   ResetPasswordFormValues,
 } from '../../../utils/validations/reset-password-form-validation';
 
-interface ResetPasswordProps {}
-
-const ResetPassword: FC<ResetPasswordProps> = ({}) => {
+const ResetPassword = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -40,23 +38,43 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
         password: values.newPassword,
       });
       dispatch(updateUser(data.user));
-    } catch (error) {
-      console.log(error);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
   const handleDeleteAccount = async () => {
     try {
       await api.delete(`/users/${user?._id}`);
-      navigate('/');
       dispatch(clearUser());
       localStorage.removeItem('userInfo');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
+    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2'>
       <h2 className='text-[20px] font-semibold mb-4'>Change Password</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='grid grid-cols-1 gap-4'>
@@ -65,7 +83,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
 
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}
@@ -83,7 +101,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             <p className='mb-2'>New Password</p>
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}
@@ -100,7 +118,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({}) => {
             <p className='mb-2'>Confirm New Password</p>
             <div className='w-72 bg-input_background rounded-full'>
               <Input
-                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-full'
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
                   className: 'hidden',
                 }}

@@ -15,7 +15,8 @@ const getUserById = (id) =>
     .populate('reviews')
     .populate('savedEvents');
 
-const getUserByEmail = (email) => User.findOne({ email }).populate('members');
+const getUserByEmail = (email) =>
+  User.findOne({ email }).populate('members').populate('savedEvents');
 
 const getUserByRefreshToken = (refreshToken) =>
   User.findOne({ refreshToken: { $in: [refreshToken] } });

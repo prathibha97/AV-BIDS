@@ -2,6 +2,7 @@ import { Button } from '@material-tailwind/react';
 import axios from 'axios';
 import { FC, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { updateUser } from '../../../app/features/user/userSlice';
 import { useAppDispatch } from '../../../app/hooks';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
@@ -49,8 +50,28 @@ const UploadInsurance: FC<UploadInsuranceProps> = () => {
       });
 
       dispatch(updateUser(data));
-    } catch (error) {
-      console.error('Error uploading file:', error);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
 
@@ -68,9 +89,9 @@ const UploadInsurance: FC<UploadInsuranceProps> = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
+    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2'>
       <h2 className='text-[20px] font-semibold mb-4'>
-        Upload Your Proof of Insurance *
+        Upload Your Proof of Insurance <span className='text-[#DE5753]'>*</span>
       </h2>
 
       <div

@@ -1,28 +1,9 @@
-import { Alert } from '@material-tailwind/react';
+import { Alert, AlertProps } from '@material-tailwind/react';
 import { FC } from 'react';
 
-interface AlertBoxProps {
-  color:
-    | 'blue-gray'
-    | 'gray'
-    | 'brown'
-    | 'deep-orange'
-    | 'orange'
-    | 'amber'
-    | 'yellow'
-    | 'lime'
-    | 'light-green'
-    | 'green'
-    | 'teal'
-    | 'cyan'
-    | 'light-blue'
-    | 'blue'
-    | 'indigo'
-    | 'deep-purple'
-    | 'purple'
-    | 'pink'
-    | 'red';
-  variant: 'filled' | 'gradient' | 'outlined' | 'ghost';
+export interface AlertBoxProps {
+  color: AlertProps['color'];
+  variant: AlertProps['variant'];
   text: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,18 +17,20 @@ const AlertBox: FC<AlertBoxProps> = ({
   setOpen,
 }) => {
   return (
-    <Alert
-      color={color}
-      variant={variant}
-      open={open}
-      onClose={() => setOpen(false)}
-      animate={{
-        mount: { y: 0 },
-        unmount: { y: 100 },
-      }}
-    >
-      {text}
-    </Alert>
+    <>
+      <Alert
+        open={open}
+        onClose={() => setOpen(false)}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+        color={color}
+        variant={variant}
+      >
+        {text}
+      </Alert>
+    </>
   );
 };
 

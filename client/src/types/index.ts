@@ -10,13 +10,20 @@ export interface User {
   phone: string;
   website: string;
   company: string;
-  members: [Member]
-  savedEvents: [Event]
-  insurance: string
+  members: [Member];
+  savedEvents: [Event];
+  insurance: string;
+  companyAddress:{
+    address: string
+    country: string
+    city: string
+    zip: string
+    state: string
+  }
 }
 
 export interface Member {
-  _id:string
+  _id: string;
   name: string;
   email: string;
   role: string;
@@ -38,6 +45,10 @@ export type Event = {
   eventCategory: string;
   eventSubCategory: string;
   eventBudget: string;
+  proposalDueDate: string;
+  eventStartDate: string;
+  eventEndDate: string;
+  audienceSize: string;
   address: {
     venueName: string;
     venueAddress: string;
@@ -182,11 +193,11 @@ export type Event = {
     description: string;
   };
   files: FileInformationArray;
-  proposals: [string]
+  proposals: [string];
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
-}
+};
 
 export type Review = {
   _id: string;
@@ -199,7 +210,7 @@ export type Review = {
 export interface UserWithReviewWithEvent extends User {
   reviews: Review[];
   events: Event[];
-  createdAt: Date
+  createdAt: Date;
 }
 
 export type Message = {

@@ -5,6 +5,7 @@ const {
   getEventsById,
   updateEvent,
   removeEvent,
+  getLatestEvents,
 } = require('../models/event/event.model');
 const { getUserById } = require('../models/user/user.model');
 
@@ -15,12 +16,18 @@ const { getUserById } = require('../models/user/user.model');
 */
 const createNewEvent = async (req, res) => {
   try {
-    const eventDetails = { ...req.body };
-    const event = await createEvent(eventDetails, req.body.createdBy);
-    res.status(200).json(event);
+    const { body } = req;
+    const event = await createEvent({ ...body }, body.createdBy);
+    res.status(200).json({ event, message: 'Event created successfully' });
   } catch (error) {
-    console.error('Failed to create event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    console.error('Failed to create event:', error);
+
+    // Choose an appropriate status code based on the type of error
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -30,6 +37,7 @@ const createNewEvent = async (req, res) => {
 *@access Private
 */
 
+
 const getAllEvents = async (req, res) => {
   try {
     const {
@@ -38,28 +46,33 @@ const getAllEvents = async (req, res) => {
       eventSubCategory,
       priceRange,
       audienceSize,
+      page,
+      pageSize,
       sortOption,
     } = req.query;
 
-    // Construct a filter object based on provided parameters
+
     const filters = {};
     if (eventType) filters.eventType = eventType;
     if (eventCategory) filters.eventCategory = eventCategory;
     if (priceRange) filters.eventBudget = priceRange;
     if (eventSubCategory) filters.eventSubCategory = eventSubCategory;
+    if (audienceSize) filters.audienceSize = audienceSize;
 
-    // Add sortOption to the filters
-    if (sortOption) filters.sortOption = sortOption;
+    const { events, totalCount } = await getFilteredEvents(
+      filters,
+      page,
+      pageSize,
+      sortOption
+    );
 
-    // Fetch events based on the constructed filters
-    const events = await getFilteredEvents(filters, req);
-
-    res.status(200).json(events);
+    res.status(200).json({ events, totalCount });
   } catch (error) {
     console.error('Failed to fetch events - ', error.message);
     return res.status(500).json('Internal Server Error');
   }
 };
+
 
 /* 
 ?@desc   Get event by user ID
@@ -104,11 +117,24 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const eventDetails = { ...req.body };
+
     const event = await updateEvent(id, eventDetails);
-    res.status(200).json(event);
+
+    if (!event) {
+      // Assuming updateEvent returns null if the event is not found
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json({ event, message: 'Event successfully updated' });
   } catch (error) {
-    console.error('Failed to update event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    console.error('Failed to update event:', error);
+
+    // Choose an appropriate status code based on the type of error
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -136,32 +162,53 @@ const remove = async (req, res) => {
 const saveEvent = async (req, res) => {
   try {
     const { eventId } = req.params;
+    console.log(eventId);
     const { _id } = req.user;
 
     // Check if the user exists
     const user = await getUserById(_id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Check if the event exists
     const event = await getEventsById(eventId, req);
     if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({ error: 'Event not found' });
     }
 
     // Check if the event is already saved by the user
-    if (user.savedEvents.includes(eventId)) {
-      return res.status(400).json({ message: 'Event already saved' });
+    const isEventAlreadySaved = user.savedEvents.some((savedEventId) =>
+      savedEventId.equals(event._id)
+    );
+
+    if (isEventAlreadySaved) {
+      return res.status(400).json({ error: 'Event already saved' });
     }
 
     // Save the event to the user's savedEvents array
     user.savedEvents.push(eventId);
     await user.save();
 
-    res.status(200).json({ message: 'Event saved successfully' });
+    res.status(200).json({ message: 'Event saved successfully', user, event });
   } catch (error) {
     console.error('Failed to save event - ', error.message);
+    return res.status(500).json('Internal Server Error');
+  }
+};
+
+/* 
+?@desc   Get latest events
+*@route  GET /api/events/recent
+*@access Public
+*/
+
+const getRecentEvent = async (req, res) => {
+  try {
+    const event = await getLatestEvents();
+    res.status(200).json(event);
+  } catch (error) {
+    console.error('Failed to event - ', error.message);
     return res.status(500).json('Internal Server Error');
   }
 };
@@ -174,4 +221,5 @@ module.exports = {
   update,
   remove,
   saveEvent,
+  getRecentEvent,
 };

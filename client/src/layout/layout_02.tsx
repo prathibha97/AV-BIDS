@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 function Layout_02() {
   return (
     <>
-      <main className="w-full h-screen overflow-auto bg-[#f7f6fd]">
+      <main className="w-full h-screen overflow-auto bg-[#fff]">
         <NavbarDashboard />
         <Outlet />
         <Footer />

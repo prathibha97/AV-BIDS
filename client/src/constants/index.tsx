@@ -97,7 +97,7 @@ export const priceRangeCheckboxes: CheckboxItem[] = [
 ];
 
 export const audienceSizeCheckboxes: CheckboxItem[] = [
-  { value: 'Any', label: 'Any' },
+  // { value: 'Any', label: 'Any' },
   { value: '10-100', label: '10 - 100' },
   { value: '100-250', label: '100 - 250' },
   { value: '250-750', label: '250 - 750' },

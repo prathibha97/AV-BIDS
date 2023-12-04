@@ -3,6 +3,7 @@ import { Button, Input } from '@material-tailwind/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { resetAlert, setAlert, setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { clearMember } from '../../../app/features/members/memberSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
@@ -14,9 +15,12 @@ import {
 
 interface EditMembersProps {
   handleMemberEdited: () => void;
-  handleOpen: ()=> void
+  handleOpen: () => void;
 }
-const EditMembers: FC<EditMembersProps> = ({ handleMemberEdited , handleOpen}) => {
+const EditMembers: FC<EditMembersProps> = ({
+  handleMemberEdited,
+  handleOpen,
+}) => {
   const dispatch = useAppDispatch();
   const member = useAppSelector((state: RootState) => state.member.member);
 
@@ -31,13 +35,34 @@ const EditMembers: FC<EditMembersProps> = ({ handleMemberEdited , handleOpen}) =
 
   const onSubmit = async (values: MemberFormValues) => {
     try {
-      await api.put(`/members/${member?._id}`, { ...values });
+      const { data } = await api.put(`/members/${member?._id}`, { ...values });
       handleMemberEdited();
       handleOpen();
       reset();
       dispatch(clearMember());
-    } catch (error) {
-      console.log(error);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+        handleOpen();
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
   return (

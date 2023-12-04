@@ -2,6 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@material-tailwind/react';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import api from '../../../utils/api';
 import {
   MemberFormSchema,
@@ -12,6 +14,7 @@ interface AddNewMemberProps {
   onMemberAdded: () => void;
 }
 const AddNewMember: FC<AddNewMemberProps> = ({ onMemberAdded }) => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<MemberFormValues>({
     resolver: zodResolver(MemberFormSchema),
     defaultValues: {
@@ -23,11 +26,31 @@ const AddNewMember: FC<AddNewMemberProps> = ({ onMemberAdded }) => {
 
   const onSubmit = async (values: MemberFormValues) => {
     try {
-      await api.post('/members', { ...values });
+      const { data } = await api.post('/members', { ...values });
       onMemberAdded();
       reset();
-    } catch (error) {
-      console.log(error);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
   return (

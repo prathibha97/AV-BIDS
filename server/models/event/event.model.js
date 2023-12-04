@@ -24,11 +24,48 @@ const createEvent = async (values, userId) => {
   }
 };
 
-// const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
 
-const getFilteredEvents = async (filters, req) => {
-  return Event.find(filters).cache({ key: req.user.id });
+const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
+  try {
+    const skip = (page - 1) * pageSize;
+    let sorting = {};
+
+    if (sortOption) {
+      switch (sortOption) {
+        case 'ending_soonest':
+          sorting = { proposalDueDate: 1 };
+          break;
+        case 'budget_lowest':
+          sorting = { eventBudget: -1 };
+          break;
+        case 'budget_highest':
+          sorting = { eventBudget: 1 };
+          break;
+        case 'audience_size_lowest':
+          sorting = { audienceSize: 1 };
+          break;
+        case 'audience_size_highest':
+          sorting = { audienceSize: -1 };
+          break;
+      }
+    }
+
+    const totalCount = await Event.countDocuments(filters);
+
+    const events = await Event.find(filters)
+      .sort(sorting)
+      .skip(skip)
+      .limit(parseInt(pageSize))
+      .lean()
+      .exec();
+
+    return { events, totalCount };
+  } catch (error) {
+    console.error('Error in getFilteredEvents:', error.message);
+    throw error;
+  }
 };
+
 
 const getEventsByUser = (id, req) =>
   Event.find({ createdBy: id }).cache({ key: req.user.id });
@@ -53,6 +90,10 @@ const removeEvent = (id) => {
   );
 };
 
+const getLatestEvents = async () => {
+  return Event.find().sort({ createdAt: -1 }).limit(6);
+};
+
 module.exports = {
   createEvent,
   getFilteredEvents,
@@ -60,4 +101,5 @@ module.exports = {
   getEventsById,
   updateEvent,
   removeEvent,
+  getLatestEvents,
 };

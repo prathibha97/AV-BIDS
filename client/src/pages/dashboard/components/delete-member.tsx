@@ -2,6 +2,7 @@ import { Button } from '@material-tailwind/react';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import { FC } from 'react';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { clearMember } from '../../../app/features/members/memberSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
@@ -20,14 +21,33 @@ const DeleteMember: FC<DeleteMemberProps> = ({
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/members/${member?._id}`);
-      // Notify the parent component that a member is deleted
+      const { data } = await api.delete(`/members/${member?._id}`);
       onDeleteMember();
-      // Close the dialog after deletion
       handleOpen();
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+
       dispatch(clearMember());
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
   return (

@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { FC } from 'react';
 import { Event } from '../../../../types';
 
@@ -6,15 +7,21 @@ interface EventInfoProps {
 }
 
 const EventInfo: FC<EventInfoProps> = ({ event }) => {
-
+  const proposalDueDateFormatted = event?.proposalDueDate
+    ? format(new Date(event.proposalDueDate), 'MMMM dd, yyyy')
+    : 'N/A';
   return (
     <div className='grid grid-cols-2 gap-4 bg-[#F3F1FB] p-6 rounded-lg'>
       {renderInfo('Event Type', event?.eventType!)}
       {renderInfo('Budget', event?.eventBudget!)}
       {renderInfo('Event Category', event?.eventCategory!)}
-      {renderInfo('Location', `${event?.address?.city}, ${event?.address?.state}`)}
+      {renderInfo(
+        'Location',
+        `${event?.address?.city}, ${event?.address?.state}`
+      )}
       {renderInfo('Sub Category', event?.eventSubCategory!)}
-      {renderInfo('Proposals Due', 'August 24, 2023')}
+      {renderInfo('Proposals Due', proposalDueDateFormatted)}
+      {renderInfo('Audience Size', event?.audienceSize!)}
     </div>
   );
 };
@@ -22,11 +29,10 @@ const EventInfo: FC<EventInfoProps> = ({ event }) => {
 const renderInfo = (label: string, value: string) => (
   <div key={label}>
     <div>
-      <h2 className='text-[18px]'>{label}</h2>
-      <p className='text-[18px]'>{value}</p>
+      <h2 className='text-[16px]'>{label}</h2>
+      <p className='text-[16px]'>{value}</p>
     </div>
   </div>
 );
 
 export default EventInfo;
-

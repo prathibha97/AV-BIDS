@@ -1,5 +1,6 @@
 import { Button } from '@material-tailwind/react';
 
+import { differenceInDays, parseISO } from 'date-fns';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EVENTS_01 from '../../../../assets/09_events/events01.png';
@@ -12,14 +13,17 @@ interface EventListingCardProps {
 
 export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
   const navigate = useNavigate();
+
+  const proposalDueDate = parseISO(event.proposalDueDate);
+  const currentDate = new Date();
+
+  const daysLeft = differenceInDays(proposalDueDate, currentDate);
+
   return (
     <div>
       <div className='w-full gap-8 mb-6'>
         <div>
-          <div
-            className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full hover:cursor-pointer'
-            onClick={() => navigate(`/events/${event._id}`)}
-          >
+          <div className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full'>
             <div>
               <img
                 src={EVENTS_01}
@@ -29,11 +33,16 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
             </div>
 
             <div>
-              <h2 className='text-[20px]'>{event.title}</h2>
+              <h2
+                className='text-[20px] cursor-pointer'
+                onClick={() => navigate(`/events/${event._id}`)}
+              >
+                {event.title}
+              </h2>
 
               <div className='flex gap-36'>
-                <p className='text-[18px] text-red-500'>
-                  Event Date: 10/10/2023 - 10/15/2023
+                <p className='text-[18px]'>
+                  Event Date: {event.eventStartDate} - {event.eventEndDate}
                 </p>
                 <p className='text-[18px]'>{event.eventBudget}</p>
               </div>
@@ -75,8 +84,10 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
               >
                 <span className='text-white'>Apply Now</span>
               </Button>
-              <p className='text-[16px] mt-4 text-red-500'>
-                23 days left to apply
+              <p className='text-[16px] mt-4'>
+                {daysLeft > 0
+                  ? `${daysLeft} days left to apply`
+                  : 'Application closed'}
               </p>
             </div>
           </div>

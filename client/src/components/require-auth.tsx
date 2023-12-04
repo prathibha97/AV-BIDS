@@ -36,7 +36,7 @@ const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
   ) : storedUser.token ? (
     <>{children}</>
   ) : (
-    <Navigate to='/' state={{ from: location }} replace />
+    <Navigate to='/sign-in' state={{ from: location }} replace />
   );
 };
 

@@ -11,9 +11,11 @@ import {
 
 interface ProviderAccountFormProps {
   userType: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProviderAccountForm: FC<ProviderAccountFormProps> = ({ userType }) => {
+const ProviderAccountForm: FC<ProviderAccountFormProps> = ({ userType ,setErrorMessage,setOpen}) => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
 
@@ -33,18 +35,28 @@ const ProviderAccountForm: FC<ProviderAccountFormProps> = ({ userType }) => {
 
   const onSubmit = async (values: RegisterFormValues) => {
     try {
-      const { data } = await api.post('/auth/register', {
+      await api.post('/auth/register', {
         ...values,
         userType,
       });
+      navigate('/dashboard');
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        setErrorMessage(errorMessage);
+        setOpen(true);
 
-      if (data.userType === 'PROVIDER') {
-        navigate('/provider-dashboard');
-      } else if (data.userType === 'PLANNER') {
-        navigate('/dashboard');
+        // Set a timer to clear the error message after 5 seconds
+        setTimeout(() => {
+          setOpen(false);
+          setErrorMessage(null);
+        }, 5000);
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
   return (
