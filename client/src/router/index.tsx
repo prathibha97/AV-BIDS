@@ -90,7 +90,7 @@ function Router() {
     {
       path: '/dashboard',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: SubscriptionAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/dashboard')) }],
     },
 
@@ -129,18 +129,19 @@ function Router() {
     {
       path: '/events/saved-events',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: SubscriptionAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
     },
     {
       path: '/events/alerts',
       layout: HomeLayout2,
+      guard: SubscriptionAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/events/event-alerts')) }],
     },
     {
       path: '/messages',
       layout: HomeLayout2,
-      guard: RequireAuth,
+      guard: SubscriptionAndAuthGuard,
       routes: [{ element: lazy(() => import('../pages/messages')) }],
     },
 
