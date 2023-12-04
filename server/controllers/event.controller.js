@@ -46,14 +46,12 @@ const getAllEvents = async (req, res) => {
       eventSubCategory,
       priceRange,
       audienceSize,
-      sortOption,
-      page, 
+      page,
       pageSize,
+      sortOption,
     } = req.query;
 
 
-
-    // Construct a filter object based on provided parameters
     const filters = {};
     if (eventType) filters.eventType = eventType;
     if (eventCategory) filters.eventCategory = eventCategory;
@@ -61,14 +59,11 @@ const getAllEvents = async (req, res) => {
     if (eventSubCategory) filters.eventSubCategory = eventSubCategory;
     if (audienceSize) filters.audienceSize = audienceSize;
 
-    // Add sortOption to the filters
-    if (sortOption) filters.sortOption = sortOption;
-
-    // Fetch events based on the constructed filters and pagination parameters
     const { events, totalCount } = await getFilteredEvents(
       filters,
       page,
-      pageSize
+      pageSize,
+      sortOption
     );
 
     res.status(200).json({ events, totalCount });

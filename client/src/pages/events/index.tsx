@@ -156,18 +156,18 @@ function Index() {
 
                 <div className='w-[200px]'>
                   <Select
-                    label='Sort: Ending Soonest'
+                    label='Sort events'
                     value={selectedSortOption}
                     // @ts-ignore
                     onChange={handleSortChange}
                   >
-                    <Option value='Ending Soonest'>Ending Soonest</Option>
-                    <Option value='Budget Lowest'>Budget Lowest</Option>
-                    <Option value='Budget Highest'>Budget Highest</Option>
-                    <Option value='Audience Size Lowest'>
+                    <Option value='ending_soonest'>Ending Soonest</Option>
+                    <Option value='budget_lowest'>Budget Lowest</Option>
+                    <Option value='budget_highest'>Budget Highest</Option>
+                    <Option value='audience_size_lowest'>
                       Audience Size Lowest
                     </Option>
-                    <Option value='Audience Size Highest'>
+                    <Option value='audience_size_highest'>
                       Audience Size Highest
                     </Option>
                   </Select>

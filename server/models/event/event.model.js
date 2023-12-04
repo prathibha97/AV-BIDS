@@ -24,73 +24,39 @@ const createEvent = async (values, userId) => {
   }
 };
 
-// const getEvents = async (req) => await Event.find().cache({ key: req.user.id });
 
-// const getFilteredEvents = async (filters, req) => {
-//   return Event.find(filters)
-//   // .cache({ key: req.user.id });
-// };
-
-
-// const getFilteredEvents = async (filters, page, pageSize) => {
-//   const skip = (page - 1) * pageSize;
-
-//   let sortField;
-
-//   if (filters.sortOption) {
-//     switch (filters.sortOption) {
-//       case 'Ending Soonest':
-//         sortField = 'eventEndDate';
-//         break;
-//       case 'Budget Lowest':
-//         sortField = 'EventBudget';
-//         break;
-//       default:
-//         sortField = 'createdAt';
-//         break;
-//     }
-//   }
-
-//   let query = Event.find(filters)
-//     .skip(skip)
-//     .limit(parseInt(pageSize))
-//     .sort({ [sortField]: 1 });
-
-//   const events = await query.exec();
-
-//   return events;
-// };
-
-const getFilteredEvents = async (filters, page, pageSize) => {
+const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
   try {
     const skip = (page - 1) * pageSize;
+    let sorting = {};
 
-    let sortField;
-
-    if (filters.sortOption) {
-      switch (filters.sortOption) {
-        case 'Ending Soonest':
-          sortField = 'eventEndDate';
+    if (sortOption) {
+      switch (sortOption) {
+        case 'ending_soonest':
+          sorting = { proposalDueDate: 1 };
           break;
-        case 'Budget Lowest':
-          sortField = 'EventBudget';
+        case 'budget_lowest':
+          sorting = { eventBudget: -1 };
           break;
-        default:
-          sortField = 'createdAt';
+        case 'budget_highest':
+          sorting = { eventBudget: 1 };
+          break;
+        case 'audience_size_lowest':
+          sorting = { audienceSize: 1 };
+          break;
+        case 'audience_size_highest':
+          sorting = { audienceSize: -1 };
           break;
       }
     }
 
-    // Use lean() to get plain JavaScript objects instead of mongoose documents
-    const query = Event.find(filters).lean();
-
-    // Use countDocuments() separately to avoid the "Query was already executed" error
     const totalCount = await Event.countDocuments(filters);
 
-    const events = await query
+    const events = await Event.find(filters)
+      .sort(sorting)
       .skip(skip)
       .limit(parseInt(pageSize))
-      .sort({ [sortField]: 1 })
+      .lean()
       .exec();
 
     return { events, totalCount };
@@ -99,8 +65,6 @@ const getFilteredEvents = async (filters, page, pageSize) => {
     throw error;
   }
 };
-
-
 
 
 const getEventsByUser = (id, req) =>
