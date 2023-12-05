@@ -6,7 +6,7 @@ function Index() {
   return (
     <div className="container mx-auto">
       {/* Mobile view section starts here */}
-      <section className="bg-white rounded-xl p-6 h-max mx-2 mb-2">
+      <section className="bg-white rounded-xl p-6  mx-2 mb-2">
         <h2 className="text-xl font-semibold mb-6">Messages</h2>
 
         <div className="grid grid-cols-1">
@@ -24,7 +24,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 h-screen">
             <div className="flex items-center gap-3">
               <div className="self-start">
                 <Avatar src={PROFILE_PHOTO} alt="avatar" size="sm" />
