@@ -134,6 +134,44 @@ const getProposalsForUser = async (req, res) => {
   }
 };
 
+const downloadProposal = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Retrieve the proposal information including the document URL
+    const proposal = await getProposalById(id);
+
+    if (!proposal) {
+      return res.status(404).json({ error: 'Proposal not found' });
+    }
+
+    // Assuming the document URL is stored in the first document of the proposal
+    const documentUrl = `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${proposal.documents[0].url}`;
+
+    // Implement logic to download the document
+    // You can use libraries like axios to fetch the document and then send it as a response
+
+    // For example, using axios:
+    const axios = require('axios');
+    const { data } = await axios.get(documentUrl, {
+      responseType: 'arraybuffer',
+    });
+
+    // Set the appropriate response headers
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename=${proposal.documents[0].fileName}`
+    );
+
+    // Send the document as a response
+    res.send(data);
+  } catch (error) {
+    console.error('Failed to download proposal - ', error.message);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   createNewProposal,
   getAllProposals,
@@ -141,4 +179,5 @@ module.exports = {
   update,
   remove,
   getProposalsForUser,
+  downloadProposal,
 };

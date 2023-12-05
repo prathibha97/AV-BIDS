@@ -13,13 +13,13 @@ export interface User {
   members: [Member];
   savedEvents: [Event];
   insurance: string;
-  companyAddress:{
-    address: string
-    country: string
-    city: string
-    zip: string
-    state: string
-  }
+  companyAddress: {
+    address: string;
+    country: string;
+    city: string;
+    zip: string;
+    state: string;
+  };
 }
 
 export interface Member {
@@ -227,4 +227,17 @@ export type Conversation = {
   members: string[];
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+type Document = {
+  fileName: string;
+  url: string;
+};
+
+export type Proposal = {
+  _id?: string;
+  event: string;
+  provider: string;
+  status: string;
+  documents: [Document];
 };

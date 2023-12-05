@@ -9,6 +9,7 @@ const {
   getProposalsForUser,
   remove,
   update,
+  downloadProposal
 } = require('../controllers/proposal.controller');
 
 const proposalRouter = express.Router();
@@ -156,6 +157,8 @@ proposalRouter.get('/:id', protect, getProposal);
  */
 
 proposalRouter.put('/:id', protect, cleanCache, update);
+
+proposalRouter.get('/:id/download', protect, downloadProposal);
 
 /**
  * @swagger
