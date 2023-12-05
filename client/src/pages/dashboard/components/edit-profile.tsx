@@ -45,9 +45,6 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
     setFile(event.target.files[0]);
   };
 
-  const [selectedCountry, setSelectedCountry] = useState(
-    user?.companyAddress?.country ?? ''
-  );
   const [selectedState, setSelectedState] = useState(
     user?.companyAddress?.state ?? ''
   );
@@ -365,7 +362,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                       <Select
                         label='Select a State'
                         className='!bg-input_background'
-                        value={selectedCountry}
+                        value={selectedState}
                         onChange={(value) =>
                           setValue('companyAddress.state', value || '')
                         }

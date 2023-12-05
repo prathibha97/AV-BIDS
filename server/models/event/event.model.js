@@ -24,7 +24,6 @@ const createEvent = async (values, userId) => {
   }
 };
 
-
 const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
   try {
     const skip = (page - 1) * pageSize;
@@ -66,12 +65,33 @@ const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
   }
 };
 
+const getEventsByUser = async (userId, req, sortOption) => {
+  try {
+    let query = Event.find({ createdBy: userId });
 
-const getEventsByUser = (id, req) =>
-  Event.find({ createdBy: id }).cache({ key: req.user.id });
+    const sortFields = {
+      date_posted: 'createdAt',
+      expiring_soonest: 'eventEndDate',
+      active: 'eventStartDate',
+    };
 
-const getEventsById = (id, req) =>
-  Event.findById({ _id: id }).cache({ key: req.user.id });
+    const sortField = sortFields[sortOption];
+    if (sortField) {
+      query = query.sort({
+        [sortField]: sortOption === 'date_posted' ? 'desc' : 'asc',
+      });
+    }
+
+    const events = await query.exec();
+    return events;
+  } catch (error) {
+    console.error('Error fetching events:', error.message);
+    throw error;
+  }
+};
+
+const getEventsById = (id, req) => Event.findById({ _id: id });
+// .cache({ key: req.user.id });
 
 const updateEvent = (id, updates) => {
   return Event.findOneAndUpdate({ _id: id }, updates, {

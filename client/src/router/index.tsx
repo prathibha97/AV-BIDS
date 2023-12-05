@@ -82,7 +82,7 @@ function Router() {
     {
       path: '/events',
       layout: HomeLayout,
-      guard: SubscriptionAndAuthWrapper,
+      // guard: SubscriptionAndAuthWrapper,
       routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
@@ -106,7 +106,7 @@ function Router() {
     {
       path: '/events/:id',
       layout: Layout_02,
-      guard: RequireAuth,
+      // guard: RequireAuth,
       routes: [
         { element: lazy(() => import('../pages/events/event-details')) },
       ],
