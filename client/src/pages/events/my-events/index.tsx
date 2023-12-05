@@ -21,7 +21,6 @@ function Index() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useGetCurrentUser();
-
   const { message, color, open } = useAppSelector(
     (state: RootState) => state.alert
   );
@@ -29,61 +28,67 @@ function Index() {
   const [myEvents, setMyEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOption, setSortOption] = useState<string>('date_posted');
 
   const eventsPerPage = 10;
-
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
 
-  let currentEvents = myEvents?.slice(indexOfFirstEvent, indexOfLastEvent);
+  const currentEvents = myEvents?.slice(indexOfFirstEvent, indexOfLastEvent);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [myEvents]);
+  const fetchMyEvents = async () => {
+    try {
+      const { data } = await api.get(`/events/user/${user?._id}`, {
+        params: { sort: sortOption },
+      });
+      setMyEvents(data);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+  const handleSortChange = (value: string) => {
+    setSortOption(value);
   };
 
   useEffect(() => {
-    const fetchMyEvents = async () => {
-      try {
-        const { data } = await api.get(`/events/user/${user?._id}`);
-        setMyEvents(data);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    setCurrentPage(1);
     fetchMyEvents();
-  }, [user?._id]);
+  }, [sortOption, user?._id]);
 
   const handleEdit = (event: Event) => {
     dispatch(setEvent(event));
     navigate(`/events/edit/${event._id}`);
   };
 
+  const handleAlertClose = () => {
+    dispatch(setAlert({ open: false, message: '', color: 'green' }));
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    // <div>event_planner</div>
     <div className='container mx-auto'>
       <AlertBox
         color={color}
         variant='ghost'
         text={message!}
         open={open}
-        setOpen={() =>
-          dispatch(setAlert({ open: false, message: '', color: 'green' }))
-        }
+        setOpen={handleAlertClose}
       />
       <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
-        <div className='flex items-center justify-between mb-4 '>
-          <h2 className='text-[20px] font-semibold '>My Events</h2>
-          <div className=''>
+        <div className='flex items-center justify-between mb-4'>
+          <h2 className='text-[20px] font-semibold'>My Events</h2>
+          <div>
             <Select
-              defaultValue='date_posted'
               className='rounded-lg bg-[#F3F1FB]'
+              value={sortOption}
+              // @ts-ignore
+              onChange={handleSortChange}
             >
               <Option value='date_posted'>Date Posted</Option>
               <Option value='expiring_soonest'>Expiring Soonest</Option>
@@ -99,7 +104,7 @@ function Index() {
           <p>No events found.</p>
         ) : (
           <Card className='h-full w-full shadow-none rounded-full'>
-            <table className='w-full min-w-max table-auto text-left '>
+            <table className='w-full min-w-max table-auto text-left'>
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
@@ -117,61 +122,58 @@ function Index() {
               <tbody>
                 {Array.isArray(myEvents) &&
                   currentEvents?.length! > 0 &&
-                  currentEvents?.map((event, index) => {
-                    return (
-                      <tr key={event._id}>
-                        <td
-                          className='p-4 border-b border-blue-gray-50 cursor-pointer'
-                          onClick={() => navigate(`/events/${event._id}`)}
+                  currentEvents?.map((event, index) => (
+                    <tr key={event._id}>
+                      <td
+                        className='p-4 border-b border-blue-gray-50 cursor-pointer'
+                        onClick={() => navigate(`/events/${event._id}`)}
+                      >
+                        <Typography
+                          variant='small'
+                          color='blue-gray'
+                          className='font-normal'
                         >
-                          <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
-                          >
-                            {event.title}
-                            <div>
-                              <div className='rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins'>
-                                <p className='text-black text-center text-[12px] font-semibold'>
-                                  {event.eventType}
-                                </p>
-                              </div>
+                          {event.title}
+                          <div>
+                            <div className='rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins'>
+                              <p className='text-black text-center text-[12px] font-semibold'>
+                                {event.eventType}
+                              </p>
                             </div>
-                          </Typography>
-                        </td>
-                        <td className='p-4 border-b border-blue-gray-50'>
-                          <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
-                          >
-                            {format(new Date(event.createdAt), 'dd MMM yyyy')}
-                          </Typography>
-                        </td>
-                        <td className='p-4 border-b border-blue-gray-50'>
-                          <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
-                          >
-                            {/* {date} */}
-                            <p className='text-red-500'>10 Proposals</p>
-                          </Typography>
-                        </td>
-                        <td className='p-4 border-b border-blue-gray-50'>
-                          <Typography
-                            as='a'
-                            variant='small'
-                            color='blue-gray'
-                            className='font-medium cursor-pointer'
-                            onClick={() => handleEdit(event)}
-                          >
-                            Edit
-                          </Typography>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          </div>
+                        </Typography>
+                      </td>
+                      <td className='p-4 border-b border-blue-gray-50'>
+                        <Typography
+                          variant='small'
+                          color='blue-gray'
+                          className='font-normal'
+                        >
+                          {format(new Date(event.createdAt), 'dd MMM yyyy')}
+                        </Typography>
+                      </td>
+                      <td className='p-4 border-b border-blue-gray-50'>
+                        <Typography
+                          variant='small'
+                          color='blue-gray'
+                          className='font-normal'
+                        >
+                          <p className='text-red-500'>10 Proposals</p>
+                        </Typography>
+                      </td>
+                      <td className='p-4 border-b border-blue-gray-50'>
+                        <Typography
+                          as='a'
+                          variant='small'
+                          color='blue-gray'
+                          className='font-medium cursor-pointer'
+                          onClick={() => handleEdit(event)}
+                        >
+                          Edit
+                        </Typography>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </Card>
