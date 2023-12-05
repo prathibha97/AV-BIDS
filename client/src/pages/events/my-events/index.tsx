@@ -30,7 +30,7 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const eventsPerPage = 5;
+  const eventsPerPage = 10;
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -81,10 +81,13 @@ function Index() {
         <div className='flex items-center justify-between mb-4 '>
           <h2 className='text-[20px] font-semibold '>My Events</h2>
           <div className=''>
-            <Select label='Sort: Active' className='rounded-lg bg-[#F3F1FB]'>
-              <Option>Date Posted</Option>
-              <Option>Expiring Soonest</Option>
-              <Option>Active</Option>
+            <Select
+              defaultValue='date_posted'
+              className='rounded-lg bg-[#F3F1FB]'
+            >
+              <Option value='date_posted'>Date Posted</Option>
+              <Option value='expiring_soonest'>Expiring Soonest</Option>
+              <Option value='active'>Active</Option>
             </Select>
           </div>
         </div>

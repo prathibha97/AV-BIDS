@@ -203,10 +203,10 @@ const saveEvent = async (req, res) => {
 *@access Public
 */
 
-const getRecentEvent = async (req, res) => {
+const getRecentEvents = async (req, res) => {
   try {
-    const event = await getLatestEvents();
-    res.status(200).json(event);
+    const events = await getLatestEvents();
+    res.status(200).json(events);
   } catch (error) {
     console.error('Failed to event - ', error.message);
     return res.status(500).json('Internal Server Error');
@@ -221,5 +221,5 @@ module.exports = {
   update,
   remove,
   saveEvent,
-  getRecentEvent,
+  getRecentEvents,
 };

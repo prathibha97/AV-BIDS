@@ -68,10 +68,12 @@ const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
 
 
 const getEventsByUser = (id, req) =>
-  Event.find({ createdBy: id }).cache({ key: req.user.id });
+  Event.find({ createdBy: id })
+  // .cache({ key: req.user.id });
 
 const getEventsById = (id, req) =>
-  Event.findById({ _id: id }).cache({ key: req.user.id });
+  Event.findById({ _id: id })
+  // .cache({ key: req.user.id });
 
 const updateEvent = (id, updates) => {
   return Event.findOneAndUpdate({ _id: id }, updates, {

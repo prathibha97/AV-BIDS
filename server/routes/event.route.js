@@ -10,7 +10,8 @@ const {
   update,
   remove,
   saveEvent,
-  getRecentEvent
+  getRecentEvent,
+  getRecentEvents,
 } = require('../controllers/event.controller');
 
 const eventRouter = express.Router();
@@ -238,11 +239,11 @@ const eventRouter = express.Router();
  */
 
 eventRouter.post('/', protect, cleanCache, createNewEvent);
-eventRouter.get('/', protect, getAllEvents);
-eventRouter.get('/recent', getRecentEvent);
-eventRouter.get('/user/:userId', protect, getUserEvents);
+eventRouter.get('/', getAllEvents);
+eventRouter.get('/recent', getRecentEvents);
+eventRouter.get('/user/:userId', getUserEvents);
 eventRouter.post('/save/:eventId', protect, saveEvent);
-eventRouter.get('/:id', protect, getEvent);
+eventRouter.get('/:id', getEvent);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);
 
