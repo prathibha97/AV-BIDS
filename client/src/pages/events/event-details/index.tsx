@@ -251,7 +251,7 @@ export function Index() {
                   onClick={handleOpen}
                 />
               </div>
-              <SubmitProposal handleOpen={handleOpen}/>
+              <SubmitProposal handleOpen={handleOpen} event={event} user={user}/>
             </Dialog>
           </section>
         </div>

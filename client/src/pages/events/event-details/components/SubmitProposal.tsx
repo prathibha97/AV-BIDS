@@ -1,15 +1,24 @@
 import { Button } from '@material-tailwind/react';
+import axios from 'axios';
 import { FC, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { setAlertWithTimeout } from '../../../../app/features/alerts/alertSlice';
 import { useAppDispatch } from '../../../../app/hooks';
 import UPLOAD_ICON from '../../../../assets/10_event_details_page/Upload icon.png';
+import { Event, User } from '../../../../types';
+import api from '../../../../utils/api';
 
 interface SubmitProposalProps {
   handleOpen: () => void;
+  event: Event | null;
+  user: User | null;
 }
 
-export const SubmitProposal: FC<SubmitProposalProps> = ({ handleOpen }) => {
+export const SubmitProposal: FC<SubmitProposalProps> = ({
+  handleOpen,
+  event,
+  user,
+}) => {
   const dispatch = useAppDispatch();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
@@ -20,19 +29,61 @@ export const SubmitProposal: FC<SubmitProposalProps> = ({ handleOpen }) => {
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     try {
-      console.log(uploadedFile);
+      if (!uploadedFile) {
+        console.error('No file uploaded');
+        return;
+      }
+
+      const fileExtension = uploadedFile.name.split('.').pop()?.toLowerCase();
+
+      if (!fileExtension) {
+        console.error('Invalid file extension');
+        return;
+      }
+
+      const uploadConfig = await api.get(`/upload?type=${fileExtension}`);
+
+      await axios.put(uploadConfig.data.url, uploadedFile, {
+        headers: {
+          'Content-Type': uploadedFile.type,
+        },
+      });
+
       handleOpen();
+      const { data } = await api.post(`/proposals`, {
+        documents: {
+          url: uploadConfig.data.key,
+          fileName: uploadedFile.name,
+        },
+        event: event?._id,
+        provider: user?._id,
+      });
+
       dispatch(
         setAlertWithTimeout({
-          message: 'Proposal submited',
+          message: data.message,
           color: 'green',
           open: true,
         })
       );
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response) {
+        handleOpen();
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
     }
   };
   return (

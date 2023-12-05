@@ -191,20 +191,6 @@ const eventSchema = new mongoose.Schema(
         url: String,
       },
     ],
-    // proposals: [
-    //   {
-    //     submittedBy: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       ref: 'User',
-    //     },
-    //     files: [
-    //       {
-    //         fileName: String,
-    //         url: String,
-    //       },
-    //     ],
-    //   },
-    // ],
     proposals: [
       {
         type: mongoose.Schema.Types.ObjectId,
