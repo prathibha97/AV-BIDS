@@ -10,6 +10,7 @@ import {
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import FolderIcon from '../../../assets/proposals-tab/folder icon.png';
+import Pagination from '../../../components/pagination';
 import { Proposal } from '../../../types';
 import api from '../../../utils/api';
 const TABLE_HEAD = ['Name', 'Company', 'Submitted on', 'Preview', 'Download'];
@@ -17,6 +18,9 @@ const TABLE_HEAD = ['Name', 'Company', 'Submitted on', 'Preview', 'Download'];
 function ProposalsTable() {
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [proposalsLoading, setProposalsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const eventsPerPage = 10;
 
   const fetchProposals = async () => {
     setProposalsLoading(true);
@@ -68,6 +72,15 @@ function ProposalsTable() {
     }
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedRows = TABLE_ROWS.slice(
+    (currentPage - 1) * eventsPerPage,
+    currentPage * eventsPerPage
+  );
+
   return (
     <Card className='h-full w-full !shadow-none'>
       {proposalsLoading ? (
@@ -78,6 +91,13 @@ function ProposalsTable() {
         <CardBody className='px-0 py-2'>
           <table className='w-full min-w-max table-auto text-left'>
             <thead>
+              {!proposalsLoading && TABLE_ROWS.length === 0 && (
+                <tr>
+                  <td colSpan={5} className='p-4 text-center'>
+                    No proposals found.
+                  </td>
+                </tr>
+              )}
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
@@ -96,7 +116,7 @@ function ProposalsTable() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
+              {paginatedRows.map(
                 ({ name, company, submitted, proposalId, url }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
@@ -176,18 +196,17 @@ function ProposalsTable() {
           </table>
         </CardBody>
       )}
-      <CardFooter className='flex items-center justify-between border-t border-blue-gray-50 p-4'>
-        <Typography variant='small' color='blue-gray' className='font-normal'>
-          Page 1 of 10
-        </Typography>
-        <div className='flex gap-2'>
-          <Button variant='outlined' size='sm'>
-            Previous
-          </Button>
-          <Button variant='outlined' size='sm'>
-            Next
-          </Button>
-        </div>
+      <CardFooter className='flex justify-end border-t border-blue-gray-50 p-4'>
+          <Pagination
+            currentPage={currentPage}
+            totalItems={proposals.reduce(
+              // @ts-ignore
+              (total, event) => total + event.proposals.length,
+              0
+            )}
+            itemsPerPage={eventsPerPage}
+            onPageChange={handlePageChange}
+          />
       </CardFooter>
     </Card>
   );
