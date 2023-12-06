@@ -5,6 +5,7 @@ const {
   updateMember,
   removeMember,
 } = require('../models/member/member.model');
+const { getUserById } = require('../models/user/user.model');
 const { isValidEmail } = require('../utils');
 
 /* 
@@ -16,13 +17,31 @@ const createNewMember = async (req, res) => {
   try {
     const { name, role, email } = req.body;
 
-    // Validate that required fields are provided
     if (!name || !role || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    const user = await getUserById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    let maxMembers;
+    if (user.userType === 'PLANNER') {
+      maxMembers = 3;
+    } else if (user.userType === 'PROVIDER') {
+      maxMembers = 2;
+    }
+
+    if (user.members.length >= maxMembers) {
+      return res.status(400).json({
+        error: `You can only create a maximum of ${maxMembers} members`,
+      });
     }
 
     const member = await createMember({ name, role, email }, req.user._id);
