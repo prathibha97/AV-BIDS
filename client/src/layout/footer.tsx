@@ -98,7 +98,7 @@ export function Footer() {
               </p>
             </Link>
 
-            <Link to='/7_contact_us'>
+            <Link to='/contact-us'>
               <p className='hover:underline transition ease-in-out duration-300 cursor-pointer mb-4'>
                 Contact us
               </p>

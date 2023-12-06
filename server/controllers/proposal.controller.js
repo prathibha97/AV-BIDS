@@ -146,7 +146,7 @@ const downloadProposal = async (req, res) => {
     }
 
     // Assuming the document URL is stored in the first document of the proposal
-    const documentUrl = `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${proposal.documents[0].url}`;
+    const documentUrl = `${process.env.REACT_APP_AWS_S3_BUCKET}/${proposal.documents[0].url}`;
 
     // Implement logic to download the document
     // You can use libraries like axios to fetch the document and then send it as a response
