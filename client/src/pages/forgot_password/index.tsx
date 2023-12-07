@@ -5,7 +5,7 @@ import ResetPassword from './components/reset_password';
 import ValidateEmail from './components/validate-email';
 
 function Index() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);

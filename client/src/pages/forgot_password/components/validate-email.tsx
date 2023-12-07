@@ -71,7 +71,7 @@ const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
         </h2>
 
         <p className='text-primary_font_color text-center'>
-          Enter your email, and we'll send you a link to reset your password
+          Enter your email, and we'll send you an OTP to reset your password
         </p>
         <form
           className='mt-8 mb-2 w-full max-w-screen-lg'
