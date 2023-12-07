@@ -8,6 +8,7 @@ const reviewRouter = require('./review.route');
 const conversationRouter = require('./conversation.route');
 const messageRouter = require('./message.route');
 const proposalRouter = require('./proposal.route');
+const emailRouter = require('./email.route');
 
 const api = express.Router();
 
@@ -20,5 +21,6 @@ api.use('/reviews', reviewRouter);
 api.use('/conversations', conversationRouter);
 api.use('/messages', messageRouter);
 api.use('/proposals', proposalRouter);
+api.use('/email', emailRouter);
 
 module.exports = api;

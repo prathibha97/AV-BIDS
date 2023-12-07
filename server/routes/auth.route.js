@@ -115,6 +115,6 @@ authRouter.post('/logout', logout);
  *       500:
  *         description: Internal server error
  */
-authRouter.post('/reset-password', protect, resetPassword);
+authRouter.post('/reset-password', resetPassword);
 
 module.exports = authRouter;

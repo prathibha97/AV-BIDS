@@ -1,6 +1,12 @@
 const express = require('express');
 const { protect, admin } = require('../middlewares/auth');
-const { getAllUsers, getUser, update, remove } = require('../controllers/users.controller');
+const {
+  getAllUsers,
+  getUser,
+  update,
+  remove,
+  validateEmail,
+} = require('../controllers/users.controller');
 
 const userRouter = express.Router();
 
@@ -28,8 +34,36 @@ const userRouter = express.Router();
  *       500:
  *         description: Internal Server Error
  */
-userRouter.get('/', protect, admin, getAllUsers);
 
+/**
+ * @swagger
+ * /api/users/validate-email:
+ *   get:
+ *     summary: Validate an email
+ *     tags: [Users]
+ *     description: Validate the format of an email
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         required: true
+ *         description: Email to be validated
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Email is valid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 isValid:
+ *                   type: boolean
+ *       400:
+ *         description: Invalid email format
+ *       500:
+ *         description: Internal Server Error
+ */
 
 /**
  * @swagger
@@ -56,7 +90,7 @@ userRouter.get('/', protect, admin, getAllUsers);
  *         description: User not found
  *       500:
  *         description: Internal Server Error
- *   
+ *
  *   put:
  *     summary: Update a user by ID
  *     tags: [Users]
@@ -90,7 +124,7 @@ userRouter.get('/', protect, admin, getAllUsers);
  *         description: User not found
  *       500:
  *         description: Internal Server Error
- *   
+ *
  *   delete:
  *     summary: Delete a user by ID
  *     tags: [Users]
@@ -115,6 +149,8 @@ userRouter.get('/', protect, admin, getAllUsers);
  *         description: Internal Server Error
  */
 
+userRouter.get('/', protect, admin, getAllUsers);
+userRouter.get('/validate-email', validateEmail);
 userRouter.get('/:id', getUser);
 userRouter.put('/:id', protect, update);
 userRouter.delete('/:id', protect, remove);

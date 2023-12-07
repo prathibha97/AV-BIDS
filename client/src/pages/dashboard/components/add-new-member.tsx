@@ -38,6 +38,7 @@ const AddNewMember: FC<AddNewMemberProps> = ({ onMemberAdded }) => {
       );
     } catch (error: any) {
       if (error.response) {
+      onMemberAdded();
         dispatch(
           setAlertWithTimeout({
             message: error.response.data.error,

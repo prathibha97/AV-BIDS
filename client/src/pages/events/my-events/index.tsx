@@ -158,7 +158,7 @@ function Index() {
                           color='blue-gray'
                           className='font-normal'
                         >
-                          <p className='text-red-500'>10 Proposals</p>
+                          <p>{event.proposals.length} Proposals</p>
                         </Typography>
                       </td>
                       <td className='p-4 border-b border-blue-gray-50'>

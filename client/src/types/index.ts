@@ -241,3 +241,8 @@ export type Proposal = {
   status: string;
   documents: [Document];
 };
+
+export type OTP = {
+  OTPValue: string | null;
+  email: string | null;
+};
