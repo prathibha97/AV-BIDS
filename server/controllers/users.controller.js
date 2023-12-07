@@ -9,8 +9,9 @@ const {
   getUserById,
   updateUser,
   removeUser,
+  getUserByEmail,
 } = require('../models/user/user.model');
-const { isValidEmail, isValidPhone, } = require('../utils');
+const { isValidEmail, isValidPhone } = require('../utils');
 
 const getAllUsers = async (req, res) => {
   try {
@@ -108,9 +109,33 @@ const remove = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Validate email
+*@route  GET /api/users/validate-email
+*@access Public
+*/
+
+const validateEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const user = await getUserByEmail(email);
+    if (user) {
+      return res.status(200).json({ message: 'We found your account', isValid: true });
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'We cannot find your account', isValid: false });
+    }
+  } catch (error) {
+    console.error('Failed to remove user - ', error.message);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUser,
   update,
   remove,
+  validateEmail,
 };
