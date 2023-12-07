@@ -22,7 +22,6 @@ const createNewEvent = async (req, res) => {
   } catch (error) {
     console.error('Failed to create event:', error);
 
-    // Choose an appropriate status code based on the type of error
     const statusCode = error instanceof CustomError ? 400 : 500;
 
     res
@@ -37,7 +36,6 @@ const createNewEvent = async (req, res) => {
 *@access Private
 */
 
-
 const getAllEvents = async (req, res) => {
   try {
     const {
@@ -50,7 +48,6 @@ const getAllEvents = async (req, res) => {
       pageSize,
       sortOption,
     } = req.query;
-
 
     const filters = {};
     if (eventType) filters.eventType = eventType;
@@ -73,7 +70,6 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-
 /* 
 ?@desc   Get event by user ID
 *@route  GET /api/events/user/:userId
@@ -83,7 +79,8 @@ const getAllEvents = async (req, res) => {
 const getUserEvents = async (req, res) => {
   try {
     const { userId } = req.params;
-    const events = await getEventsByUser(userId, req);
+    const { sort } = req.query;
+    const events = await getEventsByUser(userId, req, sort);
     res.status(200).json(events);
   } catch (error) {
     console.error('Failed to user events - ', error.message);
@@ -121,7 +118,6 @@ const update = async (req, res) => {
     const event = await updateEvent(id, eventDetails);
 
     if (!event) {
-      // Assuming updateEvent returns null if the event is not found
       return res.status(404).json({ message: 'Event not found' });
     }
 
@@ -129,7 +125,6 @@ const update = async (req, res) => {
   } catch (error) {
     console.error('Failed to update event:', error);
 
-    // Choose an appropriate status code based on the type of error
     const statusCode = error instanceof CustomError ? 400 : 500;
 
     res
@@ -165,19 +160,16 @@ const saveEvent = async (req, res) => {
     console.log(eventId);
     const { _id } = req.user;
 
-    // Check if the user exists
     const user = await getUserById(_id);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Check if the event exists
     const event = await getEventsById(eventId, req);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
 
-    // Check if the event is already saved by the user
     const isEventAlreadySaved = user.savedEvents.some((savedEventId) =>
       savedEventId.equals(event._id)
     );
@@ -203,10 +195,10 @@ const saveEvent = async (req, res) => {
 *@access Public
 */
 
-const getRecentEvent = async (req, res) => {
+const getRecentEvents = async (req, res) => {
   try {
-    const event = await getLatestEvents();
-    res.status(200).json(event);
+    const events = await getLatestEvents();
+    res.status(200).json(events);
   } catch (error) {
     console.error('Failed to event - ', error.message);
     return res.status(500).json('Internal Server Error');
@@ -221,5 +213,5 @@ module.exports = {
   update,
   remove,
   saveEvent,
-  getRecentEvent,
+  getRecentEvents,
 };

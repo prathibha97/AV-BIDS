@@ -6,11 +6,11 @@ import HomeLayout from "../layout/home-layout";
 
 import SuspenseScreen from "./suspense-screen";
 
-import RequireAuth from "../components/require-auth";
-import HomeLayout2 from "../layout/home-layout-dash";
-import Layout_02 from "../layout/layout_02";
-import SubscriptionAndAuthWrapper from "./guards/SubscriptionAndAuthWrapper";
-import PlannerAndAuthWrapper from "./guards/PlannerAndAuthWrapper";
+import RequireAuth from '../components/require-auth';
+import HomeLayout2 from '../layout/home-layout-dash';
+import Layout_02 from '../layout/layout_02';
+import PlannerAndAuthWrapper from './guards/PlannerAndAuthWrapper';
+import SubscriptionAndAuthWrapper from './guards/SubscriptionAndAuthWrapper';
 
 function Router() {
   const routes: any = [
@@ -65,9 +65,9 @@ function Router() {
     },
 
     {
-      path: "/7_contact_us",
+      path: '/contact-us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/7_contact_us")) }],
+      routes: [{ element: lazy(() => import('../pages/contact-us')) }],
     },
 
     // ----------------------Dashboard Routes Start here-----------------------------
@@ -82,8 +82,8 @@ function Router() {
     {
       path: "/events",
       layout: HomeLayout,
-      guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events")) }],
+      // guard: SubscriptionAndAuthWrapper,
+      routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
       path: "/events/new",
@@ -106,7 +106,7 @@ function Router() {
     {
       path: "/events/:id",
       layout: Layout_02,
-      guard: RequireAuth,
+      // guard: RequireAuth,
       routes: [
         { element: lazy(() => import("../pages/events/event-details")) },
       ],

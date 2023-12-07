@@ -156,8 +156,8 @@ function Index() {
           </div>
 
           <div className='text-[16px] font-medium'>
-            <Link to='/7_contact_us'>
-              <div className='mb-2'>7_contact_us</div>
+            <Link to='/contact-us'>
+              <div className='mb-2'>contact-us</div>
             </Link>
             <Link to='/09_events'>
               <div className='mb-2'>09_events</div>

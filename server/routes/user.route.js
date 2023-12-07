@@ -115,7 +115,7 @@ userRouter.get('/', protect, admin, getAllUsers);
  *         description: Internal Server Error
  */
 
-userRouter.get('/:id', protect, getUser);
+userRouter.get('/:id', getUser);
 userRouter.put('/:id', protect, update);
 userRouter.delete('/:id', protect, remove);
 
