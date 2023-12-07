@@ -178,6 +178,56 @@ function Router() {
       ],
     },
 
+    {
+      path: "/21_billing_new",
+      layout: HomeLayout2,
+      guard: RequireAuth,
+      routes: [{ element: lazy(() => import("../pages/21_billing_new")) }],
+    },
+
+    {
+      path: "/forgot_password",
+      layout: EmptyLayout,
+
+      routes: [{ element: lazy(() => import("../pages/forgot_password")) }],
+    },
+
+    {
+      path: "/otc",
+      layout: EmptyLayout,
+      routes: [
+        {
+          element: lazy(
+            () => import("../pages/forgot_password/components/otc")
+          ),
+        },
+      ],
+    },
+
+    {
+      path: "/reset_password",
+      layout: EmptyLayout,
+      routes: [
+        {
+          element: lazy(
+            () => import("../pages/forgot_password/components/reset_password")
+          ),
+        },
+      ],
+    },
+
+    {
+      path: "/password_updated",
+      layout: EmptyLayout,
+      routes: [
+        {
+          element: lazy(
+            () => import("../pages/forgot_password/components/password_updated")
+          ),
+        },
+      ],
+    },
+
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
