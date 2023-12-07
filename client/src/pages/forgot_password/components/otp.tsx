@@ -1,17 +1,20 @@
 import { Button, Card } from '@material-tailwind/react';
 import { FC, useEffect, useState } from 'react';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
 import OTC from '../../../assets/forgot_password/otc.png';
 import LOGO from '../../../assets/register/logo.png';
-
-const VERIFICATION_CODE_LENGTH = 5;
-const SUCCESSFUL_CODE = '12345';
-const TIMER_DURATION = 60;
+import api from '../../../utils/api';
 
 interface OtpInputProps {
   handleNextStep: () => void;
 }
 
 const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
+  const VERIFICATION_CODE_LENGTH = 5;
+  const { email } = useAppSelector((state: RootState) => state.otp);
+  const TIMER_DURATION = 60;
+
   const [verificationCode, setVerificationCode] = useState(
     Array(VERIFICATION_CODE_LENGTH).fill('')
   );
@@ -32,16 +35,6 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
   };
 
   useEffect(() => {
-    const enteredCode = verificationCode.join('');
-    setIsCodeCorrect(enteredCode === SUCCESSFUL_CODE);
-    setMessage(
-      enteredCode === SUCCESSFUL_CODE
-        ? 'Successful'
-        : 'Invalid Verification Code!'
-    );
-  }, [verificationCode]);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       if (remainingTime > 0) {
         setRemainingTime((prev) => prev - 1);
@@ -55,10 +48,48 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
     };
   }, [remainingTime]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const enteredCode = verificationCode.join('');
+    const validateOTP = async () => {
+      try {
+        const { data } = await api.post('/email/verify-otp', {
+          email,
+          userEnteredOTP: verificationCode.join(''),
+        });
+        setIsCodeCorrect(data.verified);
+        setMessage(data.message);
+      } catch (error) {
+        setIsCodeCorrect(false);
+        setMessage('Invalid OTP verification code');
+      }
+    };
+
+    // Trigger API call only if the email is not empty
+    if (enteredCode.trim()) {
+      validateOTP();
+    } else {
+      setIsCodeCorrect(false);
+      setMessage('OTP is required');
+    }
+  }, [verificationCode, email]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isCodeCorrect) {
+
+    try {
       handleNextStep();
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      setMessage('Failed to verify OTP. Please try again.');
+    }
+  };
+
+  const handleResendOTP = async () => {
+    try {
+      await api.post(`/email/send-otp`, { email });
+      setRemainingTime(TIMER_DURATION);
+    } catch (error) {
+      console.error('Error sending OTP:', error);
     }
   };
 
@@ -95,9 +126,9 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
                     type='text'
                     id={`inputField${index}`}
                     className={`bg-[#fff] border-2 p-2 w-[45px] h-[45px] border-black text-center ${
-                      message === 'Invalid Verification Code!'
+                      message === 'Incorrect OTP'
                         ? 'border-red-500'
-                        : message === 'Successful'
+                        : message === 'OTP verified successfully'
                         ? 'border-green-500'
                         : 'border-black'
                     }`}
@@ -109,7 +140,9 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
               {message && (
                 <p
                   className={`text-center mt-4 ${
-                    message === 'Successful' ? 'text-green-500' : 'text-red-500'
+                    message === 'OTP verified successfully'
+                      ? 'text-green-500'
+                      : 'text-red-500'
                   }`}
                 >
                   {message}
@@ -130,14 +163,19 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
               >
                 <h6 className='normal-case'>Continue</h6>
               </Button>
-              <div className='flex items-center justify-center gap-2 mt-6'>
-                <p className='text-[14px] mt-0.5'>
-                  Haven't received the code?
-                  <span className='text-[#8645FF] ml-1 cursor-pointer underline'>
-                    Resend
-                  </span>
-                </p>
-              </div>
+              {remainingTime === 0 && (
+                <div className='flex items-center justify-center gap-2 mt-6'>
+                  <p className='text-[14px] mt-0.5'>
+                    Haven't received the code?
+                    <span
+                      className='text-[#8645FF] ml-1 cursor-pointer underline'
+                      onClick={handleResendOTP}
+                    >
+                      Resend
+                    </span>
+                  </p>
+                </div>
+              )}
             </form>
           </Card>
         </div>

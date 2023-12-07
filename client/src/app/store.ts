@@ -1,8 +1,8 @@
 import {
+  Action,
+  ThunkAction,
   combineReducers,
   configureStore,
-  ThunkAction,
-  Action,
 } from '@reduxjs/toolkit';
 import {
   FLUSH,
@@ -15,12 +15,11 @@ import {
   persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import userReducer from './features/user/userSlice';
+import alertReducer from './features/alerts/alertSlice';
 import EventReducer from './features/events/eventSlice';
 import memberReducer from './features/members/memberSlice';
-import alertReducer from './features/alerts/alertSlice';
-
-
+import optReducer from './features/otp/otpSlice';
+import userReducer from './features/user/userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -34,6 +33,7 @@ const persistedReducer = persistReducer(
     event: EventReducer,
     member: memberReducer,
     alert: alertReducer,
+    otp: optReducer,
   })
 );
 
@@ -56,4 +56,9 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 // Define AppThunk type
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

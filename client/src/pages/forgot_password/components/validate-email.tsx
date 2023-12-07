@@ -1,7 +1,9 @@
 import { Button, Card, Input } from '@material-tailwind/react';
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { MdArrowBackIosNew } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { setOpt } from '../../../app/features/otp/otpSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import FORGOT_PASS_ICON from '../../../assets/forgot_password/forgot_pass.png';
 import LOGO from '../../../assets/register/logo.png';
 import api from '../../../utils/api';
@@ -11,6 +13,7 @@ interface ValidateEmailProps {
 }
 
 const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [message, setMessage] = useState('');
@@ -36,8 +39,14 @@ const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
     }
   }, [email]);
 
-  const handlePwResetRequest = () => {
-    handleNextStep();
+  const handlePwResetRequest = async () => {
+    try {
+      await api.post(`/email/send-otp`, { email });
+      dispatch(setOpt({ OTPValue: '', email }));
+      handleNextStep();
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+    }
   };
 
   return (
@@ -64,7 +73,13 @@ const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
         <p className='text-primary_font_color text-center'>
           Enter your email, and we'll send you a link to reset your password
         </p>
-        <form className='mt-8 mb-2 w-full max-w-screen-lg'>
+        <form
+          className='mt-8 mb-2 w-full max-w-screen-lg'
+          onSubmit={(e) => {
+            e.preventDefault();
+            handlePwResetRequest();
+          }}
+        >
           <div className='mb-1 flex flex-col gap-5'>
             <div>
               <Input
@@ -94,7 +109,6 @@ const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
             className='mt-6 bg-primary rounded-full'
             fullWidth
             type='submit'
-            onClick={handlePwResetRequest}
             disabled={!isEmailValid}
           >
             <h6 className='normal-case'>Request</h6>

@@ -1,8 +1,4 @@
-/* 
-?@desc   Get all users
-*@route  GET /api/users
-*@access Private/Admin
-*/
+const { getOTPByEmail, saveOTP, deleteOTPByEmail } = require('../models/otp/otp.model');
 
 const {
   getUsers,
@@ -12,7 +8,13 @@ const {
   getUserByEmail,
 } = require('../models/user/user.model');
 const { isValidEmail, isValidPhone } = require('../utils');
+const { Resend } = require('resend');
 
+/* 
+?@desc   Get all users
+*@route  GET /api/users
+*@access Private/Admin
+*/
 const getAllUsers = async (req, res) => {
   try {
     const users = await getUsers(req);
@@ -131,6 +133,8 @@ const validateEmail = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
 
 module.exports = {
   getAllUsers,
