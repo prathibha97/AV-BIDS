@@ -18,6 +18,9 @@ const subscriptionSchema = new mongoose.Schema({
     type: Date,
   },
   endDate: Date,
+  customerId: {
+    type: String,
+  },
 });
 
 const userSchema = new mongoose.Schema(
