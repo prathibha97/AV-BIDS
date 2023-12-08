@@ -42,7 +42,7 @@ function Index() {
 
   const onSubmit = async (values: ContactFormValues) => {
     try {
-      await api.post('/email', { ...values, subject });
+      await api.post('/email/contact-form', { ...values, subject });
       setFormSubmitted(true);
       setTimeout(() => {
         setFormSubmitted(false);
