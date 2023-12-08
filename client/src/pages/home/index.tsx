@@ -1,48 +1,48 @@
-import { Button } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
-import { MdAccessTime, MdCalendarMonth } from 'react-icons/md';
-import { Link } from 'react-router-dom';
-import HOME_1 from '../../assets/home_1.png';
-import HOME_2 from '../../assets/home_2.png';
-import HOME_3 from '../../assets/home_3.png';
-import CardCarousel from '../../components/carousel';
-import { Event } from '../../types';
-import api from '../../utils/api';
+import { Button } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { MdAccessTime, MdCalendarMonth } from "react-icons/md";
+import { Link } from "react-router-dom";
+import HOME_1 from "../../assets/home_1.png";
+import HOME_2 from "../../assets/home_2.png";
+import HOME_3 from "../../assets/home_3.png";
+import CardCarousel from "../../components/carousel";
+import { Event } from "../../types";
+import api from "../../utils/api";
 
 function Index() {
   const [recentEvents, setRecentEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     const fetchRecentEvents = async () => {
-      const { data } = await api.get('/events/recent');
+      const { data } = await api.get("/events/recent");
       return setRecentEvents(data);
     };
     fetchRecentEvents();
   }, []);
 
   return (
-    <div className='container mx-auto'>
-      <section className='py-0 md:py-0 grid md:grid-cols-2 content-center px-2'>
+    <div className="container mx-auto">
+      <section className="py-0 md:py-0 grid md:grid-cols-2 content-center px-2">
         <img
           src={HOME_1}
-          alt='aad'
-          className='w-full object-scale-down block md:hidden'
+          alt="aad"
+          className="w-full object-scale-down block md:hidden"
         />
 
-        <div className='px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left mb-8'>
+        <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left mb-8">
           <p>The worlds first AV Event Bidding Platform</p>
-          <h1 className='text-primary'>
+          <h1 className="text-primary">
             Connecting Event Managers with <br />
-            <span className='text-[#FF5533]'>AV Providers</span>
+            <span className="text-[#FF5533]">AV Providers</span>
           </h1>
           <Button
-            variant='filled'
-            color='indigo'
-            size='sm'
-            className='rounded-md w-36 mt-4 py-4 bg-primary font-poppins'
+            variant="filled"
+            color="indigo"
+            size="sm"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
-            <Link to='/sign-in'>
-              <span className='text-white normal-case text-[13px]'>
+            <Link to="/sign-in">
+              <span className="text-white normal-case text-[13px]">
                 Get Started
               </span>
             </Link>
@@ -51,44 +51,44 @@ function Index() {
 
         <img
           src={HOME_1}
-          alt='aad'
-          className='w-full object-scale-down hidden md:block'
+          alt="aad"
+          className="w-full object-scale-down hidden md:block"
         />
       </section>
 
-      <section className='py-8 md:py-0 grid md:grid-cols-2 content-center px-2'>
-        <img src={HOME_2} alt='aad' className='w-full object-scale-down' />
-        <div className='px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left'>
-          <h2 className='text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug'>
+      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-2">
+        <img src={HOME_2} alt="aad" className="w-full object-scale-down" />
+        <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+          <h2 className="text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug">
             Want to Get More Proposals?
           </h2>
-          <p className='mt-4'>Post your event on our events listing page. </p>
-          <div className='mt-6 mb-4'>
-            <div className='flex items-center'>
-              <div className='flex items-center justify-center rounded-full w-12 h-12 bg-gray-200'>
-                <MdCalendarMonth size={24} className='text-secondary' />
+          <p className="mt-4">Post your event on our events listing page. </p>
+          <div className="mt-6 mb-4">
+            <div className="flex items-center">
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-gray-200">
+                <MdCalendarMonth size={24} className="text-secondary" />
               </div>
-              <p className='ml-4'>Receive multiple proposals for you event.</p>
+              <p className="ml-4">Receive multiple proposals for you event.</p>
             </div>
 
-            <div className='flex items-center mt-4'>
-              <div className='flex items-center justify-center rounded-full w-12 h-12 bg-gray-200'>
-                <MdAccessTime size={24} className='text-secondary' />
+            <div className="flex items-center mt-4">
+              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-gray-200">
+                <MdAccessTime size={24} className="text-secondary" />
               </div>
-              <p className='ml-4 text-left'>
+              <p className="ml-4 text-left">
                 Save time and resources by having <br></br>proposals sent to you
               </p>
             </div>
           </div>
 
           <Button
-            variant='filled'
-            color='indigo'
-            size='sm'
-            className='rounded-md w-36 mt-4 py-4 bg-primary font-poppins'
+            variant="filled"
+            color="indigo"
+            size="sm"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
-            <Link to='/event-planner'>
-              <span className='text-white normal-case text-[13px]'>
+            <Link to="/event-planner">
+              <span className="text-white normal-case text-[13px]">
                 Learn More
               </span>
             </Link>
@@ -100,32 +100,32 @@ function Index() {
         <CardCarousel data={recentEvents} />
       </section>
 
-      <section className='my-8 md:my-16 grid md:grid-cols-2 rounded-lg content-center bg-secondary mx-2'>
-        <div className='md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8'>
-          <h2 className='text-black'>
-            Want to Get More <span className='text-white'>Clients?</span>
+      <section className="my-8 md:my-16 grid md:grid-cols-2 rounded-lg content-center bg-secondary mx-2">
+        <div className="md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8">
+          <h2 className="text-black">
+            Want to Get More <span className="text-white">Clients?</span>
           </h2>
-          <p className='text-white mt-4 mb-3'>
+          <p className="text-white mt-4 mb-3">
             Browse the events listing page, and submit your proposal. No more
             cold calling or emailing for new clients.
           </p>
           <Button
-            variant='filled'
-            color='indigo'
-            size='sm'
-            className='rounded-md w-36 mt-4 py-4 bg-primary font-poppins'
+            variant="filled"
+            color="indigo"
+            size="sm"
+            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
           >
-            <Link to='/av_providers'>
-              <span className='text-white normal-case text-[13px]'>
+            <Link to="/av_providers">
+              <span className="text-white normal-case text-[13px]">
                 Learn More
               </span>
             </Link>
           </Button>
         </div>
-        <img src={HOME_3} alt='aad' className='w-full object-contain' />
+        <img src={HOME_3} alt="aad" className="w-full object-contain" />
       </section>
 
-      <section className='bg-[#E2E5FA] rounded-lg p-6 '>
+      {/* <section className='bg-[#E2E5FA] rounded-lg p-6 '>
         <h2 className='text-[25px] text-center text-primary mb-4'>Site Map</h2>
         <div>
           <div className='text-[16px] font-medium'>
@@ -239,7 +239,7 @@ function Index() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
