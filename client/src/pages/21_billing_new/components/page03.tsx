@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Checkbox, Select, Option } from "@material-tailwind/react";
-import { MdAddCircleOutline } from "react-icons/md";
+import VISA from "../../../assets/17_billing/Visa.png";
+import { Button } from "@material-tailwind/react";
 
 interface Page02Props {
   onNext: () => void;
@@ -10,76 +10,23 @@ interface Page02Props {
 const Page02: React.FC<Page02Props> = ({ onNext, onPrev }) => {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Page 3</h1>
+      <h1 className="text-2xl font-bold mb-4">Page 4</h1>
+
       <div className="grid grid-cols-3 gap-x-16">
         <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 col-span-2">
-          <h2 className="text-[20px] font-semibold mb-4">Billing Period</h2>
+          <h2 className="text-[20px] font-semibold mb-4">
+            Monthly subscription for Standard Plan
+          </h2>
 
-          <div>
-            <div>
-              <div>
-                <div className="grid grid-cols-2 gap-4 w-[550px] mb-8">
-                  <div className="flex items-center gap-11">
-                    <div className="flex items-center">
-                      <Checkbox
-                        defaultChecked
-                        ripple={false}
-                        className="h-5 w-5 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
-                        color="purple"
-                        crossOrigin=""
-                      />
-                      <p>Yearly </p>
-                    </div>
+          <p className="mb-4">Billing information</p>
 
-                    <div>
-                      <p>--------------</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="mt-2">$349/month</p>
-                  </div>
-
-                  <div className="flex items-center gap-8">
-                    <div className="flex items-center">
-                      <Checkbox
-                        defaultChecked
-                        ripple={false}
-                        className="h-5 w-5 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
-                        color="purple"
-                        crossOrigin=""
-                      />
-                      <p>Monthly</p>
-                    </div>
-
-                    <div>
-                      <p>--------------</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="mt-2">$399/month</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-36 mb-4">
-                  <p className="font-semibold">Choose Card</p>
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <MdAddCircleOutline className="text-[18px]" />
-                    <p className="mt-0.5">Add Card</p>
-                  </div>
-                </div>
-
-                <div className="w-[350px] bg-input_background rounded-lg">
-                  <Select label="XXX-25223">
-                    <Option>option 1</Option>
-                    <Option>option 2</Option>
-                    <Option>option 3</Option>
-                  </Select>
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center gap-2 mb-4">
+            <img src={VISA} alt="Visa" />
+            <p>**** **** **** 0000</p>
           </div>
+
+          <p>85302</p>
+          <p>United States</p>
         </section>
 
         <div>
@@ -121,6 +68,7 @@ const Page02: React.FC<Page02Props> = ({ onNext, onPrev }) => {
           </div>
         </div>
       </div>
+
       <Button onClick={onPrev} className="bg-primary normal-case">
         Previous
       </Button>
