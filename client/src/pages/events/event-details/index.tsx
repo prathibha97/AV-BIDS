@@ -218,7 +218,7 @@ export function Index() {
               </div>
 
               <OtherEvents events={userEvents} loading={userEventLoading} />
-              <SubmitQuestion />
+              <SubmitQuestion event={event} />
             </div>
           </section>
           <section>

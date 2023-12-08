@@ -13,7 +13,7 @@ interface OtpInputProps {
 const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
   const VERIFICATION_CODE_LENGTH = 5;
   const { email } = useAppSelector((state: RootState) => state.otp);
-  const TIMER_DURATION = 60;
+  const TIMER_DURATION = 600;
 
   const [verificationCode, setVerificationCode] = useState(
     Array(VERIFICATION_CODE_LENGTH).fill('')
@@ -22,6 +22,18 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
   const [isCodeCorrect, setIsCodeCorrect] = useState(false);
   const [isTimerExpired, setIsTimerExpired] = useState(false);
   const [remainingTime, setRemainingTime] = useState(TIMER_DURATION);
+
+  const formatTime = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+
+    const formattedTime = `${minutes
+      .toString()
+      .padStart(2, '0')} minutes and ${seconds
+      .toString()
+      .padStart(2, '0')} seconds`;
+    return formattedTime;
+  };
 
   const handleInputChange = (index: number, value: string) => {
     const updatedCode = [...verificationCode];
@@ -150,7 +162,7 @@ const OtpInput: FC<OtpInputProps> = ({ handleNextStep }) => {
               )}
               {remainingTime > 0 ? (
                 <p className='text-center mt-4 text-gray-500'>
-                  Time remaining: {remainingTime} seconds
+                  Time remaining: {formatTime(remainingTime)}
                 </p>
               ) : (
                 <p className='text-center mt-4 text-gray-500'>OPT Expired</p>

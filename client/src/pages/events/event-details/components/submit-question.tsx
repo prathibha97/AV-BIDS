@@ -2,14 +2,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Textarea } from '@material-tailwind/react';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { setAlertWithTimeout } from '../../../../app/features/alerts/alertSlice';
+import { useAppDispatch } from '../../../../app/hooks';
+import { Event } from '../../../../types';
+import api from '../../../../utils/api';
 import {
   QuestionFormSchema,
   QuestionFormValues,
 } from '../../../../utils/validations/question-form-validation';
 
-interface SubmitQuestionProps {}
+interface SubmitQuestionProps {
+  event: Event | null;
+}
 
-const SubmitQuestion: FC<SubmitQuestionProps> = ({}) => {
+const SubmitQuestion: FC<SubmitQuestionProps> = ({ event }) => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -26,8 +33,25 @@ const SubmitQuestion: FC<SubmitQuestionProps> = ({}) => {
 
   const onSubmit = async (values: QuestionFormValues) => {
     try {
-      console.log(values);
-    } catch (error) {
+      const { data } = await api.post('/email/event-question', {
+        ...values,
+        eventId: event?._id,
+      });
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error:any) {
+      dispatch(
+        setAlertWithTimeout({
+          message: error.response.data.error,
+          color: 'red',
+          open: true,
+        })
+      );
       console.log(error);
     }
   };
