@@ -12,6 +12,14 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
         As we discussed, a marketing section should be included on this page
         regarding subscription plans. I will design and update that section.
       </p>
+
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <p>Upgrade to awesome</p>
+        </div>
+
+        <div>09</div>
+      </div>
       <Button onClick={onNext} className="bg-primary normal-case">
         Next
       </Button>
