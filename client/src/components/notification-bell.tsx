@@ -59,7 +59,7 @@ export function Notification_bell() {
         </div>
       </PopoverHandler>
       <PopoverContent>
-        <div className="bg-[#334434]">
+        <div className="bg-[#334434] cursor-pointer">
           <div
             onClick={() => markNotificationAsRead("notification1")}
             className={`p-3 ${
