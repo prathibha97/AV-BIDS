@@ -5,7 +5,8 @@ interface StepperProps {
 }
 
 const Stepper: React.FC<StepperProps> = ({ currentStep }) => {
-  const steps = ["Subscribe", "Billing", "Review Order", "Place Order"];
+  // const steps = ["Subscribe", "Billing", "Review Order", "Place Order"];
+  const steps = ['Subscribe', 'Place Order'];
 
   return (
     <div className="flex mb-4">

@@ -251,3 +251,58 @@ export type OTP = {
   OTPValue: string | null;
   email: string | null;
 };
+
+export type StripeProduct = {
+  id: string;
+  object: string;
+  active: boolean;
+  created: number;
+  default_price: string | null;
+  description: string | null;
+  images: string[];
+  features: string[];
+  livemode: boolean;
+  metadata: Record<string, any>;
+  name: string;
+  package_dimensions: Record<string, any> | null;
+  shippable: boolean | null;
+  statement_descriptor: string | null;
+  tax_code: string | null;
+  unit_label: string | null;
+  updated: number;
+  url: string | null;
+};
+
+
+export type StripePrice = {
+  id: string;
+  object: string;
+  active: boolean;
+  billing_scheme: string;
+  created: number;
+  currency: string;
+  custom_unit_amount: number | null;
+  livemode: boolean;
+  lookup_key: string | null;
+  metadata: Record<string, any>;
+  nickname: string | null;
+  product: StripeProduct;
+  recurring: {
+    aggregate_usage: string | null;
+    interval: string;
+    interval_count: number;
+    trial_period_days: number | null;
+    usage_type: string;
+  };
+  tax_behavior: string;
+  tiers_mode: string | null;
+  transform_quantity: string | null;
+  type: string;
+  unit_amount: number;
+  unit_amount_decimal: string;
+};
+
+export type StripeSubscription = {
+  subscriptionId: string;
+  clientSecret: string;
+};

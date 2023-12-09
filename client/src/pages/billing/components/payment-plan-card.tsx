@@ -1,10 +1,16 @@
 import { FC } from 'react';
-import api from '../../../utils/api';
+import {
+  setPlan,
+  setSubscription,
+} from '../../../app/features/stripe/stripeSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { StripePrice } from '../../../types';
+import api from '../../../utils/api';
 
 interface PaymentPlanCardProps {
   src: string;
-  plan: string;
+  plan: StripePrice;
   price: number;
   priceId: string;
   onNext: () => void;
@@ -15,9 +21,10 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
   plan,
   price,
   onNext,
-  priceId
+  priceId,
 }) => {
-  const user = useGetCurrentUser()
+  const user = useGetCurrentUser();
+  const dispatch = useAppDispatch();
 
   const createSubscription = async () => {
     try {
@@ -25,16 +32,14 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
         priceId,
         email: user?.email,
       });
-      console.log(data);
+      dispatch(setSubscription(data));
+      dispatch(setPlan(plan));
       onNext();
     } catch (error) {
       console.log(error);
     }
+  };
 
-    // setSubscriptionData({ subscriptionId, clientSecret });
-  }
-
-  
   return (
     <div className='flex items-center justify-center bg-[#f3f1fb] border border-[#8645ff] '>
       <div className=''>
@@ -47,17 +52,14 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
         </div>
 
         <p className='text-[18px] font-medium text-primary_font_color mb-2 text-center'>
-          {plan}
+          {plan.product.name}
         </p>
 
         <p className='mb-6'>
           <span className='font-semibold text-18px text-primary_font_color mr-1 text-center'>
             ${price}
           </span>
-          /{' '}
-          {plan === 'Annual subscription for Standard Plan'
-            ? 'year'
-            : 'monthly'}
+          / {plan.recurring.interval === 'year' ? 'yearly' : 'monthly'}
         </p>
 
         <div

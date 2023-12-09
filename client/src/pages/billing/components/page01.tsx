@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Done_icon from '../../../assets/17_billing/done.png';
-import Yealy from '../../../assets/17_billing/yearly.png';
+import Monthly from '../../../assets/17_billing/monthly.png';
+import Yearly from '../../../assets/17_billing/yearly.png';
 
+import { setPrice } from '../../../app/features/stripe/stripeSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import Discover from '../../../assets/17_billing/Discover.png';
 import Master from '../../../assets/17_billing/Mastercard.png';
 import Visa from '../../../assets/17_billing/Visa.png';
+import { StripePrice } from '../../../types';
 import api from '../../../utils/api';
 import PaymentPlanCard from './payment-plan-card';
 
@@ -13,17 +17,17 @@ interface Page01Props {
 }
 
 const Page01: React.FC<Page01Props> = ({ onNext }) => {
-  const [prices, setPrices] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
+  const [prices, setPrices] = useState<StripePrice[]>([]);
 
   useEffect(() => {
     const fetchPrices = async () => {
       const { data } = await api.get('/stripe/config');
       setPrices(data.prices);
+      dispatch(setPrice(data.prices));
     };
     fetchPrices();
   }, []);
-
-  console.log(prices);
 
   return (
     <div>
@@ -38,8 +42,8 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
         {prices.map((price) => (
           <PaymentPlanCard
             key={price.id}
-            src={Yealy}
-            plan={price.product.name}
+            src={price.recurring.interval === 'year' ? Yearly : Monthly}
+            plan={price}
             price={price.unit_amount / 100}
             priceId={price.id}
             onNext={onNext}
