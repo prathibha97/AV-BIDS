@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { useGetCurrentUser } from '../../app/hooks/useUser';
 import Subscribed from '../../assets/17_billing/subscribed.png';
 import api from '../../utils/api';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setUser } from '../../app/features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../app/store';
 interface SuccessPageProps {}
 
 const SuccessPage: React.FC<SuccessPageProps> = () => {
@@ -13,6 +14,18 @@ const SuccessPage: React.FC<SuccessPageProps> = () => {
   const user = useGetCurrentUser();
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const subscriptionId = useAppSelector(
+    (state: RootState) => state.stripe?.subscription?.subscriptionId
+  );
+
+  const productId = useAppSelector(
+    (state: RootState) => state.stripe?.plan?.product?.id
+  );
+
+  const priceId = useAppSelector(
+    (state: RootState) => state.stripe?.plan?.id
+  );
+
 
   const updateUserSubscription = async () => {
     setLoading(true);
@@ -21,6 +34,9 @@ const SuccessPage: React.FC<SuccessPageProps> = () => {
         subscription: {
           plan: 'PREMIUM',
           startDate: new Date(),
+          subscriptionId,
+          productId,
+          priceId,
         },
       });
       localStorage.setItem('userInfo', JSON.stringify(data.user));

@@ -1,3 +1,6 @@
+const {
+  createUserSubscription,
+} = require('../models/subscription/subscription.model');
 const { getUserByEmail } = require('../models/user/user.model');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
@@ -22,8 +25,6 @@ const getConfig = async (req, res) => {
     expand: ['data.product'],
   });
 
-  console.log(prices);
-
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     prices: prices.data,
@@ -32,7 +33,7 @@ const getConfig = async (req, res) => {
 
 /* 
 ?@desc   Create stripe customer
-*@route  Get /api/stripe/create-customer
+*@route  Post /api/stripe/create-customer
 *@access Private
 */
 
@@ -56,13 +57,12 @@ const createCustomer = async (req, res) => {
 
 /* 
 ?@desc   Create stripe subscription
-*@route  Get /api/stripe/create-subscription
+*@route  Post /api/stripe/create-subscription
 *@access Private
 */
 
 const createSubscription = async (req, res) => {
-
-const {priceId, email} = req.body
+  const { priceId, email } = req.body;
 
   try {
     // Create a new customer object
@@ -91,6 +91,11 @@ const {priceId, email} = req.body
       expand: ['latest_invoice.payment_intent'],
     });
 
+    if (user) {
+      user.subscription.subscriptionId = subscription.id;
+      await user.save();
+    }
+
     res.send({
       subscriptionId: subscription.id,
       clientSecret: subscription.latest_invoice.payment_intent.client_secret,
@@ -100,8 +105,25 @@ const {priceId, email} = req.body
   }
 };
 
+/* 
+?@desc   Create stripe subscription
+*@route  Get /api/stripe/retrieve-subscription
+*@access Private
+*/
+
+const retrieveSubscription = async (req, res) => {
+  try {
+    const { subscriptionId } = req.query;
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    res.status(200).json(subscription);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
 module.exports = {
   getConfig,
   createCustomer,
   createSubscription,
+  retrieveSubscription,
 };
