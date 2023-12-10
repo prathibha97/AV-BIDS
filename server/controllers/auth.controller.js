@@ -35,6 +35,10 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       userType,
+      subscription: {
+        plan: 'BASIC',
+        startDate: new Date()
+      }
     });
     return res.status(200).json(user);
   } catch (error) {
