@@ -6,7 +6,10 @@ function HomeLayout() {
   return (
     <>
       <main className="w-full h-screen overflow-auto bg-[#f7f6fd]">
-        <NavbarDashboard />
+        <div className="mb-2">
+          <NavbarDashboard />
+        </div>
+
         <div className="flex">
           <div className="hidden lg:block">
             <SidebarDashboard />
