@@ -1,11 +1,11 @@
-import { Button } from '@material-tailwind/react';
+import { Button } from "@material-tailwind/react";
 
-import { differenceInDays, parseISO } from 'date-fns';
-import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
-import EVENTS_01 from '../../../../assets/09_events/events01.png';
-import EVENTS_02 from '../../../../assets/09_events/location.png';
-import { Event } from '../../../../types';
+import { differenceInDays, parseISO } from "date-fns";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import EVENTS_PHOTO from "../../../../assets/09_events/events01.png";
+import LOCATION_ICON from "../../../../assets/09_events/location.png";
+import { Event } from "../../../../types";
 
 interface EventListingCardProps {
   event: Event;
@@ -21,73 +21,74 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
 
   return (
     <div>
-      <div className='w-full gap-8 mb-6'>
-        <div>
-          <div className='flex items-center justify-between bg-[#F3F1FB] drop-shadow gap-8 p-8 rounded-lg w-full'>
-            <div>
-              <img
-                src={EVENTS_01}
-                alt='aad'
-                className='object-scale-down w-[73px]'
-              />
+      <div className="sm:grid grid-cols-12 gap-4 bg-[#F3F1FB] mb-8 px-6 py-6 rounded-lg w-full">
+        <div className="col-span-9">
+          <div className="sm:flex gap-4">
+            <div className="">
+              <img src={EVENTS_PHOTO} alt="Event_photo" className="w-[73px]" />
             </div>
-
             <div>
               <h2
-                className='text-[20px] cursor-pointer'
+                className="text-[18px] cursor-pointer mb-2 xl:mb-0"
                 onClick={() => navigate(`/events/${event._id}`)}
               >
                 {event.title}
               </h2>
 
-              <div className='flex gap-36'>
-                <p className='text-[18px]'>
-                  Event Date: {event.eventStartDate} - {event.eventEndDate}
+              <div className="xl:flex justify-between gap-32 w-max">
+                <p className="text-[16px] mb-2 xl:mb-0">
+                  <div className="sm:flex items-center gap-2">
+                    <div> Event Date:</div>
+
+                    <div>
+                      {event.eventStartDate} - {event.eventEndDate}
+                    </div>
+                  </div>
                 </p>
-                <p className='text-[18px]'>{event.eventBudget}</p>
+                <p className="text-[16px]">{event.eventBudget}</p>
               </div>
 
-              <div className='flex items-center gap-16 mt-4'>
-                <div className='flex gap-8 items-center'>
+              <div className="xl:flex items-center justify-between gap-16 mt-4">
+                <div className="flex gap-1 items-center mb-2 xl:mb-0">
                   <img
-                    src={EVENTS_02}
-                    alt='aad'
-                    className='object-scale-down w-[20px]'
+                    src={LOCATION_ICON}
+                    alt="location_icon"
+                    className="w-[20px]"
                   />
-                  <p className='text-[16px] text-[#9381FF]'>
+                  <p className="text-[16px] text-[#9381FF]">
                     {event.address.city}, {event.address.state}
                   </p>
                 </div>
 
-                <p className='text-[16px]'>
+                <p className="text-[16px] mb-2 xl:mb-0">
                   {event.eventCategory}, {event.eventSubCategory}
                 </p>
-                <Button
-                  variant='filled'
-                  color='green'
-                  size='sm'
-                  className='rounded-full w-30 py-2 px-3 bg-[#B5F9C4] font-poppins'
-                >
-                  <h2 className='text-[#178751] text-[12px]'>
+
+                <div className="rounded-full w-max py-2 px-3 bg-[#B5F9C4] font-poppins">
+                  <h2 className="text-[#178751] text-[12px]">
                     {event.eventType}
                   </h2>
-                </Button>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className='ml-24'>
+        <div className="col-span-3 sm:justify-self-end">
+          <div className="flex items-center justify-center sm:justify-between  gap-y-8  rounded-lg w-full mt-6 sm:mt-0">
+            <div className="sm:flex flex-col items-end">
               <Button
-                variant='filled'
-                color='indigo'
-                size='sm'
-                className='rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins'
+                variant="filled"
+                color="indigo"
+                size="sm"
+                className="rounded-md sm:w-max w-full py-3 bg-primary font-poppins rounded-full"
               >
-                <span className='text-white'>Apply Now</span>
+                <span className="text-white normal-case">Apply Now</span>
               </Button>
-              <p className='text-[16px] mt-4'>
+              <p className="text-[16px] mt-4">
                 {daysLeft > 0
                   ? `${daysLeft} days left to apply`
-                  : 'Application closed'}
+                  : "Application closed"}
               </p>
             </div>
           </div>

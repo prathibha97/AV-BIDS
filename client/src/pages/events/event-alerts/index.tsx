@@ -55,7 +55,7 @@ function index() {
     <div className="w-full">
       <Breadcrumbs />
 
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2">
+      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2 min-w-min">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-[20px] font-semibold mb-4">
             Billing & Membership

@@ -64,7 +64,7 @@ function Index() {
       <div className="mb-4">
         <Breadcrumbs />
       </div>
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6">
+      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold mb-6">Saved Events</h2>
           <div className="flex items-center">
