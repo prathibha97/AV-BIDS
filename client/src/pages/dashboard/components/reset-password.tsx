@@ -81,7 +81,7 @@ const ResetPassword = () => {
           <div>
             <p className="mb-2">Current password</p>
 
-            <div className="w-72 bg-input_background rounded-full">
+            <div className="bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{
@@ -99,7 +99,7 @@ const ResetPassword = () => {
 
           <div>
             <p className="mb-2">New Password</p>
-            <div className="w-72 bg-input_background rounded-full">
+            <div className="bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{
@@ -116,7 +116,7 @@ const ResetPassword = () => {
           </div>
           <div>
             <p className="mb-2">Confirm New Password</p>
-            <div className="w-72 bg-input_background rounded-full">
+            <div className="bg-input_background rounded-full">
               <Input
                 className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{

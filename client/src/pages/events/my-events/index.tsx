@@ -142,20 +142,16 @@ function Index() {
                         className="p-4 border-b border-blue-gray-50 cursor-pointer"
                         onClick={() => navigate(`/events/${event._id}`)}
                       >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <p className="font-semibold">
                           {event.title}
                           <div>
-                            <div className="rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins">
-                              <p className="text-black text-center text-[12px] font-semibold">
+                            <div className="rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins mt-2">
+                              <p className="text-[#178751] text-center text-[12px] font-semibold">
                                 {event.eventType}
                               </p>
                             </div>
                           </div>
-                        </Typography>
+                        </p>
                       </td>
                       <td className="p-4 border-b border-blue-gray-50">
                         <Typography
