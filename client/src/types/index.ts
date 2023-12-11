@@ -20,11 +20,14 @@ export interface User {
     zip: string;
     state: string;
   };
-  subscription:{
-    plan: 'PREMIUM' | 'BASIC',
-    startDate: Date
+  subscription: {
+    customerId: string;
+    productId: string;
+    priceId:string;
+    plan: 'PREMIUM' | 'BASIC';
+    startDate: Date;
     _id: string;
-  }
+  };
 }
 
 export interface Member {

@@ -1,6 +1,3 @@
-const {
-  createUserSubscription,
-} = require('../models/subscription/subscription.model');
 const { getUserByEmail } = require('../models/user/user.model');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
@@ -65,10 +62,10 @@ const createSubscription = async (req, res) => {
   const { priceId, email } = req.body;
 
   try {
-    // Create a new customer object
-    const customer = await stripe.customers.create({
-      email: req.body.email,
-    });
+    // // Create a new customer object
+    // const customer = await stripe.customers.create({
+    //   email: req.body.email,
+    // });
 
     // Find the user in the database by email
     const user = await getUserByEmail(email);
@@ -81,7 +78,7 @@ const createSubscription = async (req, res) => {
 
     // Create the subscription
     const subscription = await stripe.subscriptions.create({
-      customer: customer.id,
+      customer: user.subscription.customerId,
       items: [
         {
           price: priceId,
@@ -121,9 +118,48 @@ const retrieveSubscription = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Retrieve a customer
+*@route  Get /api/stripe/retrieve-customer
+*@access Private
+*/
+
+const retrieveCustomer = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const customer = await stripe.customers.retrieve(id);
+    res.status(200).json(customer);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
+/* 
+?@desc   update a customer
+*@route  Put /api/stripe/retrieve-customer
+*@access Private
+*/
+
+const updateStripeCustomer = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { address, name } = req.body;
+    console.log(id);
+    const customer = await stripe.customers.update(id, {
+      address,
+      name,
+    });
+    res.status(200).json(customer);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
 module.exports = {
   getConfig,
   createCustomer,
   createSubscription,
   retrieveSubscription,
+  retrieveCustomer,
+  updateStripeCustomer,
 };
