@@ -66,6 +66,7 @@ const createSubscription = async (req, res) => {
     const user = await getUserByEmail(email);
 
     // Create the subscription
+    console.log(user);
     const subscription = await stripe.subscriptions.create({
       customer: user.subscription.customerId,
       items: [

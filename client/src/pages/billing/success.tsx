@@ -37,6 +37,7 @@ const SuccessPage: React.FC<SuccessPageProps> = () => {
           subscriptionId,
           productId,
           priceId,
+          customerId: user?.subscription.customerId
         },
       });
       localStorage.setItem('userInfo', JSON.stringify(data.user));

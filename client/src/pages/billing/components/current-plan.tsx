@@ -1,9 +1,10 @@
+import { Spinner } from '@material-tailwind/react';
 import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../../../app/hooks';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import { RootState } from '../../../app/store';
 import { StripeSubscription } from '../../../types';
 import api from '../../../utils/api';
-import { Spinner } from '@material-tailwind/react';
 
 interface CurrentPlanProps {}
 
@@ -16,6 +17,8 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
   const subscriptionId = useAppSelector(
     (state: RootState) => state.stripe?.subscription?.subscriptionId
   );
+
+  const user = useGetCurrentUser();
 
   useEffect(() => {
     const fetchPlan = async () => {
@@ -33,6 +36,19 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
     };
     fetchPlan();
   }, [subscriptionId]);
+
+  // console.log(currentPlan);
+
+  const handleCancelPlan = async () => {
+    try {
+      const { data } = await api.post('/stripe/portal', {
+        customerId: user?.subscription.customerId,
+      });
+      window.location.href = data.url;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
@@ -68,6 +84,8 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
                   : 'Annual'}{' '}
                 Plan
               </h2>
+              {/* @ts-ignore */}
+              {currentPlan?.canceled_at === null && (
               <p className='text-[#353535] mb-3'>
                 Your subscription renews{' '}
                 {new Date(
@@ -75,10 +93,24 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
                   currentPlan?.current_period_end * 1000
                 ).toLocaleDateString()}
               </p>
+              )}
 
-              <p className='text-purple_two text-[14px] underline'>
-                Cancel Current Plan
+              <p
+                className='text-purple_two text-[14px] underline cursor-pointer'
+                onClick={() => handleCancelPlan()}
+              >
+                Manage Payment Plan
               </p>
+              {/* @ts-ignore */}
+              {currentPlan?.canceled_at !== null && (
+                <p>
+                  Access will be restriced after{' '}
+                  {new Date(
+                    // @ts-ignore
+                    currentPlan?.canceled_at * 1000
+                  ).toLocaleDateString()}
+                </p>
+              )}
             </div>
           </div>
         </div>

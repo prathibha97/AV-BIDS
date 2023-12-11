@@ -6,6 +6,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { FC, useEffect, useState } from 'react';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { StripeCustomer } from '../../../types';
 import api from '../../../utils/api';
 
 interface BillingDetailsProps {}
@@ -15,7 +16,7 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
   const elements = useElements();
   const user = useGetCurrentUser();
 
-  const [customer, setCustomer] = useState(null);
+  const [customer, setCustomer] = useState<StripeCustomer | null>(null);
 
   useEffect(() => {
     const fetchStripeClient = async () => {
@@ -45,7 +46,7 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
         `/stripe/update-customer/${user?.subscription.customerId}`,
         {
           address: value.address,
-          name: 'Peter Parker',
+          name: `${user?.firstName} ${user?.lastName}`,
         }
       );
       console.log(value);
@@ -62,10 +63,15 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
           mode: 'shipping',
           allowedCountries: ['US'],
           defaultValues: {
-            // @ts-ignore
             name: customer?.name,
-            // @ts-ignore
-            address: customer && customer?.address,
+            address: {
+              line1: customer?.address?.line1 ?? '',
+              line2: customer?.address?.line2 ?? '',
+              city: customer?.address?.city ?? '',
+              state: customer?.address?.state ?? '',
+              postal_code: customer?.address?.postal_code ?? '',
+              country: customer?.address?.country ?? '',
+            },
           },
         }}
       />

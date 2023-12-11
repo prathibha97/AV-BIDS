@@ -43,7 +43,7 @@ const CardsOnFile: FC<CardsOnFileProps> = () => {
     };
     fetchCards();
   }, [user?.subscription.customerId]);
-  console.log(cards);
+
   return (
     <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
       <div className='flex items-center justify-between mb-6'>

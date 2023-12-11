@@ -23,7 +23,7 @@ export interface User {
   subscription: {
     customerId: string;
     productId: string;
-    priceId:string;
+    priceId: string;
     plan: 'PREMIUM' | 'BASIC';
     startDate: Date;
     _id: string;
@@ -276,7 +276,6 @@ export type StripeProduct = {
   url: string | null;
 };
 
-
 export type StripePrice = {
   id: string;
   object: string;
@@ -309,3 +308,40 @@ export type StripeSubscription = {
   subscriptionId: string;
   clientSecret: string;
 };
+
+export interface StripeCustomer {
+  id: string;
+  object: string;
+  address: {
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: string;
+  };
+  balance: number;
+  created: number;
+  currency: null | string; // Replace 'string' with the actual type of currency if known
+  default_source: null | string; // Replace 'string' with the actual type of default_source if known
+  delinquent: boolean;
+  description: null | string; // Replace 'string' with the actual type of description if known
+  discount: null | string; // Replace 'string' with the actual type of discount if known
+  email: string;
+  invoice_prefix: string;
+  invoice_settings: {
+    custom_fields: null | unknown; // Replace 'unknown' with the actual type if known
+    default_payment_method: null | string; // Replace 'string' with the actual type if known
+    footer: null | string; // Replace 'string' with the actual type if known
+    rendering_options: null | unknown; // Replace 'unknown' with the actual type if known
+  };
+  livemode: boolean;
+  metadata: Record<string, unknown>; // Replace 'unknown' with the actual type if known
+  name: string;
+  next_invoice_sequence: number;
+  phone: null | string; // Replace 'string' with the actual type of phone if known
+  preferred_locales: string[];
+  shipping: null | unknown; // Replace 'unknown' with the actual type if known
+  tax_exempt: string;
+  test_clock: null | unknown; // Replace 'unknown' with the actual type if known
+}
