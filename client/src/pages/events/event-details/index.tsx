@@ -4,7 +4,7 @@ import EVENTDETAILS_02 from '../../../assets/13_event_details_page/carbon_time.p
 import SPAM_ICON from '../../../assets/13_event_details_page/spam.png';
 
 import { Button, Dialog } from '@material-tailwind/react';
-import { format } from 'date-fns';
+import { differenceInDays, format, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -112,6 +112,8 @@ export function Index() {
     }
   };
 
+  
+
   useEffect(() => {
     fetchEventDetails();
   }, []);
@@ -127,6 +129,10 @@ export function Index() {
   const currentDate = new Date();
   const eventStartDate = event ? new Date(event.eventStartDate) : null;
   const eventEndDate = event ? new Date(event.eventEndDate) : null;
+
+  const proposalDueDate = parseISO(event?.proposalDueDate!);
+
+  const daysLeft = differenceInDays(proposalDueDate, currentDate);
 
   const status =
     eventStartDate && eventEndDate
@@ -250,9 +256,12 @@ export function Index() {
                     size='sm'
                     className='rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins'
                     onClick={handleOpen}
+                    disabled={daysLeft < 0}
                   >
                     <span className='text-white normal-case text-[14px]'>
-                      Submit Proposal
+                      {daysLeft > 0
+                        ? `Submit Proposal`
+                        : 'Proposals are no longer accepted'}
                     </span>
                   </Button>
 
