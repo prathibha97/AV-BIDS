@@ -62,19 +62,8 @@ const createSubscription = async (req, res) => {
   const { priceId, email } = req.body;
 
   try {
-    // // Create a new customer object
-    // const customer = await stripe.customers.create({
-    //   email: req.body.email,
-    // });
-
     // Find the user in the database by email
     const user = await getUserByEmail(email);
-
-    // Update the user's subscription field with the customer id
-    if (user) {
-      user.subscription.customerId = customer.id;
-      await user.save();
-    }
 
     // Create the subscription
     const subscription = await stripe.subscriptions.create({
@@ -155,6 +144,67 @@ const updateStripeCustomer = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Create a new card
+*@route  Put /api/stripe/create-card
+*@access Private
+*/
+
+const createCard = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { source } = req.body;
+    console.log(id);
+    // const card = await stripe.customers.createSource(id, {
+    //   source
+    // });
+    const card = await stripe.customers.createSource(id, {
+      source: 'tok_visa',
+    });
+    res.status(200).json(card);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
+/* 
+?@desc   Delete a card
+*@route  Get /api/stripe/delete-card/:id
+*@access Private
+*/
+
+const deleteCard = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    const customerSource = await stripe.customers.deleteSource(id);
+    res.status(200).json(customerSource);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
+/* 
+?@desc   Create a Customer Portal
+*@route  POST /api/stripe/portal
+*@access Private
+*/
+
+const createCustomerPortal = async (req, res) => {
+  try {
+    const { customerId } = req.body;
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: 'http://localhost:3000/billing',
+    });
+    res.status(200).json(session);
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
 module.exports = {
   getConfig,
   createCustomer,
@@ -162,4 +212,7 @@ module.exports = {
   retrieveSubscription,
   retrieveCustomer,
   updateStripeCustomer,
+  createCard,
+  deleteCard,
+  createCustomerPortal,
 };
