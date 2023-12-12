@@ -5,15 +5,15 @@ import {
   CardFooter,
   Spinner,
   Typography,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 
-import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
-import FolderIcon from '../../../assets/proposals-tab/folder icon.png';
-import Pagination from '../../../components/pagination';
-import { Proposal } from '../../../types';
-import api from '../../../utils/api';
-const TABLE_HEAD = ['Name', 'Company', 'Submitted on', 'Preview', 'Download'];
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import FolderIcon from "../../../assets/proposals-tab/folder icon.png";
+import Pagination from "../../../components/pagination";
+import { Proposal } from "../../../types";
+import api from "../../../utils/api";
+const TABLE_HEAD = ["Name", "Company", "Submitted on", "Preview", "Download"];
 
 function ProposalsTable() {
   const [proposals, setProposals] = useState<Proposal[]>([]);
@@ -25,7 +25,7 @@ function ProposalsTable() {
   const fetchProposals = async () => {
     setProposalsLoading(true);
     try {
-      const { data } = await api.get('/proposals/user');
+      const { data } = await api.get("/proposals/user");
       return setProposals(data);
     } catch (error) {
       console.log(error);
@@ -43,32 +43,32 @@ function ProposalsTable() {
     event.proposals.map((proposal) => ({
       name: proposal.documents[0].fileName,
       company: proposal.provider.company,
-      submitted: format(new Date(proposal.createdAt), 'dd MMMM yyyy HH:mm'),
+      submitted: format(new Date(proposal.createdAt), "dd MMMM yyyy HH:mm"),
       proposalId: proposal._id,
       url: proposal.documents[0].url,
     }))
   );
 
   const viewProposal = (proposalUrl: string) => {
-    window.open(proposalUrl, '_blank');
+    window.open(proposalUrl, "_blank");
   };
 
   const downloadProposal = async (proposalId: string, fileName: string) => {
     try {
       const { data } = await api.get(`/proposals/${proposalId}/download`, {
-        responseType: 'arraybuffer',
+        responseType: "arraybuffer",
       });
 
       // Create a Blob from the response data
       const blob = new Blob([data]);
 
       // Create a download link and trigger a click event to start the download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = fileName;
       link.click();
     } catch (error) {
-      console.error('Error downloading proposal:', error);
+      console.error("Error downloading proposal:", error);
     }
   };
 
@@ -82,18 +82,18 @@ function ProposalsTable() {
   );
 
   return (
-    <Card className='h-full w-full !shadow-none'>
+    <Card className="h-full w-full !shadow-none">
       {proposalsLoading ? (
-        <div className='flex items-center justify-center h-full'>
+        <div className="flex items-center justify-center h-full">
           <Spinner />
         </div>
       ) : (
-        <CardBody className='px-0 py-2'>
-          <table className='w-full min-w-max table-auto text-left'>
+        <CardBody className="px-0 py-2">
+          <table className="w-full min-w-max table-auto text-left">
             <thead>
               {!proposalsLoading && TABLE_ROWS.length === 0 && (
                 <tr>
-                  <td colSpan={5} className='p-4 text-center'>
+                  <td colSpan={5} className="p-4 text-center">
                     No proposals found.
                   </td>
                 </tr>
@@ -102,12 +102,12 @@ function ProposalsTable() {
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'
+                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                   >
                     <Typography
-                      variant='small'
-                      color='blue-gray'
-                      className='font-normal leading-none opacity-70'
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
                     >
                       {head}
                     </Typography>
@@ -120,23 +120,23 @@ function ProposalsTable() {
                 ({ name, company, submitted, proposalId, url }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
-                    ? 'p-4'
-                    : 'p-4 border-b border-blue-gray-50';
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
 
                   return (
                     <tr key={proposalId}>
                       <td className={classes}>
-                        <div className='flex items-center gap-3'>
+                        <div className="flex items-center gap-3">
                           <img
                             src={FolderIcon}
-                            alt=''
-                            className='!rounded-none'
+                            alt=""
+                            className="!rounded-none"
                           />
-                          <div className='flex flex-col'>
+                          <div className="flex flex-col">
                             <Typography
-                              variant='small'
-                              color='blue-gray'
-                              className='font-normal'
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
                             >
                               {name}
                             </Typography>
@@ -144,32 +144,32 @@ function ProposalsTable() {
                         </div>
                       </td>
                       <td className={classes}>
-                        <div className='flex flex-col'>
+                        <div className="flex flex-col">
                           <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
                           >
                             {company}
                           </Typography>
                         </div>
                       </td>
                       <td className={classes}>
-                        <div className='w-max'>
-                          <div className='flex items-center gap-2'>
-                            {' '}
+                        <div className="w-max">
+                          <div className="flex items-center gap-2">
+                            {" "}
                             <div>{submitted}</div>
                           </div>
                         </div>
                       </td>
                       <td className={classes}>
                         <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
                         >
                           <Button
-                            className='normal-case bg-[#4676FB]'
+                            className="normal-case bg-[#4676FB]"
                             onClick={() =>
                               viewProposal(
                                 `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${url}`
@@ -182,7 +182,7 @@ function ProposalsTable() {
                       </td>
                       <td className={classes}>
                         <Button
-                          className='normal-case bg-[#4676FB]'
+                          className="normal-case bg-[#4676FB]"
                           onClick={() => downloadProposal(proposalId, name)}
                         >
                           Download
@@ -196,17 +196,17 @@ function ProposalsTable() {
           </table>
         </CardBody>
       )}
-      <CardFooter className='flex justify-end border-t border-blue-gray-50 p-4'>
-          <Pagination
-            currentPage={currentPage}
-            totalItems={proposals.reduce(
-              // @ts-ignore
-              (total, event) => total + event.proposals.length,
-              0
-            )}
-            itemsPerPage={eventsPerPage}
-            onPageChange={handlePageChange}
-          />
+      <CardFooter className="flex justify-end border-t border-blue-gray-50 p-4">
+        <Pagination
+          currentPage={currentPage}
+          totalItems={proposals.reduce(
+            // @ts-ignore
+            (total, event) => total + event.proposals.length,
+            0
+          )}
+          itemsPerPage={eventsPerPage}
+          onPageChange={handlePageChange}
+        />
       </CardFooter>
     </Card>
   );

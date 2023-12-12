@@ -6,7 +6,7 @@ function Index() {
   return (
     <div className="container mx-auto">
       {/* Mobile view section starts here */}
-      <section className="bg-white rounded-xl p-6  mx-2 mb-2">
+      <section className="bg-white rounded-xl p-6  mx-2 mb-2 drop-shadow">
         <h2 className="text-xl font-semibold mb-6">Messages</h2>
 
         <div className="grid grid-cols-1">
