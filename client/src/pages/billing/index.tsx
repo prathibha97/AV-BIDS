@@ -28,18 +28,20 @@ function Index() {
   return (
     <div className='container mx-auto'>
       <h2 className='text-[20px] font-semibold mb-4'>Billing & Membership</h2>
+
       {user?.subscription?.plan === 'PREMIUM' ? (
         <>
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CurrentPlan />
+          <CurrentPlan />
+          <Elements
+            stripe={stripePromise}
+            options={{ clientSecret: clientSecret }}
+          >
             <BillingDetails />
-            <CardsOnFile />
           </Elements>
+          <CardsOnFile />
         </>
       ) : (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <BillingNewUser />
-        </Elements>
+        <BillingNewUser />
       )}
     </div>
   );

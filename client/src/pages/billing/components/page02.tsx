@@ -29,7 +29,11 @@ const Page02: React.FC<Page02Props> = ({ onNext, onPrev }) => {
   if (!stripe || !elements) {
     // Stripe.js has not loaded yet. Make sure to disable
     // form submission until Stripe.js has loaded.
-    return '';
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
 
   const handleSubmit = async () => {

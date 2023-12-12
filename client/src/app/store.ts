@@ -21,6 +21,7 @@ import memberReducer from './features/members/memberSlice';
 import optReducer from './features/otp/otpSlice';
 import stripeReducer from './features/stripe/stripeSlice';
 import userReducer from './features/user/userSlice';
+import stepReducer from './features/steps/stepsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -36,6 +37,7 @@ const persistedReducer = persistReducer(
     alert: alertReducer,
     otp: optReducer,
     stripe: stripeReducer,
+    step: stepReducer,
   })
 );
 

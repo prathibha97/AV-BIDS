@@ -3,13 +3,19 @@ import { StripePrice, StripeSubscription } from '../../../types';
 
 interface StripeState {
   prices: StripePrice | [];
-  subscription: Record<string, any> | null;
+  subscription: {
+    subscriptionId: string;
+    clientSecret: string | undefined;
+  };
   plan: StripePrice | null;
 }
 
 const initialState: StripeState = {
   prices: [],
-  subscription: null,
+  subscription: {
+    subscriptionId: '',
+    clientSecret: undefined,
+  },
   plan: null,
 };
 
@@ -24,15 +30,22 @@ const stripeSlice = createSlice({
       state.prices = [];
     },
     setSubscription(state, action: PayloadAction<StripeSubscription>) {
-      state.subscription = action.payload;
+      state.subscription.clientSecret = action.payload.clientSecret;
+      state.subscription.subscriptionId = action.payload.subscriptionId;
     },
     clearSubscription(state) {
-      state.subscription = null;
+      state.subscription.clientSecret = '';
+      state.subscription.subscriptionId = '';
     },
     setPlan(state, action: PayloadAction<StripePrice>) {
       state.plan = action.payload;
     },
     clearPlan(state) {
+      state.plan = null;
+    },
+    clearAll(state) {
+      state.prices = [];
+      state.subscription.subscriptionId = '';
       state.plan = null;
     },
   },
@@ -45,5 +58,6 @@ export const {
   clearSubscription,
   setPlan,
   clearPlan,
+  clearAll,
 } = stripeSlice.actions;
 export default stripeSlice.reducer;

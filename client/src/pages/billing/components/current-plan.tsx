@@ -96,12 +96,12 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
                 Manage Payment Plan
               </p>
               {/* @ts-ignore */}
-              {currentPlan?.canceled_at !== null && (
+              {currentPlan?.cancel_at !== null && (
                 <p>
                   Access will be restriced after{' '}
                   {new Date(
                     // @ts-ignore
-                    currentPlan?.canceled_at * 1000
+                    currentPlan?.cancel_at * 1000
                   ).toLocaleDateString()}
                 </p>
               )}

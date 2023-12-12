@@ -307,7 +307,7 @@ export type StripePrice = {
 
 export type StripeSubscription = {
   subscriptionId: string;
-  clientSecret: string;
+  clientSecret: string | undefined;
 };
 
 export interface StripeCustomer {

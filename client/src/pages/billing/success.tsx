@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setUser } from '../../app/features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../app/store';
+import { clearAll } from '../../app/features/stripe/stripeSlice';
 interface SuccessPageProps {}
 
 const SuccessPage: React.FC<SuccessPageProps> = () => {
@@ -42,6 +43,7 @@ const SuccessPage: React.FC<SuccessPageProps> = () => {
       });
       localStorage.setItem('userInfo', JSON.stringify(data.user));
       dispatch(setUser(data.user));
+      dispatch(clearAll());
       navigate('/billing');
 
     } catch (error) {
