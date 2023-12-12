@@ -1,85 +1,94 @@
-import { Button, Input } from '@material-tailwind/react'
-import { FC } from 'react'
+import { Button, Spinner } from '@material-tailwind/react';
+import {
+  AddressElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { FC, useEffect, useState } from 'react';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { StripeCustomer } from '../../../types';
+import api from '../../../utils/api';
 
-interface BillingDetailsProps {
-  
-}
+interface BillingDetailsProps {}
 
 const BillingDetails: FC<BillingDetailsProps> = () => {
-  return <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
-        <div>
-          <div className='grid grid-cols-2  gap-8'>
-            <div className='w-72'>
-              <h2 className='text-[18px] font-semibold text-left'>
-                Billing Details
-              </h2>
-            </div>
-            <div></div>
+  const stripe = useStripe();
+  const elements = useElements();
+  const user = useGetCurrentUser();
 
-            <div className='2'>
-              <p className='text-[16px] mb-2'>Street Address</p>
-              <div>
-                <Input
-                  label='Street Address'
-                  crossOrigin=''
-                  className=' bg-[#f0edfc]'
-                />
-              </div>
-            </div>
+  const [customer, setCustomer] = useState<StripeCustomer | null>(null);
 
-            <div className='2'>
-              <p className='text-[16px] mb-2'>Street Address</p>
-              <div>
-                <Input
-                  label='Street Address'
-                  crossOrigin=''
-                  className=' bg-[#f0edfc]'
-                />
-              </div>
-            </div>
+  useEffect(() => {
+    const fetchStripeClient = async () => {
+      const { data } = await api.get(
+        `/stripe/retrieve-customer/${user?.subscription.customerId}`
+      );
+      return setCustomer(data);
+    };
+    fetchStripeClient();
+  }, [user?.subscription.customerId]);
 
-            <div className='2'>
-              <p className='text-[16px] mb-2'>Unit Number</p>
-              <div>
-                <Input
-                  label='Unit Number'
-                  crossOrigin=''
-                  className=' bg-[#f0edfc]'
-                />
-              </div>
-            </div>
+  if (!stripe || !elements) {
+    return (
+      <div className='flex items-center justify-center h-full'>
+        <Spinner />
+      </div>
+    );
+  }
 
-            <div className='2'>
-              <p className='text-[16px] mb-2'>City</p>
-              <div>
-                <Input label='City' crossOrigin='' className=' bg-[#f0edfc]' />
-              </div>
-            </div>
+  const handleSave = async () => {
+    const addressElement = elements.getElement('address');
+    // @ts-ignore
+    const { complete, value } = await addressElement?.getValue();
 
-            <div className='2'>
-              <p className='text-[16px] mb-2'>Postal Code</p>
-              <div>
-                <Input
-                  label='Unit Number'
-                  crossOrigin=''
-                  className=' bg-[#f0edfc]'
-                />
-              </div>
-            </div>
-          </div>
+    if (complete) {
+      await api.put(
+        `/stripe/update-customer/${user?.subscription.customerId}`,
+        {
+          address: value.address,
+          name: `${user?.firstName} ${user?.lastName}`,
+        }
+      );
+      console.log(value);
+    }
+  };
 
-          <div className='flex justify-end'>
-            <Button
-              variant='filled'
-              color='indigo'
-              size='sm'
-              className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
-            >
-              <span className='text-white'>Save Billing</span>
-            </Button>
-          </div>
-        </div>
-      </section>
-}
+  return (
+    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6'>
+      <div className='w-72 mb-5'>
+        <h2 className='text-[18px] font-semibold text-left'>Billing Details</h2>
+      </div>
+      <AddressElement
+        options={{
+          mode: 'shipping',
+          allowedCountries: ['US'],
+          defaultValues: {
+            name: customer?.name,
+            address: {
+              line1: customer?.address?.line1 ?? '',
+              line2: customer?.address?.line2 ?? '',
+              city: customer?.address?.city ?? '',
+              state: customer?.address?.state ?? '',
+              postal_code: customer?.address?.postal_code ?? '',
+              country: customer?.address?.country ?? '',
+            },
+          },
+        }}
+      />
 
-export default BillingDetails
+      <div className='flex justify-end'>
+        <Button
+          variant='filled'
+          color='indigo'
+          size='sm'
+          className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
+          onClick={() => handleSave()}
+        >
+          <span className='text-white'>Save Billing</span>
+        </Button>
+      </div>
+    </section>
+  );
+};
+
+export default BillingDetails;

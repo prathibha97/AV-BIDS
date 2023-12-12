@@ -39,15 +39,39 @@ const ValidateEmail: FC<ValidateEmailProps> = ({ handleNextStep }) => {
     }
   }, [email]);
 
-  const handlePwResetRequest = async () => {
-    try {
-      await api.post(`/email/send-otp`, { email });
+const handlePwResetRequest = async () => {
+  try {
+    const { data } = await api.post(`/email/send-otp`, { email });
+    console.log(data.message);
+
+    if (data.message === 'Previous OTP is still valid') {
+      // If the message is 'Previous OTP is still valid', go to the next step
+      handleNextStep();
+    } else {
+      // If it's a different message, reset OTP value and proceed to the next step
       dispatch(setOpt({ OTPValue: '', email }));
       handleNextStep();
-    } catch (error) {
+    }
+  } catch (error:any) {
+    // Handle errors here
+    if (error.response && error.response.status === 400) {
+      // If the error status is 400, check the error message
+      const errorMessage = error.response.data.message;
+
+      if (errorMessage === 'Previous OTP is still valid') {
+        // If the message is 'Previous OTP is still valid', go to the next step
+        handleNextStep();
+      } else {
+        console.error('Error sending OTP:', errorMessage);
+      }
+    } else {
+      // Handle other types of errors
       console.error('Error sending OTP:', error);
     }
-  };
+  }
+};
+
+
 
   return (
     <>

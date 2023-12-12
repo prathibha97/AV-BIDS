@@ -1,31 +1,80 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavbarDashboard } from "./NavbarDashboard";
 import SidebarDashboard from "./Sidebar_dashboard";
+import MENU_BAR from "../assets/sidebar/menu.png";
+import {
+  Drawer,
+  Button,
+  Typography,
+  IconButton,
+} from "@material-tailwind/react";
 
-function HomeLayout() {
+const HomeLayout = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
+
   return (
     <>
       <main className="w-full h-screen overflow-auto bg-[#f7f6fd]">
-        <NavbarDashboard />
+        <div className="">
+          <NavbarDashboard />
+        </div>
+
+        <div className="block lg:hidden">
+          <React.Fragment>
+            {/* <Button onClick={openDrawer}>Open Drawer</Button> */}
+            <p onClick={openDrawer}>
+              <img src={MENU_BAR} alt="aad" className="w-[25px] m-2" />
+            </p>
+            <Drawer open={open} onClose={closeDrawer} className="p-1 w-min">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  {" "}
+                  <IconButton
+                    variant="text"
+                    color="blue-gray"
+                    onClick={closeDrawer}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </IconButton>
+                  <div onClick={closeDrawer}>
+                    <SidebarDashboard />
+                  </div>
+                </div>
+              </div>
+            </Drawer>
+          </React.Fragment>
+        </div>
+
         <div className="flex">
           <div className="hidden lg:block">
             <SidebarDashboard />
           </div>
+          {/* /////////////////////////////////////////////////////////////////////////////////////////////////// */}
+
+          {/* //////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
           <Outlet />
         </div>
       </main>
-      {/* <div className="w-full h-screen bg-gray-100 overflow-y-auto style-scroll">
-
-      <div className="min-h-screen flex flex-col pt-20 ">
-        <div className="flex-grow">
-          <Outlet />
-        </div>
-      </div>
-  
-    </div> */}
     </>
   );
-}
+};
 
 export default HomeLayout;

@@ -18,6 +18,18 @@ const subscriptionSchema = new mongoose.Schema({
     type: Date,
   },
   endDate: Date,
+  customerId: {
+    type: String,
+  },
+  subscriptionId: {
+    type: String,
+  },
+  productId: {
+    type: String,
+  },
+  priceId: {
+    type: String,
+  },
 });
 
 const userSchema = new mongoose.Schema(
@@ -55,6 +67,7 @@ const userSchema = new mongoose.Schema(
       enum: ['PLANNER', 'PROVIDER'],
       required: true,
     },
+    
     role: {
       type: String,
       enum: ['Admin', 'Standard'],

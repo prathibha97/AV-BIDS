@@ -19,6 +19,7 @@ import alertReducer from './features/alerts/alertSlice';
 import EventReducer from './features/events/eventSlice';
 import memberReducer from './features/members/memberSlice';
 import optReducer from './features/otp/otpSlice';
+import stripeReducer from './features/stripe/stripeSlice';
 import userReducer from './features/user/userSlice';
 
 const persistConfig = {
@@ -34,6 +35,7 @@ const persistedReducer = persistReducer(
     member: memberReducer,
     alert: alertReducer,
     otp: optReducer,
+    stripe: stripeReducer,
   })
 );
 

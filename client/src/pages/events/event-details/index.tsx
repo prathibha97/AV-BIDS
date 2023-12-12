@@ -3,10 +3,18 @@ import EVENTDETAILS_03 from '../../../assets/13_event_details_page/Rectangle 375
 import EVENTDETAILS_02 from '../../../assets/13_event_details_page/carbon_time.png';
 import SPAM_ICON from '../../../assets/13_event_details_page/spam.png';
 
-import { Button, Dialog, Textarea } from '@material-tailwind/react';
-import { format } from 'date-fns';
+import { Button, Dialog } from '@material-tailwind/react';
+import { differenceInDays, format, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  setAlert,
+  setAlertWithTimeout,
+} from '../../../app/features/alerts/alertSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { RootState } from '../../../app/store';
+import AlertBox from '../../../components/alert-box';
 import Spinner from '../../../components/spinner';
 import { Event, UserWithReviewWithEvent } from '../../../types';
 import api from '../../../utils/api';
@@ -15,11 +23,7 @@ import Attachments from './components/attachments';
 import EventInfo from './components/event-info';
 import EventPlanner from './components/event-planner';
 import OtherEvents from './components/other-events';
-import { useGetCurrentUser } from '../../../app/hooks/useUser';
-import AlertBox from '../../../components/alert-box';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { RootState } from '../../../app/store';
-import { setAlert, setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
+import SubmitQuestion from './components/submit-question';
 
 export function Index() {
   const { id } = useParams();
@@ -36,7 +40,7 @@ export function Index() {
     (state: RootState) => state.alert
   );
 
-  const user = useGetCurrentUser()
+  const user = useGetCurrentUser();
 
   const handleOpen = () => setOpenProposalDialog((cur) => !cur);
 
@@ -82,7 +86,7 @@ export function Index() {
 
   const handleSaveEvent = async () => {
     try {
-      const {data} = await api.post(`/events/save/${event?._id}`);
+      const { data } = await api.post(`/events/save/${event?._id}`);
       dispatch(
         setAlertWithTimeout({
           message: data.message,
@@ -108,6 +112,8 @@ export function Index() {
     }
   };
 
+  
+
   useEffect(() => {
     fetchEventDetails();
   }, []);
@@ -123,6 +129,10 @@ export function Index() {
   const currentDate = new Date();
   const eventStartDate = event ? new Date(event.eventStartDate) : null;
   const eventEndDate = event ? new Date(event.eventEndDate) : null;
+
+  const proposalDueDate = parseISO(event?.proposalDueDate!);
+
+  const daysLeft = differenceInDays(proposalDueDate, currentDate);
 
   const status =
     eventStartDate && eventEndDate
@@ -212,34 +222,9 @@ export function Index() {
                   dangerouslySetInnerHTML={{ __html: event?.description! }}
                 />
               </div>
-              <div>
-                <h2 className='text-[20px] mb-4'>
-                  Submit a question about the event
-                </h2>
-                <p className='text-[20px] mb-2'>Description</p>
-                <div className='rounded-lg'>
-                  <div className='mb-6'>
-                    <Textarea
-                      label='Description'
-                      className='!bg-[#F3F1FB] border-solid border-2 border-[#E4E4E4]'
-                    />
-                  </div>
 
-                  <div className='flex justify-end mb-16'>
-                    <Button
-                      variant='filled'
-                      color='indigo'
-                      size='sm'
-                      className='rounded-full w-30 py-3 px-6 mt-4  bg-primary font-poppins'
-                    >
-                      <span className='text-white normal-case text-[14px]'>
-                        Submit
-                      </span>
-                    </Button>
-                  </div>
-                </div>
-              </div>
               <OtherEvents events={userEvents} loading={userEventLoading} />
+              <SubmitQuestion event={event} />
             </div>
           </section>
           <section>
@@ -251,7 +236,11 @@ export function Index() {
                   onClick={handleOpen}
                 />
               </div>
-              <SubmitProposal handleOpen={handleOpen} event={event} user={user}/>
+              <SubmitProposal
+                handleOpen={handleOpen}
+                event={event}
+                user={user}
+              />
             </Dialog>
           </section>
         </div>
@@ -267,9 +256,12 @@ export function Index() {
                     size='sm'
                     className='rounded-full w-full py-4 mt-4 px-8 bg-primary font-poppins'
                     onClick={handleOpen}
+                    disabled={daysLeft < 0}
                   >
                     <span className='text-white normal-case text-[14px]'>
-                      Submit Proposal
+                      {daysLeft > 0
+                        ? `Submit Proposal`
+                        : 'Proposals are no longer accepted'}
                     </span>
                   </Button>
 

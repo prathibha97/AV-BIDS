@@ -13,6 +13,7 @@ import ConversationFilter from "./components/conversation-filter";
 import EmptyMessage from "./components/empty-message";
 import Message from "./components/message";
 import MessageHeader from "./components/message-header";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 function Index() {
   const [conversations, setConversations] = useState<ConversationType[]>([]);
@@ -116,7 +117,11 @@ function Index() {
 
   return (
     <div className="container mx-auto">
-      <section className="bg-white rounded-xl p-6">
+      <div className="mb-4">
+        <Breadcrumbs />
+      </div>
+
+      <section className="bg-white rounded-xl p-6 drop-shadow">
         <h2 className="text-2xl font-semibold mb-6">Messages</h2>
 
         <div className="grid grid-cols-3 border border-[#EDECF1] rounded-xl">

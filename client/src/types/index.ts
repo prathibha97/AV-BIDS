@@ -20,6 +20,14 @@ export interface User {
     zip: string;
     state: string;
   };
+  subscription: {
+    customerId: string;
+    productId: string;
+    priceId: string;
+    plan: 'PREMIUM' | 'BASIC';
+    startDate: Date;
+    _id: string;
+  };
 }
 
 export interface Member {
@@ -246,3 +254,94 @@ export type OTP = {
   OTPValue: string | null;
   email: string | null;
 };
+
+export type StripeProduct = {
+  id: string;
+  object: string;
+  active: boolean;
+  created: number;
+  default_price: string | null;
+  description: string | null;
+  images: string[];
+  features: string[];
+  livemode: boolean;
+  metadata: Record<string, any>;
+  name: string;
+  package_dimensions: Record<string, any> | null;
+  shippable: boolean | null;
+  statement_descriptor: string | null;
+  tax_code: string | null;
+  unit_label: string | null;
+  updated: number;
+  url: string | null;
+};
+
+export type StripePrice = {
+  id: string;
+  object: string;
+  active: boolean;
+  billing_scheme: string;
+  created: number;
+  currency: string;
+  custom_unit_amount: number | null;
+  livemode: boolean;
+  lookup_key: string | null;
+  metadata: Record<string, any>;
+  nickname: string | null;
+  product: StripeProduct;
+  recurring: {
+    aggregate_usage: string | null;
+    interval: string;
+    interval_count: number;
+    trial_period_days: number | null;
+    usage_type: string;
+  };
+  tax_behavior: string;
+  tiers_mode: string | null;
+  transform_quantity: string | null;
+  type: string;
+  unit_amount: number;
+  unit_amount_decimal: string;
+};
+
+export type StripeSubscription = {
+  subscriptionId: string;
+  clientSecret: string;
+};
+
+export interface StripeCustomer {
+  id: string;
+  object: string;
+  address: {
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: string;
+  };
+  balance: number;
+  created: number;
+  currency: null | string; // Replace 'string' with the actual type of currency if known
+  default_source: null | string; // Replace 'string' with the actual type of default_source if known
+  delinquent: boolean;
+  description: null | string; // Replace 'string' with the actual type of description if known
+  discount: null | string; // Replace 'string' with the actual type of discount if known
+  email: string;
+  invoice_prefix: string;
+  invoice_settings: {
+    custom_fields: null | unknown; // Replace 'unknown' with the actual type if known
+    default_payment_method: null | string; // Replace 'string' with the actual type if known
+    footer: null | string; // Replace 'string' with the actual type if known
+    rendering_options: null | unknown; // Replace 'unknown' with the actual type if known
+  };
+  livemode: boolean;
+  metadata: Record<string, unknown>; // Replace 'unknown' with the actual type if known
+  name: string;
+  next_invoice_sequence: number;
+  phone: null | string; // Replace 'string' with the actual type of phone if known
+  preferred_locales: string[];
+  shipping: null | unknown; // Replace 'unknown' with the actual type if known
+  tax_exempt: string;
+  test_clock: null | unknown; // Replace 'unknown' with the actual type if known
+}

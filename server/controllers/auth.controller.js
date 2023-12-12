@@ -5,6 +5,15 @@ const {
   getUserByRefreshToken,
 } = require('../models/user/user.model');
 const generateToken = require('../utils/generateToken');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-08-01',
+  appInfo: {
+    // For sample support and debugging, not required for production:
+    name: 'stripe-samples/subscription-use-cases/fixed-price',
+    version: '0.0.1',
+    url: 'https://github.com/stripe-samples/subscription-use-cases/fixed-price',
+  },
+});
 
 /* 
 ?@desc   Register a user
@@ -29,12 +38,21 @@ const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    const customer = await stripe.customers.create({
+      email: req.body.email,
+    });
+
     const user = await createUser({
       firstName,
       lastName,
       email,
       password: hashedPassword,
       userType,
+      subscription: {
+        plan: 'BASIC',
+        startDate: new Date(),
+        customerId: customer.id
+      }
     });
     return res.status(200).json(user);
   } catch (error) {
