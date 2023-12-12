@@ -14,7 +14,7 @@ const { protect } = require('../middlewares/auth');
 
 const stripeRouter = express.Router();
 
-stripeRouter.get('/config', protect, getConfig);
+stripeRouter.get('/config', getConfig);
 stripeRouter.get('/retrieve-subscription', protect, retrieveSubscription);
 stripeRouter.post('/create-customer', protect, createCustomer);
 stripeRouter.post('/create-subscription', protect, createSubscription);

@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { Spinner } from '@material-tailwind/react';
+import { FC, useState } from 'react';
 import {
   setPlan,
   setSubscription,
@@ -26,7 +27,10 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
   const user = useGetCurrentUser();
   const dispatch = useAppDispatch();
 
+  const [loading, setLoading] = useState(false);
+
   const createSubscription = async () => {
+    setLoading(true);
     try {
       const { data } = await api.post('/stripe/create-subscription', {
         priceId,
@@ -37,6 +41,8 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
       onNext();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +72,10 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
           className='bg-[#8645ff] w-max text-[#fff] font-medium px-5 py-1.5 rounded-2xl mb-8 cursor-pointer'
           onClick={() => createSubscription()}
         >
-          Subscribe
+          <div className='flex items-center'>
+            {loading && <Spinner className='h-4 w-4 mr-2' />}
+            <span>Subscribe</span>
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,6 @@
 import { Spinner } from '@material-tailwind/react';
 import { FC, useEffect, useState } from 'react';
-import { useAppSelector } from '../../../app/hooks';
 import { useGetCurrentUser } from '../../../app/hooks/useUser';
-import { RootState } from '../../../app/store';
 import { StripeSubscription } from '../../../types';
 import api from '../../../utils/api';
 
@@ -14,10 +12,6 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
   );
   const [loading, setLoading] = useState(false);
 
-  const subscriptionId = useAppSelector(
-    (state: RootState) => state.stripe?.subscription?.subscriptionId
-  );
-
   const user = useGetCurrentUser();
 
   useEffect(() => {
@@ -25,7 +19,7 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
       setLoading(true);
       try {
         const { data } = await api.get(
-          `/stripe/retrieve-subscription?subscriptionId=${subscriptionId}`
+          `/stripe/retrieve-subscription?subscriptionId=${user?.subscription.subscriptionId}`
         );
         return setCurrentPlan(data);
       } catch (error) {
@@ -35,9 +29,9 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
       }
     };
     fetchPlan();
-  }, [subscriptionId]);
+  }, [user?.subscription.subscriptionId]);
 
-  // console.log(currentPlan);
+  console.log(currentPlan);
 
   const handleCancelPlan = async () => {
     try {
@@ -86,13 +80,13 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
               </h2>
               {/* @ts-ignore */}
               {currentPlan?.canceled_at === null && (
-              <p className='text-[#353535] mb-3'>
-                Your subscription renews{' '}
-                {new Date(
-                  // @ts-ignore
-                  currentPlan?.current_period_end * 1000
-                ).toLocaleDateString()}
-              </p>
+                <p className='text-[#353535] mb-3'>
+                  Your subscription renews{' '}
+                  {new Date(
+                    // @ts-ignore
+                    currentPlan?.current_period_end * 1000
+                  ).toLocaleDateString()}
+                </p>
               )}
 
               <p
@@ -102,12 +96,12 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
                 Manage Payment Plan
               </p>
               {/* @ts-ignore */}
-              {currentPlan?.canceled_at !== null && (
+              {currentPlan?.cancel_at !== null && (
                 <p>
                   Access will be restriced after{' '}
                   {new Date(
                     // @ts-ignore
-                    currentPlan?.canceled_at * 1000
+                    currentPlan?.cancel_at * 1000
                   ).toLocaleDateString()}
                 </p>
               )}
