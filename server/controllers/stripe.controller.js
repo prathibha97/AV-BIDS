@@ -198,7 +198,10 @@ const createCustomerPortal = async (req, res) => {
 
     const session = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'http://localhost:3000/billing',
+      return_url:
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000/billing'
+          : 'http://54.201.46.218/billing',
     });
     res.status(200).json(session);
   } catch (error) {
