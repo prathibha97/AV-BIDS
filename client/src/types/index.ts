@@ -24,6 +24,7 @@ export interface User {
     customerId: string;
     productId: string;
     priceId: string;
+    subscriptionId:string;
     plan: 'PREMIUM' | 'BASIC';
     startDate: Date;
     _id: string;
