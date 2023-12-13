@@ -18,16 +18,25 @@ import {
   LoginFormValues,
 } from '../../../utils/validations/login-form-validation';
 
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   setAlert,
   setAlertWithTimeout,
 } from '../../../app/features/alerts/alertSlice';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import { RootState } from '../../../app/store';
 
 export function Index() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useGetCurrentUser();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const { message, color, open } = useAppSelector(
     (state: RootState) => state.alert
