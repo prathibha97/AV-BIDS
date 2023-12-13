@@ -1,115 +1,95 @@
-import { useState } from "react";
 import {
   Popover,
-  PopoverHandler,
   PopoverContent,
-} from "@material-tailwind/react";
+  PopoverHandler,
+} from '@material-tailwind/react';
+import { format } from 'date-fns';
+import { useEffect, useRef, useState } from 'react';
+import { MdLens, MdNotifications } from 'react-icons/md';
+import { Socket, io } from 'socket.io-client';
+import { useGetCurrentUser } from '../app/hooks/useUser';
+import { Notification } from '../types';
+import api from '../utils/api';
 
-import { MdNotifications } from "react-icons/md";
-import { MdLens } from "react-icons/md";
-interface NotificationStates {
-  notification1: boolean;
-  notification2: boolean;
-  notification3: boolean;
-  notification4: boolean;
-}
+const NotificationBell = () => {
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [userNotifications, setUserNotifications] = useState<Notification[]>(
+    []
+  );
 
-export function Notification_bell() {
-  const [unreadCount, setUnreadCount] = useState(2);
+  const socket = useRef<Socket | null>(null);
+  const user = useGetCurrentUser();
 
-  const [notificationStates, setNotificationStates] =
-    useState<NotificationStates>({
-      notification1: true,
-      notification2: false,
-      notification3: true,
-      notification4: false,
+  useEffect(() => {
+    socket.current = io('ws://localhost:5005');
+    socket.current.emit('addUser', user?._id);
+
+    socket.current.on('eventUpdated', (data) => {
+      // Handle real-time update for new notifications
+      setUserNotifications((prevNotifications) => [...prevNotifications, data]);
+      setUnreadCount((prevCount) => prevCount + 1);
     });
 
-  const markNotificationAsRead = (notificationKey: string) => {
-    if ((notificationStates as any)[notificationKey]) {
-      setUnreadCount((prevCount) => prevCount - 1);
-    }
+    return () => {
+      // Cleanup function to close the socket connection
+      socket.current?.disconnect();
+    };
+  }, [user?._id]);
 
-    setNotificationStates((prevState) => ({
-      ...prevState,
-      [notificationKey]: false,
-    }));
-  };
+  useEffect(() => {
+    // Fetch user notifications on initial load
+    const fetchUserNotifications = async () => {
+      try {
+        const { data } = await api.get(`/notifications/${user?._id}`);
+        setUnreadCount(data.length);
+        setUserNotifications(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserNotifications();
+  }, [user?._id]);
 
   return (
-    <Popover placement="top-end">
+    <Popover placement='top-end'>
       <PopoverHandler>
-        {/* <Button>
-          Popover
+        <div className='relative'>
           {unreadCount > 0 && (
-            <span className="ml-2 bg-red-500 rounded-full px-2">
+            <span className='bg-red-500 text-white rounded-full px-2 py-0.5 absolute top-0 right-0 -mt-1 -mr-1 text-[12px]'>
               {unreadCount}
             </span>
           )}
-        </Button> */}
-
-        <div className="relative">
-          {unreadCount > 0 && (
-            <span className="bg-red-500 text-white rounded-full px-2 py-0.5 absolute top-0 right-0 -mt-1 -mr-1 text-[12px]">
-              {unreadCount}
-            </span>
-          )}
-
-          <MdNotifications className="text-[35px] text-black" />
+          <MdNotifications className='text-[35px] text-black' />
         </div>
       </PopoverHandler>
       <PopoverContent>
-        <div className="bg-[#334434] cursor-pointer">
-          <div
-            onClick={() => markNotificationAsRead("notification1")}
-            className={`p-3 ${
-              notificationStates.notification1 ? "bg-[#F3F1FB]" : "bg-white"
-            }`}
-          >
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-[#909090] text-[14px]">Bruce Wayne</p>
-                <div className="flex items-center gap-1">
-                  <p className="text-[#000] text-[14px] font-medium">Today</p>
-
-                  <MdLens className="text-[6px]" />
+        <div className='bg-[#334434] cursor-pointer'>
+          <div className='bg-[#F3F1FB]'>
+            {userNotifications.length > 0 ? (
+              userNotifications.map((notification) => (
+                <div key={notification._id}>
+                  <div className='flex items-center justify-between mb-1'>
+                    <div className='flex items-center gap-1'>
+                      {/* <p className='text-[#000] text-[14px] font-medium'>
+                        {format(new Date(notification.createdAt), 'MMM d, yyyy')}
+                      </p> */}
+                      <MdLens className='text-[6px]' />
+                    </div>
+                  </div>
+                  <p className='text-[#000] text-[16px] font-medium mb-1'>
+                    {notification.message}
+                  </p>
                 </div>
-              </div>
-
-              <p className="text-[#000] text-[16px] font-medium mb-1">
-                Created a new event #05
-              </p>
-              <p className="text-[#909090] text-[14px]">AV Bids</p>
-            </div>
-          </div>
-          <div
-            onClick={() => markNotificationAsRead("notification2")}
-            className={`p-3 ${
-              notificationStates.notification2 ? "bg-[#F3F1FB]" : "bg-white"
-            }`}
-          >
-            Notification 02
-          </div>
-          <div
-            onClick={() => markNotificationAsRead("notification3")}
-            className={`p-3 ${
-              notificationStates.notification3 ? "bg-[#F3F1FB]" : "bg-white"
-            }`}
-          >
-            Notification 03
-          </div>
-          <div
-            onClick={() => markNotificationAsRead("notification4")}
-            className={`p-3 ${
-              notificationStates.notification4 ? "bg-[#F3F1FB]" : "bg-white"
-            }`}
-          >
-            Notification 04
+              ))
+            ) : (
+              <p>No new notifications</p>
+            )}
           </div>
         </div>
       </PopoverContent>
     </Popover>
   );
-}
+};
 
-export default Notification_bell;
+export default NotificationBell;

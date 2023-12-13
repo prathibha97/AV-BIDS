@@ -8,6 +8,19 @@ const {
   getLatestEvents,
 } = require('../models/event/event.model');
 const { getUserById } = require('../models/user/user.model');
+const User = require('../models/user/user.mongo');
+const io = require('socket.io-client');
+const {
+  createNotification,
+} = require('../models/notification/notification.model');
+
+// const socket = io.connect(
+//   process.env.NODE_ENV === 'development'
+//     ? 'ws://localhost:5005'
+//     : 'ws://www.avbids.com:5005'
+// );
+
+const socket = io.connect('ws://localhost:5005');
 
 /* 
 ?@desc   Create a new event
@@ -110,6 +123,7 @@ const getEvent = async (req, res) => {
 *@route  PUT /api/events/:id
 *@access Private
 */
+
 const update = async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,6 +134,29 @@ const update = async (req, res) => {
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
+
+    // Notify users who have saved the event
+    const savedEventUsers = await User.find({ savedEvents: id });
+    savedEventUsers.forEach(async (user) => {
+      if (socket) {
+        // Emit socket event
+        socket.emit('eventUpdated', {
+          userId: user._id,
+          eventId: id,
+          message: 'An Event you saved has been updated',
+        });
+      }else{
+        console.log('socket error');
+      }
+
+      // Persist the notification
+      const notification = {
+        message: 'An Event you saved has been updated',
+        type: 'event-update',
+        userId: user._id,
+      };
+      await createNotification(notification);
+    });
 
     res.status(200).json({ event, message: 'Event successfully updated' });
   } catch (error) {

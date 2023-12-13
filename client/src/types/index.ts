@@ -346,3 +346,13 @@ export interface StripeCustomer {
   tax_exempt: string;
   test_clock: null | unknown; // Replace 'unknown' with the actual type if known
 }
+
+export type Notification = {
+  _id: string;
+  message: string;
+  type: string;
+  userId: string;
+  isRead: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
