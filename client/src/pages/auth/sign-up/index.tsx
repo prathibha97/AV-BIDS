@@ -10,15 +10,26 @@ import {
   TabsBody,
   TabsHeader,
 } from '@material-tailwind/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import AlertBox from '../../../components/alert-box';
 import PlannerAccountForm from './components/planner-account';
 import ProviderAccountForm from './components/provider-account';
 
 export default function CheckoutForm() {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('PLANNER');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+
+  const user = useGetCurrentUser();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   return (
     <>

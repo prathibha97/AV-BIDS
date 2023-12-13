@@ -8,6 +8,17 @@ const {
   getLatestEvents,
 } = require('../models/event/event.model');
 const { getUserById } = require('../models/user/user.model');
+const User = require('../models/user/user.mongo');
+const io = require('socket.io-client');
+const {
+  createNotification,
+} = require('../models/notification/notification.model');
+
+const socket = io.connect(
+  process.env.NODE_ENV === 'development'
+    ? 'ws://localhost:5005'
+    : 'ws://www.avbids.com:5005'
+);
 
 /* 
 ?@desc   Create a new event
@@ -66,7 +77,11 @@ const getAllEvents = async (req, res) => {
     res.status(200).json({ events, totalCount });
   } catch (error) {
     console.error('Failed to fetch events - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -84,7 +99,11 @@ const getUserEvents = async (req, res) => {
     res.status(200).json(events);
   } catch (error) {
     console.error('Failed to user events - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -101,7 +120,11 @@ const getEvent = async (req, res) => {
     res.status(200).json(event);
   } catch (error) {
     console.error('Failed to event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -110,6 +133,7 @@ const getEvent = async (req, res) => {
 *@route  PUT /api/events/:id
 *@access Private
 */
+
 const update = async (req, res) => {
   try {
     const { id } = req.params;
@@ -121,10 +145,64 @@ const update = async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // Notify users who have saved the event
+    const savedEventUsers = await User.find({ savedEvents: id });
+    savedEventUsers.forEach(async (user) => {
+      if (socket) {
+        // Emit socket event
+        socket.emit('eventUpdated', {
+          userId: user._id,
+          eventId: id,
+          message: 'An Event you saved has been updated',
+        });
+      } else {
+        console.log('socket error');
+      }
+
+      // Persist the notification
+      const notification = {
+        message: 'An Event you saved has been updated',
+        type: 'event-update',
+        userId: user._id,
+      };
+      await createNotification(notification);
+    });
+
     res.status(200).json({ event, message: 'Event successfully updated' });
   } catch (error) {
     console.error('Failed to update event:', error);
 
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
+  }
+};
+
+/* 
+?@desc   Get saved events by user
+*@route  Get /api/events/saved:id
+*@access Private
+*/
+
+const getSavedEventsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find the user by ID and populate the savedEvents field
+    const user = await getUserById({ _id: userId }).populate('savedEvents');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const savedEvents = user.savedEvents;
+
+    // You now have the saved events for the user
+    res.status(200).json(savedEvents);
+  } catch (error) {
+    console.error('Failed to fetch saved events of user - ', error.message);
     const statusCode = error instanceof CustomError ? 400 : 500;
 
     res
@@ -145,7 +223,11 @@ const remove = async (req, res) => {
     res.status(200).json(deletedEvent);
   } catch (error) {
     console.error('Failed to remove event - ', error.message);
-    return res.status(500).json('Internal Server Error');
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
   }
 };
 
@@ -185,7 +267,6 @@ const saveEvent = async (req, res) => {
     res.status(200).json({ message: 'Event saved successfully', user, event });
   } catch (error) {
     console.error('Failed to save event - ', error.message);
-    return res.status(500).json('Internal Server Error');
   }
 };
 
@@ -201,7 +282,6 @@ const getRecentEvents = async (req, res) => {
     res.status(200).json(events);
   } catch (error) {
     console.error('Failed to event - ', error.message);
-    return res.status(500).json('Internal Server Error');
   }
 };
 
@@ -214,4 +294,5 @@ module.exports = {
   remove,
   saveEvent,
   getRecentEvents,
+  getSavedEventsByUser,
 };

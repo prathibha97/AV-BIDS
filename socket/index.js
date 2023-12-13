@@ -39,6 +39,15 @@ io.on('connection', (socket) => {
     });
   });
 
+  // Listen for events from the Express server
+  socket.on('eventUpdated', ({ userId, eventId, message }) => {
+    const userSocket = getUser(userId);
+    if (userSocket) {
+      console.log(message);
+      io.to(userSocket.socketId).emit('eventUpdated', { eventId, message });
+    }
+  });
+
   //when disconnect
   socket.on('disconnect', () => {
     console.log('a user disconnected!');
@@ -46,3 +55,4 @@ io.on('connection', (socket) => {
     io.emit('getUsers', users);
   });
 });
+

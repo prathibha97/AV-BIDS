@@ -1,15 +1,17 @@
 const express = require('express');
-const authRouter = require('./auth.route');
-const uploadRouter = require('./upload.route');
-const userRouter = require('./user.route');
-const memberRouter = require('./member.route');
-const eventRouter = require('./event.route');
-const reviewRouter = require('./review.route');
-const conversationRouter = require('./conversation.route');
-const messageRouter = require('./message.route');
-const proposalRouter = require('./proposal.route');
-const emailRouter = require('./email.route');
-const stripeRouter = require('./stripe.route');
+const stripeRouter = require('./stripe.routes');
+const emailRouter = require('./email.routes');
+const proposalRouter = require('./proposal.routes');
+const messageRouter = require('./message.routes');
+const conversationRouter = require('./conversation.routes');
+const reviewRouter = require('./review.routes');
+const eventRouter = require('./event.routes');
+const memberRouter = require('./member.routes');
+const userRouter = require('./user.routes');
+const uploadRouter = require('./upload.routes');
+const authRouter = require('./auth.routes');
+const notificationRouter = require('./notification.routes');
+
 
 const api = express.Router();
 
@@ -24,5 +26,6 @@ api.use('/messages', messageRouter);
 api.use('/proposals', proposalRouter);
 api.use('/email', emailRouter);
 api.use('/stripe', stripeRouter);
+api.use('/notifications', notificationRouter);
 
 module.exports = api;

@@ -38,7 +38,7 @@ function Index() {
           >
             <BillingDetails />
           </Elements>
-          <CardsOnFile />
+          {/* <CardsOnFile /> */}
         </>
       ) : (
         <BillingNewUser />
