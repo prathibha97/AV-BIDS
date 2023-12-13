@@ -7,6 +7,8 @@ const allowedOrigins = [
   'http://54.201.46.218',
   'http://avbids.com',
   'http://www.avbids.com',
+  'ws://www.avbids.com:5005',
+  'http://www.avbids.com:5005',
 ];
 
 module.exports = allowedOrigins;

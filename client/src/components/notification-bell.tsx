@@ -21,7 +21,7 @@ const NotificationBell = () => {
   const user = useGetCurrentUser();
 
   useEffect(() => {
-    socket.current = io('ws://localhost:5005');
+    socket.current = io('ws://www.avbids.com:5005');
     socket.current.emit('addUser', user?._id);
 
     socket.current.on('eventUpdated', (data) => {
