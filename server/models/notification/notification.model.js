@@ -11,8 +11,15 @@ const getNotifications = async () => await Notification.find();
 const getNotificationsByUser = async (userId) =>
   await Notification.find({ userId }).sort({ createdAt: -1 });
 
+const clearUserNotifications = async (userId) => await Notification.deleteMany({ userId });
+
+const markAsRead = async (id) =>
+  await Notification.findByIdAndUpdate(id, { isRead: true }, { new: true });
+
 module.exports = {
   createNotification,
   getNotifications,
   getNotificationsByUser,
+  clearUserNotifications,
+  markAsRead,
 };
