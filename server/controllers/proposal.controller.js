@@ -1,3 +1,5 @@
+const { getEventsById } = require('../models/event/event.model');
+const { createNotification } = require('../models/notification/notification.model');
 const {
   createProposal,
   getProposalById,
@@ -6,6 +8,14 @@ const {
   updateProposal,
   getProposalsForUserEvents
 } = require('../models/proposal/proposal.model');
+
+const io = require('socket.io-client');
+
+const socket = io.connect(
+  process.env.NODE_ENV === 'development'
+    ? 'ws://localhost:5005'
+    : 'ws://www.avbids.com:5005'
+);
 
 /* 
 ?@desc   Create a new proposal
@@ -22,6 +32,28 @@ const createNewProposal = async (req, res) => {
     }
 
     const proposal = await createProposal({ provider, event, documents });
+
+    const eventInfo = await getEventsById(event)
+
+    // Emit socket event
+    if (socket) {
+      socket.emit('proposalSubmited', {
+        userId: eventInfo.createdBy,
+        eventId: event,
+        message: 'A Proposal has been submitted for one of your events',
+      });
+    } else {
+      console.log('socket error');
+    }
+
+    // Persist the notification
+      const notification = {
+        message: 'A Proposal has been submitted for one of your events',
+        type: 'proposal-submission',
+        userId: eventInfo.createdBy,
+      };
+      await createNotification(notification);
+
     res
       .status(200)
       .json({ proposal, message: 'Proposal submitted successfully' });

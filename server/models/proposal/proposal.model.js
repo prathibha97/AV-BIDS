@@ -45,15 +45,17 @@ const removeProposal = (id) => {
 const getProposalsForUserEvents = async (userId) => {
   try {
     // Fetch events created by the logged-in user
-    const userEvents = await Event.find({ createdBy: userId }).populate({
-      path: 'proposals',
-      populate: {
-        path: 'provider',
-        model: 'User',
-        select:
-          '-refreshToken -password -members -role -userType -savedEvents -reviews -events',
-      },
-    });
+    const userEvents = await Event.find({ createdBy: userId })
+      .populate({
+        path: 'proposals',
+        populate: {
+          path: 'provider',
+          model: 'User',
+          select:
+            '-refreshToken -password -members -role -userType -savedEvents -reviews -events',
+        },
+      })
+      .sort({ createdAt: 'desc' });
 
     // Extract proposal information from each event
     const userProposals = userEvents.map((event) => ({

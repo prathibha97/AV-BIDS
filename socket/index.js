@@ -47,6 +47,16 @@ io.on('connection', (socket) => {
     }
   });
 
+   socket.on('proposalSubmited', ({ userId, eventId, message }) => {
+     const userSocket = getUser(userId);
+     if (userSocket) {
+       io.to(userSocket.socketId).emit('proposalSubmited', {
+         eventId,
+         message,
+       });
+     }
+   });
+
   //when disconnect
   socket.on('disconnect', () => {
     console.log('a user disconnected!');

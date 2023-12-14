@@ -31,6 +31,10 @@ const NotificationBell = () => {
       setUserNotifications((prevNotifications) => [...prevNotifications, data]);
     });
 
+    socket.current.on('proposalSubmited', (data) => {
+      setUserNotifications((prevNotifications) => [...prevNotifications, data]);
+    });
+
     return () => {
       // Cleanup function to close the socket connection
       socket.current?.disconnect();
