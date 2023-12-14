@@ -181,6 +181,84 @@ const updateEvent = (id, updates) => {
     ),
   };
 
+  const updateScreens = {
+    Twenty_One_Nine_Large_Format_Screen: getUpdatedValue(
+      'Twenty_One_Nine_Large_Format_Screen',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Large_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Large_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Medium_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Medium_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Meeting_Room: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Meeting_Room',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Large_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Large_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Medium_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Medium_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Meeting_Room: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Meeting_Room',
+      'screens'
+    ),
+    Fast_Fold_Drape_Kit: getUpdatedValue('Fast_Fold_Drape_Kit', 'screens'),
+    Tripod_Screens_60_96: getUpdatedValue('Tripod_Screens_60_96', 'screens'),
+    LCD_Monitor: getUpdatedValue('LCD_Monitor', 'screens'),
+    Video_LED_Wall: getUpdatedValue('Video_LED_Wall', 'screens'),
+    Screen_Rigging_and_Truss: getUpdatedValue(
+      'Screen_Rigging_and_Truss',
+      'screens'
+    ),
+  };
+
+  const updateProjection = {
+    Twenty_One_Nine_Format_Projection: getUpdatedValue(
+      'Twenty_One_Nine_Format_Projection',
+      'projection'
+    ),
+    Large_Venue_Projector_Standard_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Standard_Throw_Lens',
+      'projection'
+    ),
+    Large_Venue_Projector_Long_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Long_Throw_Lens',
+      'projection'
+    ),
+    Large_Venue_Projector_Short_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Short_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Standard_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Standard_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Long_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Long_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Short_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Short_Throw_Lens',
+      'projection'
+    ),
+    Meeting_Room_Projector: getUpdatedValue(
+      'Meeting_Room_Projector',
+      'projection'
+    ),
+    Projector_Rigging_and_Truss: getUpdatedValue(
+      'Projector_Rigging_and_Truss',
+      'projection'
+    ),
+  };
+
   return Event.findOneAndUpdate(
     { _id: id },
     {
@@ -189,6 +267,8 @@ const updateEvent = (id, updates) => {
       speakers: { ...updateSpeakers },
       mixers: { ...updateMixers },
       communication: { ...updateCommunication },
+      screens: { ...updateScreens },
+      projection: { ...updateProjection },
     },
     {
       new: true,
