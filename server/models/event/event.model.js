@@ -259,6 +259,46 @@ const updateEvent = (id, updates) => {
     ),
   };
 
+  const updateVideoCamera = {
+    Broadcast_Camera: getUpdatedValue('Broadcast_Camera', 'videoCamera'),
+    Roaming_Camera: getUpdatedValue('Roaming_Camera', 'videoCamera'),
+    Camcorder: getUpdatedValue('Camcorder', 'videoCamera'),
+    Video_and_Camera_Lighting: getUpdatedValue(
+      'Video_and_Camera_Lighting',
+      'videoCamera'
+    ),
+    Photography_Camera: getUpdatedValue('Photography_Camera', 'videoCamera'),
+  };
+
+  const updateVideoProcessing = {
+    Video_Switching_and_Effects_Processing: getUpdatedValue(
+      'Video_Switching_and_Effects_Processing',
+      'videoProcessing'
+    ),
+    Video_Capture: getUpdatedValue('Video_Capture', 'videoProcessing'),
+    Screen_Blend_21_Nine_Format: getUpdatedValue(
+      'Screen_Blend_21_Nine_Format',
+      'videoProcessing'
+    ),
+    Video_Streaming: getUpdatedValue('Video_Streaming', 'videoProcessing'),
+    DVD_Blu_Ray_Player: getUpdatedValue(
+      'DVD_Blu_Ray_Player',
+      'videoProcessing'
+    ),
+    VHS_DVD_Player: getUpdatedValue('VHS_DVD_Player', 'videoProcessing'),
+  };
+
+  const updatePresenterTools = {
+    Speaker_Timer: getUpdatedValue('Speaker_Timer', 'presenterTools'),
+    Presentation_Remote_Clicker: getUpdatedValue(
+      'Presentation_Remote_Clicker',
+      'presenterTools'
+    ),
+    Laser_Pointer: getUpdatedValue('Laser_Pointer', 'presenterTools'),
+    Perfect_Cue_System: getUpdatedValue('Perfect_Cue_System', 'presenterTools'),
+    Flipchart: getUpdatedValue('Flipchart', 'presenterTools'),
+  };
+
   return Event.findOneAndUpdate(
     { _id: id },
     {
@@ -269,6 +309,9 @@ const updateEvent = (id, updates) => {
       communication: { ...updateCommunication },
       screens: { ...updateScreens },
       projection: { ...updateProjection },
+      videoCamera: { ...updateVideoCamera},
+      videoProcessing: { ...updateVideoProcessing},
+      presenterTools: { ...updatePresenterTools}
     },
     {
       new: true,

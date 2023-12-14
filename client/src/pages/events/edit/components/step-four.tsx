@@ -1,37 +1,13 @@
 import { FC, useState } from 'react';
 import CardDetails from './card-details';
+import { Projection, Screens } from '../../../../types';
 
 interface StepFourProps {
   formData: any;
   updateFormData: (field: string, value: number) => void;
 }
 
-interface Screens {
-  Twenty_One_Nine_Large_Format_Screen: number;
-  Fast_Fold_Screen_16_9_Format_Large_Venue: number;
-  Fast_Fold_Screen_16_9_Format_Medium_Venue: number;
-  Fast_Fold_Screen_16_9_Format_Meeting_Room: number;
-  Fast_Fold_Screen_4_3_Format_Large_Venue: number;
-  Fast_Fold_Screen_4_3_Format_Medium_Venue: number;
-  Fast_Fold_Screen_4_3_Format_Meeting_Room: number;
-  Fast_Fold_Drape_Kit: number;
-  Tripod_Screens_60_96: number;
-  LCD_Monitor: number;
-  Video_LED_Wall: number;
-  Screen_Rigging_and_Truss: number;
-}
 
-interface Projection {
-  Twenty_One_Nine_Format_Projection: number;
-  Large_Venue_Projector_Standard_Throw_Lens: number;
-  Large_Venue_Projector_Long_Throw_Lens: number;
-  Large_Venue_Projector_Short_Throw_Lens: number;
-  Medium_Venue_Projector_Standard_Throw_Lens: number;
-  Medium_Venue_Projector_Long_Throw_Lens: number;
-  Medium_Venue_Projector_Short_Throw_Lens: number;
-  Meeting_Room_Projector: number;
-  Projector_Rigging_and_Truss: number;
-}
 
 const StepFour: FC<StepFourProps> = ({ formData, updateFormData }) => {
   const [screens, setScreens] = useState({
