@@ -62,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
   const currentDate = new Date();
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <h2 className="text-black text-center sm:text-left">
         Recently Posted Events
       </h2>
@@ -89,7 +89,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       <Slider ref={sliderRef} {...settings}>
         {data.map((event, index) => (
           <div key={index} className="p-4">
-            <div className="bg-[#F3F1FB] w-full  2xl:h-[440px] rounded-lg  p-4 ">
+            <div className="bg-[#F3F1FB] h-[440px]  2xl:h-[440px] rounded-lg  p-4 ">
               <div className="flex items-center justify-between">
                 <div className="px-4">
                   <div className="flex items-center gap-3 mb-6">

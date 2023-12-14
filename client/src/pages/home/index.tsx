@@ -2,9 +2,9 @@ import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { MdAccessTime, MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
-import HOME_1 from "../../assets/home_1.png";
-import HOME_2 from "../../assets/home_2.png";
-import HOME_3 from "../../assets/home_3.png";
+import Connection_events_img from "../../assets/home_1.png";
+import More_proposals_img from "../../assets/home_2.png";
+import More_clients_img from "../../assets/home_3.png";
 import CardCarousel from "../../components/carousel";
 import { Event } from "../../types";
 import api from "../../utils/api";
@@ -24,8 +24,8 @@ function Index() {
     <div className="container mx-auto">
       <section className="py-0 md:py-0 grid md:grid-cols-2 content-center px-2">
         <img
-          src={HOME_1}
-          alt="aad"
+          src={Connection_events_img}
+          alt="Connecting_events_photo"
           className="w-full object-scale-down block md:hidden"
         />
 
@@ -50,32 +50,38 @@ function Index() {
         </div>
 
         <img
-          src={HOME_1}
+          src={Connection_events_img}
           alt="aad"
           className="w-full object-scale-down hidden md:block"
         />
       </section>
 
       <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-2">
-        <img src={HOME_2} alt="aad" className="w-full object-scale-down" />
+        <img
+          src={More_proposals_img}
+          alt="Want_to_Get_More_Proposals?"
+          className="w-full object-scale-down"
+        />
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
           <h2 className="text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug">
             Want to Get More Proposals?
           </h2>
           <p className="mt-4">Post your event on our events listing page. </p>
           <div className="mt-6 mb-4">
-            <div className="flex items-center">
-              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-gray-200">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center rounded-full w-10 h-10 bg-gray-200">
                 <MdCalendarMonth size={24} className="text-secondary" />
               </div>
-              <p className="ml-4">Receive multiple proposals for you event.</p>
+              <p className="text-left">
+                Receive multiple proposals for you event.
+              </p>
             </div>
 
-            <div className="flex items-center mt-4">
-              <div className="flex items-center justify-center rounded-full w-12 h-12 bg-gray-200">
+            <div className="flex items-center mt-4 gap-3">
+              <div className="flex items-center justify-center rounded-full w-10 h-10 bg-gray-200">
                 <MdAccessTime size={24} className="text-secondary" />
               </div>
-              <p className="ml-4 text-left">
+              <p className="text-left">
                 Save time and resources by having <br></br>proposals sent to you
               </p>
             </div>
@@ -96,7 +102,7 @@ function Index() {
         </div>
       </section>
 
-      <section>
+      <section className="rounded-lg mx-2">
         <CardCarousel data={recentEvents} />
       </section>
 
@@ -122,7 +128,11 @@ function Index() {
             </Link>
           </Button>
         </div>
-        <img src={HOME_3} alt="aad" className="w-full object-contain" />
+        <img
+          src={More_clients_img}
+          alt="More_clients"
+          className="w-full object-contain"
+        />
       </section>
 
       {/* <section className='bg-[#E2E5FA] rounded-lg p-6 '>

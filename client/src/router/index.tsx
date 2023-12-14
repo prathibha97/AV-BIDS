@@ -198,6 +198,13 @@ function Router() {
       routes: [{ element: lazy(() => import("../pages/forgot_password")) }],
     },
 
+    {
+      path: "/message_new_design",
+      layout: HomeLayout2,
+
+      routes: [{ element: lazy(() => import("../pages/message_new_design")) }],
+    },
+
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
