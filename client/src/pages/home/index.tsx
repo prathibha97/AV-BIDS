@@ -20,6 +20,14 @@ function Index() {
     fetchRecentEvents();
   }, []);
 
+  const myDiv = document.getElementById("myDiv");
+
+  if (myDiv) {
+    // Set the scroll position (in pixels) within the div
+    const scrollPosition = 150; // Replace with your desired position
+    myDiv.scrollTop = scrollPosition;
+  }
+
   return (
     <div className="container mx-auto">
       <section className="py-0 md:py-0 grid md:grid-cols-2 content-center px-2">
@@ -56,7 +64,7 @@ function Index() {
         />
       </section>
 
-      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-2">
+      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-4 sm:px-2">
         <img src={HOME_2} alt="aad" className="w-full object-scale-down" />
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
           <h2 className="text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug">
@@ -81,26 +89,26 @@ function Index() {
             </div>
           </div>
 
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
-          >
-            <Link to="/event-planner">
+          <Link to="/event-planner#faqSection">
+            <Button
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
+            >
               <span className="text-white normal-case text-[13px]">
                 Learn More
               </span>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </section>
 
-      <section>
+      <section className="overflow-x-hidden overflow-y-hidden">
         <CardCarousel data={recentEvents} />
       </section>
 
-      <section className="my-8 md:my-16 grid md:grid-cols-2 rounded-lg content-center bg-secondary mx-2">
+      <section className="my-8 md:my-16 grid md:grid-cols-2 content-center rounded-lg bg-secondary mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8">
           <h2 className="text-black">
             Want to Get More <span className="text-white">Clients?</span>
@@ -122,7 +130,14 @@ function Index() {
             </Link>
           </Button>
         </div>
-        <img src={HOME_3} alt="aad" className="w-full object-contain" />
+
+        <div className="">
+          <img
+            src={HOME_3}
+            alt="aad"
+            className="object-contain w-[300px] sm:w-[500px] mx-8 "
+          />
+        </div>
       </section>
 
       {/* <section className='bg-[#E2E5FA] rounded-lg p-6 '>

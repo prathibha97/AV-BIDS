@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import EVENTPLANNER_1 from "../../assets/event planner/Add User-rafiki 1.png";
 import EVENTPLANNER_2 from "../../assets/event planner/create your account.png";
@@ -7,7 +7,8 @@ import EVENTPLANNER_4 from "../../assets/event planner/choose the best proposal.
 import Done_Icon from "../../assets/AV Providers/done-icon.png";
 
 import Accordion from "./components/AccordionCustomIcon";
-function index() {
+
+function Index() {
   return (
     // <div>event_planner</div>
 
@@ -173,7 +174,7 @@ function index() {
           </div>
         </section>
 
-        <section className=" my-8 px-2">
+        <section className=" my-8 px-2" id="faqSection">
           <div className="px-8">
             <h2 className="text-primary text-center mb-4">
               Frequently Asked Questions
@@ -187,4 +188,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
