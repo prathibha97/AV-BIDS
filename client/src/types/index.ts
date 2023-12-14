@@ -195,9 +195,11 @@ export type Event = {
     Project_Manager: number;
   };
 
-  otherRequirements: {
-    [requirement: string]: number;
-  };
+  otherRequirements?:
+    | {
+        [requirement: string]: string | number;
+      }[]
+    | undefined;
   comments: {
     description: string;
   };
@@ -356,3 +358,42 @@ export type Notification = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export interface Microphones {
+  wiredHandheld: number;
+  wirelessHandheld: number;
+  wirelessLavalier: number;
+  headsetMicrophone: number;
+  earsetMicrophone: number;
+  gooseneckMicrophone: number;
+  boundaryMicrophone: number;
+  audienceMicrophone: number;
+}
+
+export interface Speaksers {
+  speakers_8_15: number;
+  line_array_speaker_system: number;
+  subwoofer_12_18: number;
+  reference_speaker_monitors: number;
+  bluetooth_speaker_small: number;
+  bluetooth_speaker_large: number;
+  computer_audio_speaker_system: number;
+  audio_rigging_and_truss: number;
+}
+
+export interface Mixers {
+  analog_mixer: number;
+  digital_mixer: number;
+  computer_audio_interface: number;
+  multi_media_DI_box: number;
+  broadcast_phone_line_interface: number;
+  digital_audio_recording: number;
+  audio_playback_instant_replay: number;
+  cd_player: number;
+  audio_processing: number;
+}
+
+export interface Communication {
+  wireless_belt_pack_and_headset: number;
+  wired_belt_pack_and_headset: number;
+}

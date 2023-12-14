@@ -93,11 +93,108 @@ const getEventsByUser = async (userId, req, sortOption) => {
 const getEventsById = (id, req) => Event.findById({ _id: id });
 // .cache({ key: req.user.id });
 
+// const updateEvent = (id, updates) => {
+//   return Event.findOneAndUpdate({ _id: id }, updates, {
+//     new: true,
+//     upsert: true,
+//   });
+// };
+
 const updateEvent = (id, updates) => {
-  return Event.findOneAndUpdate({ _id: id }, updates, {
-    new: true,
-    upsert: true,
-  });
+  console.log(updates);
+
+  const getUpdatedValue = (field, category) =>
+    updates[field] !== undefined ? updates[field] : updates[category]?.[field];
+
+  const updateMicrophones = {
+    wiredHandheld: getUpdatedValue('wiredHandheld', 'microphones'),
+    wirelessHandheld: getUpdatedValue('wirelessHandheld', 'microphones'),
+    wirelessLavalier: getUpdatedValue('wirelessLavalier', 'microphones'),
+    headsetMicrophone: getUpdatedValue('headsetMicrophone', 'microphones'),
+    earsetMicrophone: getUpdatedValue('earsetMicrophone', 'microphones'),
+    gooseneckMicrophone: getUpdatedValue('gooseneckMicrophone', 'microphones'),
+    boundaryMicrophone: getUpdatedValue('boundaryMicrophone', 'microphones'),
+    audienceMicrophone: getUpdatedValue('audienceMicrophone', 'microphones'),
+  };
+
+  const updateSpeakers = {
+    speakers_8_15: getUpdatedValue('speakers_8_15', 'speakers'),
+    line_array_speaker_system: getUpdatedValue(
+      'line_array_speaker_system',
+      'speakers'
+    ),
+    subwoofer_12_18: getUpdatedValue('subwoofer_12_18', 'speakers'),
+    reference_speaker_monitors: getUpdatedValue(
+      'reference_speaker_monitors',
+      'speakers'
+    ),
+    bluetooth_speaker_small: getUpdatedValue(
+      'bluetooth_speaker_small',
+      'speakers'
+    ),
+    bluetooth_speaker_large: getUpdatedValue(
+      'bluetooth_speaker_large',
+      'speakers'
+    ),
+    computer_audio_speaker_system: getUpdatedValue(
+      'computer_audio_speaker_system',
+      'speakers'
+    ),
+    audio_rigging_and_truss: getUpdatedValue(
+      'audio_rigging_and_truss',
+      'speakers'
+    ),
+  };
+
+  const updateMixers = {
+    analog_mixer: getUpdatedValue('analog_mixer', 'mixers'),
+    digital_mixer: getUpdatedValue('digital_mixer', 'mixers'),
+    computer_audio_interface: getUpdatedValue(
+      'computer_audio_interface',
+      'mixers'
+    ),
+    multi_media_DI_box: getUpdatedValue('multi_media_DI_box', 'mixers'),
+    broadcast_phone_line_interface: getUpdatedValue(
+      'broadcast_phone_line_interface',
+      'mixers'
+    ),
+    digital_audio_recording: getUpdatedValue(
+      'digital_audio_recording',
+      'mixers'
+    ),
+    audio_playback_instant_replay: getUpdatedValue(
+      'audio_playback_instant_replay',
+      'mixers'
+    ),
+    cd_player: getUpdatedValue('cd_player', 'mixers'),
+    audio_processing: getUpdatedValue('audio_processing', 'mixers'),
+  };
+
+  const updateCommunication = {
+    wireless_belt_pack_and_headset: getUpdatedValue(
+      'wireless_belt_pack_and_headset',
+      'communication'
+    ),
+    wired_belt_pack_and_headset: getUpdatedValue(
+      'wired_belt_pack_and_headset',
+      'communication'
+    ),
+  };
+
+  return Event.findOneAndUpdate(
+    { _id: id },
+    {
+      ...updates,
+      microphones: { ...updateMicrophones },
+      speakers: { ...updateSpeakers },
+      mixers: { ...updateMixers },
+      communication: { ...updateCommunication },
+    },
+    {
+      new: true,
+      upsert: true,
+    }
+  );
 };
 
 const removeEvent = (id) => {
