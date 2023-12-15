@@ -6,9 +6,10 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://54.201.46.218',
   'http://avbids.com',
-  'http://www.avbids.com',
+  'https://avbids.com',
+  'https://www.avbids.com',
   'ws://www.avbids.com:5005',
-  'http://www.avbids.com:5005',
+  'https://www.avbids.com:5005',
 ];
 
 module.exports = allowedOrigins;
