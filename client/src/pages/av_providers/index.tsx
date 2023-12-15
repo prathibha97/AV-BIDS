@@ -190,7 +190,7 @@ function index() {
             Frequently Asked Questions
           </h2>
 
-          <div className="pt-12 pb-8">
+          <div className="pt-12 pb-8" id="#avFaqSection">
             <Accordion />
           </div>
         </div>

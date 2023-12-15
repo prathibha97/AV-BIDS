@@ -11,7 +11,7 @@ import {
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import ICON from "../../src/assets/icon.png";
+import ICON from "../../src/assets/homepage/icon.png";
 import { Event } from "../types";
 
 interface CarouselProps {

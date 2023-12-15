@@ -1,13 +1,8 @@
-import {
-  Button,
-  IconButton,
-  MobileNav,
-  Navbar,
-} from "@material-tailwind/react";
+import { Button, MobileNav, Navbar } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetCurrentUser } from "../app/hooks/useUser";
-import LOGO from "../assets/logo.png";
+import LOGO from "../assets/homepage/logo.png";
 import ProfileMenu from "../components/profile-menu";
 import Navbutton from "../assets/navigation bar/navbar_button.png";
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import EVENTPLANNER_1 from "../../assets/event planner/Add User-rafiki 1.png";
-import EVENTPLANNER_2 from "../../assets/event planner/create your account.png";
-import EVENTPLANNER_3 from "../../assets/event planner/post an event.png";
-import EVENTPLANNER_4 from "../../assets/event planner/choose the best proposal.png";
+import Event_main_img from "../../assets/event planner/Add User-rafiki 1.png";
+import Create_account from "../../assets/event planner/create your account.png";
+import Post_event from "../../assets/event planner/post an event.png";
+import Choose_proposal from "../../assets/event planner/choose the best proposal.png";
 import Done_Icon from "../../assets/AV Providers/done-icon.png";
-
+import { Link } from "react-router-dom";
 import Accordion from "./components/AccordionCustomIcon";
 
 function Index() {
@@ -13,19 +13,10 @@ function Index() {
     // <div>event_planner</div>
 
     <div>
-      <section className="my-8 md:my-16 grid md:grid-cols-2 content-center bg-secondary">
+      <section className="mb-10 md:mb-16 grid md:grid-cols-2 content-center bg-secondary">
         <div className="md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8">
-          {/* <Button
-            variant="filled"
-            color="green"
-            size="sm"
-            className="rounded-full w-40 py-2 px-4 bg-[#B5F9C4] font-poppins mb-4"
-          >
-            <span className="text-[#178751]">For AV Providers</span>
-          </Button> */}
-
           <div className="bg-[#B5F9C4] rounded-full mb-4">
-            <p className="text-[#178751] font-semibold px-4 py-1 text-center">
+            <p className="text-[#178751] font-semibold px-4 py-1.5 text-center">
               For Event Planners
             </p>
           </div>
@@ -41,7 +32,7 @@ function Index() {
             <div className="flex gap-3">
               <img
                 src={Done_Icon}
-                alt="aad"
+                alt="Done icon for paragraphs"
                 className="w-[20px] object-contain"
               />
               <p className="text-[#353535] text-left">
@@ -52,7 +43,7 @@ function Index() {
             <div className="flex  gap-3">
               <img
                 src={Done_Icon}
-                alt="aad"
+                alt="Done icon for paragraphs"
                 className="w-[20px] object-contain"
               />
               <p className="text-[#353535] text-left">
@@ -63,7 +54,7 @@ function Index() {
             <div className="flex  gap-3">
               <img
                 src={Done_Icon}
-                alt="aad"
+                alt="Done icon for paragraphs"
                 className="w-[20px] object-contain"
               />
               <p className="text-[#353535] text-left">
@@ -73,21 +64,23 @@ function Index() {
             </div>
           </div>
 
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="rounded-md w-34 py-3 mt-4 px-4 bg-primary font-poppins"
-          >
-            <span className="text-white normal-case">Get Started</span>
-          </Button>
+          <Link to="/sign-in">
+            <Button
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md w-34 py-3 mt-2 px-4 bg-primary font-poppins"
+            >
+              <span className="text-white normal-case">Get Started</span>
+            </Button>
+          </Link>
         </div>
 
         <div className="flex items-center justify-self-center">
           <img
-            src={EVENTPLANNER_1}
-            alt="aad"
-            className="w-[700px] object-scale-down"
+            src={Event_main_img}
+            alt="Event planner main img"
+            className="w-[600px] object-scale-down"
           />
         </div>
       </section>
@@ -103,10 +96,10 @@ function Index() {
           </div>
 
           <div>
-            <h2 className="text-primary text-center mb-4">
+            <h2 className="text-primary text-center mb-4 text-[#353535]">
               How to get started?
             </h2>
-            <div className="font-poppins font-normal text-[#353535] text-center mb-8">
+            <div className="font-poppins font-normal text-[#353535] text-center mb-8 mx-4 sm:mx-0">
               We make it simple and easy to start getting more proposals sent to
               you without having to reach out independently yourself
             </div>
@@ -117,8 +110,8 @@ function Index() {
                   <div className="">
                     <div className="flex justify-center align-items">
                       <img
-                        src={EVENTPLANNER_2}
-                        alt="aad"
+                        src={Create_account}
+                        alt="Create your account img"
                         className="w-full object-scale-down"
                       />
                     </div>
@@ -136,8 +129,8 @@ function Index() {
                 <div className="bg-[#F3F1FB] rounded-xl">
                   <div className="flex justify-center align-items">
                     <img
-                      src={EVENTPLANNER_3}
-                      alt="aad"
+                      src={Post_event}
+                      alt="post an event img"
                       className="w-full object-scale-down"
                     />
                   </div>
@@ -155,8 +148,8 @@ function Index() {
                 <div className="bg-[#F3F1FB] rounded-xl">
                   <div className="flex justify-center align-items">
                     <img
-                      src={EVENTPLANNER_4}
-                      alt="aad"
+                      src={Choose_proposal}
+                      alt="choose proposal img"
                       className="w-full object-scale-down"
                     />
                   </div>
