@@ -20,7 +20,7 @@ export function TopNav() {
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Link to="/events">
-        <p className="text-gray-600 font-medium">Events Page</p>
+        <p className="text-gray-600 font-medium text-center">Events Page</p>
       </Link>
     </ul>
   );
@@ -79,7 +79,7 @@ export function TopNav() {
         <div className="container mx-auto">
           <div className="text-center">{navList}</div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 mb-0.5">
             <Link to="/sign-in">
               <Button
                 variant="outlined"

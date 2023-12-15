@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@material-tailwind/react";
 import Event_main_img from "../../assets/event planner/Add User-rafiki 1.png";
 import Create_account from "../../assets/event planner/create your account.png";
@@ -105,7 +105,7 @@ function Index() {
             </div>
 
             <div>
-              <div className="grid md:grid-cols-3 gap-8 px-8 ">
+              <div className="grid md:grid-cols-3 gap-8  px-4 sm:px-8">
                 <div className="bg-[#F3F1FB] rounded-xl">
                   <div className="">
                     <div className="flex justify-center align-items">
@@ -118,7 +118,7 @@ function Index() {
                     <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
                       create your account
                     </div>
-                    <div className="text-center font-poppins font-normal  text-[#353535] p-8 pt-0">
+                    <div className="text-center font-poppins font-normal  text-[#353535] p-4 sm:p-6 pt-0">
                       Add as much detail about you or your organization as you
                       want. You can even add additional members who will have
                       access to your account.
@@ -137,7 +137,7 @@ function Index() {
                   <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
                     Post an event
                   </div>
-                  <div className="text-center font-poppins font-normal  text-[#353535] p-8 pt-0">
+                  <div className="text-center font-poppins font-normal  text-[#353535] p-4 pt-0">
                     Put in as much info about your event as you wish. We offer a
                     variety of input boxes about your event. If we are missing
                     anything or you already your event info on a document, you
@@ -153,10 +153,10 @@ function Index() {
                       className="w-full object-scale-down"
                     />
                   </div>
-                  <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4">
+                  <div className="text-center font-poppins font-bold text-[23px] text-[#000000] mb-4 p-2">
                     Choose the best proposal
                   </div>
-                  <div className="text-center font-poppins font-normal  text-[#353535] p-8 pt-0">
+                  <div className="text-center font-poppins font-normal  text-[#353535] p-4 pt-0">
                     After you post you event, you can expect multiple proposals
                     to be submit to you. From here you can determine if you want
                     the lowest bid or best value.
