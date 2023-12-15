@@ -27,6 +27,15 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
     slidesToScroll: 1,
     responsive: [
       {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
@@ -62,25 +71,30 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
   const currentDate = new Date();
 
   return (
-    <div>
-      <h2 className="text-black text-center sm:text-left">
-        Recently Posted Events
-      </h2>
-      {/* Buttons for navigation */}
-      <div className="flex items-center justify-end gap-4 mb-2 mr-6 mt-4 sm:mt-0">
-        <div>
-          <div className="flex  items-center justify-center rounded-full w-8 h-8 sm:w-12 sm:h-12 bg-primary ">
-            <MdArrowBack size={24} className="text-white" onClick={nextSlide} />
-          </div>
-        </div>
+    <div className="mt-4 sm:mt-10  md:mt-14 lg:mt-10 xl:mt-16 2xl:mt-0 ">
+      <div className="flex items-center justify-center sm:justify-between">
+        <h2 className="text-black text-center sm:text-left ml-4 mb-3 sm:mb-4">
+          Recently Posted Events
+        </h2>
+        {/* Buttons for navigation */}
 
-        <div>
-          <div className="flex  items-center justify-center rounded-full w-8 h-8 sm:w-12 sm:h-12 bg-primary ">
-            <MdArrowForward
-              size={24}
-              className="text-white"
-              onClick={prevSlide}
-            />
+        <div className="hidden sm:block">
+          <div className="flex items-center justify-end gap-4 mb-2 mr-6 mt-4 sm:mt-0">
+            <div className="flex items-center justify-center rounded-full w-8 h-8 sm:w-12 sm:h-12 bg-primary ">
+              <MdArrowBack
+                size={24}
+                className="text-white"
+                onClick={nextSlide}
+              />
+            </div>
+
+            <div className="flex  items-center justify-center rounded-full w-8 h-8 sm:w-12 sm:h-12 bg-primary ">
+              <MdArrowForward
+                size={24}
+                className="text-white"
+                onClick={prevSlide}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -88,51 +102,89 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       {/* Slider component */}
       <Slider ref={sliderRef} {...settings}>
         {data.map((event, index) => (
-          <div key={index} className="p-4">
-            <div className="bg-[#F3F1FB] w-full  h-[440px] rounded-lg  p-4 ">
-              <div className="flex items-center justify-between">
-                <div className="px-4">
-                  <div className="flex items-center gap-3 mb-6">
-                    <img src={ICON} alt="aad" className="" />
+          <div key={index} className="px-3">
+            <div className="bg-[#F3F1FB]  h-max sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
+              <div className="flex items-center justify-center">
+                <div className="">
+                  <div className="px-4 py-2 sm:py-4">
+                    <div className="grid grid-cols-1 gap-4 mb-4">
+                      <div className="flex items-center">
+                        <div className="grid grid-cols-12 w-full">
+                          <div className="col-span-3">
+                            <img
+                              src={ICON}
+                              alt="event_icon"
+                              className="w-[45px]"
+                            />
+                          </div>
+
+                          <div className="col-span-8 self-center">
+                            <h2 className="text-[18px] mb-2 text-left">
+                              {event.title}
+                            </h2>
+                          </div>
+                          <div className="col-span-1 justify-self-end">
+                            <MdBookmarkBorder className="text-[20px] text-[#C5BDBD] " />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="">
+                        <div className="flex items-center gap-2">
+                          <MdOutlineCalendarMonth className="self-start text-[26px] text-[#8645FF]" />
+                          <p className="text-[15px] mt-1">
+                            {event.eventStartDate} to {event.eventEndDate}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* <div className="flex items-center gap-3 mb-6">
+                    <div className="self-start">
+                      <img src={ICON} alt="aad" />
+                    </div>
+
+                    <h2 className="text-[18px] mb-2">{event.title}</h2>
                     <div className="grow">
                       <h2 className="text-[18px] mb-2">{event.title}</h2>
 
                       <div className="flex items-center gap-2">
-                        <MdOutlineCalendarMonth className="text-[26px] text-[#8645FF]" />
+                        <MdOutlineCalendarMonth className="self-start text-[26px] text-[#8645FF]" />
                         <p className="text-[15px] mt-1">
                           {event.eventStartDate} to {event.eventEndDate}
                         </p>
                       </div>
                     </div>
                     <MdBookmarkBorder className="text-[26px] text-[#C5BDBD] " />
-                  </div>
+                  </div> */}
 
-                  <h6 className="text-[18px] mb-2">
-                    {event.eventCategory}, {event.eventSubCategory}
-                  </h6>
+                    <h6 className="text-[18px] mb-2">
+                      {event.eventCategory}, {event.eventSubCategory}
+                    </h6>
 
-                  <div className="flex items-center gap-2 mb-6">
-                    <p>
-                      {event.address.city}, {event.address.state}
-                    </p>
-                    <MdLens className="text-[#D8D0FA] text-[15px]" />
-                    <p className="text-[15px]">
-                      {differenceInDays(
-                        parseISO(event.proposalDueDate),
-                        currentDate
-                      )}{" "}
-                      days left
-                    </p>
-                  </div>
+                    <div className="flex items-center gap-2 mb-6">
+                      <p>
+                        {event.address.city}, {event.address.state}
+                      </p>
+                      <MdLens className="text-[#D8D0FA] text-[15px]" />
+                      <p className="text-[15px]">
+                        {differenceInDays(
+                          parseISO(event.proposalDueDate),
+                          currentDate
+                        )}{" "}
+                        days left
+                      </p>
+                    </div>
 
-                  <div className="bg-[#DDD8F6] w-max rounded-lg text-center py-1 px-3 mb-6">
-                    <p className="font-medium">{event.eventType}</p>
-                  </div>
+                    <div className="bg-[#DDD8F6] w-max rounded-lg text-center py-1 px-3 mb-6">
+                      <p className="font-medium">{event.eventType}</p>
+                    </div>
 
-                  <h2 className="text-[18px] mb-6">{event.eventBudget}</h2>
+                    <h2 className="text-[18px] mb-6">{event.eventBudget}</h2>
 
-                  <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full mb-4 text-[#181059] font-bold cursor-pointer text-center">
-                    Apply Now
+                    <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full mb-0 sm:mb-4 text-[#181059] font-bold cursor-pointer text-center">
+                      Apply Now
+                    </div>
                   </div>
                 </div>
               </div>
@@ -140,6 +192,8 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
           </div>
         ))}
       </Slider>
+
+      <div className="flex items-center justify-end gap-4 mb-2 mr-6 mt-4 sm:mt-0 block md:hidden lg:hidden xl:hidden"></div>
     </div>
   );
 };
