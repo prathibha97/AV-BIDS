@@ -134,6 +134,52 @@ const getEvent = async (req, res) => {
 *@access Private
 */
 
+// const update = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const eventDetails = { ...req.body };
+
+//     const event = await updateEvent(id, eventDetails);
+
+//     if (!event) {
+//       return res.status(404).json({ message: 'Event not found' });
+//     }
+
+//     // Notify users who have saved the event
+//     const savedEventUsers = await User.find({ savedEvents: id });
+//     savedEventUsers.forEach(async (user) => {
+//       if (socket) {
+//         // Emit socket event
+//         socket.emit('eventUpdated', {
+//           userId: user._id,
+//           eventId: id,
+//           message: 'An Event you saved has been updated',
+//         });
+//       } else {
+//         console.log('socket error');
+//       }
+
+//       // Persist the notification
+//       const notification = {
+//         message: 'An Event you saved has been updated',
+//         type: 'event-update',
+//         userId: user._id,
+//       };
+//       await createNotification(notification);
+//     });
+
+//     res.status(200).json({ event, message: 'Event successfully updated' });
+//   } catch (error) {
+//     console.error('Failed to update event:', error);
+
+//     const statusCode = error instanceof CustomError ? 400 : 500;
+
+//     res
+//       .status(statusCode)
+//       .json({ error: error.message || 'Internal Server Error' });
+//   }
+// };
+
 const update = async (req, res) => {
   try {
     const { id } = req.params;
@@ -147,9 +193,11 @@ const update = async (req, res) => {
 
     // Notify users who have saved the event
     const savedEventUsers = await User.find({ savedEvents: id });
-    savedEventUsers.forEach(async (user) => {
+
+    // Update savedEventAlerts for each user
+    for (const user of savedEventUsers) {
+      // Emit socket event
       if (socket) {
-        // Emit socket event
         socket.emit('eventUpdated', {
           userId: user._id,
           eventId: id,
@@ -159,6 +207,15 @@ const update = async (req, res) => {
         console.log('socket error');
       }
 
+      // Check if the event is already in savedEventAlerts
+      const isEventAlreadySaved = user.savedEventAlerts.includes(id);
+
+      // If not, add it to savedEventAlerts
+      if (!isEventAlreadySaved) {
+        user.savedEventAlerts.push(id);
+        await user.save();
+      }
+
       // Persist the notification
       const notification = {
         message: 'An Event you saved has been updated',
@@ -166,7 +223,7 @@ const update = async (req, res) => {
         userId: user._id,
       };
       await createNotification(notification);
-    });
+    }
 
     res.status(200).json({ event, message: 'Event successfully updated' });
   } catch (error) {
@@ -285,6 +342,80 @@ const getRecentEvents = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Get event alerts by user
+*@route  Get /api/events/alerts/user/:userId
+*@access Private
+*/
+
+const getEventAlertsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find the user by ID and populate the savedEvents field
+    const user = await getUserById({ _id: userId }).populate(
+      'savedEventAlerts'
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const eventAlerts = user.savedEventAlerts;
+
+    res.status(200).json(eventAlerts);
+  } catch (error) {
+    console.error('Failed to fetch event alerts of user - ', error.message);
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
+  }
+};
+
+/* 
+?@desc   Remove event alert from user
+*@route  DELETE /api/events/alerts/user/:userId/:eventId
+*@access Private
+*/
+const removeEventAlert = async (req, res) => {
+  try {
+    const { userId, eventId } = req.params;
+
+    // Find the user by ID
+    const user = await getUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the event is in the user's savedEventAlerts
+    const isEventInSavedEventAlerts = user.savedEventAlerts.includes(eventId);
+
+    if (!isEventInSavedEventAlerts) {
+      return res.status(400).json({ message: 'Event alert not found for the user' });
+    }
+
+    // Remove the event from savedEventAlerts
+    user.savedEventAlerts = user.savedEventAlerts.filter(
+      (savedEventId) => !savedEventId.equals(eventId)
+    );
+
+    await user.save();
+
+    res.status(200).json({ message: 'Event alert removed successfully', user });
+  } catch (error) {
+    console.error('Failed to remove event alert - ', error.message);
+    const statusCode = error instanceof CustomError ? 400 : 500;
+
+    res
+      .status(statusCode)
+      .json({ error: error.message || 'Internal Server Error' });
+  }
+};
+
+
 module.exports = {
   createNewEvent,
   getAllEvents,
@@ -295,4 +426,6 @@ module.exports = {
   saveEvent,
   getRecentEvents,
   getSavedEventsByUser,
+  getEventAlertsByUser,
+  removeEventAlert,
 };

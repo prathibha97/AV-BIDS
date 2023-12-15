@@ -1,35 +1,35 @@
 import {
   Card,
   Option,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
   Select,
   Typography,
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-} from "@material-tailwind/react";
-import { format } from "date-fns";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setEvent } from "../../../app/features/events/eventSlice";
-import Spinner from "../../../components/spinner";
-import { Event } from "../../../types";
-import api from "../../../utils/api";
+} from '@material-tailwind/react';
+import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setEvent } from '../../../app/features/events/eventSlice';
+import Spinner from '../../../components/spinner';
+import { Event } from '../../../types';
+import api from '../../../utils/api';
 
-import { setAlert } from "../../../app/features/alerts/alertSlice";
-import { useAppSelector } from "../../../app/hooks";
-import { useGetCurrentUser } from "../../../app/hooks/useUser";
-import { RootState } from "../../../app/store";
-import AlertBox from "../../../components/alert-box";
-import Pagination from "../../../components/pagination";
 import {
+  MdDeleteOutline,
+  MdEditNote,
   MdLens,
   MdMoreVert,
   MdOutlineRemoveRedEye,
-  MdDeleteOutline,
-  MdEditNote,
-} from "react-icons/md";
-const TABLE_HEAD = ["Title", "Event Created", "Proposals", "Status", ""];
+} from 'react-icons/md';
+import { setAlert } from '../../../app/features/alerts/alertSlice';
+import { useAppSelector } from '../../../app/hooks';
+import { useGetCurrentUser } from '../../../app/hooks/useUser';
+import { RootState } from '../../../app/store';
+import AlertBox from '../../../components/alert-box';
+import Pagination from '../../../components/pagination';
+const TABLE_HEAD = ['Title', 'Event Created', 'Proposals', 'Status', ''];
 
 function Index() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ function Index() {
   const [myEvents, setMyEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOption, setSortOption] = useState<string>("date_posted");
+  const [sortOption, setSortOption] = useState<string>('date_posted');
 
   const eventsPerPage = 10;
   const indexOfLastEvent = currentPage * eventsPerPage;
@@ -57,7 +57,7 @@ function Index() {
       });
       setMyEvents(data);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error('Error fetching events:', error);
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ function Index() {
   };
 
   const handleAlertClose = () => {
-    dispatch(setAlert({ open: false, message: "", color: "green" }));
+    dispatch(setAlert({ open: false, message: '', color: 'green' }));
   };
 
   const handlePageChange = (pageNumber: number) => {
@@ -188,11 +188,9 @@ function Index() {
                       </td>
                       <td className='p-4 border-b border-blue-gray-50'>
                         <Typography
-                          as='a'
                           variant='small'
                           color='blue-gray'
                           className='font-medium cursor-pointer'
-                          // onClick={() => handleEdit(event)}
                         >
                           <Popover>
                             <PopoverHandler>
@@ -202,18 +200,18 @@ function Index() {
                             </PopoverHandler>
                             <PopoverContent>
                               <div>
-                                <div className='flex items-center gap-2 mb-3'>
+                                <div className='flex items-center gap-2 mb-3 cursor-pointer'>
                                   <MdOutlineRemoveRedEye className='text-[20px]' />
                                   <p>View</p>
                                 </div>
                                 <div
-                                  className='flex items-center gap-2 mb-3'
+                                  className='flex items-center gap-2 mb-3 cursor-pointer'
                                   onClick={() => handleEdit(event)}
                                 >
                                   <MdEditNote className='text-[20px]' />
                                   <p>Edit</p>
                                 </div>
-                                <div className='flex items-center gap-2'>
+                                <div className='flex items-center gap-2 cursor-pointer text-red-500'>
                                   <MdDeleteOutline className='text-[20px]' />
                                   <p>Delete</p>
                                 </div>

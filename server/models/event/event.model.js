@@ -93,11 +93,231 @@ const getEventsByUser = async (userId, req, sortOption) => {
 const getEventsById = (id, req) => Event.findById({ _id: id });
 // .cache({ key: req.user.id });
 
+// const updateEvent = (id, updates) => {
+//   return Event.findOneAndUpdate({ _id: id }, updates, {
+//     new: true,
+//     upsert: true,
+//   });
+// };
+
 const updateEvent = (id, updates) => {
-  return Event.findOneAndUpdate({ _id: id }, updates, {
-    new: true,
-    upsert: true,
-  });
+  console.log(updates);
+
+  const getUpdatedValue = (field, category) =>
+    updates[field] !== undefined ? updates[field] : updates[category]?.[field];
+
+  const updateMicrophones = {
+    wiredHandheld: getUpdatedValue('wiredHandheld', 'microphones'),
+    wirelessHandheld: getUpdatedValue('wirelessHandheld', 'microphones'),
+    wirelessLavalier: getUpdatedValue('wirelessLavalier', 'microphones'),
+    headsetMicrophone: getUpdatedValue('headsetMicrophone', 'microphones'),
+    earsetMicrophone: getUpdatedValue('earsetMicrophone', 'microphones'),
+    gooseneckMicrophone: getUpdatedValue('gooseneckMicrophone', 'microphones'),
+    boundaryMicrophone: getUpdatedValue('boundaryMicrophone', 'microphones'),
+    audienceMicrophone: getUpdatedValue('audienceMicrophone', 'microphones'),
+  };
+
+  const updateSpeakers = {
+    speakers_8_15: getUpdatedValue('speakers_8_15', 'speakers'),
+    line_array_speaker_system: getUpdatedValue(
+      'line_array_speaker_system',
+      'speakers'
+    ),
+    subwoofer_12_18: getUpdatedValue('subwoofer_12_18', 'speakers'),
+    reference_speaker_monitors: getUpdatedValue(
+      'reference_speaker_monitors',
+      'speakers'
+    ),
+    bluetooth_speaker_small: getUpdatedValue(
+      'bluetooth_speaker_small',
+      'speakers'
+    ),
+    bluetooth_speaker_large: getUpdatedValue(
+      'bluetooth_speaker_large',
+      'speakers'
+    ),
+    computer_audio_speaker_system: getUpdatedValue(
+      'computer_audio_speaker_system',
+      'speakers'
+    ),
+    audio_rigging_and_truss: getUpdatedValue(
+      'audio_rigging_and_truss',
+      'speakers'
+    ),
+  };
+
+  const updateMixers = {
+    analog_mixer: getUpdatedValue('analog_mixer', 'mixers'),
+    digital_mixer: getUpdatedValue('digital_mixer', 'mixers'),
+    computer_audio_interface: getUpdatedValue(
+      'computer_audio_interface',
+      'mixers'
+    ),
+    multi_media_DI_box: getUpdatedValue('multi_media_DI_box', 'mixers'),
+    broadcast_phone_line_interface: getUpdatedValue(
+      'broadcast_phone_line_interface',
+      'mixers'
+    ),
+    digital_audio_recording: getUpdatedValue(
+      'digital_audio_recording',
+      'mixers'
+    ),
+    audio_playback_instant_replay: getUpdatedValue(
+      'audio_playback_instant_replay',
+      'mixers'
+    ),
+    cd_player: getUpdatedValue('cd_player', 'mixers'),
+    audio_processing: getUpdatedValue('audio_processing', 'mixers'),
+  };
+
+  const updateCommunication = {
+    wireless_belt_pack_and_headset: getUpdatedValue(
+      'wireless_belt_pack_and_headset',
+      'communication'
+    ),
+    wired_belt_pack_and_headset: getUpdatedValue(
+      'wired_belt_pack_and_headset',
+      'communication'
+    ),
+  };
+
+  const updateScreens = {
+    Twenty_One_Nine_Large_Format_Screen: getUpdatedValue(
+      'Twenty_One_Nine_Large_Format_Screen',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Large_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Large_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Medium_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Medium_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_16_9_Format_Meeting_Room: getUpdatedValue(
+      'Fast_Fold_Screen_16_9_Format_Meeting_Room',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Large_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Large_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Medium_Venue: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Medium_Venue',
+      'screens'
+    ),
+    Fast_Fold_Screen_4_3_Format_Meeting_Room: getUpdatedValue(
+      'Fast_Fold_Screen_4_3_Format_Meeting_Room',
+      'screens'
+    ),
+    Fast_Fold_Drape_Kit: getUpdatedValue('Fast_Fold_Drape_Kit', 'screens'),
+    Tripod_Screens_60_96: getUpdatedValue('Tripod_Screens_60_96', 'screens'),
+    LCD_Monitor: getUpdatedValue('LCD_Monitor', 'screens'),
+    Video_LED_Wall: getUpdatedValue('Video_LED_Wall', 'screens'),
+    Screen_Rigging_and_Truss: getUpdatedValue(
+      'Screen_Rigging_and_Truss',
+      'screens'
+    ),
+  };
+
+  const updateProjection = {
+    Twenty_One_Nine_Format_Projection: getUpdatedValue(
+      'Twenty_One_Nine_Format_Projection',
+      'projection'
+    ),
+    Large_Venue_Projector_Standard_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Standard_Throw_Lens',
+      'projection'
+    ),
+    Large_Venue_Projector_Long_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Long_Throw_Lens',
+      'projection'
+    ),
+    Large_Venue_Projector_Short_Throw_Lens: getUpdatedValue(
+      'Large_Venue_Projector_Short_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Standard_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Standard_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Long_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Long_Throw_Lens',
+      'projection'
+    ),
+    Medium_Venue_Projector_Short_Throw_Lens: getUpdatedValue(
+      'Medium_Venue_Projector_Short_Throw_Lens',
+      'projection'
+    ),
+    Meeting_Room_Projector: getUpdatedValue(
+      'Meeting_Room_Projector',
+      'projection'
+    ),
+    Projector_Rigging_and_Truss: getUpdatedValue(
+      'Projector_Rigging_and_Truss',
+      'projection'
+    ),
+  };
+
+  const updateVideoCamera = {
+    Broadcast_Camera: getUpdatedValue('Broadcast_Camera', 'videoCamera'),
+    Roaming_Camera: getUpdatedValue('Roaming_Camera', 'videoCamera'),
+    Camcorder: getUpdatedValue('Camcorder', 'videoCamera'),
+    Video_and_Camera_Lighting: getUpdatedValue(
+      'Video_and_Camera_Lighting',
+      'videoCamera'
+    ),
+    Photography_Camera: getUpdatedValue('Photography_Camera', 'videoCamera'),
+  };
+
+  const updateVideoProcessing = {
+    Video_Switching_and_Effects_Processing: getUpdatedValue(
+      'Video_Switching_and_Effects_Processing',
+      'videoProcessing'
+    ),
+    Video_Capture: getUpdatedValue('Video_Capture', 'videoProcessing'),
+    Screen_Blend_21_Nine_Format: getUpdatedValue(
+      'Screen_Blend_21_Nine_Format',
+      'videoProcessing'
+    ),
+    Video_Streaming: getUpdatedValue('Video_Streaming', 'videoProcessing'),
+    DVD_Blu_Ray_Player: getUpdatedValue(
+      'DVD_Blu_Ray_Player',
+      'videoProcessing'
+    ),
+    VHS_DVD_Player: getUpdatedValue('VHS_DVD_Player', 'videoProcessing'),
+  };
+
+  const updatePresenterTools = {
+    Speaker_Timer: getUpdatedValue('Speaker_Timer', 'presenterTools'),
+    Presentation_Remote_Clicker: getUpdatedValue(
+      'Presentation_Remote_Clicker',
+      'presenterTools'
+    ),
+    Laser_Pointer: getUpdatedValue('Laser_Pointer', 'presenterTools'),
+    Perfect_Cue_System: getUpdatedValue('Perfect_Cue_System', 'presenterTools'),
+    Flipchart: getUpdatedValue('Flipchart', 'presenterTools'),
+  };
+
+  return Event.findOneAndUpdate(
+    { _id: id },
+    {
+      ...updates,
+      microphones: { ...updateMicrophones },
+      speakers: { ...updateSpeakers },
+      mixers: { ...updateMixers },
+      communication: { ...updateCommunication },
+      screens: { ...updateScreens },
+      projection: { ...updateProjection },
+      videoCamera: { ...updateVideoCamera},
+      videoProcessing: { ...updateVideoProcessing},
+      presenterTools: { ...updatePresenterTools}
+    },
+    {
+      new: true,
+      upsert: true,
+    }
+  );
 };
 
 const removeEvent = (id) => {

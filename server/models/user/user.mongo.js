@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema(
       enum: ['PLANNER', 'PROVIDER'],
       required: true,
     },
-    
+
     role: {
       type: String,
       enum: ['Admin', 'Standard'],
@@ -96,6 +96,12 @@ const userSchema = new mongoose.Schema(
       },
     ],
     savedEvents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+      },
+    ],
+    savedEventAlerts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event',

@@ -10,9 +10,10 @@ const {
   update,
   remove,
   saveEvent,
-  getRecentEvent,
   getRecentEvents,
-  getSavedEventsByUser
+  getSavedEventsByUser,
+  getEventAlertsByUser,
+  removeEventAlert
 } = require('../controllers/event.controller');
 
 const eventRouter = express.Router();
@@ -272,12 +273,83 @@ const eventRouter = express.Router();
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /api/events/alerts/user/{userId}:
+ *   get:
+ *     summary: Get event alerts for a user by ID
+ *     tags: [Events]
+ *     description: Retrieve event alerts for a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID of the user
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of event alerts for the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Event'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /api/events/alerts/user/{userId}/{eventId}:
+ *   delete:
+ *     summary: Remove an event alert from a user
+ *     tags: [Events]
+ *     description: Remove an event alert from a user by user ID and event ID
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID of the user
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: eventId
+ *         required: true
+ *         description: ID of the event to be removed from alerts
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Event alert removed successfully
+ *       400:
+ *         description: Event alert not found for the user
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+
 eventRouter.post('/', protect, cleanCache, createNewEvent);
 eventRouter.get('/', getAllEvents);
 eventRouter.get('/recent', getRecentEvents);
 eventRouter.get('/user/:userId', getUserEvents);
 eventRouter.post('/save/:eventId', protect, saveEvent);
 eventRouter.get('/saved/:userId', protect, getSavedEventsByUser);
+eventRouter.get('/alerts/user/:userId', protect, getEventAlertsByUser);
+eventRouter.delete('/alerts/user/:userId/:eventId', protect, removeEventAlert);
 eventRouter.get('/:id', getEvent);
 eventRouter.put('/:id', protect, cleanCache, update);
 eventRouter.delete('/:id', protect, cleanCache, remove);

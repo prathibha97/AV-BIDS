@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
 import api from '../../../utils/api';
@@ -18,7 +19,6 @@ import StepSeven from './components/step-seven';
 import StepSix from './components/step-six';
 import StepThree from './components/step-three';
 import StepTwo from './components/step-two';
-import { setAlertWithTimeout } from '../../../app/features/alerts/alertSlice';
 // import Stepper from "./components/stepper";
 
 interface Requirement {
@@ -27,7 +27,7 @@ interface Requirement {
 }
 
 export function Index() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [activeStep, setActiveStep] = useState(0);
@@ -139,7 +139,7 @@ export function Index() {
 
                 <style>
                   {`.active-step {
-          background-color: #42D27A; /* Change this to the desired color */
+          background-color: #42D27A;
         }`}
                 </style>
               </div>
@@ -180,7 +180,7 @@ export function Index() {
         {currentStep === 3 && (
           <StepThree
             formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
+            updateFormData={(field: any, value: any) => {
               setFormData({
                 ...formData,
                 [field]: value,
@@ -191,7 +191,7 @@ export function Index() {
         {currentStep === 4 && (
           <StepFour
             formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
+            updateFormData={(field: any, value: any) => {
               setFormData({
                 ...formData,
                 [field]: value,
@@ -202,7 +202,7 @@ export function Index() {
         {currentStep === 5 && (
           <StepFive
             formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
+            updateFormData={(field: any, value: any) => {
               setFormData({
                 ...formData,
                 [field]: value,
