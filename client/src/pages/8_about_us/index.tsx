@@ -1,18 +1,19 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import ABOUTUS_01 from "../../assets/about us/AboutUs_01.png";
+import aboutUS_img from "../../assets/about us/AboutUs_01.png";
+import { Link } from "react-router-dom";
 
 function index() {
   return (
     <div className="container mx-auto">
       <section className="mb-8 mx-4">
         <h2 className="text-primary text-center mb-8">About Us</h2>
-        <div className="grid sm:grid-cols-2 gap-4 content-center px-4 bg-[#F3F1FB] rounded-lg">
+        <div className="grid sm:grid-cols-2 gap-4 content-center px-4 bg-[#F3F1FB] rounded-lg py-8">
           <div className="flex justify-center items-center">
             <div>
               <img
-                src={ABOUTUS_01}
-                alt="aad"
+                src={aboutUS_img}
+                alt="About us section main img"
                 className="w-[500px] object-scale-down mb-4"
               />
             </div>
@@ -95,10 +96,10 @@ function index() {
         </div>
       </section>
 
-      <section className="bg-purple_two px-16 py-16 rounded-lg mb-12 mx-4">
+      <section className="bg-purple_two px-6 py-16 rounded-3xl mb-12 mx-4">
         <div className="flex items-center justify-center sm:justify-start">
-          <div className="bg-[#B5F9C4] rounded-full w-64 mb-4">
-            <p className="text-[#178751] text-[14px] text-center font-semibold px-4 py-1">
+          <div className="bg-[#B5F9C4] rounded-full w-max mb-4">
+            <p className="text-[#178751] text-[14px] text-center font-semibold px-2 sm:px-4 py-1">
               We Can’t Wait For You To Try It!
             </p>
           </div>
@@ -109,15 +110,17 @@ function index() {
             Join us as we transform the AV industry — one event at a time.
           </h2>
           <div className="flex items-center justify-center sm:justify-start">
-            <Button
-              variant="filled"
-              size="sm"
-              className="lg:inline-block bg-primary rounded-btn py-3 px-6 "
-            >
-              <span className=" text-white normal-case">
-                See Event Listings
-              </span>
-            </Button>
+            <Link to="/events">
+              <Button
+                variant="filled"
+                size="sm"
+                className="lg:inline-block bg-primary rounded-btn py-3 px-6 "
+              >
+                <p className="text-white normal-case font-semibold text-[14px]">
+                  See Event Listings
+                </p>
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
