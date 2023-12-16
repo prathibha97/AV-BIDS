@@ -109,9 +109,9 @@ function Index() {
         </div>
       </section>
 
-      {/* <section className="overflow-x-hidden overflow-y-hidden">
+      <section className="overflow-x-hidden overflow-y-hidden">
         <CardCarousel data={recentEvents} />
-      </section> */}
+      </section>
 
       <section className="my-8 md:my-16 grid md:grid-cols-2 content-center rounded-lg bg-secondary mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8">
