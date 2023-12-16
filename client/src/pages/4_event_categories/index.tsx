@@ -1,24 +1,32 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import EVENT_01 from "../../assets/4_event_categories/event_categories_01.png";
-import EVENT_02 from "../../assets/4_event_categories/event_categories_02.png";
+import eventCategories from "../../assets/4_event_categories/event_categories_01.png";
+import eventCategories_02 from "../../assets/4_event_categories/event_categories_02.png";
 import { MdArrowForward } from "react-icons/md";
 import { MdEast } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function index() {
   return (
     <div className="mx-auto">
-      <section className="mb-12">
+      <section className="mb-4 sm:mb-12">
         <div className="text-primary bg-[#F3F1FB] text-center py-16">
           <h2>Event Categories</h2>
         </div>
       </section>
 
-      <section className=" px-4 mb-24">
+      <section className=" px-4 mb-8 sm:mb-24">
         <div className="flex justify-center items-center">
           <div className="grid md:grid-cols-2 gap-4 content-center ">
             <div className="mx-auto flex justify-center items-center">
               <div>
+                <div className="flex items-center block sm:hidden mb-4">
+                  <img
+                    src={eventCategories}
+                    alt="Event categories page main img"
+                    className="w-full object-contain"
+                  />
+                </div>
                 <h2 className="text-primary text-2xl mb-8 text">
                   Corporate Event Categories
                 </h2>
@@ -109,28 +117,34 @@ function index() {
                   </div>
 
                   <div className="flex items-center justify-center sm:justify-start">
-                    <Button
-                      variant="filled"
-                      size="sm"
-                      className="lg:inline-block bg-primary rounded-btn py-3 px-6 mt-6"
-                    >
-                      <div className="flex items-center">
-                        <span className="text-white normal-case">
-                          View Corporate Events
-                        </span>
-                        <MdArrowForward
-                          size={20}
-                          className="text-[#fff] ml-4"
-                        />
-                      </div>
-                    </Button>
+                    <Link to="/events">
+                      <Button
+                        variant="filled"
+                        size="sm"
+                        className="lg:inline-block bg-primary rounded-btn py-3 px-6 mt-6"
+                      >
+                        <div className="flex items-center">
+                          <p className="text-white normal-case font-semibold text-[12px] sm:text-[14px]">
+                            View Corporate Events
+                          </p>
+                          <MdArrowForward
+                            size={20}
+                            className="text-[#fff] ml-4"
+                          />
+                        </div>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center">
-              <img src={EVENT_01} alt="aad" className="w-full object-contain" />
+            <div className="flex items-center hidden sm:block">
+              <img
+                src={eventCategories}
+                alt="Event categories page main img"
+                className="w-full object-contain"
+              />
             </div>
           </div>
         </div>
@@ -138,12 +152,12 @@ function index() {
 
       <section className="mb-8 px-4">
         <div className="flex justify-center items-center">
-          <div className="grid md:grid-cols-2 gap-32 content-center">
+          <div className="grid md:grid-cols-2 sm:gap-32 gap-6 content-center">
             <div>
               <div>
                 <img
-                  src={EVENT_02}
-                  alt="aad"
+                  src={eventCategories_02}
+                  alt="Event categories section two img"
                   className="w-full object-contain"
                 />
               </div>
@@ -218,9 +232,9 @@ function index() {
                       className="lg:inline-block bg-primary rounded-btn py-3 px-6 mt-6"
                     >
                       <div className="flex items-center">
-                        <span className="text-white normal-case">
+                        <p className="text-white normal-case font-semibold text-[12px] sm:text-[14px]">
                           View Non-Corporate Events
-                        </span>
+                        </p>
                         <MdArrowForward
                           size={20}
                           className="text-[#fff] ml-4"

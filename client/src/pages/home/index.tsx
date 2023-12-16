@@ -2,9 +2,9 @@ import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { MdAccessTime, MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
-import HOME_1 from "../../assets/home_1.png";
-import HOME_2 from "../../assets/home_2.png";
-import HOME_3 from "../../assets/home_3.png";
+import Connecting_events from "../../assets/homepage/home_1.png";
+import More_proposals from "../../assets/homepage/home_2.png";
+import More_clients from "../../assets/homepage/home_3.png";
 import CardCarousel from "../../components/carousel";
 import { Event } from "../../types";
 import api from "../../utils/api";
@@ -20,12 +20,20 @@ function Index() {
     fetchRecentEvents();
   }, []);
 
+  const myDiv = document.getElementById("myDiv");
+
+  if (myDiv) {
+    // Set the scroll position (in pixels) within the div
+    const scrollPosition = 150; // Replace with your desired position
+    myDiv.scrollTop = scrollPosition;
+  }
+
   return (
     <div className="container mx-auto">
       <section className="py-0 md:py-0 grid md:grid-cols-2 content-center px-2">
         <img
-          src={HOME_1}
-          alt="aad"
+          src={Connecting_events}
+          alt="Connecting events img for desktop"
           className="w-full object-scale-down block md:hidden"
         />
 
@@ -35,29 +43,34 @@ function Index() {
             Connecting Event Managers with <br />
             <span className="text-[#FF5533]">AV Providers</span>
           </h1>
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
-          >
-            <Link to="/sign-in">
+
+          <Link to="/sign-in">
+            <Button
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
+            >
               <span className="text-white normal-case text-[13px]">
                 Get Started
               </span>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
 
         <img
-          src={HOME_1}
-          alt="aad"
+          src={Connecting_events}
+          alt="Connecting events img for mobile"
           className="w-full object-scale-down hidden md:block"
         />
       </section>
 
-      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-2">
-        <img src={HOME_2} alt="aad" className="w-full object-scale-down" />
+      <section className="py-8 md:py-0 grid md:grid-cols-2 content-center px-4 sm:px-2">
+        <img
+          src={More_proposals}
+          alt="What to get more proposals img"
+          className="w-full object-scale-down"
+        />
         <div className="px-0 md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left">
           <h2 className="text-black font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal lg:leading-snug xl:leading-snug">
             Want to Get More Proposals?
@@ -81,26 +94,26 @@ function Index() {
             </div>
           </div>
 
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
-          >
-            <Link to="/event-planner">
+          <Link to="/event-planner#faqSection">
+            <Button
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
+            >
               <span className="text-white normal-case text-[13px]">
                 Learn More
               </span>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </section>
 
-      <section>
+      {/* <section className="overflow-x-hidden overflow-y-hidden">
         <CardCarousel data={recentEvents} />
-      </section>
+      </section> */}
 
-      <section className="my-8 md:my-16 grid md:grid-cols-2 rounded-lg content-center bg-secondary mx-2">
+      <section className="my-8 md:my-16 grid md:grid-cols-2 content-center rounded-lg bg-secondary mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="md:px-8 lg:px-16 flex flex-col justify-center items-center md:items-start text-center md:text-left  p-8 pt-12  md:pt-8">
           <h2 className="text-black">
             Want to Get More <span className="text-white">Clients?</span>
@@ -109,20 +122,28 @@ function Index() {
             Browse the events listing page, and submit your proposal. No more
             cold calling or emailing for new clients.
           </p>
-          <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
-          >
-            <Link to="/av_providers">
+
+          <Link to="/av_providers#avFaqSection">
+            <Button
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md w-36 mt-4 py-4 bg-primary font-poppins"
+            >
               <span className="text-white normal-case text-[13px]">
                 Learn More
               </span>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
-        <img src={HOME_3} alt="aad" className="w-full object-contain" />
+
+        <div className="">
+          <img
+            src={More_clients}
+            alt="want to get more clients img"
+            className="object-contain w-[300px] sm:w-[500px] mx-8 "
+          />
+        </div>
       </section>
 
       {/* <section className='bg-[#E2E5FA] rounded-lg p-6 '>

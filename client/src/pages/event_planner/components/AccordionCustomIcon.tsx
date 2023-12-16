@@ -35,7 +35,7 @@ export function AccordionCustomIcon() {
     <>
       <Accordion open={open === 1} icon={<Icon id={1} open={String(open)} />}>
         <AccordionHeader onClick={() => handleOpen(1)}>
-          <p className="text-[#000000] font-semibold text-[20px]">
+          <p className="text-[#000000] font-semibold text-[18px]">
             What type of events can I post?
           </p>
         </AccordionHeader>
@@ -51,7 +51,7 @@ export function AccordionCustomIcon() {
       </Accordion>
       <Accordion open={open === 2} icon={<Icon id={2} open={String(open)} />}>
         <AccordionHeader onClick={() => handleOpen(2)}>
-          <p className="text-[#000000] font-semibold text-[20px]">
+          <p className="text-[#000000] font-semibold text-[18px]">
             How does AV Bids make money?
           </p>
         </AccordionHeader>
@@ -67,7 +67,7 @@ export function AccordionCustomIcon() {
       </Accordion>
       <Accordion open={open === 3} icon={<Icon id={3} open={String(open)} />}>
         <AccordionHeader onClick={() => handleOpen(3)}>
-          <p className="text-[#000000] font-semibold text-[20px]">
+          <p className="text-[#000000] font-semibold text-[18px]">
             What if I need help getting started?
           </p>
         </AccordionHeader>

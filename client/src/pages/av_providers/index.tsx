@@ -1,12 +1,11 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import AVPROVIDER_1 from "../../assets/AV Providers/Credit card-rafiki 1.png";
-import AVPROVIDER_2 from "../../assets/AV Providers/Login-rafiki 1.png";
-import AVPROVIDER_3 from "../../assets/AV Providers/Search-rafiki (1) 1.png";
-import AVPROVIDER_4 from "../../assets/AV Providers/Files sent-rafiki 1.png";
-import Done_Icon from "../../assets/AV Providers/done-icon.png";
-
-import { MdArrowForward } from "react-icons/md";
+import AVPROVIDER_main_img from "../../assets/AV Providers/Credit card-rafiki 1.png";
+import How_to_start_01 from "../../assets/AV Providers/Login-rafiki 1.png";
+import How_to_start_02 from "../../assets/AV Providers/Search-rafiki (1) 1.png";
+import How_to_start_03 from "../../assets/AV Providers/Files sent-rafiki 1.png";
+import { Link } from "react-router-dom";
+import { MdArrowForward, MdCheckCircle } from "react-icons/md";
 
 import Accordion from "./components/AccordionCustomIcon";
 
@@ -16,12 +15,12 @@ function index() {
     <div className="mx-auto">
       <section className="mb-8 content-center">
         {/* <div className="grid lg:grid-cols-2 gap-4 content-center"> */}
-        <div className="my-8 md:my-16 grid md:grid-cols-2 content-center bg-[#060139]">
+        <div className="grid md:grid-cols-2 content-center bg-[#060139] sm:py-16">
           <div className="flex flex-col justify-center items-center px-8 mt-8 sm:mb-8">
             <div className="justify-center items-center text-center lg:text-left">
               <div className="flex items-center justify-center sm:justify-start">
-                <div className="bg-[#B5F9C4] rounded-full w-44 mb-4">
-                  <p className="text-[#178751] font-semibold px-4 py-1 text-center">
+                <div className="bg-[#B5F9C4] rounded-full mb-4">
+                  <p className="text-[#178751] font-semibold px-4 py-1.5 text-center ">
                     For AV Providers
                   </p>
                 </div>
@@ -30,7 +29,7 @@ function index() {
               <h2 className="font-poppins font-extrabold text-[#fff] mb-8 sm:text-left">
                 Why pay for AV Bids?
               </h2>
-              <p className="text-[#fff] my-4 text-left ">
+              <p className="text-[#fff] my-4 text-center sm:text-left ">
                 We offer a unique listing site that is specific to the events
                 industry. We wanted to create a platform that connects av
                 providers to event planners to help companies get new clients
@@ -38,8 +37,8 @@ function index() {
               </p>
               <div className=" mb-8">
                 <div className="flex gap-3">
-                  <div className="mt-1">
-                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
+                  <div className="">
+                    <MdCheckCircle className="text-[#42D27A] text-[21px]" />
                   </div>
 
                   <p className="mb-8  text-[#fff] text-left">
@@ -49,8 +48,8 @@ function index() {
                 </div>
 
                 <div className="flex gap-3">
-                  <div className="mt-1">
-                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
+                  <div className="">
+                    <MdCheckCircle className="text-[#42D27A] text-[21px]" />
                   </div>
                   <p className="mb-8 text-[#fff] text-left">
                     Add up to three members for your organization
@@ -58,8 +57,8 @@ function index() {
                 </div>
 
                 <div className="flex gap-3">
-                  <div className="mt-1">
-                    <img src={Done_Icon} alt="aad" className="w-[20px] " />
+                  <div className="">
+                    <MdCheckCircle className="text-[#42D27A] text-[21px]" />
                   </div>
                   <p className="mb-0 text-[#fff] text-left">
                     Chat with event planners and send invoices all from our site
@@ -68,25 +67,27 @@ function index() {
               </div>
 
               <div className="flex items-center justify-center sm:justify-start">
-                <button className="flex items-center bg-[#8645FF] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
-                  Get Started
-                  <MdArrowForward size={24} className="text-[#fff] ml-4" />
-                </button>
+                <Link to="/sign-in">
+                  <button className="flex items-center bg-[#8645FF] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
+                    Get Started
+                    <MdArrowForward size={24} className="text-[#fff] ml-4" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col justify-center items-center mt-16 sm:mt-8 md:mt-0 mb-6">
             <img
-              src={AVPROVIDER_1}
-              alt="aad"
-              className="w-full object-scale-down"
+              src={AVPROVIDER_main_img}
+              alt="AV provider section main img"
+              className="w-[600px] object-scale-down"
             />
           </div>
         </div>
       </section>
 
-      <section>
+      <section className="container mx-auto">
         <div className="flex items-center justify-center">
           <div className="bg-[#B5F9C4] rounded-full w-36 mb-4">
             <p className="text-[#178751] text-center font-semibold px-4 py-1">
@@ -108,8 +109,8 @@ function index() {
                 <div className="">
                   <div className="flex justify-center align-items">
                     <img
-                      src={AVPROVIDER_2}
-                      alt="aad"
+                      src={How_to_start_01}
+                      alt="create account"
                       className="w-[400px] object-scale-down"
                     />
                   </div>
@@ -134,8 +135,8 @@ function index() {
               <div>
                 <div className="flex justify-center align-items">
                   <img
-                    src={AVPROVIDER_3}
-                    alt="aad"
+                    src={How_to_start_02}
+                    alt="browse the event listings"
                     className="w-[400px] object-scale-down"
                   />
                 </div>
@@ -159,8 +160,8 @@ function index() {
               <div>
                 <div className="flex justify-center align-items">
                   <img
-                    src={AVPROVIDER_4}
-                    alt="aad"
+                    src={How_to_start_03}
+                    alt="submit your proposal"
                     className="w-[400px] object-scale-down"
                   />
                 </div>
@@ -184,17 +185,17 @@ function index() {
         </div>
       </section>
 
-      <section className=" my-8 mx-4 px-2 bg-[#F3F1FB] rounded-xl">
-        <div className="px-8">
-          <h2 className="text-primary text-center pt-10">
-            Frequently Asked Questions
-          </h2>
+      <div className="container mx-auto bg-[#F3F1FB] py-4 mt-8 mb-4 rounded-lg">
+        <section className="my-8 px-2" id="faqSection">
+          <div className="px-8">
+            <h2 className="text-primary text-center mb-4">
+              Frequently Asked Questions
+            </h2>
 
-          <div className="pt-12 pb-8">
             <Accordion />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <div className="container mx-auto">
         <section className="py-6 ">
@@ -263,10 +264,12 @@ function index() {
                 </Button>
               </div>
               <div className="flex items-center justify-center">
-                <button className="flex items-center bg-[#8645FF] text-[20px] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
-                  <span className="text-[13px]">Get Started</span>
-                  <MdArrowForward size={24} className="text-[#fff] ml-4" />
-                </button>
+                <Link to="/sign-in">
+                  <button className="flex items-center bg-[#8645FF] text-[20px] text-white rounded-full py-2 px-4 text-center font-semibold text-lg hover:bg-[#8645FF] focus:outline-none focus:ring-2 focus:ring-[#8645FF] ">
+                    <span className="text-[13px]">Get Started</span>
+                    <MdArrowForward size={24} className="text-[#fff] ml-4" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
