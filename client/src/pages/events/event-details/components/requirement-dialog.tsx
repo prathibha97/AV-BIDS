@@ -17,6 +17,10 @@ import {
   Speaksers,
   VideoCamera,
   VideoProcessing,
+  Lighting,
+  Scenic,
+  Electrical,
+  Staff
 } from '../../../../types';
 
 interface RequirementDialogProps {
@@ -44,6 +48,10 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
       | VideoCamera
       | VideoProcessing
       | PresenterTools
+      | Lighting
+      | Scenic
+      | Electrical
+      | Staff
   ) => {
     return (
       requirements && (

@@ -299,6 +299,73 @@ const updateEvent = (id, updates) => {
     Flipchart: getUpdatedValue('Flipchart', 'presenterTools'),
   };
 
+  const updateLighting = {
+    Uplighting: getUpdatedValue('Uplighting', 'lighting'),
+    Stage_Wash: getUpdatedValue('Stage_Wash', 'lighting'),
+    Moving_Head_Lights: getUpdatedValue('Moving_Head_Lights', 'lighting'),
+    Gobo: getUpdatedValue('Gobo', 'lighting'),
+    Inflatable_Balloon_Light: getUpdatedValue(
+      'Inflatable_Balloon_Light',
+      'lighting'
+    ),
+    LED_Lighting_Effects: getUpdatedValue('LED_Lighting_Effects', 'lighting'),
+    Spotlight: getUpdatedValue('Spotlight', 'lighting'),
+    Lighting_Rigging_and_Truss: getUpdatedValue(
+      'Lighting_Rigging_and_Truss',
+      'lighting'
+    ),
+  };
+
+  const updateScenic = {
+    Drape_Kit_Black: getUpdatedValue('Drape_Kit_Black', 'scenic'),
+    Drape_Kit_Grey: getUpdatedValue('Drape_Kit_Grey', 'scenic'),
+    Drape_Kit_White: getUpdatedValue('Drape_Kit_White', 'scenic'),
+    Scenic_Panels: getUpdatedValue('Scenic_Panels', 'scenic'),
+    Podium: getUpdatedValue('Podium', 'scenic'),
+    Mobile_Hotspot_up_to_15_devices: getUpdatedValue(
+      'Mobile_Hotspot_up_to_15_devices',
+      'scenic'
+    ),
+    Event_WIFI_Network_more_than_15_devices: getUpdatedValue(
+      'Event_WIFI_Network_more_than_15_devices',
+      'scenic'
+    ),
+    Laptops_PC: getUpdatedValue('Laptops_PC', 'scenic'),
+    Laptops_Mac: getUpdatedValue('Laptops_Mac', 'scenic'),
+  };
+
+  const updateElectrical = {
+    Audience_Table_Power: getUpdatedValue('Audience_Table_Power', 'electrical'),
+    Power_Strips_6x1: getUpdatedValue('Power_Strips_6x1', 'electrical'),
+    Portable_Distribution_Box_50_Amp: getUpdatedValue(
+      'Portable_Distribution_Box_50_Amp',
+      'electrical'
+    ),
+    Portable_Distribution_Box_100_Amp: getUpdatedValue(
+      'Portable_Distribution_Box_100_Amp',
+      'electrical'
+    ),
+    Portable_Distribution_Box_200_Amp: getUpdatedValue(
+      'Portable_Distribution_Box_200_Amp',
+      'electrical'
+    ),
+    Portable_Distribution_Box_300_Amp: getUpdatedValue(
+      'Portable_Distribution_Box_300_Amp',
+      'electrical'
+    ),
+    Portable_Distribution_Box_400_Amp: getUpdatedValue(
+      'Portable_Distribution_Box_400_Amp',
+      'electrical'
+    ),
+  };
+
+  const updateStaff = {
+    Audio_Tech: getUpdatedValue('Audio_Tech', 'staff'),
+    Video_Tech: getUpdatedValue('Video_Tech', 'staff'),
+    Lighting_Tech: getUpdatedValue('Lighting_Tech', 'staff'),
+    Project_Manager: getUpdatedValue('Project_Manager', 'staff'),
+  };
+
   return Event.findOneAndUpdate(
     { _id: id },
     {
@@ -309,9 +376,13 @@ const updateEvent = (id, updates) => {
       communication: { ...updateCommunication },
       screens: { ...updateScreens },
       projection: { ...updateProjection },
-      videoCamera: { ...updateVideoCamera},
-      videoProcessing: { ...updateVideoProcessing},
-      presenterTools: { ...updatePresenterTools}
+      videoCamera: { ...updateVideoCamera },
+      videoProcessing: { ...updateVideoProcessing },
+      presenterTools: { ...updatePresenterTools },
+      lighting: { ...updateLighting },
+      scenic: { ...updateScenic },
+      electrical: { ...updateElectrical },
+      staff: { ...updateStaff },
     },
     {
       new: true,

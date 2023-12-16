@@ -213,7 +213,7 @@ export function Index() {
         {currentStep === 6 && (
           <StepSix
             formData={formData}
-            updateStepTwoData={(field: any, value: any) => {
+            updateFormData={(field: any, value: any) => {
               setFormData({
                 ...formData,
                 [field]: value,
