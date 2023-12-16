@@ -5,22 +5,24 @@ import {
   DialogFooter,
   DialogHeader,
 } from '@material-tailwind/react';
-import { FC } from 'react';
+import { FC, useRef } from 'react';
+// @ts-ignore
+import html2pdf from 'html2pdf.js';
 import {
   Communication,
+  Electrical,
   Event,
+  Lighting,
   Microphones,
   Mixers,
   PresenterTools,
   Projection,
+  Scenic,
   Screens,
   Speaksers,
+  Staff,
   VideoCamera,
   VideoProcessing,
-  Lighting,
-  Scenic,
-  Electrical,
-  Staff
 } from '../../../../types';
 
 interface RequirementDialogProps {
@@ -34,6 +36,8 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
   open,
   event,
 }) => {
+  const pdfContainer = useRef<HTMLDivElement>(null);
+
   const renderSection = (
     title: string,
     requirements:
@@ -55,30 +59,54 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
   ) => {
     return (
       requirements && (
-        <>
-          <h3 className='font-bold mb-2'>{title}</h3>
-          {Object.entries(requirements).map(
-            ([key, value]) => value > 0 && <p key={key}>{`${key}: ${value}`}</p>
-          )}
-        </>
+        <div className='mb-6'>
+          <h3 className='font-bold mb-2 bg-purple-100 p-1 rounded-md'>
+            {title}
+          </h3>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            {Object.entries(requirements).map(([key, value]) => {
+              const formattedKey = key
+                .replace(/_/g, ' ') // Replace underscores with spaces
+                .replace(/([a-z])([A-Z])/g, '$1 $2'); // Split camelCase with spaces
+              return (
+                value > 0 && (
+                  <p key={key} className='text-sm'>
+                    {`${formattedKey}: ${value}`}
+                  </p>
+                )
+              );
+            })}
+          </div>
+        </div>
       )
     );
+  };
+
+  const downloadPDF = () => {
+    if (pdfContainer.current) {
+      const content = pdfContainer.current;
+      const options = {
+        margin: 10,
+        filename: 'AV_Requirements.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+
+      html2pdf(content, options);
+    }
   };
 
   return (
     <Dialog open={open} handler={handleOpen}>
       <DialogHeader>{event?.title} - AV Requirements</DialogHeader>
       <DialogBody className='max-h-[500px] overflow-y-auto'>
-        <div>
+        <div ref={pdfContainer}>
           {renderSection('General Requirements', {
-            // @ts-ignore
-            'Room Count': event?.roomCount,
-            // @ts-ignore
-            'General Session Count': event?.generalSessionCount,
-            // @ts-ignore
-            'Breakout Session Count': event?.breakoutSessionCount,
-            // @ts-ignore
-            'Presenter Count': event?.presenterCount,
+            'Room Count': event?.roomCount!,
+            'General Session Count': event?.generalSessionCount!,
+            'Breakout Session Count': event?.breakoutSessionCount!,
+            'Presenter Count': event?.presenterCount!,
           })}
 
           {renderSection('Microphone Requirements', event?.microphones)}
@@ -116,8 +144,7 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
             {
               // @ts-ignore
               ...event?.otherRequirements.reduce((acc, req) => {
-                // @ts-ignore
-                if (req.count > 0) {
+                if ((req.count as number) > 0) {
                   acc[req.label] = req.count;
                 }
                 return acc;
@@ -126,16 +153,11 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
           )}
         </div>
       </DialogBody>
-      <DialogFooter>
-        <Button
-          variant='text'
-          color='red'
-          onClick={handleOpen}
-          className='mr-1'
-        >
+      <DialogFooter className='flex justify-between'>
+        <Button color='red' onClick={handleOpen} className='mr-1'>
           <span>Close</span>
         </Button>
-        <Button className='bg-primary' onClick={handleOpen}>
+        <Button className='bg-primary' onClick={downloadPDF}>
           <span>Download</span>
         </Button>
       </DialogFooter>
