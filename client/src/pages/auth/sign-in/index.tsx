@@ -32,11 +32,11 @@ export function Index() {
   const dispatch = useAppDispatch();
   const user = useGetCurrentUser();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/dashboard");
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/dashboard");
+  //   }
+  // }, [user, navigate]);
 
   const { message, color, open } = useAppSelector(
     (state: RootState) => state.alert
@@ -59,14 +59,14 @@ export function Index() {
       const { data } = await api.post("/auth/login", { ...values });
       localStorage.setItem("userInfo", JSON.stringify(data));
       dispatch(setUser(data.user));
-      if (
-        data.user.userType === "PROVIDER" &&
-        data.user.subscription.plan === "BASIC"
-      ) {
-        navigate("/billing");
-      } else {
-        navigate("/dashboard");
-      }
+       if (
+         data.user.userType === 'PROVIDER' &&
+         data.user.subscription.plan === 'BASIC'
+       ) {
+         navigate('/billing');
+       } else {
+         navigate('/dashboard');
+       }
     } catch (error: any) {
       if (error.response) {
         dispatch(
