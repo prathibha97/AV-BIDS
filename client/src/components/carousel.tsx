@@ -103,7 +103,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       <Slider ref={sliderRef} {...settings}>
         {data.map((event, index) => (
           <div key={index} className="px-3">
-            <div className="bg-[#F3F1FB]  h-max sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
+            <div className="bg-[#F3F1FB]  h-[400px] sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
               <div className="flex items-center justify-center">
                 <div className="">
                   <div className="px-4 py-2 sm:py-4">
