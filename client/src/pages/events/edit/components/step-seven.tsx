@@ -1,6 +1,7 @@
-import { Textarea } from "@material-tailwind/react";
-import { FC, useEffect, useState } from "react";
-import CardDetails from "./card-details";
+import { Textarea } from '@material-tailwind/react';
+import { FC, useEffect, useState } from 'react';
+import { Scenic, Staff } from '../../../../types';
+import CardDetails from './card-details';
 
 interface StepSevenProps {
   formData: any;
@@ -13,39 +14,37 @@ interface Requirement {
 }
 
 const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
-  const [Audio_Tech, setAudio_Tech] = useState(formData.Audio_Tech || 0);
-  const [Video_Tech, setVideo_Tech] = useState(formData.Video_Tech || 0);
-  const [Lighting_Tech, setLighting_Tech] = useState(
-    formData.Lighting_Tech || 0
-  );
-  const [Project_Manager, setProject_Manager] = useState(
-    formData.Project_Manager || 0
-  );
+  const [staff, setStaff] = useState({
+    Audio_Tech: formData.staff?.Audio_Tech ?? 0,
+    Video_Tech: formData.staff?.Video_Tech ?? 0,
+    Lighting_Tech: formData.staff?.Lighting_Tech ?? 0,
+    Project_Manager: formData.staff?.Project_Manager ?? 0,
+  });
 
-  const [Mobile_Hotspot_up_to_15_devices, setMobile_Hotspot_up_to_15_devices] =
-    useState(formData.Mobile_Hotspot_up_to_15_devices || 0);
-  const [
-    Event_WIFI_Network_more_than_15_devices,
-    setEvent_WIFI_Network_more_than_15_devices,
-  ] = useState(formData.Event_WIFI_Network_more_than_15_devices || 0);
-  const [Laptops_PC, setLaptops_PC] = useState(formData.Laptops_PC || 0);
-  const [Laptops_Mac, setLaptops_Mac] = useState(formData.Laptops_Mac || 0);
+  const [scenic, setScenic] = useState({
+    Mobile_Hotspot_up_to_15_devices:
+      formData.scenic?.Mobile_Hotspot_up_to_15_devices ?? 0,
+    Event_WIFI_Network_more_than_15_devices:
+      formData.scenic?.Event_WIFI_Network_more_than_15_devices ?? 0,
+    Laptops_PC: formData.scenic?.Laptops_PC ?? 0,
+    Laptops_Mac: formData.scenic?.Laptops_Mac ?? 0,
+  });
 
   const [otherRequirements, setOtherRequirements] = useState<Requirement[]>(
     formData.otherRequirements || [
-      { label: "", count: 0 },
-      { label: "", count: 0 },
-      { label: "", count: 0 },
-      { label: "", count: 0 },
-      { label: "", count: 0 },
+      { label: '', count: 0 },
+      { label: '', count: 0 },
+      { label: '', count: 0 },
+      { label: '', count: 0 },
+      { label: '', count: 0 },
     ]
   );
 
-  const [comments, setComments] = useState(formData.comments || "");
+  const [comments, setComments] = useState(formData.comments || '');
 
   useEffect(() => {
     // Update formData when otherRequirements changes
-    updateFormData("otherRequirements", otherRequirements);
+    updateFormData('otherRequirements', otherRequirements);
   }, [otherRequirements]);
 
   const handleAdjust = (
@@ -53,9 +52,8 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
     value: number | string,
     index?: number
   ) => {
-    let updatedValue: number | Requirement[] = 0;
 
-    if (field === "count" && typeof value === "number" && index !== undefined) {
+    if (field === 'count' && typeof value === 'number' && index !== undefined) {
       setOtherRequirements((prevRequirements) => {
         const updatedRequirements = prevRequirements.map((requirement, i) => {
           if (index !== undefined && i === index) {
@@ -68,13 +66,13 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
         });
 
         // Pass the correct label to updateFormData directly from the updated state
-        updateFormData("otherRequirements", updatedRequirements);
+        updateFormData('otherRequirements', updatedRequirements);
 
         return updatedRequirements;
       });
     } else if (
-      field === "label" &&
-      typeof value === "string" &&
+      field === 'label' &&
+      typeof value === 'string' &&
       index !== undefined
     ) {
       setOtherRequirements((prevRequirements) => {
@@ -88,155 +86,124 @@ const StepSeven: FC<StepSevenProps> = ({ formData, updateFormData }) => {
           return requirement;
         });
 
-        updateFormData("otherRequirements", updatedRequirements);
+        updateFormData('otherRequirements', updatedRequirements);
 
         return updatedRequirements;
       });
-    } else if (field === "comments" && typeof value === "string") {
+    } else if (field === 'comments' && typeof value === 'string') {
       setComments(value);
       // @ts-ignore
-      updateFormData("comments", value);
-    } else {
-      switch (field) {
-        case "Audio_Tech":
-          // @ts-ignore
-          updatedValue = Math.max(0, Audio_Tech + value);
-          setAudio_Tech(updatedValue);
-          break;
-        case "Video_Tech":
-          // @ts-ignore
-          updatedValue = Math.max(0, Video_Tech + value);
-          setVideo_Tech(updatedValue);
-          break;
-        case "Lighting_Tech":
-          // @ts-ignore
-          updatedValue = Math.max(0, Lighting_Tech + value);
-          setLighting_Tech(updatedValue);
-          break;
-        case "Project_Manager":
-          // @ts-ignore
-          updatedValue = Math.max(0, Project_Manager + value);
-          setProject_Manager(updatedValue);
-          break;
-        case "Mobile_Hotspot_up_to_15_devices":
-          // @ts-ignore
-          updatedValue = Math.max(0, Mobile_Hotspot_up_to_15_devices + value);
-          setMobile_Hotspot_up_to_15_devices(updatedValue);
-          break;
-        case "Event_WIFI_Network_more_than_15_devices":
-          updatedValue = Math.max(
-            0,
-            // @ts-ignore
-            Event_WIFI_Network_more_than_15_devices + value
-          );
-          setEvent_WIFI_Network_more_than_15_devices(updatedValue);
-          break;
-        case "Laptops_PC":
-          // @ts-ignore
-          updatedValue = Math.max(0, Laptops_PC + value);
-          setLaptops_PC(updatedValue);
-          break;
-        case "Laptops_Mac":
-          // @ts-ignore
-          updatedValue = Math.max(0, Laptops_Mac + value);
-          setLaptops_Mac(updatedValue);
-          break;
-        default:
-          break;
-      }
-      // @ts-ignore
-      if (!isNaN(updatedValue)) {
-        updateFormData(field, updatedValue);
-      }
+      updateFormData('comments', value);
+    }
+  };
+
+  const handleAdjustStaff = (field: keyof Staff, value: number) => {
+    let updatedValue = Math.max(0, staff[field] + value);
+    setStaff((prev) => ({ ...prev, [field]: updatedValue }));
+
+    if (!isNaN(updatedValue)) {
+      updateFormData(field as string, updatedValue);
+    }
+  };
+
+  const handleAdjustScenic = (field: keyof Scenic, value: number) => {
+    // @ts-ignore
+    let updatedValue = Math.max(0, scenic[field] + value);
+    setScenic((prev) => ({ ...prev, [field]: updatedValue }));
+
+    if (!isNaN(updatedValue)) {
+      updateFormData(field as string, updatedValue);
     }
   };
 
   return (
-    <div className="grid grid-cols-2 gap-6">
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
-        <p className="text-[18px] font-medium mb-4">Staff</p>
+    <div className='grid grid-cols-2 gap-6'>
+      <div className='bg-[#F3F1FB] rounded-lg p-6'>
+        <p className='text-[18px] font-medium mb-4'>Staff</p>
         <CardDetails
-          name="Audio Tech"
-          value={Audio_Tech}
-          onDecrease={() => handleAdjust("Audio_Tech", -1)}
-          onIncrease={() => handleAdjust("Audio_Tech", 1)}
+          name='Audio Tech'
+          value={staff.Audio_Tech}
+          onDecrease={() => handleAdjustStaff('Audio_Tech', -1)}
+          onIncrease={() => handleAdjustStaff('Audio_Tech', 1)}
         />
         <CardDetails
-          name="Video Tech"
-          value={Video_Tech}
-          onDecrease={() => handleAdjust("Video_Tech", -1)}
-          onIncrease={() => handleAdjust("Video_Tech", 1)}
+          name='Video Tech'
+          value={staff.Video_Tech}
+          onDecrease={() => handleAdjustStaff('Video_Tech', -1)}
+          onIncrease={() => handleAdjustStaff('Video_Tech', 1)}
         />
         <CardDetails
-          name="Lighting Tech"
-          value={Lighting_Tech}
-          onDecrease={() => handleAdjust("Lighting_Tech", -1)}
-          onIncrease={() => handleAdjust("Lighting_Tech", 1)}
+          name='Lighting Tech'
+          value={staff.Lighting_Tech}
+          onDecrease={() => handleAdjustStaff('Lighting_Tech', -1)}
+          onIncrease={() => handleAdjustStaff('Lighting_Tech', 1)}
         />
         <CardDetails
-          name="Project Manager"
-          value={Project_Manager}
-          onDecrease={() => handleAdjust("Project_Manager", -1)}
-          onIncrease={() => handleAdjust("Project_Manager", 1)}
+          name='Project Manager'
+          value={staff.Project_Manager}
+          onDecrease={() => handleAdjustStaff('Project_Manager', -1)}
+          onIncrease={() => handleAdjustStaff('Project_Manager', 1)}
         />
       </div>
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
-        <p className="text-[18px] font-medium mb-4">Scenic</p>
+      <div className='bg-[#F3F1FB] rounded-lg p-6'>
+        <p className='text-[18px] font-medium mb-4'>Scenic</p>
         <CardDetails
-          name="Mobile Hotspot (up to 15 devices)"
-          value={Mobile_Hotspot_up_to_15_devices}
-          onDecrease={() => handleAdjust("Mobile_Hotspot_up_to_15_devices", -1)}
-          onIncrease={() => handleAdjust("Mobile_Hotspot_up_to_15_devices", 1)}
-        />
-        <CardDetails
-          name="Event WIFI Network (more than 15 devices)"
-          value={Event_WIFI_Network_more_than_15_devices}
+          name='Mobile Hotspot (up to 15 devices)'
+          value={scenic.Mobile_Hotspot_up_to_15_devices}
           onDecrease={() =>
-            handleAdjust("Event_WIFI_Network_more_than_15_devices", -1)
+            handleAdjustScenic('Mobile_Hotspot_up_to_15_devices', -1)
           }
           onIncrease={() =>
-            handleAdjust("Event_WIFI_Network_more_than_15_devices", 1)
+            handleAdjustScenic('Mobile_Hotspot_up_to_15_devices', 1)
           }
         />
         <CardDetails
-          name="Laptops-PC"
-          value={Laptops_PC}
-          onDecrease={() => handleAdjust("Laptops_PC", -1)}
-          onIncrease={() => handleAdjust("Laptops_PC", 1)}
+          name='Event WIFI Network (more than 15 devices)'
+          value={scenic.Event_WIFI_Network_more_than_15_devices}
+          onDecrease={() =>
+            handleAdjustScenic('Event_WIFI_Network_more_than_15_devices', -1)
+          }
+          onIncrease={() =>
+            handleAdjustScenic('Event_WIFI_Network_more_than_15_devices', 1)
+          }
         />
         <CardDetails
-          name="Laptops-Mac"
-          value={Laptops_Mac}
-          onDecrease={() => handleAdjust("Laptops_Mac", -1)}
-          onIncrease={() => handleAdjust("Laptops_Mac", 1)}
+          name='Laptops-PC'
+          value={scenic.Laptops_PC}
+          onDecrease={() => handleAdjustScenic('Laptops_PC', -1)}
+          onIncrease={() => handleAdjustScenic('Laptops_PC', 1)}
+        />
+        <CardDetails
+          name='Laptops-Mac'
+          value={scenic.Laptops_Mac}
+          onDecrease={() => handleAdjustScenic('Laptops_Mac', -1)}
+          onIncrease={() => handleAdjustScenic('Laptops_Mac', 1)}
         />
       </div>
 
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
-        <p className="text-[18px] font-medium mb-4">Other Requirements</p>
+      <div className='bg-[#F3F1FB] rounded-lg p-6'>
+        <p className='text-[18px] font-medium mb-4'>Other Requirements</p>
         {otherRequirements.map((requirement, index) => (
           <RequirementInput
             key={index}
             label={`Requirement ${index + 1}`}
             requirement={requirement}
             onRequirementChange={(newRequirement) => {
-              handleAdjust("label", newRequirement.label, index);
-              handleAdjust("count", newRequirement.count, index);
+              handleAdjust('label', newRequirement.label, index);
+              handleAdjust('count', newRequirement.count, index);
             }}
           />
         ))}
       </div>
 
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
-        <p className="text-[18px] font-medium mb-4">Comments</p>
-        <p className="text-[15px] font-medium mb-3 ">Description</p>
+      <div className='bg-[#F3F1FB] rounded-lg p-6'>
+        <p className='text-[18px] font-medium mb-4'>Comments</p>
 
         <div>
           <Textarea
-            label="Description"
-            className="bg-white border border-[#E4E4E4]"
+            className='bg-white border border-[#E4E4E4]'
             value={comments}
-            onChange={(e) => handleAdjust("comments", e.target.value)}
+            onChange={(e) => handleAdjust('comments', e.target.value)}
           />
         </div>
       </div>
@@ -270,27 +237,27 @@ function RequirementInput(props: RequirementInputProps) {
   };
 
   return (
-    <div className="flex items-center space-x-8">
+    <div className='flex items-center space-x-8'>
       <input
-        className="border rounded-lg p-2 mb-4 border-[#E4E4E4]"
+        className='border rounded-lg p-2 mb-4 border-[#E4E4E4]'
         placeholder={label}
         value={requirement.label}
         onChange={(e) => handleLabelChange(e.target.value)}
       />
 
-      <div className="flex items-center gap-4">
-        <div className="flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]">
+      <div className='flex items-center gap-4'>
+        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]'>
           <button
-            type="button"
+            type='button'
             onClick={() => handleCountChange(requirement.count - 1)}
           >
             -
           </button>
         </div>
         <p>{requirement.count}</p>
-        <div className="flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]">
+        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-[#F3F1FB] text-[#888888]'>
           <button
-            type="button"
+            type='button'
             onClick={() => handleCountChange(requirement.count + 1)}
           >
             +

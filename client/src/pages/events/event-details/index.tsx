@@ -20,11 +20,11 @@ import { Event, UserWithReviewWithEvent } from '../../../types';
 import api from '../../../utils/api';
 import SubmitProposal from './components/SubmitProposal';
 import Attachments from './components/attachments';
+import AvRequirements from './components/av-requirements';
 import EventInfo from './components/event-info';
 import EventPlanner from './components/event-planner';
 import OtherEvents from './components/other-events';
 import SubmitQuestion from './components/submit-question';
-import AvRequirements from './components/av-requirements';
 
 export function Index() {
   const { id } = useParams();
@@ -112,8 +112,6 @@ export function Index() {
       }
     }
   };
-
-  
 
   useEffect(() => {
     fetchEventDetails();
@@ -289,8 +287,12 @@ export function Index() {
               </>
             )}
             <EventInfo event={event} />
-            <AvRequirements event={event} />
-            <Attachments event={event} />
+            {user && (
+              <>
+                <AvRequirements event={event} />
+                <Attachments event={event} />
+              </>
+            )}
             <EventPlanner planner={planner} loading={plannerLoading} />
           </section>
         </div>

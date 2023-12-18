@@ -8,17 +8,26 @@ import {
   MdLens,
   MdOutlineCalendarMonth,
 } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import ICON from "../../src/assets/homepage/icon.png";
+import { setAlertWithTimeout } from "../app/features/alerts/alertSlice";
+import { useAppDispatch } from "../app/hooks";
+import { useGetCurrentUser } from "../app/hooks/useUser";
 import { Event } from "../types";
+import api from "../utils/api";
 
 interface CarouselProps {
   data: Event[];
 }
 
 const Carousel: React.FC<CarouselProps> = ({ data }) => {
+  const user = useGetCurrentUser();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -70,6 +79,34 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
 
   const currentDate = new Date();
 
+  const handleSaveEvent = async (id: string) => {
+    try {
+      const { data } = await api.post(`/events/save/${id}`);
+      dispatch(
+        setAlertWithTimeout({
+          message: data.message,
+          color: "green",
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: "red",
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log("No response received from the server.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error while setting up the request:", error.message);
+      }
+    }
+  };
+
   return (
     <div className="mt-4 sm:mt-10  md:mt-14 lg:mt-10 xl:mt-16 2xl:mt-0 ">
       <div className="flex items-center justify-center sm:justify-between">
@@ -103,7 +140,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       <Slider ref={sliderRef} {...settings}>
         {data.map((event, index) => (
           <div key={index} className="px-3">
-            <div className="bg-[#F3F1FB]  h-[400px] sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
+            <div className="bg-[#F3F1FB]  h-max sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
               <div className="flex items-center justify-center">
                 <div className="">
                   <div className="px-4 py-2 sm:py-4">
@@ -123,9 +160,14 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                               {event.title}
                             </h2>
                           </div>
-                          <div className="col-span-1 justify-self-end">
-                            <MdBookmarkBorder className="text-[20px] text-[#C5BDBD] " />
-                          </div>
+                          {user && user.userType === "PROVIDER" && (
+                            <div
+                              className="col-span-1 justify-self-end"
+                              onClick={() => handleSaveEvent(event._id)}
+                            >
+                              <MdBookmarkBorder className="text-[20px] text-[#C5BDBD] cursor-pointer" />
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -167,13 +209,27 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                         {event.address.city}, {event.address.state}
                       </p>
                       <MdLens className="text-[#D8D0FA] text-[15px]" />
-                      <p className="text-[15px]">
-                        {differenceInDays(
+                      {differenceInDays(
+                        parseISO(event.proposalDueDate),
+                        currentDate
+                      ) < 0 ? (
+                        <p className="text-[15px]">
+                          Proposals no longer accepted
+                        </p>
+                      ) : differenceInDays(
                           parseISO(event.proposalDueDate),
                           currentDate
-                        )}{" "}
-                        days left
-                      </p>
+                        ) === 0 ? (
+                        <p className="text-[15px]">Closing today</p>
+                      ) : (
+                        <p className="text-[15px]">
+                          {differenceInDays(
+                            parseISO(event.proposalDueDate),
+                            currentDate
+                          )}{" "}
+                          days left
+                        </p>
+                      )}
                     </div>
 
                     <div className="bg-[#DDD8F6] w-max rounded-lg text-center py-1 px-3 mb-6">
@@ -182,7 +238,10 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
 
                     <h2 className="text-[18px] mb-6">{event.eventBudget}</h2>
 
-                    <div className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full mb-0 sm:mb-4 text-[#181059] font-bold cursor-pointer text-center">
+                    <div
+                      className="bg-[#C9C0F3] w-max py-3 px-6 rounded-full mb-0 sm:mb-4 text-[#181059] font-bold cursor-pointer text-center"
+                      onClick={() => navigate(`/events/${event._id}`)}
+                    >
                       Apply Now
                     </div>
                   </div>
@@ -193,7 +252,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
         ))}
       </Slider>
 
-      <div className="flex items-center justify-end gap-4 mb-2 mr-6 mt-4 sm:mt-0 block md:hidden lg:hidden xl:hidden"></div>
+      <div className="flex items-center justify-end gap-4 mb-2 mr-6 mt-4 sm:mt-0 md:hidden lg:hidden xl:hidden"></div>
     </div>
   );
 };

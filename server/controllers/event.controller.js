@@ -9,16 +9,10 @@ const {
 } = require('../models/event/event.model');
 const { getUserById } = require('../models/user/user.model');
 const User = require('../models/user/user.mongo');
-const io = require('socket.io-client');
 const {
   createNotification,
 } = require('../models/notification/notification.model');
-
-const socket = io.connect(
-  process.env.NODE_ENV === 'development'
-    ? 'ws://localhost:5005'
-    : 'ws://www.avbids.com:5005'
-);
+const socket = require('../services/socket');
 
 /* 
 ?@desc   Create a new event
@@ -133,52 +127,6 @@ const getEvent = async (req, res) => {
 *@route  PUT /api/events/:id
 *@access Private
 */
-
-// const update = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const eventDetails = { ...req.body };
-
-//     const event = await updateEvent(id, eventDetails);
-
-//     if (!event) {
-//       return res.status(404).json({ message: 'Event not found' });
-//     }
-
-//     // Notify users who have saved the event
-//     const savedEventUsers = await User.find({ savedEvents: id });
-//     savedEventUsers.forEach(async (user) => {
-//       if (socket) {
-//         // Emit socket event
-//         socket.emit('eventUpdated', {
-//           userId: user._id,
-//           eventId: id,
-//           message: 'An Event you saved has been updated',
-//         });
-//       } else {
-//         console.log('socket error');
-//       }
-
-//       // Persist the notification
-//       const notification = {
-//         message: 'An Event you saved has been updated',
-//         type: 'event-update',
-//         userId: user._id,
-//       };
-//       await createNotification(notification);
-//     });
-
-//     res.status(200).json({ event, message: 'Event successfully updated' });
-//   } catch (error) {
-//     console.error('Failed to update event:', error);
-
-//     const statusCode = error instanceof CustomError ? 400 : 500;
-
-//     res
-//       .status(statusCode)
-//       .json({ error: error.message || 'Internal Server Error' });
-//   }
-// };
 
 const update = async (req, res) => {
   try {
@@ -394,7 +342,9 @@ const removeEventAlert = async (req, res) => {
     const isEventInSavedEventAlerts = user.savedEventAlerts.includes(eventId);
 
     if (!isEventInSavedEventAlerts) {
-      return res.status(400).json({ message: 'Event alert not found for the user' });
+      return res
+        .status(400)
+        .json({ message: 'Event alert not found for the user' });
     }
 
     // Remove the event from savedEventAlerts
@@ -414,7 +364,6 @@ const removeEventAlert = async (req, res) => {
       .json({ error: error.message || 'Internal Server Error' });
   }
 };
-
 
 module.exports = {
   createNewEvent,

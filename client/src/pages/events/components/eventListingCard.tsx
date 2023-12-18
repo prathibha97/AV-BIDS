@@ -121,6 +121,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
             size='sm'
             className='rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins'
             disabled={daysLeft < 0}
+            onClick={()=>navigate(`/events/${event._id}`)}
           >
             <span className='text-white normal-case'>Apply Now</span>
           </Button>
