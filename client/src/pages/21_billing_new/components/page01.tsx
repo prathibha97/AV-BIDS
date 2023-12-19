@@ -8,6 +8,10 @@ import Discover from "../../../assets/17_billing/Discover.png";
 import Master from "../../../assets/17_billing/Mastercard.png";
 import Visa from "../../../assets/17_billing/Visa.png";
 import Subscription_photo from "../../../assets/17_billing/subscription_photo.png";
+import monthlyImg from "../../../assets/17_billing/month_img.png";
+import yearlyImg from "../../../assets/17_billing/yearly_img.png";
+import imgimg from "../../../assets/17_billing/pic002.png";
+import { MdCheck } from "react-icons/md";
 
 interface Page01Props {
   onNext: () => void;
@@ -163,29 +167,148 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
     //   </Button> */}
     // </div>
 
-    <div className="relative">
-      <img
-        src={Subscription_photo}
-        alt="aad"
-        className="object-scale-down w-full"
-      />
+    // <div className="relative">
+    //   <img
+    //     src={Subscription_photo}
+    //     alt="aad"
+    //     className="object-scale-down w-full"
+    //   />
 
-      <div
-        className="absolute bottom-[110px] left-[542px] transform  w-[220px] -translate-x-1/2 -translate-y-1/2 border-solid border-2 border-[#8645ff] hover:bg-[#8645ff] hover:text-white cursor-pointer"
-        onClick={onNext}
-      >
-        <p className="text-[#8645ff] text-[18px] text-center px-4 py-2 hover:text-white">
-          Subscribe
+    // <div
+    //   className="absolute bottom-[110px] left-[542px] transform  w-[220px] -translate-x-1/2 -translate-y-1/2 border-solid border-2 border-[#8645ff] hover:bg-[#8645ff] hover:text-white cursor-pointer"
+    //   onClick={onNext}
+    // >
+    //   <p className="text-[#8645ff] text-[18px] text-center px-4 py-2 hover:text-white">
+    //     Subscribe
+    //   </p>
+    // </div>
+
+    //   <div
+    //     className="absolute bottom-[110px] left-[942px] transform w-[220px] -translate-x-1/2 -translate-y-1/2 border-solid border-2 border-[#8645ff] bg-[#8645ff] hover:bg-[#752dfb] hover:text-white cursor-pointer mt-4"
+    //     onClick={onNext}
+    //   >
+    //     <p className="text-[#fff] text-[18px] text-center px-4 py-2 hover:text-white">
+    //       Subscribe
+    //     </p>
+    //   </div>
+    // </div>
+
+    <div style={{ backgroundImage: `url(${imgimg})` }}>
+      <div className="">
+        <p className="text-[#195c87] font-medium text-[28px] mb-2 text-center mt-[100px]">
+          AV Bids - Powering Event Connections!
+        </p>
+
+        <p className="text-[#4d5768]  text-[16px] mb-2 text-center">
+          Yes, AV Bids offers paid services to help event planners plan and
+          prepare their events for success.
         </p>
       </div>
 
-      <div
-        className="absolute bottom-[110px] left-[942px] transform w-[220px] -translate-x-1/2 -translate-y-1/2 border-solid border-2 border-[#8645ff] bg-[#8645ff] hover:bg-[#752dfb] hover:text-white cursor-pointer mt-4"
-        onClick={onNext}
-      >
-        <p className="text-[#fff] text-[18px] text-center px-4 py-2 hover:text-white">
-          Subscribe
-        </p>
+      <div className="grid grid-cols-2 gap-4 justify-items-center mt-[70px]">
+        <div className="border border-purple_two w-max px-10 pt-10 bg-white rounded-md justify-self-end">
+          <div className="mb-6">
+            <div className="flex justify-center">
+              <img
+                src={monthlyImg}
+                alt="monthly subscription img"
+                className="mb-4 flex justify-center"
+              />
+            </div>
+
+            <div className="border-b border-[#C0C0C0]">
+              <p className="font-semibold text-[18px] text-primary_font_color text-center">
+                $399/month
+              </p>
+              <p className="text-[#828b9b] mb-2 text-center">Monthly Plan</p>
+            </div>
+
+            <div className="grid grid-cols-1 mt-6">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Swift Proposal Submission
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Effortless Team Collaboration
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Seamless Event Management Hub
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center jusitfy-center">
+            <div className="w-full border-solid border-2 border-[#8645ff] hover:bg-[#8645ff] hover:text-white cursor-pointer mb-8">
+              <p className="text-[#8645ff] text-[18px] text-center px-4 py-2 hover:text-white">
+                Subscribe
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="border border-purple_two w-max px-10 pt-10 rounded-md bg-white justify-self-start">
+          <div className="mb-6">
+            <div className="flex justify-center">
+              <img src={yearlyImg} alt="aad" />
+            </div>
+
+            <div className="border-b border-[#C0C0C0] mt-2">
+              <p className="font-semibold text-[18px] text-center text-[#8645FF]">
+                $349/month
+              </p>
+              <p className="text-[#828b9b] mb-2 text-center">Yearly Plan</p>
+            </div>
+
+            <div className="grid grid-cols-1 mt-6">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Swift Proposal Submission
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Effortless Team Collaboration
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1">
+              <div className="flex gap-2">
+                <MdCheck className="text-[20px] text-[#33da98] " />
+                <p className="text-primary_font_color mb-2">
+                  Seamless Event Management Hub
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center jusitfy-center">
+            <div className="w-full  border-solid border-2 border-[#8645ff] bg-[#8645ff] hover:bg-[#752dfb] hover:text-white cursor-pointer mt-4">
+              <p className="text-[#fff] text-[18px] text-center px-4 py-2 hover:text-white">
+                Subscribe
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
