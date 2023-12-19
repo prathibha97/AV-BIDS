@@ -23,8 +23,6 @@ function Index() {
     null
   );
 
-  console.log(`arival message: ${arrivalMessage}`);
-
   const user = useGetCurrentUser();
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -32,11 +30,6 @@ function Index() {
 
   useEffect(() => {
     socket.current = io('wss://34.222.132.223:5005');
-
-    socket.current.on('connect', () => {
-      console.log('WebSocket connected');
-    });
-
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -44,13 +37,12 @@ function Index() {
         createdAt: new Date(),
       });
     });
-
-    return () => {
-      socket.current?.disconnect();
-    };
   }, []);
 
   useEffect(() => {
+    console.log('Arrival Message:', arrivalMessage);
+    console.log('Current Chat:', currentChat);
+
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
@@ -58,9 +50,6 @@ function Index() {
 
   useEffect(() => {
     socket?.current?.emit('addUser', user?._id);
-    // socket?.current?.on('getUsers', (users: any) => {
-    //   console.log(users);
-    // });
   }, [user]);
 
   useEffect(() => {
@@ -163,11 +152,8 @@ function Index() {
 
                 <div className='border-b border-[#EDECF1] row-span-5 p-4 h-full overflow-y-scroll'>
                   <div className='max-h-[780px] space-y-3'>
-                    {messages.map((message: any, index) => (
-                      <div
-                        key={index}
-                        ref={index === messages.length - 1 ? scrollRef : null}
-                      >
+                    {messages.map((message: any) => (
+                      <div ref={scrollRef}>
                         <Message
                           key={message._id}
                           message={message}
