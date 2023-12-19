@@ -1,7 +1,20 @@
-const io = require('socket.io')(5005, {
+const fs = require('fs');
+const https = require('https');
+const io = require('socket.io');
+
+// Load your SSL certificate and private key
+const options = {
+  key: fs.readFileSync('private.key'),
+  cert: fs.readFileSync('certificate.crt'),
+};
+
+// Create an HTTPS server
+const server = https.createServer(options);
+
+// Pass the server to Socket.io
+const socketServer = io(server, {
   cors: {
-    // origin: 'http://54.201.46.218',
-    origin: 'https://www.avbids.com',
+    origin: '*',
     credentials: true,
   },
 });
@@ -21,20 +34,21 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
 
-io.on('connection', (socket) => {
+socketServer.on('connection', (socket) => {
   //when ceonnect
   console.log('a user connected.');
 
   //take userId and socketId from user
   socket.on('addUser', (userId) => {
     addUser(userId, socket.id);
-    io.emit('getUsers', users);
+    socketServer.emit('getUsers', users);
   });
 
   //send and get message
   socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+    console.log(senderId, receiverId, text);
     const user = getUser(receiverId);
-    io.to(user.socketId).emit('getMessage', {
+    socketServer.to(user.socketId).emit('getMessage', {
       senderId,
       text,
     });
@@ -45,25 +59,29 @@ io.on('connection', (socket) => {
     const userSocket = getUser(userId);
     if (userSocket) {
       console.log(message);
-      io.to(userSocket.socketId).emit('eventUpdated', { eventId, message });
+      socketServer.to(userSocket.socketId).emit('eventUpdated', { eventId, message });
     }
   });
 
-   socket.on('proposalSubmited', ({ userId, eventId, message }) => {
-     const userSocket = getUser(userId);
-     if (userSocket) {
-       io.to(userSocket.socketId).emit('proposalSubmited', {
-         eventId,
-         message,
-       });
-     }
-   });
+  socket.on('proposalSubmited', ({ userId, eventId, message }) => {
+    const userSocket = getUser(userId);
+    if (userSocket) {
+      socketServer.to(userSocket.socketId).emit('proposalSubmited', {
+        eventId,
+        message,
+      });
+    }
+  });
 
   //when disconnect
   socket.on('disconnect', () => {
     console.log('a user disconnected!');
     removeUser(socket.id);
-    io.emit('getUsers', users);
+    socketServer.emit('getUsers', users);
   });
 });
 
+// Listen on the server instead of directly on the port
+server.listen(5005, () => {
+  console.log('Server running on https://www.avbids.com:5005');
+});

@@ -9,6 +9,8 @@ const allowedOrigins = [
   'https://avbids.com',
   'https://www.avbids.com',
   'ws://www.avbids.com:5005',
+  'wss://34.222.132.223:5005',
+  'https://34.222.132.223:5005',
   'https://www.avbids.com:5005',
 ];
 
