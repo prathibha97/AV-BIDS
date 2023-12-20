@@ -31,7 +31,6 @@ const HomeLayout = () => {
             <Drawer open={open} onClose={closeDrawer} className="p-1 w-min">
               <div className="mb-6 flex items-center justify-between">
                 <div>
-                  {" "}
                   <IconButton
                     variant="text"
                     color="blue-gray"

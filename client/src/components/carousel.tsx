@@ -156,7 +156,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                           </div>
 
                           <div className="col-span-8 self-center">
-                            <h2 className="text-[18px] mb-2 text-left">
+                            <h2 className="text-[18px] mb-2 text-left truncate">
                               {event.title}
                             </h2>
                           </div>
@@ -200,12 +200,12 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                     <MdBookmarkBorder className="text-[26px] text-[#C5BDBD] " />
                   </div> */}
 
-                    <h6 className="text-[18px] mb-2">
+                    <h6 className="text-[18px] mb-2 truncate">
                       {event.eventCategory}, {event.eventSubCategory}
                     </h6>
 
                     <div className="flex items-center gap-2 mb-6">
-                      <p>
+                      <p className="truncate">
                         {event.address.city}, {event.address.state}
                       </p>
                       <MdLens className="text-[#D8D0FA] text-[15px]" />
@@ -220,7 +220,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                           parseISO(event.proposalDueDate),
                           currentDate
                         ) === 0 ? (
-                        <p className="text-[15px]">Closing today</p>
+                        <p className="text-[15px] truncate">Closing today</p>
                       ) : (
                         <p className="text-[15px]">
                           {differenceInDays(
