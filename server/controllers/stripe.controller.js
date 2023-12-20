@@ -251,7 +251,7 @@ const createCustomerPortal = async (req, res) => {
       return_url:
         process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/billing'
-          : 'http://54.201.46.218/billing',
+          : 'https://www.avbids.com/billing',
     });
     res.status(200).json(session);
   } catch (error) {
