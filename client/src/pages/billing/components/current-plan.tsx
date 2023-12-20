@@ -52,10 +52,12 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
         </div>
       ) : (
         <div className='grid grid-cols-2 gap-4'>
-          <div>
+          <div className='border-r'>
             <div>
               <h2 className='text-[18px] font-semibold mb-3'>
-                Current Plan (Standard)
+                Current Plan ({/* @ts-ignore */}
+                {currentPlan?.status === 'trialing' ? 'Free Trial' : 'Standard'}
+                )
               </h2>
 
               <p className='text-14 text-[#353535]'>
@@ -81,7 +83,10 @@ const CurrentPlan: FC<CurrentPlanProps> = () => {
               {/* @ts-ignore */}
               {currentPlan?.canceled_at === null && (
                 <p className='text-[#353535] mb-3'>
-                  Your subscription renews{' '}
+                  {/* @ts-ignore */}
+                  {currentPlan?.status === 'trialing'
+                    ? 'Your free 3 day trial ends on'
+                    : 'Your subscription renews'}{' '}
                   {new Date(
                     // @ts-ignore
                     currentPlan?.current_period_end * 1000

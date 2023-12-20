@@ -7,7 +7,6 @@ import { RootState } from '../../app/store';
 import api from '../../utils/api';
 import BillingDetails from './components/billing-details';
 import BillingNewUser from './components/billing-new-user';
-import CardsOnFile from './components/cards-on-file';
 import CurrentPlan from './components/current-plan';
 
 function Index() {
@@ -29,7 +28,8 @@ function Index() {
     <div className='container mx-auto'>
       <h2 className='text-[20px] font-semibold mb-4'>Billing & Membership</h2>
 
-      {user?.subscription?.plan === 'PREMIUM' ? (
+      {user?.subscription?.plan === 'PREMIUM' ||
+      user?.subscription?.plan === 'TRIAL' ? (
         <>
           <CurrentPlan />
           <Elements

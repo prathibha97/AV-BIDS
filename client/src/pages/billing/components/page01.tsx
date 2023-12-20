@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Done_icon from "../../../assets/17_billing/done.png";
-import Monthly from "../../../assets/17_billing/month_img.png";
-import Yearly from "../../../assets/17_billing/yearly_img.png";
+import React, { useEffect, useState } from 'react';
+import Monthly from '../../../assets/17_billing/month_img.png';
+import Yearly from '../../../assets/17_billing/yearly_img.png';
 
-import { setPrice } from "../../../app/features/stripe/stripeSlice";
-import { useAppDispatch } from "../../../app/hooks";
-import Discover from "../../../assets/17_billing/Discover.png";
-import Master from "../../../assets/17_billing/Mastercard.png";
-import Visa from "../../../assets/17_billing/Visa.png";
-import { StripePrice } from "../../../types";
-import api from "../../../utils/api";
-import PaymentPlanCard from "./payment-plan-card";
+import { setPrice } from '../../../app/features/stripe/stripeSlice';
+import { useAppDispatch } from '../../../app/hooks';
+import { StripePrice } from '../../../types';
+import api from '../../../utils/api';
+import PaymentPlanCard from './payment-plan-card';
 
 interface Page01Props {
   onNext: () => void;
@@ -22,7 +18,7 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
 
   useEffect(() => {
     const fetchPrices = async () => {
-      const { data } = await api.get("/stripe/config");
+      const { data } = await api.get('/stripe/config');
       setPrices(data.prices);
       dispatch(setPrice(data.prices));
     };
@@ -31,19 +27,19 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
 
   return (
     <div>
-      <p className="text-[#195c87] font-medium text-[28px] mb-2 text-center mt-[100px]">
+      <p className='text-[#195c87] font-medium text-[28px] mb-2 text-center mt-[100px]'>
         AV Bids - Powering Event Connections!
       </p>
-      <p className="text-[#4d5768]  text-[16px] mb-2 text-center">
+      <p className='text-[#4d5768]  text-[16px] mb-2 text-center'>
         Yes, AV Bids offers paid services to help event planners plan and
         prepare their events for success.
       </p>
 
-      <div className="grid grid-cols-2 gap-1 justify-items-center px-[330px]">
+      <div className='grid grid-cols-2 gap-1 justify-items-center px-[330px]'>
         {prices.map((price) => (
           <PaymentPlanCard
             key={price.id}
-            src={price.recurring.interval === "year" ? Yearly : Monthly}
+            src={price.recurring.interval === 'year' ? Yearly : Monthly}
             plan={price}
             price={price.unit_amount / 100}
             priceId={price.id}
