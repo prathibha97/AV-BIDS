@@ -51,9 +51,9 @@ const SuccessPage: React.FC<SuccessPageProps> = () => {
     }
   };
   return (
-    <div className="container mx-auto w-max">
-      <div className="flex items-center justify-center h-screen">
-        <section className="bg-[#f7f3f0] border-2 border-[#427768] pt-16">
+    <div className="container mx-auto mt-16">
+      <div className="flex items-center justify-center">
+        <section className="bg-[#f7f3f0] border-2 border-[#427768] pt-16 shadow-2xl">
           <h5 className="text-[#3a7561] text-[60px] text-center mb-4 font-abv text-abv">
             Thank You For Subscribing!
           </h5>

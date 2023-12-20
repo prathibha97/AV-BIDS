@@ -60,7 +60,7 @@ const HomeLayout = () => {
           </React.Fragment>
         </div>
 
-        <div className="flex">
+        <div className="flex ">
           <div className="hidden lg:block">
             <SidebarDashboard />
           </div>
