@@ -35,7 +35,7 @@ function Index() {
         <EditProfile user={user} />
       </div>
 
-      <div>
+      <div className="overflow-x-auto md:overflow-x-hidden mb-2 sm:mb-0">
         <MemberTable user={user} />
       </div>
 
