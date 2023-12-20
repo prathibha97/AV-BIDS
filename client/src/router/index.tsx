@@ -10,180 +10,181 @@ import HomeLayout2 from "../layout/home-layout-dash";
 import Layout_02 from "../layout/layout_02";
 import PlannerAndAuthWrapper from "./guards/PlannerAndAuthWrapper";
 import SubscriptionAndAuthWrapper from "./guards/SubscriptionAndAuthWrapper";
+import ProviderAndAuthWrapper from "./guards/ProviderAndAuthWrapper";
 
 function Router() {
   const routes: any = [
     {
-      path: "/",
+      path: '/',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/home")) }],
+      routes: [{ element: lazy(() => import('../pages/home')) }],
     },
     {
-      path: "/event-planner",
+      path: '/event-planner',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/event_planner")) }],
-    },
-
-    {
-      path: "/av_providers",
-      layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/av_providers")) }],
-    },
-    {
-      path: "/3_services",
-      layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/3_services")) }],
+      routes: [{ element: lazy(() => import('../pages/event_planner')) }],
     },
 
     {
-      path: "/4_event_categories",
+      path: '/av_providers',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/4_event_categories")) }],
+      routes: [{ element: lazy(() => import('../pages/av_providers')) }],
+    },
+    {
+      path: '/3_services',
+      layout: HomeLayout,
+      routes: [{ element: lazy(() => import('../pages/3_services')) }],
     },
 
     {
-      path: "/sign-up",
+      path: '/4_event_categories',
+      layout: HomeLayout,
+      routes: [{ element: lazy(() => import('../pages/4_event_categories')) }],
+    },
+
+    {
+      path: '/sign-up',
       layout: EmptyLayout,
       routes: [
         {
-          element: lazy(() => import("../pages/auth/sign-up")),
+          element: lazy(() => import('../pages/auth/sign-up')),
         },
       ],
     },
 
     {
-      path: "/8_about_us",
+      path: '/8_about_us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/8_about_us")) }],
+      routes: [{ element: lazy(() => import('../pages/8_about_us')) }],
     },
 
     {
-      path: "/sign-in",
+      path: '/sign-in',
       layout: EmptyLayout,
-      routes: [{ element: lazy(() => import("../pages/auth/sign-in")) }],
+      routes: [{ element: lazy(() => import('../pages/auth/sign-in')) }],
     },
 
     {
-      path: "/contact-us",
+      path: '/contact-us',
       layout: HomeLayout,
-      routes: [{ element: lazy(() => import("../pages/contact-us")) }],
+      routes: [{ element: lazy(() => import('../pages/contact-us')) }],
     },
 
     // ----------------------Dashboard Routes Start here-----------------------------
 
     {
-      path: "/dashboard",
+      path: '/dashboard',
       layout: HomeLayout2,
       guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/dashboard")) }],
+      routes: [{ element: lazy(() => import('../pages/dashboard')) }],
     },
 
     {
-      path: "/events",
+      path: '/events',
       layout: HomeLayout,
       // guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events")) }],
+      routes: [{ element: lazy(() => import('../pages/events')) }],
     },
     {
-      path: "/events/new",
+      path: '/events/new',
       layout: HomeLayout2,
       guard: PlannerAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events/new")) }],
+      routes: [{ element: lazy(() => import('../pages/events/new')) }],
     },
     {
-      path: "/events/my-events",
+      path: '/events/my-events',
       layout: HomeLayout2,
       guard: PlannerAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events/my-events")) }],
+      routes: [{ element: lazy(() => import('../pages/events/my-events')) }],
     },
     {
-      path: "/events/edit/:id",
+      path: '/events/edit/:id',
       layout: HomeLayout2,
       guard: PlannerAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events/edit")) }],
+      routes: [{ element: lazy(() => import('../pages/events/edit')) }],
     },
     {
-      path: "/events/:id",
+      path: '/events/:id',
       layout: Layout_02,
       // guard: RequireAuth,
       routes: [
-        { element: lazy(() => import("../pages/events/event-details")) },
+        { element: lazy(() => import('../pages/events/event-details')) },
       ],
     },
     {
-      path: "/events/saved-events",
+      path: '/events/saved-events',
       layout: HomeLayout2,
       guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events/saved-events")) }],
+      routes: [{ element: lazy(() => import('../pages/events/saved-events')) }],
     },
     {
-      path: "/events/alerts",
+      path: '/events/alerts',
       layout: HomeLayout2,
       guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/events/event-alerts")) }],
+      routes: [{ element: lazy(() => import('../pages/events/event-alerts')) }],
     },
     {
-      path: "/messages",
+      path: '/messages',
       layout: HomeLayout2,
       guard: SubscriptionAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/messages")) }],
+      routes: [{ element: lazy(() => import('../pages/messages')) }],
     },
 
     {
-      path: "/billing",
+      path: '/billing',
       layout: HomeLayout2,
-      guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/billing")) }],
+      guard: ProviderAndAuthWrapper,
+      routes: [{ element: lazy(() => import('../pages/billing')) }],
     },
     {
-      path: "/billing/success",
+      path: '/billing/success',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/billing/success")) }],
+      routes: [{ element: lazy(() => import('../pages/billing/success')) }],
     },
 
     {
-      path: "/proposals",
+      path: '/proposals',
       layout: HomeLayout2,
       guard: PlannerAndAuthWrapper,
-      routes: [{ element: lazy(() => import("../pages/proposals")) }],
+      routes: [{ element: lazy(() => import('../pages/proposals')) }],
     },
 
     {
-      path: "/messages-mobile",
+      path: '/messages-mobile',
       layout: HomeLayout2,
       guard: SubscriptionAndAuthWrapper,
       routes: [
         {
           element: lazy(
-            () => import("../pages/messages/components/messages-mobile")
+            () => import('../pages/messages/components/messages-mobile')
           ),
         },
       ],
     },
 
     {
-      path: "/21_billing_new",
+      path: '/21_billing_new',
       layout: HomeLayout2,
       guard: RequireAuth,
-      routes: [{ element: lazy(() => import("../pages/21_billing_new")) }],
+      routes: [{ element: lazy(() => import('../pages/21_billing_new')) }],
     },
 
     {
-      path: "/forgot_password",
+      path: '/forgot_password',
       layout: EmptyLayout,
 
-      routes: [{ element: lazy(() => import("../pages/forgot_password")) }],
+      routes: [{ element: lazy(() => import('../pages/forgot_password')) }],
     },
 
     {
-      path: "/message_new_design",
+      path: '/message_new_design',
       layout: HomeLayout2,
 
-      routes: [{ element: lazy(() => import("../pages/message_new_design")) }],
+      routes: [{ element: lazy(() => import('../pages/message_new_design')) }],
     },
 
-    { path: "*", element: lazy(() => import("./404")) },
+    { path: '*', element: lazy(() => import('./404')) },
   ];
 
   const routeRender = (

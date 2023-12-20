@@ -93,7 +93,57 @@ const createSubscription = async (req, res) => {
 };
 
 /* 
-?@desc   Create stripe subscription
+?@desc   Create stripe subscription with Trial
+*@route  Post /api/stripe/create-subscription-trial
+*@access Private
+*/
+
+const createSubscriptionWithTrial = async (req, res) => {
+  const { priceId, email } = req.body;
+
+  try {
+    // Find the user in the database by email
+    const user = await getUserByEmail(email);
+
+
+    // Create the subscription
+    const subscription = await stripe.subscriptions.create({
+      customer: user.subscription.customerId,
+      items: [
+        {
+          price: priceId,
+        },
+      ],
+      trial_period_days: 3,
+      payment_settings: {
+        save_default_payment_method: 'on_subscription',
+      },
+      trial_settings: {
+        end_behavior: {
+          missing_payment_method: 'cancel',
+        },
+      },
+    });
+
+    if (user) {
+      user.subscription.subscriptionId = subscription.id;
+      user.subscription.plan = 'TRIAL';
+      await user.save();
+    }
+
+
+    res.send({
+      subscriptionId: subscription.id,
+      user
+      // clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+    });
+  } catch (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};
+
+/* 
+?@desc   Retrieve stripe subscription
 *@route  Get /api/stripe/retrieve-subscription
 *@access Private
 */
@@ -201,7 +251,7 @@ const createCustomerPortal = async (req, res) => {
       return_url:
         process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/billing'
-          : 'http://54.201.46.218/billing',
+          : 'https://www.avbids.com/billing',
     });
     res.status(200).json(session);
   } catch (error) {
@@ -213,6 +263,7 @@ module.exports = {
   getConfig,
   createCustomer,
   createSubscription,
+  createSubscriptionWithTrial,
   retrieveSubscription,
   retrieveCustomer,
   updateStripeCustomer,

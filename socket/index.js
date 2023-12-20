@@ -54,6 +54,16 @@ socketServer.on('connection', (socket) => {
     });
   });
 
+  socket.on('proposalSubmited', ({ userId, eventId, message }) => {
+    const userSocket = getUser(userId);
+    if (userSocket) {
+      io.to(userSocket.socketId).emit('proposalSubmited', {
+        eventId,
+        message,
+      });
+    }
+  });
+
   // Listen for events from the Express server
   socket.on('eventUpdated', ({ userId, eventId, message }) => {
     const userSocket = getUser(userId);

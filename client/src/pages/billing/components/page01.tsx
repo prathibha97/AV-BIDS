@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Done_icon from '../../../assets/17_billing/done.png';
-import Monthly from '../../../assets/17_billing/monthly.png';
-import Yearly from '../../../assets/17_billing/yearly.png';
+import Monthly from '../../../assets/17_billing/month_img.png';
+import Yearly from '../../../assets/17_billing/yearly_img.png';
 
 import { setPrice } from '../../../app/features/stripe/stripeSlice';
 import { useAppDispatch } from '../../../app/hooks';
-import Discover from '../../../assets/17_billing/Discover.png';
-import Master from '../../../assets/17_billing/Mastercard.png';
-import Visa from '../../../assets/17_billing/Visa.png';
 import { StripePrice } from '../../../types';
 import api from '../../../utils/api';
 import PaymentPlanCard from './payment-plan-card';
@@ -31,14 +27,15 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
 
   return (
     <div>
-      <h1 className='text-[30px] font-bold mb-4 text-primary_font_color text-center mt-16'>
-        AV Bids - Powering Event Connections.
-      </h1>
-      <p className='text-primary_font_color text-[18px] mb-10 text-center'>
-        Flexible Plans & Pricing
+      <p className='text-[#195c87] font-medium text-[28px] mb-2 text-center mt-[100px]'>
+        AV Bids - Powering Event Connections!
+      </p>
+      <p className='text-[#4d5768]  text-[16px] mb-2 text-center'>
+        Yes, AV Bids offers paid services to help event planners plan and
+        prepare their events for success.
       </p>
 
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-2 gap-1 justify-items-center px-[330px]'>
         {prices.map((price) => (
           <PaymentPlanCard
             key={price.id}
@@ -50,7 +47,7 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
           />
         ))}
 
-        <div className='text-primary_font_color px-8 pt-4'>
+        {/* <div className='text-primary_font_color px-8 pt-4'>
           <p className='font-medium mb-4 text-primary_font_color '>
             Each Package Includes
           </p>
@@ -123,7 +120,7 @@ const Page01: React.FC<Page01Props> = ({ onNext }) => {
 
             <img src={Visa} alt='aad' className='object-scale-down w-[40px]' />
           </div>
-        </div>
+        </div> */}
       </div>
       {/* <Button onClick={onNext} className="bg-primary normal-case mt-6">
         Next

@@ -24,9 +24,9 @@ export function NavbarDashboard() {
   }, []);
 
   const navList = (
-    <ul className="mb-4 mt-2 flex justify-center flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mb-4 mt-2 flex justify-center flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 hidden sm:block">
       <Link to="/events">
-        <p className="text-gray-600 font-medium">Events Page</p>
+        <p className="text-white">Events Page</p>
       </Link>
     </ul>
   );
@@ -34,18 +34,22 @@ export function NavbarDashboard() {
   return (
     <div>
       <div className="w-full">
-        <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#f7f6fd] shadow-none border-none py-6">
+        <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#957FEF] shadow-none border-none py-6">
           <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
             {user && user?.userType === "PLANNER" && (
               <Button
                 variant="outlined"
                 size="sm"
-                className="lg:inline-block rounded-btn "
+                className="lg:inline-block rounded-btn hidden sm:block"
                 onClick={() => navigate("/events/new")}
               >
                 <div className="flex items-center gap-2">
-                  <img src={PLUS_ICON} alt="aad" className="object-contain" />
-                  <span className="text-black normal-case">Post New Event</span>
+                  <img
+                    src={PLUS_ICON}
+                    alt="plus icon"
+                    className="object-contain"
+                  />
+                  <span className="text-white normal-case">Post New Event</span>
                 </div>
               </Button>
             )}
@@ -54,7 +58,7 @@ export function NavbarDashboard() {
 
             {user ? (
               <>
-                <IconButton
+                {/* <IconButton
                   size="sm"
                   color="blue-gray"
                   variant="text"
@@ -62,7 +66,7 @@ export function NavbarDashboard() {
                   className="ml-auto mr-2 lg:hidden"
                 >
                   <Bars2Icon className="h-6 w-6" />
-                </IconButton>
+                </IconButton> */}
                 <ProfileMenu />
               </>
             ) : (

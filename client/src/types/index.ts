@@ -25,7 +25,7 @@ export interface User {
     productId: string;
     priceId: string;
     subscriptionId: string;
-    plan: 'PREMIUM' | 'BASIC';
+    plan: 'PREMIUM' | 'BASIC' | 'TRIAL';
     startDate: Date;
     _id: string;
   };
@@ -82,45 +82,13 @@ export type Event = {
 
   presenterTools: PresenterTools;
 
-  lighting: {
-    Uplighting: number;
-    Stage_Wash: number;
-    Moving_Head_Lights: number;
-    Gobo: number;
-    Inflatable_Balloon_Light: number;
-    LED_Lighting_Effects: number;
-    Spotlight: number;
-    Lighting_Rigging_and_Truss: number;
-  };
+  lighting: Lighting;
 
-  scenic: {
-    Drape_Kit_Black: number;
-    Drape_Kit_Grey: number;
-    Drape_Kit_White: number;
-    Scenic_Panels: number;
-    Podium: number;
-    Mobile_Hotspot_up_to_15_devices: number;
-    Event_WIFI_Network_more_than_15_devices: number;
-    Laptops_PC: number;
-    Laptops_Mac: number;
-  };
+  scenic: Scenic;
 
-  electrical: {
-    Audience_Table_Power: number;
-    Power_Strips_6x1: number;
-    Portable_Distribution_Box_50_Amp: number;
-    Portable_Distribution_Box_100_Amp: number;
-    Portable_Distribution_Box_200_Amp: number;
-    Portable_Distribution_Box_300_Amp: number;
-    Portable_Distribution_Box_400_Amp: number;
-  };
+  electrical: Electrical;
 
-  staff: {
-    Audio_Tech: number;
-    Video_Tech: number;
-    Lighting_Tech: number;
-    Project_Manager: number;
-  };
+  staff: Staff;
 
   otherRequirements?:
     | {
@@ -375,4 +343,44 @@ export interface PresenterTools {
   Laser_Pointer: number;
   Perfect_Cue_System: number;
   Flipchart: number;
+}
+
+export interface Lighting {
+  Uplighting: number;
+  Stage_Wash: number;
+  Moving_Head_Lights: number;
+  Gobo: number;
+  Inflatable_Balloon_Light: number;
+  LED_Lighting_Effects: number;
+  Spotlight: number;
+  Lighting_Rigging_and_Truss: number;
+}
+
+export interface Scenic {
+  Drape_Kit_Black: number;
+  Drape_Kit_Grey: number;
+  Drape_Kit_White: number;
+  Scenic_Panels: number;
+  Podium: number;
+  Mobile_Hotspot_up_to_15_devices: number;
+  Event_WIFI_Network_more_than_15_devices: number;
+  Laptops_PC: number;
+  Laptops_Mac: number;
+}
+
+export interface Electrical {
+  Audience_Table_Power: number;
+  Power_Strips_6x1: number;
+  Portable_Distribution_Box_50_Amp: number;
+  Portable_Distribution_Box_100_Amp: number;
+  Portable_Distribution_Box_200_Amp: number;
+  Portable_Distribution_Box_300_Amp: number;
+  Portable_Distribution_Box_400_Amp: number;
+}
+
+export interface Staff {
+  Audio_Tech: number;
+  Video_Tech: number;
+  Lighting_Tech: number;
+  Project_Manager: number;
 }

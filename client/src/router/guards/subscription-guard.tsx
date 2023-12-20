@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGetCurrentUser } from '../../app/hooks/useUser';
 
 interface SubscriptionGuardProps {
   children: React.ReactNode;
@@ -8,16 +9,21 @@ interface SubscriptionGuardProps {
 const SubscriptionGuard: FC<SubscriptionGuardProps> = ({ children }) => {
   const navigate = useNavigate();
 
+  const user = useGetCurrentUser();
+
   const storedUser = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
-  // Check if the user has an active subscription
-  const hasSubscription = storedUser.user?.subscription?.plan === 'PREMIUM';
-  
+  // Check if the user has an active subscription with a plan of 'PREMIUM' or 'TRIAL'
+  const hasSubscription =
+    user?.subscription &&
+    (user.subscription.plan === 'PREMIUM' ||
+      user.subscription.plan === 'TRIAL');
+
   // Check if the userType is "PROVIDER"
-  const isProvider = storedUser.user?.userType === 'PROVIDER';
+  const isProvider = user?.userType === 'PROVIDER';
 
   // Allow access without restrictions for planner users
-  const isPlanner = storedUser.user?.userType === 'PLANNER';
+  const isPlanner = user?.userType === 'PLANNER';
 
   return isPlanner || (storedUser.token && isProvider && hasSubscription) ? (
     <>{children}</>
@@ -28,7 +34,7 @@ const SubscriptionGuard: FC<SubscriptionGuardProps> = ({ children }) => {
           ? 'Subscription required. Please subscribe to access this content.'
           : 'Access restricted to PROVIDER users with an active subscription.'}
       </h2>
-      <button onClick={() => navigate('/subscribe')}>Subscribe</button>
+      <button onClick={() => navigate('/billing')}>Subscribe</button>
     </div>
   );
 };

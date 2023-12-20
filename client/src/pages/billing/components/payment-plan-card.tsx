@@ -9,6 +9,10 @@ import { useGetCurrentUser } from '../../../app/hooks/useUser';
 import { StripePrice } from '../../../types';
 import api from '../../../utils/api';
 
+// new imports
+import { MdCheck } from 'react-icons/md';
+import { setUser } from '../../../app/features/user/userSlice';
+
 interface PaymentPlanCardProps {
   src: string;
   plan: StripePrice;
@@ -28,6 +32,28 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [trialLoading, setTrialLoading] = useState(false);
+
+  let key = 'defaultKey';
+
+  const createSubscriptionWithTrial = async () => {
+    setTrialLoading(true);
+    try {
+      const { data } = await api.post('/stripe/create-subscription-trial', {
+        priceId,
+        email: user?.email,
+      });
+      dispatch(setSubscription(data));
+      dispatch(setPlan(plan));
+      dispatch(setUser(data.user));
+      // onNext();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTrialLoading(false);
+    }
+    key = user?.email!;
+  };
 
   const createSubscription = async () => {
     setLoading(true);
@@ -47,34 +73,79 @@ const PaymentPlanCard: FC<PaymentPlanCardProps> = ({
   };
 
   return (
-    <div className='flex items-center justify-center bg-[#f3f1fb] border border-[#8645ff] '>
-      <div className=''>
-        <div className='flex items-center justify-center'>
-          <img
-            src={src}
-            alt='card-pic'
-            className='object-scale-down w-[80px] my-8'
-          />
-        </div>
+    <div key={key}>
+      <div className='flex items-center justify-center bg-[#fff] border border-[#8645ff] rounded-md w-max px-12 mt-16'>
+        <div className=''>
+          <div className='flex items-center justify-center'>
+            <img src={src} alt='card-pic' className='object-scale-down my-8' />
+          </div>
 
-        <p className='text-[18px] font-medium text-primary_font_color mb-2 text-center'>
-          {plan.product.name}
-        </p>
+          <div className='border-b border-[#C0C0C0]'>
+            <p className='mb-1 text-center'>
+              <span className='font-semibold text-[18px] text-primary_font_color text-center'>
+                ${price}
+              </span>
+              / {plan.recurring.interval === 'year' ? 'yearly' : 'monthly'}
+            </p>
 
-        <p className='mb-6'>
-          <span className='font-semibold text-18px text-primary_font_color mr-1 text-center'>
-            ${price}
-          </span>
-          / {plan.recurring.interval === 'year' ? 'yearly' : 'monthly'}
-        </p>
+            <p className='text-[#828b9b] mb-2 text-center'>
+              {plan.product.name}
+            </p>
+          </div>
 
-        <div
-          className='bg-[#8645ff] w-max text-[#fff] font-medium px-5 py-1.5 rounded-2xl mb-8 cursor-pointer'
-          onClick={() => createSubscription()}
-        >
-          <div className='flex items-center'>
-            {loading && <Spinner className='h-4 w-4 mr-2' />}
-            <span>Subscribe</span>
+          <div className='grid grid-cols-1 mt-6'>
+            <div className='flex gap-2'>
+              <MdCheck className='text-[20px] text-[#33da98] ' />
+              <p className='text-primary_font_color mb-2'>
+                Swift Proposal Submission
+              </p>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1'>
+            <div className='flex gap-2'>
+              <MdCheck className='text-[20px] text-[#33da98] ' />
+              <p className='text-primary_font_color mb-2'>
+                Effortless Team Collaboration
+              </p>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1'>
+            <div className='flex gap-2'>
+              <MdCheck className='text-[20px] text-[#33da98] ' />
+              <p className='text-primary_font_color mb-2'>
+                Seamless Event Management Hub
+              </p>
+            </div>
+          </div>
+
+          <div
+            className='flex items-center jusitfy-center'
+            onClick={() => createSubscriptionWithTrial()}
+          >
+            <div className='w-full  border-solid border-2 border-[#8645ff] bg-[#8645ff] hover:bg-[#752dfb] hover:text-white cursor-pointer mt-4 mb-5'>
+              <div className='flex items-center justify-center'>
+                {trialLoading && <Spinner className='h-4 w-4 mr-2 ' />}
+                <p className='text-[#fff] text-[18px] text-center px-4 py-2 hover:text-white'>
+                  Start Free Trial
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className='flex items-center jusitfy-center'
+            onClick={() => createSubscription()}
+          >
+            <div className='w-full  border-solid border-2 border-[#8645ff] bg-[#8645ff] hover:bg-[#752dfb] hover:text-white cursor-pointer mt-4 mb-10'>
+              <div className='flex items-center justify-center'>
+                {loading && <Spinner className='h-4 w-4 mr-2 ' />}
+                <p className='text-[#fff] text-[18px] text-center px-4 py-2 hover:text-white'>
+                  Subscribe Now
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

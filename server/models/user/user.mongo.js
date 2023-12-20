@@ -11,7 +11,7 @@ const addressSchema = new mongoose.Schema({
 const subscriptionSchema = new mongoose.Schema({
   plan: {
     type: String,
-    enum: ['BASIC', 'PREMIUM'],
+    enum: ['BASIC', 'TRIAL', 'PREMIUM'],
     default: 'BASIC',
   },
   startDate: {
