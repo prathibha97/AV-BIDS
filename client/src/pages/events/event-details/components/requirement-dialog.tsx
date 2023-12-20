@@ -4,10 +4,10 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
-} from '@material-tailwind/react';
-import { FC, useRef } from 'react';
+} from "@material-tailwind/react";
+import { FC, useRef } from "react";
 // @ts-ignore
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 import {
   Communication,
   Electrical,
@@ -23,7 +23,7 @@ import {
   Staff,
   VideoCamera,
   VideoProcessing,
-} from '../../../../types';
+} from "../../../../types";
 
 interface RequirementDialogProps {
   open: boolean;
@@ -59,18 +59,18 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
   ) => {
     return (
       requirements && (
-        <div className='mb-6'>
-          <h3 className='font-bold mb-2 bg-purple-100 p-1 rounded-md'>
+        <div className="mb-6 bg-[#F3F1FB] rounded-md">
+          <h3 className="font-bold mb-2 bg-[#dcd4fc] rounded-md p-2 border-l-4 border-indigo-500">
             {title}
           </h3>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-3">
             {Object.entries(requirements).map(([key, value]) => {
               const formattedKey = key
-                .replace(/_/g, ' ') // Replace underscores with spaces
-                .replace(/([a-z])([A-Z])/g, '$1 $2'); // Split camelCase with spaces
+                .replace(/_/g, " ") // Replace underscores with spaces
+                .replace(/([a-z])([A-Z])/g, "$1 $2"); // Split camelCase with spaces
               return (
                 value > 0 && (
-                  <p key={key} className='text-sm'>
+                  <p key={key} className="text-sm">
                     {`${formattedKey}: ${value}`}
                   </p>
                 )
@@ -87,10 +87,10 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
       const content = pdfContainer.current;
       const options = {
         margin: 10,
-        filename: 'AV_Requirements.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        filename: "AV_Requirements.pdf",
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
 
       html2pdf(content, options);
@@ -100,46 +100,46 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
   return (
     <Dialog open={open} handler={handleOpen}>
       <DialogHeader>{event?.title} - AV Requirements</DialogHeader>
-      <DialogBody className='max-h-[500px] overflow-y-auto'>
+      <DialogBody className="max-h-[500px] overflow-y-auto">
         <div ref={pdfContainer}>
-          {renderSection('General Requirements', {
-            'Room Count': event?.roomCount!,
-            'General Session Count': event?.generalSessionCount!,
-            'Breakout Session Count': event?.breakoutSessionCount!,
-            'Presenter Count': event?.presenterCount!,
+          {renderSection("General Requirements", {
+            "Room Count": event?.roomCount!,
+            "General Session Count": event?.generalSessionCount!,
+            "Breakout Session Count": event?.breakoutSessionCount!,
+            "Presenter Count": event?.presenterCount!,
           })}
 
-          {renderSection('Microphone Requirements', event?.microphones)}
+          {renderSection("Microphone Requirements", event?.microphones)}
 
-          {renderSection('Speakers Requirements', event?.speakers)}
+          {renderSection("Speakers Requirements", event?.speakers)}
 
-          {renderSection('Mixer Requirements', event?.mixers)}
+          {renderSection("Mixer Requirements", event?.mixers)}
 
-          {renderSection('Communication Requirements', event?.communication)}
+          {renderSection("Communication Requirements", event?.communication)}
 
-          {renderSection('Screens Requirements', event?.screens)}
+          {renderSection("Screens Requirements", event?.screens)}
 
-          {renderSection('Projection Requirements', event?.projection)}
+          {renderSection("Projection Requirements", event?.projection)}
 
-          {renderSection('Video Camera Requirements', event?.videoCamera)}
+          {renderSection("Video Camera Requirements", event?.videoCamera)}
 
           {renderSection(
-            'Video Processing Requirements',
+            "Video Processing Requirements",
             event?.videoProcessing
           )}
 
-          {renderSection('Presenter Tools Requirements', event?.presenterTools)}
+          {renderSection("Presenter Tools Requirements", event?.presenterTools)}
 
-          {renderSection('Lighting Requirements', event?.lighting)}
+          {renderSection("Lighting Requirements", event?.lighting)}
 
-          {renderSection('Scenic Requirements', event?.scenic)}
+          {renderSection("Scenic Requirements", event?.scenic)}
 
-          {renderSection('Electrical Requirements', event?.electrical)}
+          {renderSection("Electrical Requirements", event?.electrical)}
 
-          {renderSection('Staff Requirements', event?.staff)}
+          {renderSection("Staff Requirements", event?.staff)}
 
           {renderSection(
-            'Other Requirements',
+            "Other Requirements",
             // @ts-ignore
             {
               // @ts-ignore
@@ -153,11 +153,11 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
           )}
         </div>
       </DialogBody>
-      <DialogFooter className='flex justify-between'>
-        <Button color='red' onClick={handleOpen} className='mr-1'>
+      <DialogFooter className="flex justify-between">
+        <Button color="red" onClick={handleOpen} className="mr-1">
           <span>Close</span>
         </Button>
-        <Button className='bg-primary' onClick={downloadPDF}>
+        <Button className="bg-primary" onClick={downloadPDF}>
           <span>Download</span>
         </Button>
       </DialogFooter>
