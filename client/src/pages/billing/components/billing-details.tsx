@@ -15,15 +15,23 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
   const stripe = useStripe();
   const elements = useElements();
   const user = useGetCurrentUser();
+  const [loading, setLoading] = useState(false);
 
   const [customer, setCustomer] = useState<StripeCustomer | null>(null);
 
   useEffect(() => {
     const fetchStripeClient = async () => {
-      const { data } = await api.get(
-        `/stripe/retrieve-customer/${user?.subscription.customerId}`
-      );
-      return setCustomer(data);
+      setLoading(true);
+      try {
+        const { data } = await api.get(
+          `/stripe/retrieve-customer/${user?.subscription.customerId}`
+        );
+        return setCustomer(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchStripeClient();
   }, [user?.subscription.customerId]);
@@ -49,7 +57,6 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
           name: `${user?.firstName} ${user?.lastName}`,
         }
       );
-      console.log(value);
     }
   };
 
@@ -58,23 +65,29 @@ const BillingDetails: FC<BillingDetailsProps> = () => {
       <div className='w-72 mb-5'>
         <h2 className='text-[18px] font-semibold text-left'>Billing Details</h2>
       </div>
-      <AddressElement
-        options={{
-          mode: 'shipping',
-          allowedCountries: ['US'],
-          defaultValues: {
-            name: customer?.name,
-            address: {
-              line1: customer?.address?.line1 ?? '',
-              line2: customer?.address?.line2 ?? '',
-              city: customer?.address?.city ?? '',
-              state: customer?.address?.state ?? '',
-              postal_code: customer?.address?.postal_code ?? '',
-              country: customer?.address?.country ?? '',
+      {loading ? (
+        <div className='flex items-center justify-center'>
+          <Spinner />
+        </div>
+      ) : (
+        <AddressElement
+          options={{
+            mode: 'shipping',
+            allowedCountries: ['US'],
+            defaultValues: {
+              name: customer?.name,
+              address: {
+                line1: customer?.address?.line1 ?? '',
+                line2: customer?.address?.line2 ?? '',
+                city: customer?.address?.city ?? '',
+                state: customer?.address?.state ?? '',
+                postal_code: customer?.address?.postal_code ?? '',
+                country: customer?.address?.country ?? 'US',
+              },
             },
-          },
-        }}
-      />
+          }}
+        />
+      )}
 
       <div className='flex justify-end'>
         <Button

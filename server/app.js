@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cron = require('node-cron');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const morgan = require('morgan');
@@ -8,6 +9,7 @@ const path = require('path');
 const api = require('./routes/api');
 const credentials = require('./middlewares/credentials');
 const corsOptions = require('./config/corsOptions');
+const updateUserSubscriptionPlan = require('./utils/updateUserSubscriptionPlan');
 
 require('./services/cache');
 
@@ -25,7 +27,9 @@ app.use(morgan('dev'));
 app.use('/api', api);
 
 
-
+cron.schedule('0 0 * * *', () => {
+  updateUserSubscriptionPlan();
+});
 
 if (process.env.NODE_ENV !== 'development') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));

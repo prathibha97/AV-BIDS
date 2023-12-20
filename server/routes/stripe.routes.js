@@ -8,7 +8,8 @@ const {
   updateStripeCustomer,
   createCard,
   deleteCard,
-  createCustomerPortal
+  createCustomerPortal,
+  createSubscriptionWithTrial,
 } = require('../controllers/stripe.controller');
 const { protect } = require('../middlewares/auth');
 
@@ -315,6 +316,11 @@ stripeRouter.get('/config', getConfig);
 stripeRouter.get('/retrieve-subscription', protect, retrieveSubscription);
 stripeRouter.post('/create-customer', protect, createCustomer);
 stripeRouter.post('/create-subscription', protect, createSubscription);
+stripeRouter.post(
+  '/create-subscription-trial',
+  protect,
+  createSubscriptionWithTrial
+);
 stripeRouter.post('/portal', protect, createCustomerPortal);
 stripeRouter.post('/create-card/:id', protect, createCard);
 stripeRouter.put('/update-customer/:id', protect, updateStripeCustomer);
