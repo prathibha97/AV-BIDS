@@ -99,7 +99,11 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
 
   return (
     <Dialog open={open} handler={handleOpen}>
-      <DialogHeader>{event?.title} - AV Requirements</DialogHeader>
+      <div className="flex items-center justify-center mt-4">
+        <p className="text-[22px] font-medium">
+          {event?.title} - AV Requirements
+        </p>
+      </div>
       <DialogBody className="max-h-[500px] overflow-y-auto">
         <div ref={pdfContainer}>
           {renderSection("General Requirements", {
@@ -154,10 +158,16 @@ const RequirementDialog: FC<RequirementDialogProps> = ({
         </div>
       </DialogBody>
       <DialogFooter className="flex justify-between">
-        <Button color="red" onClick={handleOpen} className="mr-1">
+        <Button
+          className="bg-primary normal-case w-[100px]"
+          onClick={handleOpen}
+        >
           <span>Close</span>
         </Button>
-        <Button className="bg-primary" onClick={downloadPDF}>
+        <Button
+          className="bg-primary normal-case w-[100px]"
+          onClick={downloadPDF}
+        >
           <span>Download</span>
         </Button>
       </DialogFooter>
