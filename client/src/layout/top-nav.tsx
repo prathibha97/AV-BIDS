@@ -105,7 +105,7 @@ export function TopNav() {
         <img
           src={Navbutton}
           alt="navbar_toggle"
-          className="h-6 w-6 hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          className="h-6 w-6 flex items-center hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           onClick={() => setOpenNav(!openNav)}
         />
       </div>

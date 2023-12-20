@@ -81,7 +81,7 @@ const NotificationBell = () => {
               {unreadCount}
             </span>
           )}
-          <MdNotifications className="text-[30px] sm:text-[35px] text-black" />
+          <MdNotifications className="text-[25px] sm:text-[30px] text-black" />
         </div>
       </PopoverHandler>
       <PopoverContent>

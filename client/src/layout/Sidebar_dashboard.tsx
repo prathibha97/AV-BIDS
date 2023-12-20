@@ -22,7 +22,8 @@ const SidebarDashboard = () => {
 
   return (
     <div>
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]">
+      {/* <Card className="h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]"> */}
+      <Card className="h-[calc(100vh-8rem)] w-full max-w-[15rem] p-4 bg-[#fff]">
         <div className="mb-2 p-4">
           <Typography variant="h5" color="blue-gray">
             Sidebar
