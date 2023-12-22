@@ -23,8 +23,8 @@ const NotificationBell = () => {
   const user = useGetCurrentUser();
 
   useEffect(() => {
-    socket.current = io('http://localhost:5005');
-    socket.current.emit('addUser', user?._id);
+    socket.current = io("http://localhost:5005");
+    socket.current.emit("addUser", user?._id);
 
     socket.current.on("eventUpdated", (data) => {
       // Handle real-time update for new notifications
@@ -81,7 +81,7 @@ const NotificationBell = () => {
               {unreadCount}
             </span>
           )}
-          <MdNotifications className="text-[25px] sm:text-[30px] text-black" />
+          <MdNotifications className="text-[25px] sm:text-[30px] text-[#181059]" />
         </div>
       </PopoverHandler>
       <PopoverContent>

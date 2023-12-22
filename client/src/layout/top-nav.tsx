@@ -114,7 +114,9 @@ export function TopNav() {
               </Link>
             </>
           ) : (
-            <ProfileMenu />
+            <div className="hidden md:block lg:block">
+              <ProfileMenu />
+            </div>
           )}
         </div>
         {/* <IconButton
@@ -215,8 +217,8 @@ export function TopNav() {
             </div>
           )}
           {user && (
-            <div className="space-y-3">
-              <Link to="/events">
+            <div className="mt-2 bg-[#f0f1f1] py-2 px-2 rounded-lg">
+              {/* <Link to="/events">
                 <Button
                   variant="outlined"
                   size="sm"
@@ -225,7 +227,7 @@ export function TopNav() {
                 >
                   <span className="text-black">View Events</span>
                 </Button>
-              </Link>
+              </Link> */}
               {/* <Button
                 variant="outlined"
                 size="sm"
@@ -235,6 +237,14 @@ export function TopNav() {
               >
                 <span className="text-black">Logout</span>
               </Button> */}
+              <Link to="/events">
+                <div className="flex items-center justify-between">
+                  <p className="text-[#414e62] font-medium border border-[#181059] bg-[#fff] py-1 px-2 rounded-lg text-[14px]">
+                    View Events
+                  </p>
+                  <ProfileMenu />
+                </div>
+              </Link>
             </div>
           )}
         </div>
