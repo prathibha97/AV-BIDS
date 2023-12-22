@@ -205,9 +205,8 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                     </h6>
 
                     <div className="flex items-center gap-2 mb-6">
-                      <p>
+                      <p className="truncate">
                         {event.address?.city}, {event.address?.state}
-
                       </p>
                       <MdLens className="text-[#D8D0FA] text-[15px]" />
                       {differenceInDays(

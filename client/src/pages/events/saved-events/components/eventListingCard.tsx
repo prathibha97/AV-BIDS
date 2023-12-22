@@ -20,7 +20,7 @@ export const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
   const daysLeft = differenceInDays(proposalDueDate, currentDate);
 
   return (
-    <div>
+    <div className="">
       <div className="sm:grid grid-cols-12 gap-4 bg-[#F3F1FB] mb-8 px-6 py-6 rounded-lg w-full">
         <div className="col-span-9">
           <div className="sm:flex gap-4">
