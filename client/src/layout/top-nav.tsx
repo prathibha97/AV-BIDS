@@ -7,10 +7,33 @@ import { useGetCurrentUser } from "../app/hooks/useUser";
 import LOGO from "../assets/homepage/logo.png";
 import Navbutton from "../assets/navigation bar/navbar_button.png";
 import PLUS_ICON from "../assets/navigation bar/plus.png";
+import navigation_bg from "../assets/navigation bar/nav_toggle_img.png";
 import ProfileMenu from "../components/profile-menu";
 import api from "../utils/api";
-
+import { useState, useEffect } from "react";
 export function TopNav() {
+  // starts here
+  const slides = [
+    {
+      mainText: "For Event Planners",
+      additionalText:
+        "Connecting AV providers and event managers for fairer quotes and networking on a specialized events industry platform.",
+    },
+    {
+      mainText: "For AV Providers",
+      additionalText:
+        "Unique events industry listing connects AV providers with planners, facilitating client acquisition without cold calling.",
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleDotClick = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  // ends here
+
   const user = useGetCurrentUser();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -109,12 +132,13 @@ export function TopNav() {
           onClick={() => setOpenNav(!openNav)}
         />
       </div>
+
       <MobileNav open={openNav}>
-        <div className="container mx-auto">
+        <div className="container mx-auto h-full">
           {/* <div className='text-center'>{navList}</div> */}
           {!user && (
-            <div className="grid grid-cols-2 gap-2 mb-0.5">
-              <Link to="/sign-in">
+            <div className="grid grid-cols-1 mb-0.5">
+              {/* <Link to="/sign-in">
                 <Button
                   variant="outlined"
                   size="sm"
@@ -123,9 +147,62 @@ export function TopNav() {
                 >
                   <span className="text-black">Login</span>
                 </Button>
-              </Link>
+              </Link> */}
+              <div className="flex items-center justify-center">
+                <img
+                  src={navigation_bg}
+                  className="w-[200px]"
+                  alt="mobile navogation bar img"
+                />
+              </div>
+
+              <div className="relative">
+                <div className="w-full h-40 bg-[#fff] flex flex-col items-center justify-center transition-opacity duration-500">
+                  <p className="text-xl font-bold text-[#3c3c3c]">
+                    {slides[currentSlide].mainText}
+                  </p>
+                  <p className="text-sm opacity-100 text-[#a6a6a6] text-center mt-2 px-2">
+                    {slides[currentSlide].additionalText}
+                  </p>
+                </div>
+
+                <div className="absolute bottom-2 flex items-center justify-center w-full">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleDotClick(index)}
+                      className={`w-3 h-3 mx-1 rounded-full bg-gray-500 ${
+                        currentSlide === index ? "bg-[#957fef]" : ""
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* <Button
+                  variant="outlined"
+                  size="sm"
+                  fullWidth
+                  className="rounded-btn"
+                >
+                  <span className="text-black">Login</span>
+                </Button> */}
 
               <Link to="/sign-up">
+                <div className="w-full text-center bg-[#957fef] py-2 px-2 mb-4 rounded-xl mt-4">
+                  <p>Sign Up</p>
+                </div>
+              </Link>
+
+              <p className="text-[#3c3c3c] font-medium text-center mb-2">
+                Already have an account?
+                <Link to="/sign-in">
+                  {" "}
+                  <span className="text-[#957fef] ">Sign in</span>
+                </Link>
+              </p>
+
+              {/* <Link to="/sign-up">
                 <Button
                   variant="outlined"
                   size="sm"
@@ -134,7 +211,7 @@ export function TopNav() {
                 >
                   <span className="text-black">Get Started</span>
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           )}
           {user && (
@@ -149,7 +226,7 @@ export function TopNav() {
                   <span className="text-black">View Events</span>
                 </Button>
               </Link>
-              <Button
+              {/* <Button
                 variant="outlined"
                 size="sm"
                 fullWidth
@@ -157,7 +234,7 @@ export function TopNav() {
                 onClick={() => handleSignout()}
               >
                 <span className="text-black">Logout</span>
-              </Button>
+              </Button> */}
             </div>
           )}
         </div>
