@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import MENU_BAR from "../assets/sidebar/menu.png";
 import { NavbarDashboard } from "./NavbarDashboard";
 import SidebarDashboard from "./Sidebar_dashboard";
+import { MdDesktopWindows } from "react-icons/md";
 
 const HomeLayout = () => {
   const [open, setOpen] = React.useState(false);
@@ -25,10 +26,11 @@ const HomeLayout = () => {
               <img
                 src={MENU_BAR}
                 alt="aad"
-                className="w-[25px] m-2 fixed top-0 z-50"
+                className="w-[22px] m-2 fixed top-0 z-50"
               />
             </p>
-            <Drawer open={open} onClose={closeDrawer} className="p-1 w-min">
+
+            <Drawer open={open} onClose={closeDrawer} className="p-1 w-min ">
               <div className="mb-6 flex items-center justify-between">
                 <div>
                   <IconButton

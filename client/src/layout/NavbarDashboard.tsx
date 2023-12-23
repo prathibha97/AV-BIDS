@@ -38,8 +38,8 @@ export function NavbarDashboard() {
         </Link>
       </div>
 
-      {/* <div className="block sm:hidden flex items-center justify-center ml-8">
-        <Button
+      <div className="block sm:hidden flex items-center justify-center ml-8">
+        {/* <Button
           variant="outlined"
           size="sm"
           className="lg:inline-block rounded-btn"
@@ -49,10 +49,10 @@ export function NavbarDashboard() {
             <MdAddCircleOutline className="text-[18px] text-white" />
             <span className="text-white normal-case ">Post New Event</span>
           </div>
-        </Button>
+        </Button> */}
 
         <div
-          className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg"
+          className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg block sm:hidden ml-8"
           onClick={() => navigate("/events/new")}
         >
           <MdAddCircleOutline className="text-[18px] text-white" />
@@ -60,14 +60,14 @@ export function NavbarDashboard() {
             Post New Event
           </span>
         </div>
-      </div> */}
+      </div>
     </ul>
   );
 
   return (
     <div>
       <div className="w-full">
-        <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#957FEF] shadow-none border-none py-6">
+        <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#957FEF] shadow-none border-none sm:py-4">
           <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
             {user && user?.userType === "PLANNER" && (
               // <Button
@@ -87,14 +87,17 @@ export function NavbarDashboard() {
               //     </span>
               //   </div>
               // </Button>
-              <div
-                className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg"
-                onClick={() => navigate("/events/new")}
-              >
-                <MdAddCircleOutline className="text-[18px] sm:text-[20px] text-white text-center" />
-                <span className="text-white normal-case text-[12px] sm:text-[16px]">
-                  Post New Event
-                </span>
+
+              <div className="hidden sm:block">
+                <div
+                  className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg "
+                  onClick={() => navigate("/events/new")}
+                >
+                  <MdAddCircleOutline className="text-[18px] sm:text-[20px] text-white text-center" />
+                  <span className="text-white normal-case text-[12px] sm:text-[16px]">
+                    Post New Event
+                  </span>
+                </div>
               </div>
             )}
 
