@@ -1,11 +1,18 @@
 import { Bars2Icon } from "@heroicons/react/24/solid";
-import { Button, IconButton, Navbar } from "@material-tailwind/react";
+import {
+  Button,
+  IconButton,
+  Navbar,
+  MobileNav,
+} from "@material-tailwind/react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useGetCurrentUser } from "../app/hooks/useUser";
 import PLUS_ICON from "../assets/navigation bar/plus.png";
 import ProfileMenu from "../components/profile-menu";
+import navigation_bg from "../assets/navigation bar/nav_toggle_img.png";
+import { MdAddCircleOutline } from "react-icons/md";
 
 // nav list component
 export function NavbarDashboard() {
@@ -24,10 +31,36 @@ export function NavbarDashboard() {
   }, []);
 
   const navList = (
-    <ul className="mb-4 mt-2 flex justify-center flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 hidden sm:block">
-      <Link to="/events">
-        <p className="text-white">Events Page</p>
-      </Link>
+    <ul className="mb-4 mt-2 flex justify-center flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <div className="hidden sm:block">
+        <Link to="/events">
+          <p className="text-white">Events Page</p>
+        </Link>
+      </div>
+
+      {/* <div className="block sm:hidden flex items-center justify-center ml-8">
+        <Button
+          variant="outlined"
+          size="sm"
+          className="lg:inline-block rounded-btn"
+          onClick={() => navigate("/events/new")}
+        >
+          <div className="flex items-center gap-2">
+            <MdAddCircleOutline className="text-[18px] text-white" />
+            <span className="text-white normal-case ">Post New Event</span>
+          </div>
+        </Button>
+
+        <div
+          className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg"
+          onClick={() => navigate("/events/new")}
+        >
+          <MdAddCircleOutline className="text-[18px] text-white" />
+          <span className="text-white normal-case text-[12px]">
+            Post New Event
+          </span>
+        </div>
+      </div> */}
     </ul>
   );
 
@@ -37,21 +70,32 @@ export function NavbarDashboard() {
         <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 bg-[#957FEF] shadow-none border-none py-6">
           <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
             {user && user?.userType === "PLANNER" && (
-              <Button
-                variant="outlined"
-                size="sm"
-                className="lg:inline-block rounded-btn hidden sm:block"
+              // <Button
+              //   variant="outlined"
+              //   size="sm"
+              //   className="lg:inline-block rounded-btn hidden sm:block"
+              //   onClick={() => navigate("/events/new")}
+              // >
+              //   <div className="flex items-center gap-2">
+              //     <img
+              //       src={PLUS_ICON}
+              //       alt="plus icon"
+              //       className="object-contain"
+              //     />
+              //     <span className="text-white normal-case ">
+              //       Post New Event
+              //     </span>
+              //   </div>
+              // </Button>
+              <div
+                className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg"
                 onClick={() => navigate("/events/new")}
               >
-                <div className="flex items-center gap-2">
-                  <img
-                    src={PLUS_ICON}
-                    alt="plus icon"
-                    className="object-contain"
-                  />
-                  <span className="text-white normal-case">Post New Event</span>
-                </div>
-              </Button>
+                <MdAddCircleOutline className="text-[18px] sm:text-[20px] text-white text-center" />
+                <span className="text-white normal-case text-[12px] sm:text-[16px]">
+                  Post New Event
+                </span>
+              </div>
             )}
 
             <div className="lg:block flex-grow text-center">{navList}</div>
@@ -92,6 +136,22 @@ export function NavbarDashboard() {
               </div>
             )}
           </div>
+
+          {/* starts here  */}
+          {/* <MobileNav open={isNavOpen}>
+            <div className="container mx-auto">
+              {navList}
+              <div className="flex items-center gap-x-1">
+                <Button fullWidth variant="text" size="sm" className="">
+                  <span>Log In</span>
+                </Button>
+                <Button fullWidth variant="gradient" size="sm" className="">
+                  <span>Sign in</span>
+                </Button>
+              </div>
+            </div>
+          </MobileNav> */}
+          {/* ends here */}
         </Navbar>
       </div>
     </div>

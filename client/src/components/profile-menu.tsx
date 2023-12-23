@@ -47,6 +47,7 @@ function ProfileMenu() {
       icon: InboxArrowDownIcon,
       onClick: () => navigate("/dashboard"),
     },
+
     {
       label: "Inbox",
       icon: InboxArrowDownIcon,
@@ -63,7 +64,7 @@ function ProfileMenu() {
   ];
 
   return (
-    <div className="flex items-center gap-6 cursor-pointer ">
+    <div className="flex items-center gap-6 cursor-pointer px-2">
       {/* <Badge content="5" color="green">
         <MdNotificationsNone className="text-[#000000] text-[30px]" />
       </Badge> */}
