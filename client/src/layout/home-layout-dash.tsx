@@ -14,7 +14,7 @@ const HomeLayout = () => {
   return (
     <>
       <main className="w-full h-screen overflow-auto bg-[#f7f6fd]">
-        <div className="bg-[#957FEF] mb-2">
+        <div className="bg-[#957FEF] mb-2  fixed top-0 w-full z-50">
           <NavbarDashboard />
         </div>
 
@@ -60,7 +60,7 @@ const HomeLayout = () => {
           </React.Fragment>
         </div>
 
-        <div className="flex ">
+        <div className="flex mt-24">
           <div className="hidden lg:block">
             <SidebarDashboard />
           </div>
