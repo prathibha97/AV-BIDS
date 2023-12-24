@@ -90,7 +90,7 @@ export function NavbarDashboard() {
 
               <div className="hidden sm:block">
                 <div
-                  className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg "
+                  className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg cursor-pointer"
                   onClick={() => navigate("/events/new")}
                 >
                   <MdAddCircleOutline className="text-[18px] sm:text-[20px] text-white text-center" />

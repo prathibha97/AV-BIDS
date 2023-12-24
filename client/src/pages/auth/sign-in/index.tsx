@@ -59,14 +59,14 @@ export function Index() {
       const { data } = await api.post("/auth/login", { ...values });
       localStorage.setItem("userInfo", JSON.stringify(data));
       dispatch(setUser(data.user));
-       if (
-         data.user.userType === 'PROVIDER' &&
-         data.user.subscription.plan === 'BASIC'
-       ) {
-         navigate('/billing');
-       } else {
-         navigate('/dashboard');
-       }
+      if (
+        data.user.userType === "PROVIDER" &&
+        data.user.subscription.plan === "BASIC"
+      ) {
+        navigate("/billing");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error: any) {
       if (error.response) {
         dispatch(
@@ -148,17 +148,17 @@ export function Index() {
               </div>
 
               <div className="flex items-center justify-between">
-                <div>
+                <div className="">
                   <Checkbox
                     label={
                       <div className="flex justify-between gap-32">
-                        <h6 className="flex items-center font-normal text-[14px] text-black">
+                        <h6 className="flex items-center font-normal text-[14px] text-black mr-3 sm:mr-0">
                           Remember me
                         </h6>
                       </div>
                     }
                     crossOrigin="anonymous"
-                    containerProps={{ className: "-ml-2.5" }}
+                    containerProps={{ className: "-ml-2.5 pr-1" }}
                     className="border-black"
                   />
                 </div>

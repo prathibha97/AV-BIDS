@@ -83,7 +83,7 @@ export function TopNav() {
             >
               <div className="flex items-center gap-2">
                 <img src={PLUS_ICON} alt="aad" className="object-contain" />
-                <span className="text-black normal-case">Post New Event</span>
+                <span className="text-black normal-case">Post New Event </span>
               </div>
             </Button>
           )}
