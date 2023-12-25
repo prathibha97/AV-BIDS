@@ -119,7 +119,7 @@ const notificationRouter = express.Router();
 
 notificationRouter.get('/', protect, admin, getAllNotifications);
 notificationRouter.put('/:id', protect, markNotificationAsRead);
-notificationRouter.get('/user/:id', protect, getNotificationsById);
+notificationRouter.get('/user/:id', getNotificationsById);
 notificationRouter.delete('/user/:userId', protect, clearNotifications);
 
 module.exports = notificationRouter;
