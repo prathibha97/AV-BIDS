@@ -13,6 +13,8 @@ import ConversationFilter from './components/conversation-filter';
 import EmptyMessage from './components/empty-message';
 import Message from './components/message';
 import MessageHeader from './components/message-header';
+import sharedSocket from '../../utils/socket';
+
 
 function Index() {
   const [conversations, setConversations] = useState<ConversationType[]>([]);
@@ -27,10 +29,11 @@ function Index() {
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const socket = useRef<Socket>();
+  // const socket = useSocket();
 
   useEffect(() => {
-    socket.current = io('wss://34.222.132.223:5005');
-    socket.current.on('getMessage', (data) => {
+    // socket.current = io('http://localhost:5005');
+    sharedSocket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -40,16 +43,25 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    console.log('Arrival Message:', arrivalMessage);
-    console.log('Current Chat:', currentChat);
+    console.log('Socket useEffect triggered');
+    sharedSocket.on('getMessage', (data) => {
+      console.log('getMessage event triggered:', data);
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: new Date(),
+      });
+    });
+  }, []);
 
+  useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket?.current?.emit('addUser', user?._id);
+    sharedSocket.emit('addUser', user?._id);
   }, [user]);
 
   useEffect(() => {
@@ -97,7 +109,7 @@ function Index() {
       (member) => member !== user._id
     );
 
-    socket?.current?.emit('sendMessage', {
+    sharedSocket.emit('sendMessage', {
       senderId: user?._id,
       receiverId,
       text: newMessage,

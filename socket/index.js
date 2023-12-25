@@ -36,7 +36,7 @@ const getUser = (userId) => {
 
 socketServer.on('connection', (socket) => {
   //when ceonnect
-  console.log('a user connected.');
+  console.log('a user connected. Total users:', users.length);
 
   //take userId and socketId from user
   socket.on('addUser', (userId) => {
