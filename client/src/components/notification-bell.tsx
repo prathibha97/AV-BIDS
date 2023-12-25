@@ -4,14 +4,15 @@ import {
   PopoverContent,
   PopoverHandler,
   Spinner,
-} from "@material-tailwind/react";
-import { useEffect, useRef, useState } from "react";
-import { MdNotifications } from "react-icons/md";
-import { Socket, io } from "socket.io-client";
-import { useGetCurrentUser } from "../app/hooks/useUser";
-import { Notification } from "../types";
-import api from "../utils/api";
-import NotificationItem from "./NotificationItem";
+} from '@material-tailwind/react';
+import { useEffect, useRef, useState } from 'react';
+import { MdNotifications } from 'react-icons/md';
+import { Socket, io } from 'socket.io-client';
+import { useGetCurrentUser } from '../app/hooks/useUser';
+import { Notification } from '../types';
+import api from '../utils/api';
+import NotificationItem from './NotificationItem';
+import sharedSocket from '../utils/socket';
 
 const NotificationBell = () => {
   const [userNotifications, setUserNotifications] = useState<Notification[]>(
@@ -23,22 +24,19 @@ const NotificationBell = () => {
   const user = useGetCurrentUser();
 
   useEffect(() => {
-    socket.current = io("http://localhost:5005");
-    socket.current.emit("addUser", user?._id);
+    // socket.current = io('http://localhost:5005/');
+    sharedSocket.emit('addUser', user?._id);
 
-    socket.current.on("eventUpdated", (data) => {
+    sharedSocket.on('eventUpdated', (data) => {
       // Handle real-time update for new notifications
       setUserNotifications((prevNotifications) => [...prevNotifications, data]);
     });
 
-    socket.current.on("proposalSubmited", (data) => {
+    sharedSocket.on('proposalSubmited', (data) => {
       setUserNotifications((prevNotifications) => [...prevNotifications, data]);
     });
 
-    return () => {
-      // Cleanup function to close the socket connection
-      socket.current?.disconnect();
-    };
+    
   }, [user?._id]);
 
   useEffect(() => {
@@ -73,20 +71,20 @@ const NotificationBell = () => {
   };
 
   return (
-    <Popover placement="top-end">
+    <Popover placement='top-end'>
       <PopoverHandler>
-        <div className="relative">
+        <div className='relative'>
           {unreadCount > 0 && (
-            <span className="bg-red-500 text-white rounded-full px-2 py-0.5 absolute top-0 right-0 -mt-1 -mr-1 text-[12px]">
+            <span className='bg-red-500 text-white rounded-full px-2 py-0.5 absolute top-0 right-0 -mt-1 -mr-1 text-[12px]'>
               {unreadCount}
             </span>
           )}
-          <MdNotifications className="text-[25px] sm:text-[30px] text-[#181059]" />
+          <MdNotifications className='text-[25px] sm:text-[30px] text-[#181059]' />
         </div>
       </PopoverHandler>
       <PopoverContent>
-        <div className="flex flex-col w-full space-y-3 max-h-[450px]">
-          <div className="overflow-y-auto">
+        <div className='flex flex-col w-full space-y-3 max-h-[450px]'>
+          <div className='overflow-y-auto'>
             {userNotifications.length > 0 ? (
               userNotifications.map((notification) => (
                 <NotificationItem
@@ -97,13 +95,13 @@ const NotificationBell = () => {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-600">No new notifications</p>
+              <p className='text-center text-gray-600'>No new notifications</p>
             )}
           </div>
           {userNotifications.length > 0 && (
-            <Button onClick={handleClearNotifications} className="bg-primary">
-              <div className="flex items-center justify-center gap-3">
-                {loading && <Spinner className="w-4 h-4" />}
+            <Button onClick={handleClearNotifications} className='bg-primary'>
+              <div className='flex items-center justify-center gap-3'>
+                {loading && <Spinner className='w-4 h-4' />}
                 <span>Clear All</span>
               </div>
             </Button>
