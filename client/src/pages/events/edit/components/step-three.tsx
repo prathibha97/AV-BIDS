@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useState } from "react";
 import {
   Communication,
   Microphones,
   Mixers,
   Speaksers,
-} from '../../../../types';
-import CardDetails from './card-details';
+} from "../../../../types";
+import CardDetails from "./card-details";
 
 interface StepThreeProps {
   formData: any;
@@ -98,230 +98,230 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Microphones</p>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Microphones</p>
         <div>
           <CardDetails
-            name='Wired Handheld'
+            name="Wired Handheld"
             value={microphones.wiredHandheld}
-            onDecrease={() => handleAdjustMicrophones('wiredHandheld', -1)}
-            onIncrease={() => handleAdjustMicrophones('wiredHandheld', 1)}
+            onDecrease={() => handleAdjustMicrophones("wiredHandheld", -1)}
+            onIncrease={() => handleAdjustMicrophones("wiredHandheld", 1)}
           />
           <CardDetails
-            name='Wireless Handheld'
+            name="Wireless Handheld"
             value={microphones.wirelessHandheld}
-            onDecrease={() => handleAdjustMicrophones('wirelessHandheld', -1)}
-            onIncrease={() => handleAdjustMicrophones('wirelessHandheld', 1)}
+            onDecrease={() => handleAdjustMicrophones("wirelessHandheld", -1)}
+            onIncrease={() => handleAdjustMicrophones("wirelessHandheld", 1)}
           />
           <CardDetails
-            name='Wireless Lavalier'
+            name="Wireless Lavalier"
             value={microphones.wirelessLavalier}
-            onDecrease={() => handleAdjustMicrophones('wirelessLavalier', -1)}
-            onIncrease={() => handleAdjustMicrophones('wirelessLavalier', 1)}
+            onDecrease={() => handleAdjustMicrophones("wirelessLavalier", -1)}
+            onIncrease={() => handleAdjustMicrophones("wirelessLavalier", 1)}
           />
           <CardDetails
-            name='Headset Microphone'
+            name="Headset Microphone"
             value={microphones.headsetMicrophone}
-            onDecrease={() => handleAdjustMicrophones('headsetMicrophone', -1)}
-            onIncrease={() => handleAdjustMicrophones('headsetMicrophone', 1)}
+            onDecrease={() => handleAdjustMicrophones("headsetMicrophone", -1)}
+            onIncrease={() => handleAdjustMicrophones("headsetMicrophone", 1)}
           />
           <CardDetails
-            name='Earset Microphone'
+            name="Earset Microphone"
             value={microphones.earsetMicrophone}
-            onDecrease={() => handleAdjustMicrophones('earsetMicrophone', -1)}
-            onIncrease={() => handleAdjustMicrophones('earsetMicrophone', 1)}
+            onDecrease={() => handleAdjustMicrophones("earsetMicrophone", -1)}
+            onIncrease={() => handleAdjustMicrophones("earsetMicrophone", 1)}
           />
           <CardDetails
-            name='Gooseneck Microphone'
+            name="Gooseneck Microphone"
             value={microphones.gooseneckMicrophone}
             onDecrease={() =>
-              handleAdjustMicrophones('gooseneckMicrophone', -1)
+              handleAdjustMicrophones("gooseneckMicrophone", -1)
             }
-            onIncrease={() => handleAdjustMicrophones('gooseneckMicrophone', 1)}
+            onIncrease={() => handleAdjustMicrophones("gooseneckMicrophone", 1)}
           />
           <CardDetails
-            name='Boundary Microphone'
+            name="Boundary Microphone"
             value={microphones.boundaryMicrophone}
-            onDecrease={() => handleAdjustMicrophones('boundaryMicrophone', -1)}
-            onIncrease={() => handleAdjustMicrophones('boundaryMicrophone', 1)}
+            onDecrease={() => handleAdjustMicrophones("boundaryMicrophone", -1)}
+            onIncrease={() => handleAdjustMicrophones("boundaryMicrophone", 1)}
           />
           <CardDetails
-            name='Audience Microphone'
+            name="Audience Microphone"
             value={microphones.audienceMicrophone}
-            onDecrease={() => handleAdjustMicrophones('audienceMicrophone', -1)}
-            onIncrease={() => handleAdjustMicrophones('audienceMicrophone', 1)}
+            onDecrease={() => handleAdjustMicrophones("audienceMicrophone", -1)}
+            onIncrease={() => handleAdjustMicrophones("audienceMicrophone", 1)}
           />
         </div>
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Speakers</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Speakers</p>
         <div>
           <CardDetails
-            name='Speakers 8”-15”'
+            name="Speakers 8”-15”"
             value={speaksers.speakers_8_15}
-            onDecrease={() => handleAdjustSpeaksers('speakers_8_15', -1)}
-            onIncrease={() => handleAdjustSpeaksers('speakers_8_15', 1)}
+            onDecrease={() => handleAdjustSpeaksers("speakers_8_15", -1)}
+            onIncrease={() => handleAdjustSpeaksers("speakers_8_15", 1)}
           />
           <CardDetails
-            name='Line-array Speaker System'
+            name="Line-array Speaker System"
             value={speaksers.line_array_speaker_system}
             onDecrease={() =>
-              handleAdjustSpeaksers('line_array_speaker_system', -1)
+              handleAdjustSpeaksers("line_array_speaker_system", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('line_array_speaker_system', 1)
+              handleAdjustSpeaksers("line_array_speaker_system", 1)
             }
           />
           <CardDetails
-            name='Subwoofer 12”-18”'
+            name="Subwoofer 12”-18”"
             value={speaksers.subwoofer_12_18}
-            onDecrease={() => handleAdjustSpeaksers('subwoofer_12_18', -1)}
-            onIncrease={() => handleAdjustSpeaksers('subwoofer_12_18', 1)}
+            onDecrease={() => handleAdjustSpeaksers("subwoofer_12_18", -1)}
+            onIncrease={() => handleAdjustSpeaksers("subwoofer_12_18", 1)}
           />
           <CardDetails
-            name='Reference Speaker Monitors'
+            name="Reference Speaker Monitors"
             value={speaksers.reference_speaker_monitors}
             onDecrease={() =>
-              handleAdjustSpeaksers('reference_speaker_monitors', -1)
+              handleAdjustSpeaksers("reference_speaker_monitors", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('reference_speaker_monitors', 1)
+              handleAdjustSpeaksers("reference_speaker_monitors", 1)
             }
           />
           <CardDetails
-            name='Bluetooth Speaker Small'
+            name="Bluetooth Speaker Small"
             value={speaksers.bluetooth_speaker_small}
             onDecrease={() =>
-              handleAdjustSpeaksers('bluetooth_speaker_small', -1)
+              handleAdjustSpeaksers("bluetooth_speaker_small", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('bluetooth_speaker_small', 1)
+              handleAdjustSpeaksers("bluetooth_speaker_small", 1)
             }
           />
           <CardDetails
-            name='Bluetooth Speaker Large'
+            name="Bluetooth Speaker Large"
             value={speaksers.bluetooth_speaker_large}
             onDecrease={() =>
-              handleAdjustSpeaksers('bluetooth_speaker_large', -1)
+              handleAdjustSpeaksers("bluetooth_speaker_large", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('bluetooth_speaker_large', 1)
+              handleAdjustSpeaksers("bluetooth_speaker_large", 1)
             }
           />
           <CardDetails
-            name='Computer Audio Speaker System'
+            name="Computer Audio Speaker System"
             value={speaksers.computer_audio_speaker_system}
             onDecrease={() =>
-              handleAdjustSpeaksers('computer_audio_speaker_system', -1)
+              handleAdjustSpeaksers("computer_audio_speaker_system", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('computer_audio_speaker_system', 1)
+              handleAdjustSpeaksers("computer_audio_speaker_system", 1)
             }
           />
           <CardDetails
-            name='Audio Rigging and Truss'
+            name="Audio Rigging and Truss"
             value={speaksers.audio_rigging_and_truss}
             onDecrease={() =>
-              handleAdjustSpeaksers('audio_rigging_and_truss', -1)
+              handleAdjustSpeaksers("audio_rigging_and_truss", -1)
             }
             onIncrease={() =>
-              handleAdjustSpeaksers('audio_rigging_and_truss', 1)
+              handleAdjustSpeaksers("audio_rigging_and_truss", 1)
             }
           />
         </div>
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Mixers</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Mixers</p>
         <div>
           <CardDetails
-            name='Analog Mixer'
+            name="Analog Mixer"
             value={mixers.analog_mixer}
-            onDecrease={() => handleAdjustMixers('analog_mixer', -1)}
-            onIncrease={() => handleAdjustMixers('analog_mixer', 1)}
+            onDecrease={() => handleAdjustMixers("analog_mixer", -1)}
+            onIncrease={() => handleAdjustMixers("analog_mixer", 1)}
           />
           <CardDetails
-            name='Digital Mixer'
+            name="Digital Mixer"
             value={mixers.digital_mixer}
-            onDecrease={() => handleAdjustMixers('digital_mixer', -1)}
-            onIncrease={() => handleAdjustMixers('digital_mixer', 1)}
+            onDecrease={() => handleAdjustMixers("digital_mixer", -1)}
+            onIncrease={() => handleAdjustMixers("digital_mixer", 1)}
           />
           <CardDetails
-            name='Computer Audio Interface'
+            name="Computer Audio Interface"
             value={mixers.computer_audio_interface}
             onDecrease={() =>
-              handleAdjustMixers('computer_audio_interface', -1)
+              handleAdjustMixers("computer_audio_interface", -1)
             }
-            onIncrease={() => handleAdjustMixers('computer_audio_interface', 1)}
+            onIncrease={() => handleAdjustMixers("computer_audio_interface", 1)}
           />
           <CardDetails
-            name='Multi-Media D.I. Box'
+            name="Multi-Media D.I. Box"
             value={mixers.multi_media_DI_box}
-            onDecrease={() => handleAdjustMixers('multi_media_DI_box', -1)}
-            onIncrease={() => handleAdjustMixers('multi_media_DI_box', 1)}
+            onDecrease={() => handleAdjustMixers("multi_media_DI_box", -1)}
+            onIncrease={() => handleAdjustMixers("multi_media_DI_box", 1)}
           />
           <CardDetails
-            name='Broadcast Phone Line Interface'
+            name="Broadcast Phone Line Interface"
             value={mixers.broadcast_phone_line_interface}
             onDecrease={() =>
-              handleAdjustMixers('broadcast_phone_line_interface', -1)
+              handleAdjustMixers("broadcast_phone_line_interface", -1)
             }
             onIncrease={() =>
-              handleAdjustMixers('broadcast_phone_line_interface', 1)
+              handleAdjustMixers("broadcast_phone_line_interface", 1)
             }
           />
           <CardDetails
-            name='Digital Audio Recording'
+            name="Digital Audio Recording"
             value={mixers.digital_audio_recording}
-            onDecrease={() => handleAdjustMixers('digital_audio_recording', -1)}
-            onIncrease={() => handleAdjustMixers('digital_audio_recording', 1)}
+            onDecrease={() => handleAdjustMixers("digital_audio_recording", -1)}
+            onIncrease={() => handleAdjustMixers("digital_audio_recording", 1)}
           />
           <CardDetails
-            name='Audio Playback Instant Replay'
+            name="Audio Playback Instant Replay"
             value={mixers.audio_playback_instant_replay}
             onDecrease={() =>
-              handleAdjustMixers('audio_playback_instant_replay', -1)
+              handleAdjustMixers("audio_playback_instant_replay", -1)
             }
             onIncrease={() =>
-              handleAdjustMixers('audio_playback_instant_replay', 1)
+              handleAdjustMixers("audio_playback_instant_replay", 1)
             }
           />
           <CardDetails
-            name='CD Player'
+            name="CD Player"
             value={mixers.cd_player}
-            onDecrease={() => handleAdjustMixers('cd_player', -1)}
-            onIncrease={() => handleAdjustMixers('cd_player', 1)}
+            onDecrease={() => handleAdjustMixers("cd_player", -1)}
+            onIncrease={() => handleAdjustMixers("cd_player", 1)}
           />
           <CardDetails
-            name='Audio Processing (EQ, Comp, etc.)'
+            name="Audio Processing (EQ, Comp, etc.)"
             value={mixers.audio_processing}
-            onDecrease={() => handleAdjustMixers('audio_processing', -1)}
-            onIncrease={() => handleAdjustMixers('audio_processing', 1)}
+            onDecrease={() => handleAdjustMixers("audio_processing", -1)}
+            onIncrease={() => handleAdjustMixers("audio_processing", 1)}
           />
         </div>
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Communication</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6">
+        <p className="text-[18px] font-medium mb-4">Communication</p>
         <div>
           <CardDetails
-            name='Wireless Belt Pack and Headset'
+            name="Wireless Belt Pack and Headset"
             value={communication.wireless_belt_pack_and_headset}
             onDecrease={() =>
-              handleAdjustCommunication('wireless_belt_pack_and_headset', -1)
+              handleAdjustCommunication("wireless_belt_pack_and_headset", -1)
             }
             onIncrease={() =>
-              handleAdjustCommunication('wireless_belt_pack_and_headset', 1)
+              handleAdjustCommunication("wireless_belt_pack_and_headset", 1)
             }
           />
 
           <CardDetails
-            name='Wired Belt Pack and Headset'
+            name="Wired Belt Pack and Headset"
             value={communication.wired_belt_pack_and_headset}
             onDecrease={() =>
-              handleAdjustCommunication('wired_belt_pack_and_headset', -1)
+              handleAdjustCommunication("wired_belt_pack_and_headset", -1)
             }
             onIncrease={() =>
-              handleAdjustCommunication('wired_belt_pack_and_headset', 1)
+              handleAdjustCommunication("wired_belt_pack_and_headset", 1)
             }
           />
         </div>

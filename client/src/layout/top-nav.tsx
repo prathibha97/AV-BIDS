@@ -83,7 +83,7 @@ export function TopNav() {
             >
               <div className="flex items-center gap-2">
                 <img src={PLUS_ICON} alt="aad" className="object-contain" />
-                <span className="text-black normal-case">Post New Event</span>
+                <span className="text-black normal-case">Post New Event </span>
               </div>
             </Button>
           )}
@@ -174,7 +174,7 @@ export function TopNav() {
                       key={index}
                       onClick={() => handleDotClick(index)}
                       className={`w-3 h-3 mx-1 rounded-full bg-gray-500 ${
-                        currentSlide === index ? "bg-[#957fef]" : ""
+                        currentSlide === index ? "bg-[#957fed]" : ""
                       }`}
                     />
                   ))}
