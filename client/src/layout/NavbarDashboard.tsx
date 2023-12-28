@@ -88,7 +88,7 @@ export function NavbarDashboard() {
               //   </div>
               // </Button>
 
-              <div className="hidden sm:block">
+              <div className="hidden lg:block">
                 <div
                   className="flex items-center justify-center gap-2 border border-white w-max px-2 py-1 rounded-lg cursor-pointer"
                   onClick={() => navigate("/events/new")}
