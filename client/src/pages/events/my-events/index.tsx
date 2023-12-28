@@ -85,6 +85,16 @@ function Index() {
     setCurrentPage(pageNumber);
   };
 
+  const handleDeleteEvent = async (eventId: string) => {
+    try {
+      await api.delete(`/events/${eventId}`);
+      const { data } = await api.get(`/events/user/${user?._id}`);
+      setMyEvents(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className='container mx-auto'>
       <AlertBox
@@ -218,7 +228,12 @@ function Index() {
                             </PopoverHandler>
                             <PopoverContent>
                               <div>
-                                <div className='flex items-center gap-2 mb-3 cursor-pointer'>
+                                <div
+                                  className='flex items-center gap-2 mb-3 cursor-pointer'
+                                  onClick={() =>
+                                    navigate(`/events/${event._id}`)
+                                  }
+                                >
                                   <MdOutlineRemoveRedEye className='text-[20px]' />
                                   <p>View</p>
                                 </div>
@@ -229,7 +244,10 @@ function Index() {
                                   <MdEditNote className='text-[20px]' />
                                   <p>Edit</p>
                                 </div>
-                                <div className='flex items-center gap-2 cursor-pointer text-red-500'>
+                                <div
+                                  className='flex items-center gap-2 cursor-pointer text-red-500'
+                                  onClick={() => handleDeleteEvent(event._id)}
+                                >
                                   <MdDeleteOutline className='text-[20px]' />
                                   <p>Delete</p>
                                 </div>
