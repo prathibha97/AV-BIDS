@@ -181,8 +181,26 @@ function Index() {
                           onClick={() => handleEdit(event)}
                         >
                           <div className='flex items-center gap-1'>
-                            <MdLens className='text-[#FAC715] text-[7px]' />
-                            <p className='text-[#FAC715]'>Draft</p>
+                            <MdLens
+                              className={
+                                event.status === 'Active'
+                                  ? 'text-green-500 text-[7px]'
+                                  : event.status === 'Expired'
+                                  ? 'text-red-500 text-[7px]'
+                                  : 'text-[#FAC715] text-[7px]'
+                              }
+                            />
+                            <p
+                              className={
+                                event.status === 'Active'
+                                  ? 'text-green-500 '
+                                  : event.status === 'Expired'
+                                  ? 'text-red-500 '
+                                  : 'text-[#FAC715] '
+                              }
+                            >
+                              {event.status}
+                            </p>
                           </div>
                         </Typography>
                       </td>

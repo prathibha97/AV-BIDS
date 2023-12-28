@@ -364,7 +364,7 @@ const getEventsByUser = async (userId, req, sortOption) => {
     const sortFields = {
       date_posted: 'createdAt',
       expiring_soonest: 'eventEndDate',
-      active: 'eventStartDate',
+      active: 'status',
     };
 
     const sortField = sortFields[sortOption];
@@ -373,6 +373,10 @@ const getEventsByUser = async (userId, req, sortOption) => {
         [sortField]: sortOption === 'date_posted' ? 'desc' : 'asc',
       });
     }
+
+     if (sortOption === 'active') {
+       query = query.where('status').equals('Active');
+     }
 
     const events = await query.exec();
     return events;
