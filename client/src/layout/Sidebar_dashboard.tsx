@@ -13,6 +13,7 @@ import EVENT from "../assets/sidebar/event_alerts.png";
 import MESSAGES from "../assets/sidebar/message.png";
 import SAVED_EVENTS from "../assets/sidebar/saved_events.png";
 import PROPOSALS from "../assets/sidebar/proposals.png";
+import logo from "../assets/homepage/logo.png";
 
 const SidebarDashboard = () => {
   const navigate = useNavigate();
@@ -23,11 +24,16 @@ const SidebarDashboard = () => {
   return (
     <div>
       {/* <Card className="h-[calc(100vh-2rem)] w-full max-w-[15rem] p-4 bg-[#fff]"> */}
-      <Card className="h-[calc(100vh-8rem)] w-full max-w-[15rem] p-4 bg-[#fff]">
-        <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">
+      <Card className="h-[calc(100vh-8rem)] w-full max-w-[15rem]  bg-[#fff] shadow-none sm:shadow-md">
+        <div className="">
+          {/* <Typography variant="h5" color="blue-gray">
             Sidebar
-          </Typography>
+          </Typography> */}
+          <img
+            src={logo}
+            alt="AV bids logo"
+            className="w-[120px] object-scale-down "
+          />
         </div>
         <List>
           <ListItem onClick={() => navigate("/dashboard")}>
