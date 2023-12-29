@@ -246,6 +246,69 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
             </div>
           </div>
 
+          <div className="sm:col-span-2">
+            <div>
+              <p className="text-[16px] mb-2">Address</p>
+              <div className="bg-input_background rounded-full">
+                <Input
+                  className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  placeholder="Street Address"
+                  crossOrigin=""
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <div>
+              <div className="bg-input_background rounded-full">
+                <Input
+                  className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  placeholder="Address Line 2"
+                  crossOrigin=""
+                />
+              </div>
+            </div>
+          </div>
+          <div className="sm:col-span-1">
+            <div>
+              <div className="bg-input_background rounded-full">
+                <Input
+                  className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  placeholder="City"
+                  crossOrigin=""
+                />
+              </div>
+            </div>
+          </div>
+          <div className="sm:col-span-1">
+            <div>
+              <div className="bg-input_background rounded-full">
+                <Input
+                  className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  placeholder="Postal Code"
+                  crossOrigin=""
+                />
+              </div>
+            </div>
+          </div>
+
           <div></div>
         </div>
 
