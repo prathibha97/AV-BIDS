@@ -80,13 +80,15 @@ function Index() {
       <div className="mb-4">
         <Breadcrumbs />
       </div>
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2">
-        <div className="flex items-end justify-between">
+      <section className="bg-[#fff] px-2 py-8 rounded-xl drop-shadow mb-6 mx-2">
+        <div className="flex items-center justify-between">
           <h2 className="text-[16px] sm:text-2xl font-semibold">
             Saved Events
           </h2>
           <div className="sm:flex items-center ">
-            <span className="text-[14px] sm:text-[16px] mr-2">Sort By:</span>
+            <span className="text-[14px] sm:text-[16px] mr-2 hidden md:block">
+              Sort By:
+            </span>
             <div className="w-max">
               <Select
                 // label='Select Version'
