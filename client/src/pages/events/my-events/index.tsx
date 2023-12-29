@@ -96,7 +96,7 @@ function Index() {
   };
 
   return (
-    <div className="overflow-x-auto overflow-y-auto">
+    <div className="overflow-x-auto overflow-y-auto sm:container sm:mx-auto ">
       <AlertBox
         color={color}
         variant="ghost"
@@ -104,8 +104,8 @@ function Index() {
         open={open}
         setOpen={handleAlertClose}
       />
-      <div className="mx-2  overflow-auto">
-        <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 min-w-max ">
+      <div className="overflow-auto">
+        <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 min-w-max mx-2 sm:mx-0">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-[20px] font-semibold ">My Events </h2>
             <div>
