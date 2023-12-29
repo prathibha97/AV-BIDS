@@ -46,6 +46,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    address: {
+      addressLine1: { type: String },
+      addressLine2: { type: String },
+      state: { type: String },
+      zip: { type: String },
+    },
     password: {
       type: String,
       required: true,

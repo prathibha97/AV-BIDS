@@ -20,6 +20,13 @@ export interface User {
     zip: string;
     state: string;
   };
+  address: {
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    zip: string;
+    state: string;
+  };
   subscription: {
     customerId: string;
     productId: string;

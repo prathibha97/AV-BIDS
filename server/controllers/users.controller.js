@@ -60,6 +60,7 @@ const update = async (req, res) => {
       imageUrl,
       insurance,
       companyAddress,
+      address,
       subscription,
     } = req.body;
 
@@ -85,6 +86,7 @@ const update = async (req, res) => {
       imageUrl,
       insurance,
       companyAddress,
+      address,
       subscription,
     });
 
