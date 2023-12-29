@@ -94,59 +94,59 @@ const ResetPassword = () => {
 
   const handleOpen = () => setOpen(!open);
   return (
-    <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2">
-      <h2 className="text-[20px] font-semibold mb-4">Change Password</h2>
+    <section className='bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 mx-2'>
+      <h2 className='text-[20px] font-semibold mb-4'>Change Password</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 gap-4">
+        <div className='grid grid-cols-1 gap-4'>
           <div>
-            <p className="mb-2">Current password</p>
+            <p className='mb-2'>Current password</p>
 
-            <div className="bg-input_background rounded-full">
+            <div className='bg-input_background rounded-full'>
               <Input
-                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
-                  className: "hidden",
+                  className: 'hidden',
                 }}
-                containerProps={{ className: "min-w-[100px]" }}
-                type="password"
-                placeholder="********"
-                crossOrigin=""
-                {...register("password")}
+                containerProps={{ className: 'min-w-[100px]' }}
+                type='password'
+                placeholder='********'
+                crossOrigin=''
+                {...register('password')}
               />
               {errors.password && <span>Password is required</span>}
             </div>
           </div>
 
           <div>
-            <p className="mb-2">New Password</p>
-            <div className="bg-input_background rounded-full">
+            <p className='mb-2'>New Password</p>
+            <div className='bg-input_background rounded-full'>
               <Input
-                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
-                  className: "hidden",
+                  className: 'hidden',
                 }}
-                containerProps={{ className: "min-w-[100px]" }}
-                type="password"
-                placeholder="New Password"
-                crossOrigin=""
-                {...register("newPassword")}
+                containerProps={{ className: 'min-w-[100px]' }}
+                type='password'
+                placeholder='New Password'
+                crossOrigin=''
+                {...register('newPassword')}
               />
               {errors.password && <span>New Password is required</span>}
             </div>
           </div>
           <div>
-            <p className="mb-2">Confirm New Password</p>
-            <div className="bg-input_background rounded-full">
+            <p className='mb-2'>Confirm New Password</p>
+            <div className='bg-input_background rounded-full'>
               <Input
-                className="rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                className='rounded-full !border !border-gray-300 text-gray-900 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10'
                 labelProps={{
-                  className: "hidden",
+                  className: 'hidden',
                 }}
-                containerProps={{ className: "min-w-[100px]" }}
-                type="password"
-                placeholder="Confirm New Password"
-                crossOrigin=""
-                {...register("confirmPassword")}
+                containerProps={{ className: 'min-w-[100px]' }}
+                type='password'
+                placeholder='Confirm New Password'
+                crossOrigin=''
+                {...register('confirmPassword')}
               />
               {errors.password && <span>Passwords does not match</span>}
             </div>
@@ -159,35 +159,38 @@ const ResetPassword = () => {
           </Button> */}
           <Dialog open={open} handler={handleOpen}>
             <div
-              className="flex justify-end p-2 text-[#829ab1] cursor-pointer"
+              className='flex justify-end p-2 text-[#829ab1] cursor-pointer'
               onClick={handleOpen}
             >
-              <MdCancelPresentation className="text-[35px]" />
+              <MdCancelPresentation className='text-[35px]' />
             </div>
-            <DialogHeader className="flex justify-center">
-              <h2 className="text-[#102a43] text-[30px] text-center ">
+            <DialogHeader className='flex justify-center'>
+              <h2 className='text-[#102a43] text-[30px] text-center '>
                 Delete Account?
               </h2>
             </DialogHeader>
             <DialogBody>
-              <p className="text-[#102a43] text-center text-[20px]">
-                Are you sure you want to delete{" "}
-                <span className="font-medium">"account name"</span>?
+              <p className='text-[#102a43] text-center text-[20px]'>
+                Are you sure you want to delete{' '}
+                <span className='font-medium'>
+                  "{user?.firstName} {user?.lastName}"
+                </span>
+                ?
               </p>
 
-              <p className="text-[#102a43] text-center text-[20px]">
+              <p className='text-[#102a43] text-center text-[20px]'>
                 You can't undo this action.
               </p>
 
-              <div className="bg-[#ffe8d9] rounded-md border-l-4 border-[#f97443] mt-6 mx-10 px-4 py-6">
-                <div className="flex items-center gap-4">
-                  <MdOutlineError className="text-[40px] text-[#f35627] self-start" />
+              <div className='bg-[#ffe8d9] rounded-md border-l-4 border-[#f97443] mt-6 mx-10 px-4 py-6'>
+                <div className='flex items-center gap-4'>
+                  <MdOutlineError className='text-[40px] text-[#f35627] self-start' />
                   <div>
-                    <p className="text-[#810c02] font-medium text-[20px] mb-2 mt-1">
+                    <p className='text-[#810c02] font-medium text-[20px] mb-2 mt-1'>
                       Warning
                     </p>
 
-                    <p className="text-[#c21d0c] text-[18px]">
+                    <p className='text-[#c21d0c] text-[18px]'>
                       By choosing to delete this account, please note that all
                       data associated with AV bids will be permanently removed
                       as well.
@@ -196,24 +199,24 @@ const ResetPassword = () => {
                 </div>
               </div>
             </DialogBody>
-            <DialogFooter className="flex items-center justify-center gap-6 mt-4 mb-8">
+            <DialogFooter className='flex items-center justify-center gap-6 mt-4 mb-8'>
               <Button
-                variant="filled"
-                className="mr-1 bg-primary  w-[165px] h-[45px] rounded-full"
+                variant='filled'
+                className='mr-1 bg-primary  w-[165px] h-[45px] rounded-full'
                 onClick={handleOpen}
               >
-                <span className="normal-case  text-[#fff]">Cancel</span>
+                <span className='normal-case  text-[#fff]'>Cancel</span>
               </Button>
               <Button
-                variant="filled"
-                className="bg-[#e12929] w-[165px] h-[45px] rounded-full"
+                variant='filled'
+                className='bg-[#e12929] w-[165px] h-[45px] rounded-full'
                 onClick={handleOpen}
               >
-                <div className="flex items-center justify-center gap-2">
-                  <span className="normal-case text-[#fff]">
+                <div className='flex items-center justify-center gap-2'>
+                  <span className='normal-case text-[#fff]'>
                     Delete Account
                   </span>
-                  <MdDeleteOutline className="text-[22px]" />
+                  {/* <MdDeleteOutline className='text-[22px]' /> */}
                 </div>
               </Button>
             </DialogFooter>
@@ -221,26 +224,26 @@ const ResetPassword = () => {
         </>
 
         {/* submit and delete button */}
-        <div className="flex items-center justify-between mt-4">
+        <div className='flex items-center justify-between mt-4'>
           <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            className="w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full"
-            type="submit"
+            variant='filled'
+            color='indigo'
+            size='sm'
+            className='w-30 py-3 mt-4 px-6 bg-primary font-poppins rounded-full'
+            type='submit'
           >
-            <span className="text-white normal-case">Submit</span>
+            <span className='text-white normal-case'>Submit</span>
           </Button>
           <Button
-            variant="filled"
-            color="indigo"
-            size="sm"
-            type="button"
-            className="w-30 py-3 mt-4 px-6 bg-[#E12929] font-poppins rounded-full"
+            variant='filled'
+            color='indigo'
+            size='sm'
+            type='button'
+            className='w-30 py-3 mt-4 px-6 bg-[#E12929] font-poppins rounded-full'
             // onClick={handleDeleteAccount}
             onClick={handleOpen}
           >
-            <span className="text-white normal-case">Delete Account</span>
+            <span className='text-white normal-case'>Delete Account</span>
           </Button>
         </div>
       </form>
