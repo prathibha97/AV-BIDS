@@ -128,7 +128,7 @@ function Index() {
         <Breadcrumbs />
       </div>
 
-      <section className="bg-white rounded-xl p-6 drop-shadow">
+      <section className="bg-white rounded-xl p-6 drop-shadow  mx-2">
         <h2 className="text-2xl font-semibold mb-6">Messages</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 border border-[#EDECF1] rounded-xl">
