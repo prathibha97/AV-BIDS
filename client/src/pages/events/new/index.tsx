@@ -77,6 +77,39 @@ export function Index() {
     }
   };
 
+  const saveAsDraft = async () => {
+    try {
+      const { data } = await api.post('/events', {
+        ...formData,
+        createdBy: user && user._id,
+        status: 'Draft'
+      });
+      navigate('/events/my-events');
+      dispatch(
+        setAlertWithTimeout({
+          message: 'Event saved as a draft',
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
+    }
+  };
+
   const updateFormData = (
     field: string,
     value: number | Requirement[] | Requirement
@@ -240,6 +273,7 @@ export function Index() {
               color='indigo'
               size='sm'
               className='rounded-full py-3 px-2 mt-4  font-poppins normal-case border-primary w-[130px]  mr-6'
+              onClick={saveAsDraft}
             >
               <span className='text-primary '>Save as Draft</span>
             </Button>

@@ -200,6 +200,10 @@ const eventSchema = new mongoose.Schema(
     comments: {
       type: String,
     },
+    status: {
+      type: String,
+      defalt: 'Active',
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -207,5 +211,17 @@ const eventSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Mongoose middleware to update status to 'Expired' if eventEndDate has passed
+eventSchema.pre('save', function (next) {
+  const currentDate = new Date();
+  const eventEndDate = new Date(this.eventEndDate);
+
+  if (eventEndDate < currentDate) {
+    this.status = 'Expired';
+  }
+
+  next();
+});
 
 module.exports = mongoose.model('Event', eventSchema);

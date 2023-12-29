@@ -10,6 +10,7 @@ const api = require('./routes/api');
 const credentials = require('./middlewares/credentials');
 const corsOptions = require('./config/corsOptions');
 const updateUserSubscriptionPlan = require('./utils/updateUserSubscriptionPlan');
+const updateEventsStatus = require('./utils/updateEventStatus');
 
 require('./services/cache');
 
@@ -29,6 +30,7 @@ app.use('/api', api);
 
 cron.schedule('0 0 * * *', () => {
   updateUserSubscriptionPlan();
+  updateEventsStatus();
 });
 
 if (process.env.NODE_ENV !== 'development') {
