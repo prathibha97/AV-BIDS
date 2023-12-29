@@ -165,7 +165,7 @@ const ResetPassword = () => {
               <MdCancelPresentation className="text-[35px]" />
             </div>
             <DialogHeader className="flex justify-center">
-              <h2 className="text-[#102a43] text-[30px] text-center pt-6">
+              <h2 className="text-[#102a43] text-[30px] text-center ">
                 Delete Account?
               </h2>
             </DialogHeader>
@@ -196,7 +196,7 @@ const ResetPassword = () => {
                 </div>
               </div>
             </DialogBody>
-            <DialogFooter className="flex items-center justify-center gap-6 mt-4">
+            <DialogFooter className="flex items-center justify-center gap-6 mt-4 mb-8">
               <Button
                 variant="filled"
                 className="mr-1 bg-primary  w-[165px] h-[45px] rounded-full"
