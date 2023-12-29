@@ -102,6 +102,7 @@ export type Event = {
   proposals: [string];
   createdAt: Date;
   updatedAt: Date;
+  status: string;
   createdBy: string;
 };
 

@@ -12,12 +12,12 @@ const protect = async (req, res, next) => {
       req.empNo = req.user.empNo;
       next();
     } catch (err) {
-      res.status(401);
-      throw new Error('Not authorized, token failed');
+      res.status(401).json('Not authorized, token failed');
+      // throw new Error('Not authorized, token failed');
     }
   } else if (!token) {
-    res.status(401);
-    throw new Error('Not authorized, no token');
+    res.status(401).json('Not authorized, no token');
+    // throw new Error('Not authorized, no token');
   }
 };
 
@@ -27,8 +27,8 @@ const admin = (req, res, next) => {
   ) {
     next();
   } else {
-    res.status(401);
-    throw new Error('Not authorized, as an admin');
+    res.status(401).json('Not authorized, as an admin');
+    // throw new Error('Not authorized, as an admin');
   }
 };
 

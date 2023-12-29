@@ -85,6 +85,16 @@ function Index() {
     setCurrentPage(pageNumber);
   };
 
+  const handleDeleteEvent = async (eventId: string) => {
+    try {
+      await api.delete(`/events/${eventId}`);
+      const { data } = await api.get(`/events/user/${user?._id}`);
+      setMyEvents(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="container mx-auto">
       <AlertBox
@@ -181,8 +191,26 @@ function Index() {
                           onClick={() => handleEdit(event)}
                         >
                           <div className="flex items-center gap-1">
-                            <MdLens className="text-[#FAC715] text-[7px]" />
-                            <p className="text-[#FAC715]">Draft</p>
+                            <MdLens
+                              className={
+                                event.status === "Active"
+                                  ? "text-green-500 text-[7px]"
+                                  : event.status === "Expired"
+                                  ? "text-red-500 text-[7px]"
+                                  : "text-[#FAC715] text-[7px]"
+                              }
+                            />
+                            <p
+                              className={
+                                event.status === "Active"
+                                  ? "text-green-500 "
+                                  : event.status === "Expired"
+                                  ? "text-red-500 "
+                                  : "text-[#FAC715] "
+                              }
+                            >
+                              {event.status}
+                            </p>
                           </div>
                         </Typography>
                       </td>
@@ -200,7 +228,12 @@ function Index() {
                             </PopoverHandler>
                             <PopoverContent>
                               <div>
-                                <div className="flex items-center gap-2 mb-3 cursor-pointer">
+                                <div
+                                  className="flex items-center gap-2 mb-3 cursor-pointer"
+                                  onClick={() =>
+                                    navigate(`/events/${event._id}`)
+                                  }
+                                >
                                   <MdOutlineRemoveRedEye className="text-[20px]" />
                                   <p>View</p>
                                 </div>
@@ -211,7 +244,10 @@ function Index() {
                                   <MdEditNote className="text-[20px]" />
                                   <p>Edit</p>
                                 </div>
-                                <div className="flex items-center gap-2 cursor-pointer text-red-500">
+                                <div
+                                  className="flex items-center gap-2 cursor-pointer text-red-500"
+                                  onClick={() => handleDeleteEvent(event._id)}
+                                >
                                   <MdDeleteOutline className="text-[20px]" />
                                   <p>Delete</p>
                                 </div>
