@@ -19,6 +19,7 @@ import StepSeven from './components/step-seven';
 import StepSix from './components/step-six';
 import StepThree from './components/step-three';
 import StepTwo from './components/step-two';
+import { setEvent } from '../../../app/features/events/eventSlice';
 // import Stepper from "./components/stepper";
 
 interface Requirement {
@@ -80,6 +81,72 @@ export function Index() {
     }
   };
 
+  const handlePublish = async () => {
+    try {
+      const { data } = await api.put(`/events/${event?._id}`, {
+        ...formData,
+        status: 'Active',
+      });
+      dispatch(setEvent(data.event));
+      navigate('/events/my-events');
+      dispatch(
+        setAlertWithTimeout({
+          message: 'Event has been published successfully',
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
+    }
+  };
+
+  const handleSaveAsDraft = async () => {
+    try {
+      const { data } = await api.put(`/events/${event?._id}`, {
+        ...formData,
+        status: 'Draft',
+      });
+      dispatch(setEvent(data.event));
+      navigate('/events/my-events');
+      dispatch(
+        setAlertWithTimeout({
+          message: 'Event updated as a draft',
+          color: 'green',
+          open: true,
+        })
+      );
+    } catch (error: any) {
+      if (error.response) {
+        dispatch(
+          setAlertWithTimeout({
+            message: error.response.data.error,
+            color: 'red',
+            open: true,
+          })
+        );
+      } else if (error.request) {
+        console.log('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error while setting up the request:', error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     // Populate formData with event data when component mounts
     if (event) {
@@ -105,6 +172,7 @@ export function Index() {
 
   const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+
 
   return (
     <div className='container mx-auto mb-8'>
@@ -238,14 +306,27 @@ export function Index() {
           </div>
 
           <div>
-            <Button
-              variant='outlined'
-              color='indigo'
-              size='sm'
-              className='rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6'
-            >
-              <span className='text-primary '>Save as Draft</span>
-            </Button>
+            {event?.status === 'Draft' ? (
+              <Button
+                variant='outlined'
+                color='indigo'
+                size='sm'
+                className='rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6'
+                onClick={handlePublish}
+              >
+                <span className='text-primary '>Publish Event</span>
+              </Button>
+            ) : (
+              <Button
+                variant='outlined'
+                color='indigo'
+                size='sm'
+                className='rounded-full  py-3 px-6 mt-4  font-poppins normal-case border-primary w-[135px] mr-6'
+                onClick={handleSaveAsDraft}
+              >
+                <span className='text-primary '>Save as Draft</span>
+              </Button>
+            )}
 
             {currentStep > 1 && (
               <Button
