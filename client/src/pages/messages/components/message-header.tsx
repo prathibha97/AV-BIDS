@@ -32,7 +32,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
       }
     };
     fetchOtherUser();
-  }, []);
+  }, [ conversation]);
 
   return (
     <div className="border-b border-[#EDECF1] row-span-1 p-4 ">
