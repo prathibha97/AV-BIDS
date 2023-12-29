@@ -220,6 +220,7 @@ const ResetPassword = () => {
           </Dialog>
         </>
 
+        {/* submit and delete button */}
         <div className="flex items-center justify-between mt-4">
           <Button
             variant="filled"
