@@ -4,14 +4,14 @@ import {
   Checkbox,
   Option,
   Select,
-} from '@material-tailwind/react';
-import { FC } from 'react';
+} from "@material-tailwind/react";
+import { FC } from "react";
 import {
   CheckboxItem,
   audienceSizeCheckboxes,
   checkboxes,
   priceRangeCheckboxes,
-} from '../../../constants';
+} from "../../../constants";
 
 interface SidebarProps {
   selectedEventType: string[];
@@ -57,9 +57,9 @@ const Sidebar: FC<SidebarProps> = ({
     setState: React.Dispatch<React.SetStateAction<string[]>>
   ) => {
     return checkboxData.map(({ value, label }) => (
-      <div className='flex items-center' key={value}>
+      <div className="flex items-center" key={value}>
         <Checkbox
-          crossOrigin=''
+          crossOrigin=""
           checked={state.includes(value)}
           onChange={() => handleCheckboxChange(value, setState, state)}
         />
@@ -79,11 +79,11 @@ const Sidebar: FC<SidebarProps> = ({
   };
 
   return (
-    <div className='mb-6'>
-      <h2 className='text-primary text-[16px] mb-2'>Filters: </h2>
-      <Card className='h-[calc(125vh-2rem)] w-full max-w-[18rem] p-4  bg-[#F3F1FB]'>
-        <div className='mb-2 p-4'>
-          <div className='mb-4'>
+    <div className="">
+      <h2 className="text-primary text-[16px] mb-2">Filters: </h2>
+      <Card className="h-[calc(110vh-2rem)] w-full max-w-[18rem] px-4  bg-[#F3F1FB]">
+        <div className="mb-2 p-4">
+          <div className="mb-4">
             <h6>Event Type</h6>
             {renderCheckboxes(
               checkboxes,
@@ -92,37 +92,37 @@ const Sidebar: FC<SidebarProps> = ({
             )}
           </div>
 
-          <div className='mb-4'>
+          <div className="mb-4">
             <h6>Event Categories</h6>
             {renderCheckboxes(
               [
-                { value: 'Corporate', label: 'Corporate' },
-                { value: 'Non-Corporate', label: 'Non-Corporate' },
+                { value: "Corporate", label: "Corporate" },
+                { value: "Non-Corporate", label: "Non-Corporate" },
               ],
               selectedEventCategory,
               setSelectedEventCategory
             )}
           </div>
 
-          <div className='mb-4'>
-            <h6 className='mb-4'>Corporate Categories</h6>
-            <div className='w-full '>
+          <div className="mb-4">
+            <h6 className="mb-4">Corporate Categories</h6>
+            <div className="w-full ">
               <Select
-                label='Select Sub Category'
-                className='bg-white'
+                label="Select Sub Category"
+                className="bg-white"
                 value={selectedEventSubCategory}
                 onChange={(value: any) => setSelectedEventSubCategory(value)}
               >
-                <Option value=''>All</Option>
-                <Option value='Awards'>Awards</Option>
-                <Option value='Banquet'>Banquet</Option>
-                <Option value='Board Meeting'>Board Meeting</Option>
-                <Option value='Breakout Session'>Breakout Session</Option>
+                <Option value="">All</Option>
+                <Option value="Awards">Awards</Option>
+                <Option value="Banquet">Banquet</Option>
+                <Option value="Board Meeting">Board Meeting</Option>
+                <Option value="Breakout Session">Breakout Session</Option>
               </Select>
             </div>
           </div>
 
-          <div className='mb-4'>
+          <div className="mb-4">
             <h6>Price Range</h6>
             {renderCheckboxes(
               priceRangeCheckboxes,
@@ -142,13 +142,13 @@ const Sidebar: FC<SidebarProps> = ({
 
           <div>
             <Button
-              variant='filled'
-              color='indigo'
-              size='sm'
-              className='rounded-md  py-2 mt-4 px-6 bg-primary font-poppins'
+              variant="filled"
+              color="indigo"
+              size="sm"
+              className="rounded-md  py-2 mt-4 px-6 bg-primary font-poppins"
               onClick={handleApplyFilters}
             >
-              <span className='text-white normal-case'>Apply Filters</span>
+              <span className="text-white normal-case">Apply Filters</span>
             </Button>
           </div>
         </div>
