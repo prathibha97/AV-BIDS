@@ -45,7 +45,11 @@ const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
               <p>Subject: AV Requirements</p>
             </div>
           </div>
-          <p>{format(new Date(conversation.createdAt as Date), 'MMM dd')}</p>
+          <p>
+            {conversation.createdAt
+              ? format(new Date(conversation.createdAt as Date), 'MMM dd')
+              : 'Invalid Date'}
+          </p>
         </div>
       </div>
     </div>

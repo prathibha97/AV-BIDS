@@ -26,6 +26,7 @@ function Index() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchTimer, setSearchTimer] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useGetCurrentUser();
 
@@ -82,8 +83,16 @@ function Index() {
     scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    // Cleanup function to cancel the API request when the component is unmounted
+    return () => {
+      if (searchTimer) {
+        clearTimeout(searchTimer);
+      }
+    };
+  }, [searchTimer]);
+
   const handleSubmit = async () => {
-    // Ensure that user is not null before accessing its properties
     if (!user) {
       console.error('User is null');
       return;
@@ -113,7 +122,17 @@ function Index() {
     }
   };
 
+  const debounce = (func: Function, delay: number) => {
+    let timer: any;
+    return function (...args: any) {
+      clearTimeout(timer);
+      // @ts-ignore
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+
   const handleSearch = async () => {
+    setIsLoading(true);
     try {
       if (searchQuery.trim() !== '') {
         const { data } = await api.get(`/users/search/${searchQuery}`);
@@ -123,24 +142,31 @@ function Index() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const debouncedSearch = debounce(handleSearch, 500);
 
   const handleSearchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
 
-    // Clear the previous search timer
     if (searchTimer) {
       clearTimeout(searchTimer);
     }
 
-    // Set a new timer to perform the search after a delay
     const timer = setTimeout(() => {
-      handleSearch();
-    }, 500); // You can adjust the delay (in milliseconds) according to your needs
+      debouncedSearch();
+    }, 500);
     // @ts-ignore
     setSearchTimer(timer);
   };
+
+  // useEffect(() => {
+  //   // Trigger search when searchQuery changes
+  //   debouncedSearch();
+  // }, [searchQuery, debouncedSearch]);
 
   const handleStartConversation = async (targetUserId: string) => {
     try {
@@ -183,25 +209,33 @@ function Index() {
           {/* Left Column */}
           <div className='md:border-r md:border-[#EDECF1] md:col-span-1'>
             <div className='grid grid-rows-7 gap-2'>
-              <ConversationFilter />
+              <ConversationFilter getConversations={getConversations} />
               <input
                 placeholder='Search to chat'
                 className='w-full p-2 mx-auto'
                 value={searchQuery}
                 onChange={handleSearchOnChange}
+                // onBlur={()=>setSearchResults([])}
               />
-              {searchResults.map((user) => (
-                <div
-                  key={user._id}
-                  onClick={() => handleStartConversation(user._id)}
-                  className='cursor-pointer hover:bg-[#F3F1FB]'
-                >
-                  {/* Display user information */}
-                  <div>
-                    {user.firstName} {user.lastName}
+              {isLoading ? (
+                <div className='text-center'>Loading...</div>
+              ) :  searchResults.length > 0 ? (
+                searchResults.map((user) => (
+                  <div
+                    key={user._id}
+                    onClick={() => handleStartConversation(user._id)}
+                    className='cursor-pointer hover:bg-[#F3F1FB] p-1 rounded-md'
+                  >
+                    {/* Display user information */}
+                    <div>
+                      {user.firstName} {user.lastName}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ): 
+                searchQuery.trim() !== '' && (
+                  <div className='text-center'>No results found</div>
+                )}
               {conversations.map((conversation) => (
                 <div
                   key={conversation._id}
@@ -230,6 +264,7 @@ function Index() {
                           key={message._id}
                           message={message}
                           own={message.sender === user?._id}
+                          user={user}
                         />
                       </div>
                     ))}

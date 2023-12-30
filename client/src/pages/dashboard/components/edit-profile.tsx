@@ -123,7 +123,7 @@ const EditProfile: FC<EditProfileProps> = ({ user }) => {
                 src={
                   user?.imageUrl
                     ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${user?.imageUrl}`
-                    : ''
+                    : 'https://image.pngaaa.com/569/2189569-middle.png'
                 }
                 alt='avatar'
                 className='object-scale-down w-[67px]'

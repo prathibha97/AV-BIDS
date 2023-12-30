@@ -35,26 +35,30 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   }, [ conversation]);
 
   return (
-    <div className="border-b border-[#EDECF1] row-span-1 p-4 ">
+    <div className='border-b border-[#EDECF1] row-span-1 p-4 '>
       {loading ? (
-        <div className="flex items-center justify-center h-32">
+        <div className='flex items-center justify-center h-32'>
           <Spinner />
         </div>
       ) : (
-        <div className="flex items-center gap-4">
+        <div className='flex items-center gap-4'>
           <Avatar
-            variant="circular"
-            size="sm"
-            alt="avatar"
-            className="border border-gray-900"
-            src={PROFILE_PHOTO}
+            variant='circular'
+            size='sm'
+            alt='avatar'
+            className='border border-gray-900'
+            src={
+              otherUser?.imageUrl
+                ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${otherUser?.imageUrl}`
+                : 'https://image.pngaaa.com/569/2189569-middle.png'
+            }
           />
 
-          <div className="flex flex-col">
-            <h2 className="text-[20px] font-semibold">
+          <div className='flex flex-col'>
+            <h2 className='text-[20px] font-semibold'>
               {otherUser?.firstName} {otherUser?.lastName}
             </h2>
-            <p>ACME AV</p>
+            <p>{otherUser?.company}</p>
             <p>Subject: AV Requirements</p>
           </div>
         </div>
