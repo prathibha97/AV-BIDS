@@ -63,9 +63,9 @@ function Index() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    sharedSocket.emit('addUser', user?._id);
-  }, [user]);
+  // useEffect(() => {
+  //   sharedSocket.emit('addUser', user?._id);
+  // }, [user]);
 
   useEffect(() => {
     getConversations();
