@@ -38,7 +38,7 @@ const isUserOnline = (userId) => {
   return users.some((user) => user.userId === userId);
 };
 
-io.on('connection', (socket) => {
+socketServer.on('connection', (socket) => {
   //when ceonnect
   console.log('a user connected. Total users:', users.length);
 
@@ -60,7 +60,7 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', ({ senderId, receiverId, text }) => {
     if (isUserOnline(receiverId)) {
       const user = getUser(receiverId);
-      io.to(user.socketId).emit('getMessage', {
+      socketServer.to(user.socketId).emit('getMessage', {
         senderId,
         text,
       });
@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
   socket.on('proposalSubmited', ({ userId, eventId, message }) => {
     const userSocket = getUser(userId);
     if (userSocket) {
-      io.to(userSocket.socketId).emit('proposalSubmited', {
+      socketServer.to(userSocket.socketId).emit('proposalSubmited', {
         eventId,
         message,
       });
@@ -85,7 +85,9 @@ io.on('connection', (socket) => {
     const userSocket = getUser(userId);
     if (userSocket) {
       console.log(message);
-      socketServer.to(userSocket.socketId).emit('eventUpdated', { eventId, message });
+      socketServer
+        .to(userSocket.socketId)
+        .emit('eventUpdated', { eventId, message });
     }
   });
 
