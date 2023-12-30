@@ -96,7 +96,7 @@ function Index() {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="overflow-x-auto overflow-y-auto">
       <AlertBox
         color={color}
         variant="ghost"
@@ -104,174 +104,176 @@ function Index() {
         open={open}
         setOpen={handleAlertClose}
       />
-      <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 w-max md:w-full ">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-[20px] font-semibold">My Events</h2>
-          <div>
-            <Select
-              className="rounded-lg bg-[#F3F1FB]"
-              value={sortOption}
-              // @ts-ignore
-              onChange={handleSortChange}
-            >
-              <Option value="date_posted">Date Posted</Option>
-              <Option value="expiring_soonest">Expiring Soonest</Option>
-              <Option value="active">Active</Option>
-            </Select>
+      <div className="mx-2  overflow-auto">
+        <section className="bg-[#fff] px-8 py-8 rounded-xl drop-shadow mb-6 min-w-max ">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[20px] font-semibold ">My Events </h2>
+            <div>
+              <Select
+                className="rounded-lg bg-[#F3F1FB]"
+                value={sortOption}
+                // @ts-ignore
+                onChange={handleSortChange}
+              >
+                <Option value="date_posted">Date Posted</Option>
+                <Option value="expiring_soonest">Expiring Soonest</Option>
+                <Option value="active">Active</Option>
+              </Select>
+            </div>
           </div>
-        </div>
-        {loading ? (
-          <div className="flex items-center justify-center h-32">
-            <Spinner />
-          </div>
-        ) : myEvents.length === 0 ? (
-          <p>No events found.</p>
-        ) : (
-          <Card className="h-full w-full shadow-none rounded-full">
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 bg-[#e7daff]"
-                    >
-                      <p className="font-medium leading-none text-black text-[14px]">
-                        {head}
-                      </p>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(myEvents) &&
-                  currentEvents?.length! > 0 &&
-                  currentEvents?.map((event, index) => (
-                    <tr key={event._id}>
-                      <td
-                        className="p-4 border-b border-blue-gray-50 cursor-pointer"
-                        onClick={() => navigate(`/events/${event._id}`)}
+          {loading ? (
+            <div className="flex items-center justify-center h-32">
+              <Spinner />
+            </div>
+          ) : myEvents.length === 0 ? (
+            <p>No events found.</p>
+          ) : (
+            <Card className="h-full w-full shadow-none rounded-full">
+              <table className="w-full min-w-max table-auto text-left">
+                <thead>
+                  <tr>
+                    {TABLE_HEAD.map((head) => (
+                      <th
+                        key={head}
+                        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 bg-[#e7daff]"
                       >
-                        <p className="font-semibold">
-                          {event.title}
-                          <div>
-                            <div className="rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins mt-2">
-                              <p className="text-[#178751] text-center text-[12px] font-semibold">
-                                {event.eventType}
+                        <p className="font-medium leading-none text-black text-[14px]">
+                          {head}
+                        </p>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.isArray(myEvents) &&
+                    currentEvents?.length! > 0 &&
+                    currentEvents?.map((event, index) => (
+                      <tr key={event._id}>
+                        <td
+                          className="p-4 border-b border-blue-gray-50 cursor-pointer"
+                          onClick={() => navigate(`/events/${event._id}`)}
+                        >
+                          <p className="font-semibold">
+                            {event.title}
+                            <div>
+                              <div className="rounded-full w-20 py-1 bg-[#E4FFEA] font-poppins mt-2">
+                                <p className="text-[#178751] text-center text-[12px] font-semibold">
+                                  {event.eventType}
+                                </p>
+                              </div>
+                            </div>
+                          </p>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {format(new Date(event.createdAt), "dd MMM yyyy")}
+                          </Typography>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            <p>{event.proposals.length} Proposals</p>
+                          </Typography>
+                        </td>
+
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <Typography
+                            as="a"
+                            variant="small"
+                            color="blue-gray"
+                            className="font-medium cursor-pointer"
+                            onClick={() => handleEdit(event)}
+                          >
+                            <div className="flex items-center gap-1">
+                              <MdLens
+                                className={
+                                  event.status === "Active"
+                                    ? "text-green-500 text-[7px]"
+                                    : event.status === "Expired"
+                                    ? "text-red-500 text-[7px]"
+                                    : "text-[#FAC715] text-[7px]"
+                                }
+                              />
+                              <p
+                                className={
+                                  event.status === "Active"
+                                    ? "text-green-500 "
+                                    : event.status === "Expired"
+                                    ? "text-red-500 "
+                                    : "text-[#FAC715] "
+                                }
+                              >
+                                {event.status}
                               </p>
                             </div>
-                          </div>
-                        </p>
-                      </td>
-                      <td className="p-4 border-b border-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {format(new Date(event.createdAt), "dd MMM yyyy")}
-                        </Typography>
-                      </td>
-                      <td className="p-4 border-b border-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          <p>{event.proposals.length} Proposals</p>
-                        </Typography>
-                      </td>
+                          </Typography>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-medium cursor-pointer"
+                          >
+                            <Popover>
+                              <PopoverHandler>
+                                <div>
+                                  <MdMoreVert />
+                                </div>
+                              </PopoverHandler>
+                              <PopoverContent>
+                                <div>
+                                  <div
+                                    className="flex items-center gap-2 mb-3 cursor-pointer"
+                                    onClick={() =>
+                                      navigate(`/events/${event._id}`)
+                                    }
+                                  >
+                                    <MdOutlineRemoveRedEye className="text-[20px]" />
+                                    <p>View</p>
+                                  </div>
+                                  <div
+                                    className="flex items-center gap-2 mb-3 cursor-pointer"
+                                    onClick={() => handleEdit(event)}
+                                  >
+                                    <MdEditNote className="text-[20px]" />
+                                    <p>Edit</p>
+                                  </div>
+                                  <div
+                                    className="flex items-center gap-2 cursor-pointer text-red-500"
+                                    onClick={() => handleDeleteEvent(event._id)}
+                                  >
+                                    <MdDeleteOutline className="text-[20px]" />
+                                    <p>Delete</p>
+                                  </div>
+                                </div>
+                              </PopoverContent>
+                            </Popover>
+                          </Typography>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </Card>
+          )}
 
-                      <td className="p-4 border-b border-blue-gray-50">
-                        <Typography
-                          as="a"
-                          variant="small"
-                          color="blue-gray"
-                          className="font-medium cursor-pointer"
-                          onClick={() => handleEdit(event)}
-                        >
-                          <div className="flex items-center gap-1">
-                            <MdLens
-                              className={
-                                event.status === "Active"
-                                  ? "text-green-500 text-[7px]"
-                                  : event.status === "Expired"
-                                  ? "text-red-500 text-[7px]"
-                                  : "text-[#FAC715] text-[7px]"
-                              }
-                            />
-                            <p
-                              className={
-                                event.status === "Active"
-                                  ? "text-green-500 "
-                                  : event.status === "Expired"
-                                  ? "text-red-500 "
-                                  : "text-[#FAC715] "
-                              }
-                            >
-                              {event.status}
-                            </p>
-                          </div>
-                        </Typography>
-                      </td>
-                      <td className="p-4 border-b border-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-medium cursor-pointer"
-                        >
-                          <Popover>
-                            <PopoverHandler>
-                              <div>
-                                <MdMoreVert />
-                              </div>
-                            </PopoverHandler>
-                            <PopoverContent>
-                              <div>
-                                <div
-                                  className="flex items-center gap-2 mb-3 cursor-pointer"
-                                  onClick={() =>
-                                    navigate(`/events/${event._id}`)
-                                  }
-                                >
-                                  <MdOutlineRemoveRedEye className="text-[20px]" />
-                                  <p>View</p>
-                                </div>
-                                <div
-                                  className="flex items-center gap-2 mb-3 cursor-pointer"
-                                  onClick={() => handleEdit(event)}
-                                >
-                                  <MdEditNote className="text-[20px]" />
-                                  <p>Edit</p>
-                                </div>
-                                <div
-                                  className="flex items-center gap-2 cursor-pointer text-red-500"
-                                  onClick={() => handleDeleteEvent(event._id)}
-                                >
-                                  <MdDeleteOutline className="text-[20px]" />
-                                  <p>Delete</p>
-                                </div>
-                              </div>
-                            </PopoverContent>
-                          </Popover>
-                        </Typography>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </Card>
-        )}
-
-        <div className="flex justify-end">
-          <Pagination
-            currentPage={currentPage}
-            totalItems={myEvents.length || 0}
-            itemsPerPage={eventsPerPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      </section>
+          <div className="flex justify-end">
+            <Pagination
+              currentPage={currentPage}
+              totalItems={myEvents.length || 0}
+              itemsPerPage={eventsPerPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

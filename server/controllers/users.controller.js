@@ -6,6 +6,7 @@ const {
   updateUser,
   removeUser,
   getUserByEmail,
+  searchUsers
 } = require('../models/user/user.model');
 const { isValidEmail, isValidPhone } = require('../utils');
 const { Resend } = require('resend');
@@ -136,6 +137,23 @@ const validateEmail = async (req, res) => {
   }
 };
 
+/* 
+?@desc   Search users by email
+*@route  GET /api/users/search/:query
+*@access Private/Admin
+*/
+const searchUsersForChat = async (req, res) => {
+  try {
+    const { query } = req.params;
+    const users = await searchUsers(query);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Failed to search users - ', error.message);
+    return res.status(500).json('Internal Server Error');
+  }
+};
+
+
 
 
 module.exports = {
@@ -144,4 +162,5 @@ module.exports = {
   update,
   remove,
   validateEmail,
+  searchUsersForChat,
 };

@@ -34,7 +34,11 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
 
-socketServer.on('connection', (socket) => {
+const isUserOnline = (userId) => {
+  return users.some((user) => user.userId === userId);
+};
+
+io.on('connection', (socket) => {
   //when ceonnect
   console.log('a user connected. Total users:', users.length);
 
@@ -45,13 +49,25 @@ socketServer.on('connection', (socket) => {
   });
 
   //send and get message
+  // socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+  //   const user = getUser(receiverId);
+  //   io.to(user.socketId).emit('getMessage', {
+  //     senderId,
+  //     text,
+  //   });
+  // });
+
   socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-    console.log(senderId, receiverId, text);
-    const user = getUser(receiverId);
-    socketServer.to(user.socketId).emit('getMessage', {
-      senderId,
-      text,
-    });
+    if (isUserOnline(receiverId)) {
+      const user = getUser(receiverId);
+      io.to(user.socketId).emit('getMessage', {
+        senderId,
+        text,
+      });
+    } else {
+      console.log('Target user is not online');
+      // Handle the case when the target user is not online (e.g., store the message for later delivery)
+    }
   });
 
   socket.on('proposalSubmited', ({ userId, eventId, message }) => {
