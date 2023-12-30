@@ -6,6 +6,7 @@ const {
   update,
   remove,
   validateEmail,
+  searchUsersForChat,
 } = require('../controllers/users.controller');
 
 const userRouter = express.Router();
@@ -149,8 +150,34 @@ const userRouter = express.Router();
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /api/users/search/{query}:
+ *   get:
+ *     summary: Search users by email or name
+ *     tags: [Users]
+ *     description: Retrieve users matching the provided email or name
+ *     parameters:
+ *       - in: path
+ *         name: query
+ *         required: true
+ *         description: Email or name to search for
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of matching users
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+
 userRouter.get('/', protect, admin, getAllUsers);
 userRouter.get('/validate-email', validateEmail);
+userRouter.get('/search/:query', protect, searchUsersForChat);
 userRouter.get('/:id', getUser);
 userRouter.put('/:id', protect, update);
 userRouter.delete('/:id', protect, remove);

@@ -1,6 +1,6 @@
 const {
   createConversation,
-  getConversation,
+  getConversations,
 } = require('../models/conversation/conversation.model');
 
 /* 
@@ -30,7 +30,7 @@ const createNewConversation = async (req, res) => {
 const getConversationbyId = async (req, res) => {
   const { userId } = req.params;
   try {
-    const conversation = await getConversation(userId);
+    const conversation = await getConversations(userId);
     res.status(200).json(conversation);
   } catch (error) {
     console.error('Failed to get conversation - ', error.message);

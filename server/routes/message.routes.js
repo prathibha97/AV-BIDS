@@ -3,6 +3,7 @@ const { protect } = require('../middlewares/auth');
 const {
   createNewMessage,
   getMessageByConversationId,
+  getUnreadMessages,
 } = require('../controllers/message.controller');
 
 const messageRouter = express.Router();
@@ -66,6 +67,11 @@ const messageRouter = express.Router();
  */
 
 messageRouter.post('/', protect, createNewMessage);
+messageRouter.get(
+  '/unread/:conversationId',
+  protect,
+  getUnreadMessages
+);
 messageRouter.get('/:conversationId', protect, getMessageByConversationId);
 
 module.exports = messageRouter;

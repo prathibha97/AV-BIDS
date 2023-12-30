@@ -141,6 +141,7 @@ const update = async (req, res) => {
 
     // Notify users who have saved the event
     const savedEventUsers = await User.find({ savedEvents: id });
+    console.log(savedEventUsers);
 
     // Update savedEventAlerts for each user
     for (const user of savedEventUsers) {

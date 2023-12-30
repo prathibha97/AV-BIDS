@@ -98,6 +98,23 @@ const updateUserPlan = async (userId, newPlan) => {
   }
 };
 
+const searchUsers = async (query) => {
+  try {
+    const users = await User.find({
+      $or: [
+        { email: { $regex: query, $options: 'i' } },
+        { firstName: { $regex: query, $options: 'i' } },
+        { lastName: { $regex: query, $options: 'i' } },
+      ],
+    }).select('-refreshToken -password');
+
+    return users;
+  } catch (error) {
+    console.error('Error searching users:', error.message);
+    throw error;
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
@@ -107,4 +124,5 @@ module.exports = {
   updateUser,
   removeUser,
   updateUserPlan,
+  searchUsers,
 };

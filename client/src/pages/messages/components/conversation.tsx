@@ -13,7 +13,7 @@ interface ConversationProps {
 const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser?._id);
+    const friendId = conversation?.members?.find((m) => m !== currentUser?._id);
 
     const getUser = async () => {
       try {
@@ -45,7 +45,11 @@ const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
               <p>Subject: AV Requirements</p>
             </div>
           </div>
-          <p>{format(new Date(conversation.createdAt as Date), 'MMM dd')}</p>
+          <p>
+            {conversation.createdAt
+              ? format(new Date(conversation.createdAt as Date), 'MMM dd')
+              : 'Invalid Date'}
+          </p>
         </div>
       </div>
     </div>
