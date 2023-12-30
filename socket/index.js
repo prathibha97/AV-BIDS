@@ -33,14 +33,10 @@ io.on('connection', (socket) => {
     io.emit('getUsers', users);
   });
 
-  //send and get message
-  // socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-  //   const user = getUser(receiverId);
-  //   io.to(user.socketId).emit('getMessage', {
-  //     senderId,
-  //     text,
-  //   });
-  // });
+  socket.on('newConversation', (conversation) => {
+    console.log('conversation created');
+    io.emit('updateConversations', conversation);
+  });
 
   socket.on('sendMessage', ({ senderId, receiverId, text }) => {
     if (isUserOnline(receiverId)) {

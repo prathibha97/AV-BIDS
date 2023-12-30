@@ -42,14 +42,18 @@ function Index() {
   };
 
   useEffect(() => {
-    console.log('Socket useEffect triggered');
     sharedSocket.on('getMessage', (data) => {
-      console.log('getMessage event triggered:', data);
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: new Date(),
       });
+    });
+  }, []);
+
+  useEffect(() => {
+    sharedSocket.on('updateConversations', (conversation) => {
+      getConversations();
     });
   }, []);
 
@@ -163,11 +167,6 @@ function Index() {
     setSearchTimer(timer);
   };
 
-  // useEffect(() => {
-  //   // Trigger search when searchQuery changes
-  //   debouncedSearch();
-  // }, [searchQuery, debouncedSearch]);
-
   const handleStartConversation = async (targetUserId: string) => {
     try {
       // Check if a conversation with the target user already exists
@@ -184,6 +183,10 @@ function Index() {
         const { data } = await api.post('/conversations', {
           senderId: user?._id,
           receiverId: targetUserId,
+        });
+
+        sharedSocket.emit('newConversation', {
+          data,
         });
 
         setCurrentChat(data);
@@ -219,7 +222,7 @@ function Index() {
               />
               {isLoading ? (
                 <div className='text-center'>Loading...</div>
-              ) :  searchResults.length > 0 ? (
+              ) : searchResults.length > 0 ? (
                 searchResults.map((user) => (
                   <div
                     key={user._id}
@@ -232,10 +235,11 @@ function Index() {
                     </div>
                   </div>
                 ))
-              ): 
+              ) : (
                 searchQuery.trim() !== '' && (
                   <div className='text-center'>No results found</div>
-                )}
+                )
+              )}
               {conversations.map((conversation) => (
                 <div
                   key={conversation._id}
