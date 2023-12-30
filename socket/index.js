@@ -50,7 +50,7 @@ socketServer.on('connection', (socket) => {
 
   socket.on('newConversation', (conversation) => {
     console.log('conversation created');
-    io.emit('updateConversations', conversation);
+    socketServer.emit('updateConversations', conversation);
   });
 
   socket.on('sendMessage', ({ senderId, receiverId, text }) => {
