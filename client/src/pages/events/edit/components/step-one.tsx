@@ -14,6 +14,7 @@ import {
 import api from "../../../../utils/api";
 import { EventFormFormValues } from "../../../../utils/validations/event-form-validation";
 import RichTextEditor from "./rich-text-editor";
+import { Textarea } from "@material-tailwind/react";
 
 interface UploadedFile extends File {
   fileName: string;
@@ -147,8 +148,8 @@ const StepOne: FC<StepOneProps> = ({
 
             <div className="">
               <div className="grid grid-cols-3 gap-8">
-                <div>
-                  <p className="mb-2 font-medium">Proposal Due Date </p>
+                <div className="col-span-3 sm:col-span-1">
+                  <p className="mb-2 font-medium">Proposal Due Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
                       placeholder="Enter Date"
@@ -167,7 +168,7 @@ const StepOne: FC<StepOneProps> = ({
                     />
                   </div>
                 </div>
-                <div>
+                <div className="col-span-3 sm:col-span-1">
                   <p className="mb-2 font-medium">Event Start Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
@@ -187,7 +188,7 @@ const StepOne: FC<StepOneProps> = ({
                     />
                   </div>
                 </div>
-                <div>
+                <div className="col-span-3 sm:col-span-1">
                   <p className="mb-2 font-medium">Event End Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
@@ -214,7 +215,7 @@ const StepOne: FC<StepOneProps> = ({
             <p className="mb-2 font-medium">
               Event Description <span className="text-[#DE5753]">*</span>
             </p>
-            <div className="mb-5">
+            <div className="mb-5 hidden sm:block">
               {/* @ts-ignore */}
               <RichTextEditor
                 control={control}
@@ -222,8 +223,15 @@ const StepOne: FC<StepOneProps> = ({
                 formData={formData}
               />
             </div>
+
+            <div className="w-full block sm:hidden">
+              <Textarea
+                label="Description"
+                className="shadow-none drop-shadow-none border-none !bg-[#f3f1fb]"
+              />
+            </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">
               Event Type<span className="text-[#DE5753]">*</span>{" "}
             </p>
@@ -245,7 +253,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">
               Event Category<span className="text-[#DE5753]">*</span>{" "}
             </p>
@@ -267,7 +275,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Event Sub Category</p>
             <div className=" mb-5">
               <Select
@@ -287,7 +295,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Event Budget</p>
             <div className=" mb-8">
               <Select
@@ -308,7 +316,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Audience Size</p>
             <div className=" mb-8">
               <Select
@@ -332,7 +340,7 @@ const StepOne: FC<StepOneProps> = ({
 
         <p className="font-medium text-[18px] mb-4">Address & Location</p>
         <div className="grid grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]">
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Venue Name</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
@@ -352,7 +360,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Address</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
@@ -374,7 +382,7 @@ const StepOne: FC<StepOneProps> = ({
         </div>
 
         <div className="grid grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">
               City<span className="text-[#DE5753]">*</span>
             </p>
@@ -396,7 +404,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">State</p>
             <div className="mb-5">
               <Select
@@ -417,7 +425,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">Zip</p>
             <div className="mb-8 bg-input_background rounded-full">
               <Input
