@@ -13,7 +13,7 @@ interface ConversationProps {
 const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser?._id);
+    const friendId = conversation?.members?.find((m) => m !== currentUser?._id);
 
     const getUser = async () => {
       try {
