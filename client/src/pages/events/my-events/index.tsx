@@ -284,11 +284,11 @@ function Index() {
                                           </div>
 
                                           <div>
-                                            <h2 className="text-[#102a43] text-[30px] text-center ">
+                                            <h2 className="text-[#102a43] text-[20px] sm:text-[30px] text-center mb-2">
                                               Delete Event?
                                             </h2>
 
-                                            <p className="text-[#102a43] text-center text-[20px]">
+                                            <p className="text-[#102a43] text-center text-[16px] sm:text-[20px]">
                                               Are you sure you want to delete{" "}
                                               <br></br>
                                               {event.title}
@@ -298,16 +298,16 @@ function Index() {
                                           <DialogFooter className="flex items-center justify-center gap-6 mt-4 mb-8">
                                             <Button
                                               variant="filled"
-                                              className="mr-1 bg-primary  w-[165px] h-[45px] rounded-full"
+                                              className="mr-1 bg-primary  w-[120px] h-min sm:w-[165px] sm:h-[45px] rounded-full"
                                               onClick={handleOpen}
                                             >
-                                              <span className="normal-case  text-[#fff]">
+                                              <span className="normal-case  text-[#fff] text-center ">
                                                 Cancel
                                               </span>
                                             </Button>
                                             <Button
                                               variant="filled"
-                                              className="bg-[#e12929] w-[165px] h-[45px] rounded-full"
+                                              className="bg-[#e12929]  w-[120px] h-min sm:w-[165px] sm:h-[45px]  rounded-full"
                                               onClick={() =>
                                                 handleDeleteEvent(event._id)
                                               }
