@@ -140,7 +140,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       <Slider ref={sliderRef} {...settings}>
         {data.map((event, index) => (
           <div key={index} className="px-3">
-            <div className="bg-[#F3F1FB]  h-max sm:h-[430px] rounded-lg py-4 sm:py-2 sm:p-2">
+            <div className="bg-[#F3F1FB]  h-max w-full rounded-lg py-4 sm:py-2 sm:p-2">
               <div className="flex items-center justify-center">
                 <div className="">
                   <div className="px-4 py-2 sm:py-4">
@@ -204,32 +204,35 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                       {event.eventCategory}, {event.eventSubCategory}
                     </h6>
 
-                    <div className="flex items-center gap-2 mb-6">
-                      <p className="truncate">
+                    <div className="mb-6">
+                      <p className="truncate mb-2">
                         {event.address?.city}, {event.address?.state}
                       </p>
-                      <MdLens className="text-[#D8D0FA] text-[15px]" />
-                      {differenceInDays(
-                        parseISO(event.proposalDueDate),
-                        currentDate
-                      ) < 0 ? (
-                        <p className="text-[15px]">
-                          Proposals no longer accepted
-                        </p>
-                      ) : differenceInDays(
+
+                      <div className="flex items-center gap-2">
+                        <MdLens className="text-[#D8D0FA] text-[15px]" />
+                        {differenceInDays(
                           parseISO(event.proposalDueDate),
                           currentDate
-                        ) === 0 ? (
-                        <p className="text-[15px] truncate">Closing today</p>
-                      ) : (
-                        <p className="text-[15px]">
-                          {differenceInDays(
+                        ) < 0 ? (
+                          <p className="text-[15px]">
+                            Proposals no longer accepted
+                          </p>
+                        ) : differenceInDays(
                             parseISO(event.proposalDueDate),
                             currentDate
-                          )}{" "}
-                          days left
-                        </p>
-                      )}
+                          ) === 0 ? (
+                          <p className="text-[15px] truncate">Closing today</p>
+                        ) : (
+                          <p className="text-[15px]">
+                            {differenceInDays(
+                              parseISO(event.proposalDueDate),
+                              currentDate
+                            )}{" "}
+                            days left
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="bg-[#DDD8F6] w-max rounded-lg text-center py-1 px-3 mb-6">
