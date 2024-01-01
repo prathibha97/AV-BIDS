@@ -168,7 +168,7 @@ export function Index() {
       <div>
         {event?.status === "Draft" && (
           // <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
-          <div className="bg-[#e9df3a]">
+          <div className="bg-[#f3efa3] px-4">
             <span className="">
               <p className="text-center pt-2 text-[22px]">
                 This event is currently in draft mode.
@@ -186,7 +186,7 @@ export function Index() {
             <p className="text-center pb-2 text-[22px]">
               Click{" "}
               <span
-                className="cursor-pointer"
+                className="cursor-pointer text-[#b39a38] font-medium"
                 onClick={() => navigate(`/events/edit/${id}`)}
               >
                 Edit
