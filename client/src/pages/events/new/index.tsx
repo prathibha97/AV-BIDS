@@ -327,6 +327,7 @@ export function Index() {
               color="indigo"
               size="sm"
               className="rounded-full  py-2 sm:py-3 px-0 sm:px-6 mt-4  font-poppins normal-case border-primary w-[90px] sm:w-[135px] mr-3"
+              onClick={saveAsDraft}
             >
               <span className="text-primary text-[10px] sm:text-[16px]">
                 Save as Draft

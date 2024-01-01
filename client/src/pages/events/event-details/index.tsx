@@ -2,6 +2,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import EVENTDETAILS_03 from "../../../assets/13_event_details_page/Rectangle 3759.png";
 import EVENTDETAILS_02 from "../../../assets/13_event_details_page/carbon_time.png";
 import SPAM_ICON from "../../../assets/13_event_details_page/spam.png";
+import draftMode from "../../../assets/13_event_details_page/draft_mode02.png";
 
 import { Button, Dialog } from "@material-tailwind/react";
 import { differenceInDays, format, parseISO } from "date-fns";
@@ -152,7 +153,7 @@ export function Index() {
   }
 
   return (
-    <div className="mx-auto mt-16">
+    <div className="mx-auto mt-16 mb-8">
       <AlertBox
         color={color}
         variant="ghost"
@@ -162,11 +163,47 @@ export function Index() {
           dispatch(setAlert({ open: false, message: "", color: "green" }))
         }
       />
-      <div className="grid lg:grid-cols-3 gap-4 content-center">
+
+      <img src={draftMode} alt="draft mode label" className="w-full" />
+      <div>
+        {event?.status === "Draft" && (
+          // <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
+          <div className="bg-[#e9df3a]">
+            <span className="">
+              <p className="text-center pt-2 text-[22px]">
+                This event is currently in draft mode.
+              </p>
+            </span>
+            {/* <Button
+              variant="text"
+              color="indigo"
+              onClick={() => navigate(`/events/edit/${id}`)}
+              className="ml-2 p-2 text-md"
+            >
+              Edit
+            </Button> */}
+
+            <p className="text-center pb-2 text-[22px]">
+              Click{" "}
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate(`/events/edit/${id}`)}
+              >
+                Edit
+              </span>{" "}
+              to modify and publish the current event.
+            </p>
+          </div>
+        )}
+      </div>
+
+      <img src={draftMode} alt="draft mode label" className="w-full" />
+      <div className="grid lg:grid-cols-3 gap-4 content-center sm:mt-[100px] bg-[#fff]">
         <div className="col-span-2 flex justify-center items-center px-8">
           <section>
-            {event?.status === "Draft" && (
-              <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
+            {/* {event?.status === "Draft" && (
+              // <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
+              <div>
                 <span className="text-2xl mr-2">🚧</span>
                 <span className="text-lg font-semibold">
                   This event is currently in draft mode.
@@ -183,11 +220,11 @@ export function Index() {
                   to publish. 🚧
                 </span>
               </div>
-            )}
+            )} */}
 
             <div>
               <div>
-                <h2 className="text-primary text-[40px] mb-4">
+                <h2 className="text-primary text-[40px] mb-4 sm:text-left text-center">
                   {event?.title}
                 </h2>
               </div>
@@ -272,7 +309,7 @@ export function Index() {
             </Dialog>
           </section>
         </div>
-        <div className="flex items-start">
+        <div className="col-span-2 sm:col-span-1 flex items-start justify-center  mx-2">
           <section>
             {/* Only provider can submit proposals and save events */}
             {user?.userType === "PROVIDER" && (
