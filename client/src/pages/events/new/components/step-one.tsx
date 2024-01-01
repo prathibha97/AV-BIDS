@@ -10,6 +10,7 @@ import { FC, useState } from "react";
 import { UseFormRegister, UseFormReturn } from "react-hook-form";
 import DELETE_BUTTON from "../../../../assets/12_edit_event/ep_delete.png";
 import thumbnailIcon from "../../../../assets/12_edit_event/thumbnail.png";
+import fileIcon from "../../../../assets/12_edit_event/files_icon.png";
 import {
   audienceSizeCheckboxes,
   eventBudgetOptions,
@@ -427,10 +428,10 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
           </div>
         </div>
 
-        <p className="font-medium text-[18px] mb-4">File Attachment</p>
+        <p className="font-medium text-[18px] mb-4">File Attachments</p>
 
         <div className="flex items-center gap-4">
-          {uploadedFiles.length > 0 ? (
+          {/* {uploadedFiles.length > 0 ? (
             <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
               {uploadedFiles.map((file, index) => (
                 <div key={index} className="mb-4">
@@ -462,15 +463,13 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
             </div>
           ) : (
             <p>No files uploaded</p>
-          )}
+          )} */}
 
-          {/* thumbnail upload */}
-
-          <div className="bg-[#fff] py-3 ">
+          <div className="bg-[#fff] py-3 w-[200px]">
             <p className="text-center text-[#977df2] text-[16px]">
-              Upload your thumbnail
+              Upload your files
             </p>
-            <p className="text-center text-[10px] mb-4">
+            <p className="text-center text-[10px] mb-6 sm:mb-4">
               Files should be jpg, png or bmp
             </p>
 
@@ -538,25 +537,81 @@ const StepOne: FC<StepOneProps> = ({ control, register, updateFormData }) => {
               </div>
             </div>
           </div>
-        </div>
+          {/* thumbnail upload */}
 
-        <Button
-          variant="filled"
-          color="indigo"
-          size="sm"
-          className="rounded-md py-2 mt-4 px-4 bg-primary font-poppins"
-        >
-          <label className="text-white normal-case font-medium">
-            Upload File
-            <input
-              type="file"
-              accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
-              onChange={handleFileUpload}
-              className="hidden" // This hides the file input element
-              multiple
-            />
-          </label>
-        </Button>
+          <div className="bg-[#fff] py-3 w-[200px]">
+            <p className="text-center text-[#977df2] text-[16px]">
+              Upload your thumbnail
+            </p>
+            <p className="text-center text-[10px] mb-4">
+              Files should be pdf, rtf or txt
+            </p>
+
+            <div className="border-dashed border-2 border-indigo-600 px-4 py-6 rounded-md">
+              <div className="flex justify-center">
+                <img
+                  src={fileIcon}
+                  alt="delete"
+                  className="object-scale-down w-[34px]"
+                />
+              </div>
+
+              {uploadedFiles.length > 0 ? (
+                <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="mb-4">
+                      <div className="flex items-center gap-4">
+                        <p>{file.name}</p>
+                        <img
+                          src={DELETE_BUTTON}
+                          alt="delete"
+                          className="object-scale-down w-[34px]"
+                        />
+                      </div>
+                      <div className="relative pt-1">
+                        <div className="flex mb-2 items-center justify-between">
+                          <div>
+                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200">
+                              {file.progress}%
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex h-2 mb-4 overflow-hidden bg-gray-200 rounded">
+                          <div
+                            style={{ width: `${file.progress}%` }}
+                            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-[13px]">No files uploaded</p>
+              )}
+
+              <div className="flex items-center justify-center">
+                <Button
+                  variant="filled"
+                  color="indigo"
+                  size="sm"
+                  className="rounded-md py-2 mt-4 px-4 bg-primary font-poppins flex"
+                >
+                  <label className="text-white normal-case font-medium">
+                    Upload File
+                    <input
+                      type="file"
+                      accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
+                      onChange={handleFileUpload}
+                      className="hidden" // This hides the file input element
+                      multiple
+                    />
+                  </label>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

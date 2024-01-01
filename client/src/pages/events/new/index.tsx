@@ -294,7 +294,7 @@ export function Index() {
 
             {currentStep < 7 ? (
               <Button
-                variant="filled"
+                variant="outlined"
                 color="indigo"
                 size="sm"
                 className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
@@ -307,7 +307,7 @@ export function Index() {
               </Button>
             ) : (
               <Button
-                variant="filled"
+                variant="outlined"
                 color="indigo"
                 size="sm"
                 className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
@@ -351,7 +351,7 @@ export function Index() {
 
             {currentStep < 7 ? (
               <Button
-                variant="filled"
+                variant="outlined"
                 color="indigo"
                 size="sm"
                 className="rounded-full py-2 sm:py-3 px-0 sm:px-6 mt-4 font-poppins normal-case bg-primary w-[90px] sm:w-[135px]"
@@ -366,7 +366,7 @@ export function Index() {
               </Button>
             ) : (
               <Button
-                variant="filled"
+                variant="outlined"
                 color="indigo"
                 size="sm"
                 className="rounded-full sm:py-3 px-0 sm:px-6 mt-4 font-poppins normal-case bg-primary w-[110px] sm:w-[135px]"

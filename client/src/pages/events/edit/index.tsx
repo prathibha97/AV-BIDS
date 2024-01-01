@@ -305,7 +305,7 @@ export function Index() {
                 className="rounded-full  py-3 px-6 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[135px]"
                 onClick={() => navigate("/events/my-events")}
               >
-                <span className="text-black">Cancel </span>
+                <span className="text-black">Cancel</span>
               </Button>
             </div>
 
@@ -350,7 +350,7 @@ export function Index() {
 
               {currentStep < 7 ? (
                 <Button
-                  variant="filled"
+                  variant="outlined"
                   color="indigo"
                   size="sm"
                   className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
@@ -363,7 +363,7 @@ export function Index() {
                 </Button>
               ) : (
                 <Button
-                  variant="filled"
+                  variant="outlined"
                   color="indigo"
                   size="sm"
                   className="rounded-full py-3 px-6 mt-4 font-poppins normal-case bg-primary w-[135px]"
@@ -428,7 +428,7 @@ export function Index() {
                 <div>
                   {currentStep < 7 ? (
                     <Button
-                      variant="filled"
+                      variant="outlined"
                       color="indigo"
                       size="sm"
                       className="rounded-full py-2 px-0 mt-4 font-poppins normal-case bg-primary w-[90px]"
@@ -441,7 +441,7 @@ export function Index() {
                     </Button>
                   ) : (
                     <Button
-                      variant="filled"
+                      variant="outlined"
                       color="indigo"
                       size="sm"
                       className="rounded-full py-2 px-0 mt-4 font-poppins normal-case bg-primary w-[90px]"
@@ -462,7 +462,7 @@ export function Index() {
                 className="rounded-full  py-2 px-0 mt-4 bg-[#EBEBEB] font-poppins normal-case border-none w-[90px]"
                 onClick={() => navigate("/events/my-events")}
               >
-                <span className="text-black text-[10px]">Cancel</span>
+                <span className="text-black text-[10px]">Cancel </span>
               </Button>
             </div>
           </div>
