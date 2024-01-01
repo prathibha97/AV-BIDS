@@ -460,7 +460,7 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
   };
   return (
     <div className="grid sm:grid-cols-2 gap-6">
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6 ">
         <p className="text-[18px] font-medium mb-4">Microphones</p>
         <div>
           <CardDetails
