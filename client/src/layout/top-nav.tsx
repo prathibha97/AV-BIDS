@@ -11,6 +11,8 @@ import navigation_bg from "../assets/navigation bar/nav_toggle_img.png";
 import ProfileMenu from "../components/profile-menu";
 import api from "../utils/api";
 import { useState, useEffect } from "react";
+
+import NotificationBell from "../components/notification-bell";
 export function TopNav() {
   // starts here
   const slides = [
@@ -237,14 +239,16 @@ export function TopNav() {
               >
                 <span className="text-black">Logout</span>
               </Button> */}
-              <Link to="/events">
-                <div className="flex items-center justify-between">
+
+              <div className="flex items-center justify-between">
+                <Link to="/events">
                   <p className="text-[#414e62] font-medium border border-[#181059] bg-[#fff] py-1 px-2 rounded-lg text-[14px]">
                     View Events
                   </p>
-                  <ProfileMenu />
-                </div>
-              </Link>
+                </Link>
+
+                <ProfileMenu />
+              </div>
             </div>
           )}
         </div>
