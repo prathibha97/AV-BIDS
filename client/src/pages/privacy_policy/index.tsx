@@ -15,8 +15,12 @@ export function Index() {
               Welcome to AVBIDS!{" "}
             </p>
             <p className="text-[#353535] text-[18px] mb-4">
-              The AV Bids LLC (“Company”, “Avbids”, “us”, “we”, or “our”) owns
-              and operates avbids.com (hereinafter referred to as “Service”).{" "}
+              The AV Bids LLC{" "}
+              <span className="font-bold text-[#000]">
+                (“Company”, “Avbids”, “us”, “we”, or “our”){" "}
+              </span>
+              owns and operates avbids.com (hereinafter referred to as
+              <span className="font-bold text-[#000]"> “Service”</span>).{" "}
             </p>
             <p className="mb-4">
               The Company’s Privacy Policy governs your visit to
@@ -39,14 +43,18 @@ export function Index() {
               constitutes your agreement with us (“Agreement”).
             </p>
             <p className="mb-6">
-              Our Terms and Conditions (“Terms”) govern all use of our Service
-              and together with the Privacy Policy constitutes your agreement
-              with us (“Agreement”).
+              Our Terms and Conditions{" "}
+              <span className="font-bold text-[#000]">(“Terms”)</span> govern
+              all use of our Service and together with the Privacy Policy
+              constitutes your agreement with us{" "}
+              <span className="font-bold text-[#000]">(“Agreement”)</span>.
             </p>
 
             <ol className="list-decimal">
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">Definitions</li>
+              <li className="text-[25px] text-[#000] font-bold mb-4">
+                Definitions
+              </li>
 
               <ul className="list-disc mb-8">
                 <li>
@@ -101,7 +109,7 @@ export function Index() {
               </ul>
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
 
-              <li className="text-[25px] text-[#000] font-bold">
+              <li className="text-[25px] text-[#000] font-bold mb-4">
                 Types of Data Collected
               </li>
               <p className="mb-4">
@@ -109,7 +117,9 @@ export function Index() {
                 purposes to provide and improve our
               </p>
 
-              <p className="mb-4 text-[22px] font-bold">Personal Data</p>
+              <p className="mb-4 text-[22px] font-bold text-[#000]">
+                Personal Data
+              </p>
               <p className="mb-4">
                 While using our Service, we may ask you to provide us with
                 certain personally identifiable information that can be used to
@@ -135,11 +145,14 @@ export function Index() {
                 communications from us by contacting us info@avbids.com
               </p>
 
-              <p className="mb-4">Usage Data</p>
+              <p className="mb-4 text-[22px] font-bold text-[#000]">
+                Usage Data
+              </p>
               <p className="mb-4">
                 We may also collect information that your browser sends whenever
                 you visit our Service or when you access Service by or through a
-                mobile device (“Usage Data”).
+                mobile device{" "}
+                <span className="font-bold text-[#000]">(“Usage Data”)</span>.
               </p>
               <p className="mb-4">
                 This Usage Data may include information such as your computer's
@@ -157,7 +170,9 @@ export function Index() {
                 diagnostic data.
               </p>
 
-              <p className="mb-4">Device Information</p>
+              <p className="mb-4 text-[22px] font-bold text-[#000]">
+                Device Information
+              </p>
               <p className="mb-4">
                 We collect device-specific information when you access our
                 Services, including your hardware model, operating system and
@@ -167,58 +182,60 @@ export function Index() {
               </p>
 
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">Use of Data</li>
-              <div className="mb-4">
-                <div className="mb-4">
-                  <p className="mb-4">To provide and maintain our Service;</p>
-                  <p className="mb-4">
-                    To notify you about changes to our Service;
-                  </p>
-                  <p className="mb-4">
-                    To allow you to participate in interactive features of our
-                    Service when you choose to do so;
-                  </p>
-                  <p className="mb-4">To provide customer support;</p>
-                  <p className="mb-4">
-                    To gather analysis or valuable information so that we can
-                    improve our Service;
-                  </p>
-                  <p className="mb-4">To monitor the usage of our Service;</p>
-                  <p className="mb-4">
-                    To detect, prevent and address technical issues;
-                  </p>
-                  <p className="mb-4">
-                    To fulfill any other purpose for which you provide it;
-                  </p>
-                  <p className="mb-4">
-                    To carry out our obligations and enforce our rights arising
-                    from any contracts entered into between you and us,
-                    including for billing and collection;
-                  </p>
-                  <p className="mb-4">
-                    To provide you with notices about your account and/or
-                    subscription, including expiration and renewal notices,
-                    email-instructions, etc.;
-                  </p>
-                  <p className="mb-4">
-                    To provide you with news, special offers, and general
-                    information about other goods, services, and events which we
-                    offer that are similar to those that you have already
-                    purchased or inquired about unless you have opted not to
-                    receive such information;
-                  </p>
-                  <p className="mb-4">
-                    In any other way we may describe when you provide the
-                    information;
-                  </p>
-                  <p className="mb-4">
-                    For any other purpose with your consent.
-                  </p>
-                </div>
-              </div>
+              <li className="text-[25px] text-[#000] font-bold mb-4">
+                Use of Data
+              </li>
+              <p className="mb-4">
+                The Company uses the collected data for various purposes:
+              </p>
+
+              <ul className="list-disc">
+                <li>To provide and maintain our Service;</li>
+                <li> To notify you about changes to our Service;</li>
+                <li>
+                  {" "}
+                  To allow you to participate in interactive features of our
+                  Service when you choose to do so;
+                </li>
+                <li>To provide customer support;</li>
+                <li>
+                  To gather analysis or valuable information so that we can
+                  improve our Service;
+                </li>
+
+                <li>To monitor the usage of our Service;</li>
+                <li>To detect, prevent and address technical issues;</li>
+                <li> To fulfill any other purpose for which you provide it;</li>
+                <li>
+                  {" "}
+                  To carry out our obligations and enforce our rights arising
+                  from any contracts entered into between you and us, including
+                  for billing and collection;
+                </li>
+                <li>
+                  {" "}
+                  To provide you with notices about your account and/or
+                  subscription, including expiration and renewal notices,
+                  email-instructions, etc.;
+                </li>
+                <li>
+                  {" "}
+                  To provide you with news, special offers, and general
+                  information about other goods, services, and events which we
+                  offer that are similar to those that you have already
+                  purchased or inquired about unless you have opted not to
+                  receive such information;
+                </li>
+                <li>
+                  In any other way we may describe when you provide the
+                  information;
+                </li>
+
+                <li> For any other purpose with your consent.</li>
+              </ul>
 
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">
+              <li className="text-[25px] text-[#000] font-bold mb-4">
                 Retention of Data
               </li>
 
@@ -248,7 +265,7 @@ export function Index() {
                 </p>
               </div>
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">
+              <li className="text-[25px] text-[#000] font-bold mb-4">
                 Transfer of Data
               </li>
 
@@ -281,28 +298,38 @@ export function Index() {
                 </p>
               </div>
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">
+              <li className="text-[25px] text-[#000] font-bold mb-4">
                 Disclosure of Data
               </li>
 
               <div className="mb-4">
-                <h3 className="mb-4">Disclosure for Law Enforcement</h3>
+                <p className="mb-2">
+                  We may disclose personal information that we collect, or you
+                  provide:
+                </p>
+                <p className="mb-4 text-[22px] text-[#000] font-bold">
+                  Disclosure for Law Enforcement
+                </p>
                 <p className="mb-4">
                   Under certain circumstances, we may be required to disclose
                   your Personal Data if required to do so by law or in response
                   to valid requests by public authorities.
                 </p>
 
-                <h3 className="mb-4">Business Transaction</h3>
-                <p>
+                <p className="mb-4 text-[22px] text-[#000] font-bold">
+                  Business Transaction
+                </p>
+                <p className="mb-4">
                   If we or our subsidiaries are involved in a merger,
                   acquisition or asset sale, your Personal Data may be
                   transferred.
                 </p>
 
-                <h3 className="mb-4">Other Cases</h3>
-                <ul className="mb-4">
-                  <li>We may disclose your information also</li>
+                <p className="mb-4 text-[22px] text-[#000] font-bold">
+                  Other cases. We may disclose your information also
+                </p>
+
+                <ul className="mb-4 list-disc">
                   <li>to our subsidiaries and affiliates</li>
                   <li>
                     to contractors, service providers, and other third parties
@@ -326,7 +353,7 @@ export function Index() {
                 </ul>
               </div>
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">
+              <li className="text-[25px] text-[#000] font-bold mb-4">
                 Security of Data
               </li>
 
@@ -337,49 +364,52 @@ export function Index() {
                   electronic storage is 100% secure.
                 </p>
                 <p className="mb-4">
-                  . While we strive to use commercially acceptable means to
+                  While we strive to use commercially acceptable means to
                   protect your Personal Data, we cannot guarantee its absolute
                   security.
                 </p>
               </div>
               {/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-              <li className="text-[25px] text-[#000] font-bold">Your Rights</li>
+              <li className="text-[25px] text-[#000] font-bold mb-4">
+                Your Rights
+              </li>
               <div className="mb-4">
                 <p className="mb-4">
                   You have the following rights in relation to your Data:
                 </p>
-                <ul className="mb-4">
+
+                <ul className="mb-4 list-disc">
                   <li>
-                    <strong>Right to access</strong> - the right to request (i)
-                    copies of the information we hold about you at any time, or
-                    (ii) that we modify, update or delete such information. If
-                    we provide you with access to the information, we hold about
-                    you, we will not charge you for this unless your request is
-                    "manifestly unfounded or excessive." Where we are legally
-                    permitted to do so, we may refuse your request. If we refuse
-                    your request, we will tell you the reasons why.
+                    Right to access - the right to request (i) copies of the
+                    information we hold about you at any time, or (ii) that we
+                    modify, update or delete such information. If we provide you
+                    with access to the information, we hold about you, we will
+                    not charge you for this unless your request is "manifestly
+                    unfounded or excessive." Where we are legally permitted to
+                    do so, we may refuse your request. If we refuse your
+                    request, we will tell you the reasons why.
                   </li>
                   <li>
-                    <strong>Right to correct</strong> - the right to have your
-                    Data rectified if it is inaccurate or incomplete.
+                    Right to correct- the right to have your Data rectified if
+                    it is inaccurate or incomplete.
                   </li>
                   <li>
-                    <strong>Right to erase</strong> - the right to request that
-                    we delete or remove your Data from our systems.
+                    Right to erase - the right to request that we delete or
+                    remove your Data from our systems.
                   </li>
                   <li>
-                    <strong>Right to restrict our use of your Data</strong> -
-                    the right to "block" us from using your Data or limit the
-                    way in which we can use it.
+                    Right to restrict our use of your Data - the right to
+                    "block" us from using your Data or limit the way in which we
+                    can use it.
                   </li>
                   <li>
-                    <strong>Right to data portability</strong> - the right to
-                    request that we move, copy, or transfer your Data.
+                    Right to data portability- the right to request that we
+                    move, copy, or transfer your Data.
                   </li>
                   <li>
-                    <strong>Right to object</strong> - the right to object to
-                    our use of your Data, including where we use it for our
-                    legitimate interests.
+                    Right to object- the right to object to our use of your
+                    Data, including where we use it for our legitimate
+                    interests.
                   </li>
                 </ul>
                 <p className="mb-4">
@@ -411,7 +441,10 @@ export function Index() {
                   If you are a resident of the European Union (EU) and European
                   Economic Area (EEA), you have certain data protection rights,
                   covered by GDPR. – See more at{" "}
-                  <a href="https://eurlex.europa.eu/eli/reg/2016/679/oj">
+                  <a
+                    href="https://eurlex.europa.eu/eli/reg/2016/679/oj"
+                    className="text-[#5912FF] underline"
+                  >
                     https://eurlex.europa.eu/eli/reg/2016/679/oj
                   </a>
                 </p>
@@ -423,13 +456,19 @@ export function Index() {
                   If you wish to be informed what Personal Data, we hold about
                   you and if you want it to be removed from our systems, please
                   email us at{" "}
-                  <a href="mailto:info@avbids.com">info@avbids.com</a>
+                  <a
+                    href="mailto:info@avbids.com"
+                    className="text-[#5912FF] underline"
+                  >
+                    info@avbids.com
+                  </a>
                 </p>
                 <p className="mb-4">
                   In certain circumstances, you have the following data
                   protection rights:
                 </p>
-                <ul className="mb-4">
+
+                <ul className="mb-4 list-disc">
                   <li>
                     the right to access, update or to delete the information we
                     have on you
