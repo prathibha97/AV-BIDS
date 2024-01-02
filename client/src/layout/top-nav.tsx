@@ -176,7 +176,7 @@ export function TopNav() {
                       key={index}
                       onClick={() => handleDotClick(index)}
                       className={`w-3 h-3 mx-1 rounded-full bg-gray-500 ${
-                        currentSlide === index ? "bg-[#957fed]" : ""
+                        currentSlide === index ? "!bg-[#957fef]" : ""
                       }`}
                     />
                   ))}
