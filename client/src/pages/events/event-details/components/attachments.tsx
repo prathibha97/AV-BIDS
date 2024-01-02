@@ -16,7 +16,7 @@ const Attachments: FC<AttachmentsProps> = ({ event }) => {
 
   return (
     <div className="bg-[#F3F1FB] mt-8 p-6 rounded-lg">
-      <h2 className="text-[20px]">Attachments</h2>
+      <h2 className="text-[18px] sm:text-[20px]">Attachments</h2>
 
       {event?.files?.map((file) => (
         <div
@@ -41,7 +41,9 @@ const Attachments: FC<AttachmentsProps> = ({ event }) => {
           </button>
         </div>
       ))}
-      {event?.files?.length === 0 && <p>No attachments available</p>}
+      {event?.files?.length === 0 && (
+        <p className="text-[16px] mt-2">No attachments available</p>
+      )}
     </div>
   );
 };

@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { FC, useState } from "react";
 import {
   PresenterTools,
   VideoCamera,
   VideoProcessing,
-} from '../../../../types';
-import CardDetails from './card-details';
+} from "../../../../types";
+import CardDetails from "./card-details";
 
 interface StepFiveProps {
   formData: any;
@@ -74,138 +74,138 @@ const StepFive: FC<StepFiveProps> = ({ formData, updateFormData }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Video & Camera</p>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Video & Camera</p>
         <CardDetails
-          name='Broadcast Camera'
+          name="Broadcast Camera"
           value={videoCamera.Broadcast_Camera}
-          onDecrease={() => handleAdjustVideoCamera('Broadcast_Camera', -1)}
-          onIncrease={() => handleAdjustVideoCamera('Broadcast_Camera', 1)}
+          onDecrease={() => handleAdjustVideoCamera("Broadcast_Camera", -1)}
+          onIncrease={() => handleAdjustVideoCamera("Broadcast_Camera", 1)}
         />
         <CardDetails
-          name='Roaming Camera'
+          name="Roaming Camera"
           value={videoCamera.Roaming_Camera}
-          onDecrease={() => handleAdjustVideoCamera('Roaming_Camera', -1)}
-          onIncrease={() => handleAdjustVideoCamera('Roaming_Camera', 1)}
+          onDecrease={() => handleAdjustVideoCamera("Roaming_Camera", -1)}
+          onIncrease={() => handleAdjustVideoCamera("Roaming_Camera", 1)}
         />
         <CardDetails
-          name='Camcorder'
+          name="Camcorder"
           value={videoCamera.Camcorder}
-          onDecrease={() => handleAdjustVideoCamera('Camcorder', -1)}
-          onIncrease={() => handleAdjustVideoCamera('Camcorder', 1)}
+          onDecrease={() => handleAdjustVideoCamera("Camcorder", -1)}
+          onIncrease={() => handleAdjustVideoCamera("Camcorder", 1)}
         />
         <CardDetails
-          name='Video & Camera Lighting'
+          name="Video & Camera Lighting"
           value={videoCamera.Video_and_Camera_Lighting}
           onDecrease={() =>
-            handleAdjustVideoCamera('Video_and_Camera_Lighting', -1)
+            handleAdjustVideoCamera("Video_and_Camera_Lighting", -1)
           }
           onIncrease={() =>
-            handleAdjustVideoCamera('Video_and_Camera_Lighting', 1)
+            handleAdjustVideoCamera("Video_and_Camera_Lighting", 1)
           }
         />
         <CardDetails
-          name='Photography Camera'
+          name="Photography Camera"
           value={videoCamera.Photography_Camera}
-          onDecrease={() => handleAdjustVideoCamera('Photography_Camera', -1)}
-          onIncrease={() => handleAdjustVideoCamera('Photography_Camera', 1)}
+          onDecrease={() => handleAdjustVideoCamera("Photography_Camera", -1)}
+          onIncrease={() => handleAdjustVideoCamera("Photography_Camera", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Video Processing</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Video Processing</p>
         <CardDetails
-          name='Video Switching & Effects Processing'
+          name="Video Switching & Effects Processing"
           value={videoProcessing.Video_Switching_and_Effects_Processing}
           onDecrease={() =>
             handleAdjustVideoProcessing(
-              'Video_Switching_and_Effects_Processing',
+              "Video_Switching_and_Effects_Processing",
               -1
             )
           }
           onIncrease={() =>
             handleAdjustVideoProcessing(
-              'Video_Switching_and_Effects_Processing',
+              "Video_Switching_and_Effects_Processing",
               1
             )
           }
         />
         <CardDetails
-          name='Video Capture'
+          name="Video Capture"
           value={videoProcessing.Video_Capture}
-          onDecrease={() => handleAdjustVideoProcessing('Video_Capture', -1)}
-          onIncrease={() => handleAdjustVideoProcessing('Video_Capture', 1)}
+          onDecrease={() => handleAdjustVideoProcessing("Video_Capture", -1)}
+          onIncrease={() => handleAdjustVideoProcessing("Video_Capture", 1)}
         />
         <CardDetails
-          name='Screen Blend (21:9 Format)'
+          name="Screen Blend (21:9 Format)"
           value={videoProcessing.Screen_Blend_21_Nine_Format}
           onDecrease={() =>
-            handleAdjustVideoProcessing('Screen_Blend_21_Nine_Format', -1)
+            handleAdjustVideoProcessing("Screen_Blend_21_Nine_Format", -1)
           }
           onIncrease={() =>
-            handleAdjustVideoProcessing('Screen_Blend_21_Nine_Format', 1)
+            handleAdjustVideoProcessing("Screen_Blend_21_Nine_Format", 1)
           }
         />
         <CardDetails
-          name='Video Streaming'
+          name="Video Streaming"
           value={videoProcessing.Video_Streaming}
-          onDecrease={() => handleAdjustVideoProcessing('Video_Streaming', -1)}
-          onIncrease={() => handleAdjustVideoProcessing('Video_Streaming', 1)}
+          onDecrease={() => handleAdjustVideoProcessing("Video_Streaming", -1)}
+          onIncrease={() => handleAdjustVideoProcessing("Video_Streaming", 1)}
         />
         <CardDetails
-          name='DVD-Blu-Ray Player'
+          name="DVD-Blu-Ray Player"
           value={videoProcessing.DVD_Blu_Ray_Player}
           onDecrease={() =>
-            handleAdjustVideoProcessing('DVD_Blu_Ray_Player', -1)
+            handleAdjustVideoProcessing("DVD_Blu_Ray_Player", -1)
           }
           onIncrease={() =>
-            handleAdjustVideoProcessing('DVD_Blu_Ray_Player', 1)
+            handleAdjustVideoProcessing("DVD_Blu_Ray_Player", 1)
           }
         />
         <CardDetails
-          name='VHS/DVD Player'
+          name="VHS/DVD Player"
           value={videoProcessing.VHS_DVD_Player}
-          onDecrease={() => handleAdjustVideoProcessing('VHS_DVD_Player', -1)}
-          onIncrease={() => handleAdjustVideoProcessing('VHS_DVD_Player', 1)}
+          onDecrease={() => handleAdjustVideoProcessing("VHS_DVD_Player", -1)}
+          onIncrease={() => handleAdjustVideoProcessing("VHS_DVD_Player", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Presenter Tools</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Presenter Tools</p>
         <CardDetails
-          name='Speaker Timer'
+          name="Speaker Timer"
           value={presenterTools.Speaker_Timer}
-          onDecrease={() => handleAdjustPresenterTools('Speaker_Timer', -1)}
-          onIncrease={() => handleAdjustPresenterTools('Speaker_Timer', 1)}
+          onDecrease={() => handleAdjustPresenterTools("Speaker_Timer", -1)}
+          onIncrease={() => handleAdjustPresenterTools("Speaker_Timer", 1)}
         />
         <CardDetails
-          name='Presentation Remote Clicker'
+          name="Presentation Remote Clicker"
           value={presenterTools.Presentation_Remote_Clicker}
           onDecrease={() =>
-            handleAdjustPresenterTools('Presentation_Remote_Clicker', -1)
+            handleAdjustPresenterTools("Presentation_Remote_Clicker", -1)
           }
           onIncrease={() =>
-            handleAdjustPresenterTools('Presentation_Remote_Clicker', 1)
+            handleAdjustPresenterTools("Presentation_Remote_Clicker", 1)
           }
         />
         <CardDetails
-          name='Laser Pointer'
+          name="Laser Pointer"
           value={presenterTools.Laser_Pointer}
-          onDecrease={() => handleAdjustPresenterTools('Laser_Pointer', -1)}
-          onIncrease={() => handleAdjustPresenterTools('Laser_Pointer', 1)}
+          onDecrease={() => handleAdjustPresenterTools("Laser_Pointer", -1)}
+          onIncrease={() => handleAdjustPresenterTools("Laser_Pointer", 1)}
         />
         <CardDetails
-          name='Perfect Cue System'
+          name="Perfect Cue System"
           value={presenterTools.Perfect_Cue_System}
           onDecrease={() =>
-            handleAdjustPresenterTools('Perfect_Cue_System', -1)
+            handleAdjustPresenterTools("Perfect_Cue_System", -1)
           }
-          onIncrease={() => handleAdjustPresenterTools('Perfect_Cue_System', 1)}
+          onIncrease={() => handleAdjustPresenterTools("Perfect_Cue_System", 1)}
         />
         <CardDetails
-          name='Flipchart'
+          name="Flipchart"
           value={presenterTools.Flipchart}
-          onDecrease={() => handleAdjustPresenterTools('Flipchart', -1)}
-          onIncrease={() => handleAdjustPresenterTools('Flipchart', 1)}
+          onDecrease={() => handleAdjustPresenterTools("Flipchart", -1)}
+          onIncrease={() => handleAdjustPresenterTools("Flipchart", 1)}
         />
       </div>
     </div>

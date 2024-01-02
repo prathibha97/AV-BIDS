@@ -158,7 +158,7 @@ export function Index() {
                       </div>
                     }
                     crossOrigin="anonymous"
-                    containerProps={{ className: "-ml-2.5 pr-1" }}
+                    containerProps={{ className: "-ml-2.5 p-1" }}
                     className="border-black"
                   />
                 </div>

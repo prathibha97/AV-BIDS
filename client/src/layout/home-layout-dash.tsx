@@ -23,13 +23,13 @@ const HomeLayout = () => {
         <div className="block lg:hidden">
           <React.Fragment>
             {/* <Button onClick={openDrawer}>Open Drawer</Button> */}
-            <p onClick={openDrawer}>
+            <div className="bg-[#555544]" onClick={openDrawer}>
               <img
                 src={MENU_BAR}
                 alt="aad"
-                className="w-[22px] m-2 fixed top-0 z-50"
+                className="w-[22px] fixed top-0 z-50 my-[15px] mx-2"
               />
-            </p>
+            </div>
 
             <Drawer open={open} onClose={closeDrawer} className="p-1 w-min ">
               <div className="mb-6 flex items-center justify-between">

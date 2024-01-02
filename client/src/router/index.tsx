@@ -184,6 +184,13 @@ function Router() {
       routes: [{ element: lazy(() => import("../pages/message_new_design")) }],
     },
 
+    {
+      path: "/privacy_policy",
+      layout: HomeLayout2,
+
+      routes: [{ element: lazy(() => import("../pages/privacy_policy")) }],
+    },
+
     { path: "*", element: lazy(() => import("./404")) },
   ];
 
