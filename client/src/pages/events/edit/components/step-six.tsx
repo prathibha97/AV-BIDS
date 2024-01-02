@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
-import { Electrical, Lighting, Scenic } from '../../../../types';
-import CardDetails from './card-details';
+import { FC, useState } from "react";
+import { Electrical, Lighting, Scenic } from "../../../../types";
+import CardDetails from "./card-details";
 
 interface StepSixProps {
   formData: any;
@@ -71,159 +71,159 @@ const StepSix: FC<StepSixProps> = ({ formData, updateFormData }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Lighting</p>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Lighting</p>
         <CardDetails
-          name='Uplighting'
+          name="Uplighting"
           value={lighting.Uplighting}
-          onDecrease={() => handleAdjustLighting('Uplighting', -1)}
-          onIncrease={() => handleAdjustLighting('Uplighting', 1)}
+          onDecrease={() => handleAdjustLighting("Uplighting", -1)}
+          onIncrease={() => handleAdjustLighting("Uplighting", 1)}
         />
         <CardDetails
-          name='Stage Wash'
+          name="Stage Wash"
           value={lighting.Stage_Wash}
-          onDecrease={() => handleAdjustLighting('Stage_Wash', -1)}
-          onIncrease={() => handleAdjustLighting('Stage_Wash', 1)}
+          onDecrease={() => handleAdjustLighting("Stage_Wash", -1)}
+          onIncrease={() => handleAdjustLighting("Stage_Wash", 1)}
         />
         <CardDetails
-          name='Moving Head Lights'
+          name="Moving Head Lights"
           value={lighting.Moving_Head_Lights}
-          onDecrease={() => handleAdjustLighting('Moving_Head_Lights', -1)}
-          onIncrease={() => handleAdjustLighting('Moving_Head_Lights', 1)}
+          onDecrease={() => handleAdjustLighting("Moving_Head_Lights", -1)}
+          onIncrease={() => handleAdjustLighting("Moving_Head_Lights", 1)}
         />
         <CardDetails
-          name='Gobo'
+          name="Gobo"
           value={lighting.Gobo}
-          onDecrease={() => handleAdjustLighting('Gobo', -1)}
-          onIncrease={() => handleAdjustLighting('Gobo', 1)}
+          onDecrease={() => handleAdjustLighting("Gobo", -1)}
+          onIncrease={() => handleAdjustLighting("Gobo", 1)}
         />
         <CardDetails
-          name='Inflatable Balloon Light'
+          name="Inflatable Balloon Light"
           value={lighting.Inflatable_Balloon_Light}
           onDecrease={() =>
-            handleAdjustLighting('Inflatable_Balloon_Light', -1)
+            handleAdjustLighting("Inflatable_Balloon_Light", -1)
           }
-          onIncrease={() => handleAdjustLighting('Inflatable_Balloon_Light', 1)}
+          onIncrease={() => handleAdjustLighting("Inflatable_Balloon_Light", 1)}
         />
         <CardDetails
-          name='LED Lighting Effects'
+          name="LED Lighting Effects"
           value={lighting.LED_Lighting_Effects}
-          onDecrease={() => handleAdjustLighting('LED_Lighting_Effects', -1)}
-          onIncrease={() => handleAdjustLighting('LED_Lighting_Effects', 1)}
+          onDecrease={() => handleAdjustLighting("LED_Lighting_Effects", -1)}
+          onIncrease={() => handleAdjustLighting("LED_Lighting_Effects", 1)}
         />
         <CardDetails
-          name='Spotlight'
+          name="Spotlight"
           value={lighting.Spotlight}
-          onDecrease={() => handleAdjustLighting('Spotlight', -1)}
-          onIncrease={() => handleAdjustLighting('Spotlight', 1)}
+          onDecrease={() => handleAdjustLighting("Spotlight", -1)}
+          onIncrease={() => handleAdjustLighting("Spotlight", 1)}
         />
         <CardDetails
-          name='Lighting Rigging and Truss'
+          name="Lighting Rigging and Truss"
           value={lighting.Lighting_Rigging_and_Truss}
           onDecrease={() =>
-            handleAdjustLighting('Lighting_Rigging_and_Truss', -1)
+            handleAdjustLighting("Lighting_Rigging_and_Truss", -1)
           }
           onIncrease={() =>
-            handleAdjustLighting('Lighting_Rigging_and_Truss', 1)
+            handleAdjustLighting("Lighting_Rigging_and_Truss", 1)
           }
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Scenic</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Scenic</p>
         <CardDetails
-          name='Drape Kit (Black)'
+          name="Drape Kit (Black)"
           value={scenic.Drape_Kit_Black}
-          onDecrease={() => handleAdjustScenic('Drape_Kit_Black', -1)}
-          onIncrease={() => handleAdjustScenic('Drape_Kit_Black', 1)}
+          onDecrease={() => handleAdjustScenic("Drape_Kit_Black", -1)}
+          onIncrease={() => handleAdjustScenic("Drape_Kit_Black", 1)}
         />
         <CardDetails
-          name='Drape Kit (Grey)'
+          name="Drape Kit (Grey)"
           value={scenic.Drape_Kit_Grey}
-          onDecrease={() => handleAdjustScenic('Drape_Kit_Grey', -1)}
-          onIncrease={() => handleAdjustScenic('Drape_Kit_Grey', 1)}
+          onDecrease={() => handleAdjustScenic("Drape_Kit_Grey", -1)}
+          onIncrease={() => handleAdjustScenic("Drape_Kit_Grey", 1)}
         />
         <CardDetails
-          name='Drape Kit (White)'
+          name="Drape Kit (White)"
           value={scenic.Drape_Kit_White}
-          onDecrease={() => handleAdjustScenic('Drape_Kit_White', -1)}
-          onIncrease={() => handleAdjustScenic('Drape_Kit_White', 1)}
+          onDecrease={() => handleAdjustScenic("Drape_Kit_White", -1)}
+          onIncrease={() => handleAdjustScenic("Drape_Kit_White", 1)}
         />
         <CardDetails
-          name='Scenic Panels'
+          name="Scenic Panels"
           value={scenic.Scenic_Panels}
-          onDecrease={() => handleAdjustScenic('Scenic_Panels', -1)}
-          onIncrease={() => handleAdjustScenic('Scenic_Panels', 1)}
+          onDecrease={() => handleAdjustScenic("Scenic_Panels", -1)}
+          onIncrease={() => handleAdjustScenic("Scenic_Panels", 1)}
         />
         <CardDetails
-          name='Podium'
+          name="Podium"
           value={scenic.Podium}
-          onDecrease={() => handleAdjustScenic('Podium', -1)}
-          onIncrease={() => handleAdjustScenic('Podium', 1)}
+          onDecrease={() => handleAdjustScenic("Podium", -1)}
+          onIncrease={() => handleAdjustScenic("Podium", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Electrical</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Electrical</p>
         <CardDetails
-          name='Audience Table Power'
+          name="Audience Table Power"
           value={electrical.Audience_Table_Power}
-          onDecrease={() => handleAdjustElectrical('Audience_Table_Power', -1)}
-          onIncrease={() => handleAdjustElectrical('Audience_Table_Power', 1)}
+          onDecrease={() => handleAdjustElectrical("Audience_Table_Power", -1)}
+          onIncrease={() => handleAdjustElectrical("Audience_Table_Power", 1)}
         />
         <CardDetails
-          name='Power Strips 6x1'
+          name="Power Strips 6x1"
           value={electrical.Power_Strips_6x1}
-          onDecrease={() => handleAdjustElectrical('Power_Strips_6x1', -1)}
-          onIncrease={() => handleAdjustElectrical('Power_Strips_6x1', 1)}
+          onDecrease={() => handleAdjustElectrical("Power_Strips_6x1", -1)}
+          onIncrease={() => handleAdjustElectrical("Power_Strips_6x1", 1)}
         />
         <CardDetails
-          name='Portable Distribution Box (50 Amp)'
+          name="Portable Distribution Box (50 Amp)"
           value={electrical.Portable_Distribution_Box_50_Amp}
           onDecrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_50_Amp', -1)
+            handleAdjustElectrical("Portable_Distribution_Box_50_Amp", -1)
           }
           onIncrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_50_Amp', 1)
+            handleAdjustElectrical("Portable_Distribution_Box_50_Amp", 1)
           }
         />
         <CardDetails
-          name='Portable Distribution Box (100 Amp)'
+          name="Portable Distribution Box (100 Amp)"
           value={electrical.Portable_Distribution_Box_100_Amp}
           onDecrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_100_Amp', -1)
+            handleAdjustElectrical("Portable_Distribution_Box_100_Amp", -1)
           }
           onIncrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_100_Amp', 1)
+            handleAdjustElectrical("Portable_Distribution_Box_100_Amp", 1)
           }
         />
         <CardDetails
-          name='Portable Distribution Box (200 Amp)'
+          name="Portable Distribution Box (200 Amp)"
           value={electrical.Portable_Distribution_Box_200_Amp}
           onDecrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_200_Amp', -1)
+            handleAdjustElectrical("Portable_Distribution_Box_200_Amp", -1)
           }
           onIncrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_200_Amp', 1)
+            handleAdjustElectrical("Portable_Distribution_Box_200_Amp", 1)
           }
         />
         <CardDetails
-          name='Portable Distribution Box (300 Amp)'
+          name="Portable Distribution Box (300 Amp)"
           value={electrical.Portable_Distribution_Box_300_Amp}
           onDecrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_300_Amp', -1)
+            handleAdjustElectrical("Portable_Distribution_Box_300_Amp", -1)
           }
           onIncrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_300_Amp', 1)
+            handleAdjustElectrical("Portable_Distribution_Box_300_Amp", 1)
           }
         />
         <CardDetails
-          name='Portable Distribution Box (400 Amp)'
+          name="Portable Distribution Box (400 Amp)"
           value={electrical.Portable_Distribution_Box_400_Amp}
           onDecrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_400_Amp', -1)
+            handleAdjustElectrical("Portable_Distribution_Box_400_Amp", -1)
           }
           onIncrease={() =>
-            handleAdjustElectrical('Portable_Distribution_Box_400_Amp', 1)
+            handleAdjustElectrical("Portable_Distribution_Box_400_Amp", 1)
           }
         />
       </div>

@@ -99,7 +99,7 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
   };
   return (
     <div className="grid grid-cols-2 gap-6">
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
         <p className="text-[18px] font-medium mb-4">Microphones</p>
         <div>
           <CardDetails
@@ -154,7 +154,7 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
           />
         </div>
       </div>
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6  col-span-2 sm:col-span-1">
         <p className="text-[18px] font-medium mb-4">Speakers</p>
         <div>
           <CardDetails
@@ -231,7 +231,7 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
           />
         </div>
       </div>
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6  col-span-2 sm:col-span-1">
         <p className="text-[18px] font-medium mb-4">Mixers</p>
         <div>
           <CardDetails
@@ -300,7 +300,7 @@ const StepThree: FC<StepThreeProps> = ({ formData, updateFormData }) => {
           />
         </div>
       </div>
-      <div className="bg-[#F3F1FB] rounded-lg p-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6  col-span-2 sm:col-span-1">
         <p className="text-[18px] font-medium mb-4">Communication</p>
         <div>
           <CardDetails

@@ -1,13 +1,11 @@
-import { FC, useState } from 'react';
-import CardDetails from './card-details';
-import { Projection, Screens } from '../../../../types';
+import { FC, useState } from "react";
+import CardDetails from "./card-details";
+import { Projection, Screens } from "../../../../types";
 
 interface StepFourProps {
   formData: any;
   updateFormData: (field: string, value: number) => void;
 }
-
-
 
 const StepFour: FC<StepFourProps> = ({ formData, updateFormData }) => {
   const [screens, setScreens] = useState({
@@ -52,7 +50,6 @@ const StepFour: FC<StepFourProps> = ({ formData, updateFormData }) => {
       formData.projection?.Projector_Rigging_and_Truss ?? 0,
   });
 
-
   const handleAdjustScreens = (field: keyof Screens, value: number) => {
     let updatedValue = Math.max(0, screens[field] + value);
     setScreens((prev) => ({ ...prev, [field]: updatedValue }));
@@ -71,213 +68,213 @@ const StepFour: FC<StepFourProps> = ({ formData, updateFormData }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Screens</p>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Screens</p>
         <CardDetails
-          name='21:9 Large Format Screen'
+          name="21:9 Large Format Screen"
           value={screens.Twenty_One_Nine_Large_Format_Screen}
           onDecrease={() =>
-            handleAdjustScreens('Twenty_One_Nine_Large_Format_Screen', -1)
+            handleAdjustScreens("Twenty_One_Nine_Large_Format_Screen", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Twenty_One_Nine_Large_Format_Screen', 1)
+            handleAdjustScreens("Twenty_One_Nine_Large_Format_Screen", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (16:9 Format) Large Venue'
+          name="Fast Fold Screen (16:9 Format) Large Venue"
           value={screens.Fast_Fold_Screen_16_9_Format_Large_Venue}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Large_Venue', -1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Large_Venue", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Large_Venue', 1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Large_Venue", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (16:9 Format) Medium Venue'
+          name="Fast Fold Screen (16:9 Format) Medium Venue"
           value={screens.Fast_Fold_Screen_16_9_Format_Medium_Venue}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Medium_Venue', -1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Medium_Venue", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Medium_Venue', 1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Medium_Venue", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (16:9 Format) Meeting Room'
+          name="Fast Fold Screen (16:9 Format) Meeting Room"
           value={screens.Fast_Fold_Screen_16_9_Format_Meeting_Room}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Meeting_Room', -1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Meeting_Room", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_16_9_Format_Meeting_Room', 1)
+            handleAdjustScreens("Fast_Fold_Screen_16_9_Format_Meeting_Room", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (4:3 Format) Large Venue'
+          name="Fast Fold Screen (4:3 Format) Large Venue"
           value={screens.Fast_Fold_Screen_4_3_Format_Large_Venue}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Large_Venue', -1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Large_Venue", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Large_Venue', 1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Large_Venue", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (4:3 Format) Medium Venue'
+          name="Fast Fold Screen (4:3 Format) Medium Venue"
           value={screens.Fast_Fold_Screen_4_3_Format_Medium_Venue}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Medium_Venue', -1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Medium_Venue", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Medium_Venue', 1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Medium_Venue", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Screen (4:3 Format) Meeting Room'
+          name="Fast Fold Screen (4:3 Format) Meeting Room"
           value={screens.Fast_Fold_Screen_4_3_Format_Meeting_Room}
           onDecrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Meeting_Room', -1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Meeting_Room", -1)
           }
           onIncrease={() =>
-            handleAdjustScreens('Fast_Fold_Screen_4_3_Format_Meeting_Room', 1)
+            handleAdjustScreens("Fast_Fold_Screen_4_3_Format_Meeting_Room", 1)
           }
         />
         <CardDetails
-          name='Fast Fold Drape Kit'
+          name="Fast Fold Drape Kit"
           value={screens.Fast_Fold_Drape_Kit}
-          onDecrease={() => handleAdjustScreens('Fast_Fold_Drape_Kit', -1)}
-          onIncrease={() => handleAdjustScreens('Fast_Fold_Drape_Kit', 1)}
+          onDecrease={() => handleAdjustScreens("Fast_Fold_Drape_Kit", -1)}
+          onIncrease={() => handleAdjustScreens("Fast_Fold_Drape_Kit", 1)}
         />
         <CardDetails
-          name='Tripod Screens 60”-96”'
+          name="Tripod Screens 60”-96”"
           value={screens.Tripod_Screens_60_96}
-          onDecrease={() => handleAdjustScreens('Tripod_Screens_60_96', -1)}
-          onIncrease={() => handleAdjustScreens('Tripod_Screens_60_96', 1)}
+          onDecrease={() => handleAdjustScreens("Tripod_Screens_60_96", -1)}
+          onIncrease={() => handleAdjustScreens("Tripod_Screens_60_96", 1)}
         />
         <CardDetails
-          name='LCD Monitor'
+          name="LCD Monitor"
           value={screens.LCD_Monitor}
-          onDecrease={() => handleAdjustScreens('LCD_Monitor', -1)}
-          onIncrease={() => handleAdjustScreens('LCD_Monitor', 1)}
+          onDecrease={() => handleAdjustScreens("LCD_Monitor", -1)}
+          onIncrease={() => handleAdjustScreens("LCD_Monitor", 1)}
         />
         <CardDetails
-          name='Video LED Wall'
+          name="Video LED Wall"
           value={screens.Video_LED_Wall}
-          onDecrease={() => handleAdjustScreens('Video_LED_Wall', -1)}
-          onIncrease={() => handleAdjustScreens('Video_LED_Wall', 1)}
+          onDecrease={() => handleAdjustScreens("Video_LED_Wall", -1)}
+          onIncrease={() => handleAdjustScreens("Video_LED_Wall", 1)}
         />
         <CardDetails
-          name='Screen Rigging and Truss'
+          name="Screen Rigging and Truss"
           value={screens.Screen_Rigging_and_Truss}
-          onDecrease={() => handleAdjustScreens('Screen_Rigging_and_Truss', -1)}
-          onIncrease={() => handleAdjustScreens('Screen_Rigging_and_Truss', 1)}
+          onDecrease={() => handleAdjustScreens("Screen_Rigging_and_Truss", -1)}
+          onIncrease={() => handleAdjustScreens("Screen_Rigging_and_Truss", 1)}
         />
       </div>
-      <div className='bg-[#F3F1FB] rounded-lg p-6'>
-        <p className='text-[18px] font-medium mb-4'>Projection</p>
+      <div className="bg-[#F3F1FB] rounded-lg p-6 col-span-2 sm:col-span-1">
+        <p className="text-[18px] font-medium mb-4">Projection</p>
         <CardDetails
-          name='21:9 Format Projection'
+          name="21:9 Format Projection"
           value={projection.Twenty_One_Nine_Format_Projection}
           onDecrease={() =>
-            handleAdjustProjection('Twenty_One_Nine_Format_Projection', -1)
+            handleAdjustProjection("Twenty_One_Nine_Format_Projection", -1)
           }
           onIncrease={() =>
-            handleAdjustProjection('Twenty_One_Nine_Format_Projection', 1)
+            handleAdjustProjection("Twenty_One_Nine_Format_Projection", 1)
           }
         />
         <CardDetails
-          name='Large Venue Projector (Standard Throw Lens)'
+          name="Large Venue Projector (Standard Throw Lens)"
           value={projection.Large_Venue_Projector_Standard_Throw_Lens}
           onDecrease={() =>
             handleAdjustProjection(
-              'Large_Venue_Projector_Standard_Throw_Lens',
+              "Large_Venue_Projector_Standard_Throw_Lens",
               -1
             )
           }
           onIncrease={() =>
             handleAdjustProjection(
-              'Large_Venue_Projector_Standard_Throw_Lens',
+              "Large_Venue_Projector_Standard_Throw_Lens",
               1
             )
           }
         />
         <CardDetails
-          name='Large Venue Projector (Long Throw Lens)'
+          name="Large Venue Projector (Long Throw Lens)"
           value={projection.Large_Venue_Projector_Long_Throw_Lens}
           onDecrease={() =>
-            handleAdjustProjection('Large_Venue_Projector_Long_Throw_Lens', -1)
+            handleAdjustProjection("Large_Venue_Projector_Long_Throw_Lens", -1)
           }
           onIncrease={() =>
-            handleAdjustProjection('Large_Venue_Projector_Long_Throw_Lens', 1)
+            handleAdjustProjection("Large_Venue_Projector_Long_Throw_Lens", 1)
           }
         />
         <CardDetails
-          name='Large Venue Projector (Short Throw Lens)'
+          name="Large Venue Projector (Short Throw Lens)"
           value={projection.Large_Venue_Projector_Short_Throw_Lens}
           onDecrease={() =>
-            handleAdjustProjection('Large_Venue_Projector_Short_Throw_Lens', -1)
+            handleAdjustProjection("Large_Venue_Projector_Short_Throw_Lens", -1)
           }
           onIncrease={() =>
-            handleAdjustProjection('Large_Venue_Projector_Short_Throw_Lens', 1)
+            handleAdjustProjection("Large_Venue_Projector_Short_Throw_Lens", 1)
           }
         />
         <CardDetails
-          name='Medium Venue Projector (Standard Throw Lens)'
+          name="Medium Venue Projector (Standard Throw Lens)"
           value={projection.Medium_Venue_Projector_Standard_Throw_Lens}
           onDecrease={() =>
             handleAdjustProjection(
-              'Medium_Venue_Projector_Standard_Throw_Lens',
+              "Medium_Venue_Projector_Standard_Throw_Lens",
               -1
             )
           }
           onIncrease={() =>
             handleAdjustProjection(
-              'Medium_Venue_Projector_Standard_Throw_Lens',
+              "Medium_Venue_Projector_Standard_Throw_Lens",
               1
             )
           }
         />
         <CardDetails
-          name='Medium Venue Projector (Long Throw Lens)'
+          name="Medium Venue Projector (Long Throw Lens)"
           value={projection.Medium_Venue_Projector_Long_Throw_Lens}
           onDecrease={() =>
-            handleAdjustProjection('Medium_Venue_Projector_Long_Throw_Lens', -1)
+            handleAdjustProjection("Medium_Venue_Projector_Long_Throw_Lens", -1)
           }
           onIncrease={() =>
-            handleAdjustProjection('Medium_Venue_Projector_Long_Throw_Lens', 1)
+            handleAdjustProjection("Medium_Venue_Projector_Long_Throw_Lens", 1)
           }
         />
         <CardDetails
-          name='Medium Venue Projector (Short Throw Lens)'
+          name="Medium Venue Projector (Short Throw Lens)"
           value={projection.Medium_Venue_Projector_Short_Throw_Lens}
           onDecrease={() =>
             handleAdjustProjection(
-              'Medium_Venue_Projector_Short_Throw_Lens',
+              "Medium_Venue_Projector_Short_Throw_Lens",
               -1
             )
           }
           onIncrease={() =>
-            handleAdjustProjection('Medium_Venue_Projector_Short_Throw_Lens', 1)
+            handleAdjustProjection("Medium_Venue_Projector_Short_Throw_Lens", 1)
           }
         />
         <CardDetails
-          name='Meeting Room Projector'
+          name="Meeting Room Projector"
           value={projection.Meeting_Room_Projector}
           onDecrease={() =>
-            handleAdjustProjection('Meeting_Room_Projector', -1)
+            handleAdjustProjection("Meeting_Room_Projector", -1)
           }
-          onIncrease={() => handleAdjustProjection('Meeting_Room_Projector', 1)}
+          onIncrease={() => handleAdjustProjection("Meeting_Room_Projector", 1)}
         />
         <CardDetails
-          name='Projector Rigging and Truss'
+          name="Projector Rigging and Truss"
           value={projection.Projector_Rigging_and_Truss}
           onDecrease={() =>
-            handleAdjustProjection('Projector_Rigging_and_Truss', -1)
+            handleAdjustProjection("Projector_Rigging_and_Truss", -1)
           }
           onIncrease={() =>
-            handleAdjustProjection('Projector_Rigging_and_Truss', 1)
+            handleAdjustProjection("Projector_Rigging_and_Truss", 1)
           }
         />
       </div>

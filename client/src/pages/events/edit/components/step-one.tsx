@@ -14,6 +14,9 @@ import {
 import api from "../../../../utils/api";
 import { EventFormFormValues } from "../../../../utils/validations/event-form-validation";
 import RichTextEditor from "./rich-text-editor";
+import { Textarea } from "@material-tailwind/react";
+import thumbnailIcon from "../../../../assets/12_edit_event/thumbnail.png";
+import fileIcon from "../../../../assets/12_edit_event/files_icon.png";
 
 interface UploadedFile extends File {
   fileName: string;
@@ -147,8 +150,8 @@ const StepOne: FC<StepOneProps> = ({
 
             <div className="">
               <div className="grid grid-cols-3 gap-8">
-                <div>
-                  <p className="mb-2 font-medium">Proposal Due Date </p>
+                <div className="col-span-3 sm:col-span-1">
+                  <p className="mb-2 font-medium">Proposal Due Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
                       placeholder="Enter Date"
@@ -167,7 +170,7 @@ const StepOne: FC<StepOneProps> = ({
                     />
                   </div>
                 </div>
-                <div>
+                <div className="col-span-3 sm:col-span-1">
                   <p className="mb-2 font-medium">Event Start Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
@@ -187,7 +190,7 @@ const StepOne: FC<StepOneProps> = ({
                     />
                   </div>
                 </div>
-                <div>
+                <div className="col-span-3 sm:col-span-1">
                   <p className="mb-2 font-medium">Event End Date</p>
                   <div className="mb-5 bg-input_background rounded-full">
                     <Input
@@ -214,7 +217,7 @@ const StepOne: FC<StepOneProps> = ({
             <p className="mb-2 font-medium">
               Event Description <span className="text-[#DE5753]">*</span>
             </p>
-            <div className="mb-5">
+            <div className="mb-5 hidden sm:block">
               {/* @ts-ignore */}
               <RichTextEditor
                 control={control}
@@ -222,8 +225,15 @@ const StepOne: FC<StepOneProps> = ({
                 formData={formData}
               />
             </div>
+
+            <div className="w-full block sm:hidden">
+              <Textarea
+                label="Description"
+                className="shadow-none drop-shadow-none border-none !bg-[#f3f1fb]"
+              />
+            </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">
               Event Type<span className="text-[#DE5753]">*</span>{" "}
             </p>
@@ -245,7 +255,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">
               Event Category<span className="text-[#DE5753]">*</span>{" "}
             </p>
@@ -267,7 +277,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Event Sub Category</p>
             <div className=" mb-5">
               <Select
@@ -287,7 +297,7 @@ const StepOne: FC<StepOneProps> = ({
               </Select>
             </div>
           </div>
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Event Budget</p>
             <div className=" mb-8">
               <Select
@@ -308,7 +318,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Audience Size</p>
             <div className=" mb-8">
               <Select
@@ -332,7 +342,7 @@ const StepOne: FC<StepOneProps> = ({
 
         <p className="font-medium text-[18px] mb-4">Address & Location</p>
         <div className="grid grid-cols-2 gap-x-16 gap-y-4 mb-4 font-medium text-[16px] text-[#353535]">
-          <div className="">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Venue Name</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
@@ -352,7 +362,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-2 sm:col-span-1">
             <p className="mb-2 font-medium">Address</p>
             <div className="mb-5 bg-input_background rounded-full">
               <Input
@@ -374,7 +384,7 @@ const StepOne: FC<StepOneProps> = ({
         </div>
 
         <div className="grid grid-cols-3 gap-x-16 gap-y-4 font-medium text-[16px] text-[#353535]">
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">
               City<span className="text-[#DE5753]">*</span>
             </p>
@@ -396,7 +406,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">State</p>
             <div className="mb-5">
               <Select
@@ -417,7 +427,7 @@ const StepOne: FC<StepOneProps> = ({
             </div>
           </div>
 
-          <div className="...">
+          <div className="col-span-3 sm:col-span-1">
             <p className="mb-2 font-medium">Zip</p>
             <div className="mb-8 bg-input_background rounded-full">
               <Input
@@ -438,8 +448,189 @@ const StepOne: FC<StepOneProps> = ({
           </div>
         </div>
         <p className="font-medium text-[18px] mb-4">File Attachment</p>
+        <div className="flex items-center gap-4">
+          {/* {uploadedFiles.length > 0 ? (
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
+              {uploadedFiles.map((file, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex items-center gap-4">
+                    <p>{file.name}</p>
+                    <img
+                      src={DELETE_BUTTON}
+                      alt="delete"
+                      className="object-scale-down w-[34px]"
+                    />
+                  </div>
+                  <div className="relative pt-1">
+                    <div className="flex mb-2 items-center justify-between">
+                      <div>
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200">
+                          {file.progress}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex h-2 mb-4 overflow-hidden bg-gray-200 rounded">
+                      <div
+                        style={{ width: `${file.progress}%` }}
+                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No files uploaded</p>
+          )} */}
 
-        {uploadedFiles.length > 0 && (
+          <div className="bg-[#fff] py-3 w-[200px]">
+            <p className="text-center text-[#977df2] text-[16px]">
+              Upload your files
+            </p>
+            <p className="text-center text-[10px] mb-6 sm:mb-4">
+              Files should be jpg, png or bmp
+            </p>
+
+            <div className="border-dashed border-2 border-indigo-600 px-4 py-6 rounded-md">
+              <div className="flex justify-center">
+                <img
+                  src={thumbnailIcon}
+                  alt="delete"
+                  className="object-scale-down w-[34px]"
+                />
+              </div>
+
+              {uploadedFiles.length > 0 ? (
+                <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="mb-4">
+                      <div className="flex items-center gap-4">
+                        <p>{file.name}</p>
+                        <img
+                          src={DELETE_BUTTON}
+                          alt="delete"
+                          className="object-scale-down w-[34px]"
+                        />
+                      </div>
+                      <div className="relative pt-1">
+                        <div className="flex mb-2 items-center justify-between">
+                          <div>
+                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200">
+                              {file.progress}%
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex h-2 mb-4 overflow-hidden bg-gray-200 rounded">
+                          <div
+                            style={{ width: `${file.progress}%` }}
+                            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-[13px]">No files uploaded</p>
+              )}
+
+              <div className="flex items-center justify-center">
+                <Button
+                  variant="filled"
+                  color="indigo"
+                  size="sm"
+                  className="rounded-md py-2 mt-4 px-4 bg-primary font-poppins flex"
+                >
+                  <label className="text-white normal-case font-medium">
+                    Upload File
+                    <input
+                      type="file"
+                      accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
+                      onChange={handleFileUpload}
+                      className="hidden" // This hides the file input element
+                      multiple
+                    />
+                  </label>
+                </Button>
+              </div>
+            </div>
+          </div>
+          {/* thumbnail upload */}
+
+          <div className="bg-[#fff] py-3 w-[200px]">
+            <p className="text-center text-[#977df2] text-[16px]">
+              Upload your thumbnail
+            </p>
+            <p className="text-center text-[10px] mb-4">
+              Files should be pdf, rtf or txt
+            </p>
+
+            <div className="border-dashed border-2 border-indigo-600 px-4 py-6 rounded-md">
+              <div className="flex justify-center">
+                <img
+                  src={fileIcon}
+                  alt="delete"
+                  className="object-scale-down w-[34px]"
+                />
+              </div>
+
+              {uploadedFiles.length > 0 ? (
+                <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="mb-4">
+                      <div className="flex items-center gap-4">
+                        <p>{file.name}</p>
+                        <img
+                          src={DELETE_BUTTON}
+                          alt="delete"
+                          className="object-scale-down w-[34px]"
+                        />
+                      </div>
+                      <div className="relative pt-1">
+                        <div className="flex mb-2 items-center justify-between">
+                          <div>
+                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200">
+                              {file.progress}%
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex h-2 mb-4 overflow-hidden bg-gray-200 rounded">
+                          <div
+                            style={{ width: `${file.progress}%` }}
+                            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-[13px]">No files uploaded</p>
+              )}
+
+              <div className="flex items-center justify-center">
+                <Button
+                  variant="filled"
+                  color="indigo"
+                  size="sm"
+                  className="rounded-md py-2 mt-4 px-4 bg-primary font-poppins flex"
+                >
+                  <label className="text-white normal-case font-medium">
+                    Upload File
+                    <input
+                      type="file"
+                      accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
+                      onChange={handleFileUpload}
+                      className="hidden" // This hides the file input element
+                      multiple
+                    />
+                  </label>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* {uploadedFiles.length > 0 && (
           <div className="grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2">
             {uploadedFiles.map((file, index) => (
               <div key={index} className="mb-4">
@@ -482,14 +673,13 @@ const StepOne: FC<StepOneProps> = ({
                     className="object-scale-down w-[34px]"
                   />
                 </div>
-                {/* (Progress bar code here if needed) */}
               </div>
             ))}
           </div>
         ) : (
           <p>No files uploaded</p>
-        )}
-        <Button
+        )} */}
+        {/* <Button
           variant="filled"
           color="indigo"
           size="sm"
@@ -505,7 +695,7 @@ const StepOne: FC<StepOneProps> = ({
               multiple
             />
           </label>
-        </Button>
+        </Button> */}
       </form>
     </div>
   );

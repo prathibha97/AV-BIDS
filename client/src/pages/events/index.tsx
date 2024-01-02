@@ -11,6 +11,8 @@ import EventListingCard from "./components/eventListingCard";
 import Sidebar from "./components/sidebar";
 import Breadcrumbs from "../../components/Breadcrumbs";
 
+import { Card } from "@material-tailwind/react";
+
 function Index() {
   const dispatch = useAppDispatch();
   const [events, setEvents] = useState<Event[]>([]);
@@ -122,9 +124,9 @@ function Index() {
         </div>
       ) : (
         <>
-          <div>
-            <h2 className="text-center text-primary mb-16">Event Listings</h2>
-          </div>
+          {/* <div>
+            <h2 className="text-center text-primary mb-16">Event Listings </h2>
+          </div> */}
           <div className="mb-10">
             <AlertBox
               color={color}
@@ -137,8 +139,25 @@ function Index() {
             />
           </div>
 
-          <div className="flex justify-center gap-8">
-            <Sidebar
+          <div className="flex ">
+            <Card className="h-[calc(120vh-2rem)] w-full max-w-[20rem]  shadow-xl shadow-none mb-6 bg-[#fff]">
+              <div className=" ">
+                <Sidebar
+                  selectedEventType={selectedEventType}
+                  setSelectedEventType={setSelectedEventType}
+                  selectedEventCategory={selectedEventCategory}
+                  setSelectedEventCategory={setSelectedEventCategory}
+                  selectedEventSubCategory={selectedEventSubCategory}
+                  setSelectedEventSubCategory={setSelectedEventSubCategory}
+                  selectedPriceRange={selectedPriceRange}
+                  setSelectedPriceRange={setSelectedPriceRange}
+                  selectedAudienceSize={selectedAudienceSize}
+                  setSelectedAudienceSize={setSelectedAudienceSize}
+                  applyFilters={applyFilters}
+                />
+              </div>
+            </Card>
+            {/* <Sidebar
               selectedEventType={selectedEventType}
               setSelectedEventType={setSelectedEventType}
               selectedEventCategory={selectedEventCategory}
@@ -150,9 +169,10 @@ function Index() {
               selectedAudienceSize={selectedAudienceSize}
               setSelectedAudienceSize={setSelectedAudienceSize}
               applyFilters={applyFilters}
-            />
+            /> */}
 
-            <div>
+            <div className="container mx-auto w-max">
+              <h2 className="text-center text-primary mb-4">Event Listings </h2>
               <div className="flex items-center justify-between mb-6 mx-4">
                 <p className="text-[14px]">{events.length} events Found</p>
 
