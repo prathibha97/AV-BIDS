@@ -191,6 +191,12 @@ const eventSchema = new mongoose.Schema(
         url: String,
       },
     ],
+    thumbnail: [
+      {
+        fileName: String,
+        url: String,
+      },
+    ],
     proposals: [
       {
         type: mongoose.Schema.Types.ObjectId,
