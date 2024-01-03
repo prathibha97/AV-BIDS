@@ -198,6 +198,22 @@ const StepOne: FC<StepOneProps> = ({
     }));
   };
 
+  const removeUploadedFile = (index: number) => {
+    setUploadedFiles((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
+  const removeThumbnailFile = (index: number) => {
+    setThumbnailFiles((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
   return (
     <div>
       <p className='font-medium text-[18px] mb-4'>Event Details</p>
@@ -525,27 +541,43 @@ const StepOne: FC<StepOneProps> = ({
           </div>
         </div>
         <p className='font-medium text-[18px] mb-4'>File Attachment</p>
-          {formData.files && formData.files.length > 0 ? (
-            <div className='grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2'>
-              {formData.files.map((file: any, index: number) => (
-                <div key={index} className='mb-4'>
-                  <div className='flex items-center gap-4'>
-                    <p>{file.fileName}</p>
-                    <img
-                      src={DELETE_BUTTON}
-                      alt='delete'
-                      className='object-scale-down w-[34px]'
-                    />
-                  </div>
+        {formData.files && formData.files.length > 0 ? (
+          <div className='grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2'>
+            {formData.files.map((file: any, index: number) => (
+              <div key={index} className='mb-4'>
+                <div className='flex items-center gap-4'>
+                  <p>{file.fileName}</p>
+                  <img
+                    src={DELETE_BUTTON}
+                    alt='delete'
+                    className='object-scale-down w-[34px]'
+                    onClick={() => removeUploadedFile(index)}
+                  />
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No attachments uploaded</p>
+        )}
+
+        <div className='grid grid-cols-2 gap-x-16 gap-y-4 font-medium text-[18px] text-black mb-2'>
+          {formData?.thumbnail?.map((file: any, index: number) => (
+            <div key={index} className='mb-4'>
+              <div className='flex items-center gap-4'>
+                <p>{file.fileName}</p>
+                <img
+                  src={DELETE_BUTTON}
+                  alt='delete'
+                  className='object-scale-down w-[34px]'
+                  onClick={() => removeThumbnailFile(index)}
+                />
+              </div>
             </div>
-          ) : (
-            <p>No attachments uploaded</p>
-          )}
+          ))}
+        </div>
+
         <div className='flex items-center gap-4'>
-
-
           <div className='bg-[#fff] py-3 w-[200px]'>
             <p className='text-center text-[#977df2] text-[16px]'>
               Upload your files
@@ -573,6 +605,7 @@ const StepOne: FC<StepOneProps> = ({
                           src={DELETE_BUTTON}
                           alt='delete'
                           className='object-scale-down w-[34px]'
+                          onClick={() => removeUploadedFile(index)}
                         />
                       </div>
                       <div className='relative pt-1'>
@@ -634,6 +667,7 @@ const StepOne: FC<StepOneProps> = ({
                   src={thumbnailIcon}
                   alt='delete'
                   className='object-scale-down w-[34px]'
+                  onClick={() => removeThumbnailFile(0)}
                 />
               </div>
 
@@ -647,6 +681,7 @@ const StepOne: FC<StepOneProps> = ({
                           src={DELETE_BUTTON}
                           alt='delete'
                           className='object-scale-down w-[34px]'
+                          onClick={() => removeThumbnailFile(index)}
                         />
                       </div>
                       <div className='relative pt-1'>
