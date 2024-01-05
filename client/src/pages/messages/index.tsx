@@ -219,6 +219,21 @@ function Index() {
     }
   };
 
+  const handleDeleteConversation = async (id:string | undefined) => {
+    if (!currentChat) return;
+
+    try {
+      // Implement conversation deletion logic, e.g., making an API request
+      await api.delete(`/conversations/${id}`);
+      // Refresh the conversation list
+      getConversations();
+      // Clear the current chat
+      setCurrentChat(null);
+    } catch (error) {
+      console.error('Error deleting conversation:', error);
+    }
+  };
+
   return (
     <div className='container mx-auto'>
       <div className='mb-4'>
@@ -272,6 +287,8 @@ function Index() {
                   <Conversation
                     conversation={conversation}
                     currentUser={user}
+                    // @ts-ignore
+                    onDelete={handleDeleteConversation(conversation._id)}
                   />
                 </div>
               ))}

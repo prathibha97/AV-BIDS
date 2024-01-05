@@ -6,10 +6,16 @@ import api from '../../../utils/api';
 interface ConversationProps {
   currentUser: User | null;
   conversation: ConversationType;
+  onDelete: () => void;
 }
 
-const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
+const Conversation: FC<ConversationProps> = ({
+  conversation,
+  currentUser,
+  onDelete,
+}) => {
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     const friendId = conversation?.members?.find((m) => m !== currentUser?._id);
 
@@ -23,6 +29,31 @@ const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
     };
     getUser();
   }, [currentUser, conversation]);
+
+  // const handleSwipe = (e: React.TouchEvent<HTMLDivElement>) => {
+  //   // Adjust the threshold as needed
+  //   const swipeThreshold = 50;
+  //   const startX = e.touches[0].clientX;
+
+  //   const handleTouchMove = (e: TouchEvent) => {
+  //     const currentX = e.touches[0].clientX;
+  //     const deltaX = startX - currentX;
+
+  //     if (deltaX > swipeThreshold) {
+  //       // Swiped left, trigger the onDelete callback
+  //       onDelete();
+  //       document.removeEventListener('touchmove', handleTouchMove);
+  //     }
+  //   };
+
+  //   const handleTouchEnd = () => {
+  //     document.removeEventListener('touchmove', handleTouchMove);
+  //     document.removeEventListener('touchend', handleTouchEnd);
+  //   };
+
+  //   document.addEventListener('touchmove', handleTouchMove);
+  //   document.addEventListener('touchend', handleTouchEnd);
+  // };
   return (
     <div>
       <div className='border-b border-[#EDECF1] p-4'>
@@ -54,3 +85,5 @@ const Conversation: FC<ConversationProps> = ({ conversation, currentUser }) => {
 };
 
 export default Conversation;
+
+
