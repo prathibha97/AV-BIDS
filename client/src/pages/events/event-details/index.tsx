@@ -128,21 +128,10 @@ export function Index() {
   }, [event?.createdBy]);
 
   const currentDate = new Date();
-  const eventStartDate = event ? new Date(event.eventStartDate) : null;
-  const eventEndDate = event ? new Date(event.eventEndDate) : null;
 
   const proposalDueDate = parseISO(event?.proposalDueDate!);
 
   const daysLeft = differenceInDays(proposalDueDate, currentDate);
-
-  const status =
-    event?.status === 'Draft'
-      ? 'Draft'
-      : eventStartDate && eventEndDate
-      ? currentDate <= eventStartDate && currentDate <= eventEndDate
-        ? 'Active'
-        : 'Expired'
-      : 'N/A';
 
   if (eventLoading) {
     return (
@@ -233,15 +222,15 @@ export function Index() {
                   <p className='font-semibold'>Status:</p>
                   <div
                     className={`bg-${
-                      status === 'Expired'
+                      event?.status === 'Expired'
                         ? 'red'
-                        : status === 'Draft'
+                        : event?.status === 'Draft'
                         ? 'yellow' // Change this to the desired color for Draft status
                         : 'green'
                     }-500 rounded-full px-4 py-0.5`}
                   >
                     <p className='text-white text-center text-[10px] sm:text-[13px]'>
-                      {status}
+                      {event?.status}
                     </p>
                   </div>
                 </div>
