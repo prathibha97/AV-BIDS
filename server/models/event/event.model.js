@@ -346,7 +346,10 @@ const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
       status: { $ne: 'Draft' },
     });
 
-    const events = await Event.find({ ...filters, status: { $ne: 'Draft' } })
+    const events = await Event.find({
+      ...filters,
+      status: { $ne: 'Draft', $ne: 'Expired' },
+    })
       .sort(sorting)
       .skip(skip)
       .limit(parseInt(pageSize))
