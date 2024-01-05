@@ -343,12 +343,12 @@ const getFilteredEvents = async (filters, page, pageSize, sortOption) => {
 
     const totalCount = await Event.countDocuments({
       ...filters,
-      status: { $ne: 'Draft' },
+      status: { $ne: 'Draft', $ne: 'Expired' },
     });
 
     const events = await Event.find({
       ...filters,
-      status: { $ne: 'Draft', $ne: 'Expired' },
+      $and: [{ status: { $ne: 'Draft' } }, { status: { $ne: 'Expired' } }],
     })
       .sort(sorting)
       .skip(skip)
