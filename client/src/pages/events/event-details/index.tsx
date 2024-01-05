@@ -164,64 +164,36 @@ export function Index() {
         }
       />
 
-      <img src={draftMode} alt='draft mode label' className='w-full' />
       <div>
         {event?.status === 'Draft' && (
-          // <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
-          <div className='bg-[#f3efa3] px-4'>
-            <span className=''>
-              <p className='text-center pt-2 text-[16px] sm:text-[22px]'>
-                This event is currently in draft mode.
-              </p>
-            </span>
-            {/* <Button
-              variant="text"
-              color="indigo"
-              onClick={() => navigate(`/events/edit/${id}`)}
-              className="ml-2 p-2 text-md"
-            >
-              Edit
-            </Button> */}
+          <>
+            <img src={draftMode} alt='draft mode label' className='w-full' />
+            <div className='bg-[#f3efa3] px-4'>
+              <span className=''>
+                <p className='text-center pt-2 text-[16px] sm:text-[22px]'>
+                  This event is currently in draft mode.
+                </p>
+              </span>
 
-            <p className='text-center pb-2 text-[16px] sm:text-[22px]'>
-              Click{' '}
-              <span
-                className='cursor-pointer text-[#b39a38] font-medium'
-                onClick={() => navigate(`/events/edit/${id}`)}
-              >
-                Edit
-              </span>{' '}
-              to modify and publish the current event.
-            </p>
-          </div>
+              <p className='text-center pb-2 text-[16px] sm:text-[22px]'>
+                Click{' '}
+                <span
+                  className='cursor-pointer text-[#b39a38] font-medium'
+                  onClick={() => navigate(`/events/edit/${id}`)}
+                >
+                  Edit
+                </span>{' '}
+                to modify and publish the current event.
+              </p>
+            </div>
+            <img src={draftMode} alt='draft mode label' className='w-full' />
+          </>
         )}
       </div>
 
-      <img src={draftMode} alt='draft mode label' className='w-full' />
       <div className='grid lg:grid-cols-3 gap-4 content-center sm:mt-[100px] bg-[#fff]'>
         <div className='col-span-2 flex justify-center items-center px-8'>
           <section>
-            {/* {event?.status === "Draft" && (
-              // <div className="bg-yellow-300/80 p-2 rounded-lg shadow-sm text-center flex items-center justify-center">
-              <div>
-                <span className="text-2xl mr-2">🚧</span>
-                <span className="text-lg font-semibold">
-                  This event is currently in draft mode.
-                </span>
-                <Button
-                  variant="text"
-                  color="indigo"
-                  onClick={() => navigate(`/events/edit/${id}`)}
-                  className="ml-2 p-2 text-md"
-                >
-                  Edit
-                </Button>
-                <span className="ml-2 font-semibold text-lg">
-                  to publish. 🚧
-                </span>
-              </div>
-            )} */}
-
             <div>
               <div>
                 <h2 className='text-primary text-[40px] mb-4 sm:text-left text-center'>
