@@ -23,6 +23,11 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
 
   const user = useGetCurrentUser();
 
+  const thumbnailUrl =
+    event?.thumbnail && event.thumbnail.length > 0
+      ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${event.thumbnail[0]?.url}`
+      : EVENTS_01;
+
   const handleSaveEvent = async () => {
     try {
       const { data } = await api.post(`/events/save/${event._id}`);
@@ -62,7 +67,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
         <div>
           <div className='flex items-center gap-4'>
             <div>
-              <img src={EVENTS_01} alt='aad' className='w-[73px]' />
+              <img src={thumbnailUrl} alt='aad' className='w-[73px]' />
             </div>
 
             <div>
@@ -121,7 +126,7 @@ const EventListingCard: FC<EventListingCardProps> = ({ event }) => {
             size='sm'
             className='rounded-md w-36 py-4 mt-4 px-8 bg-primary font-poppins'
             disabled={daysLeft < 0}
-            onClick={()=>navigate(`/events/${event._id}`)}
+            onClick={() => navigate(`/events/${event._id}`)}
           >
             <span className='text-white normal-case'>Apply Now</span>
           </Button>

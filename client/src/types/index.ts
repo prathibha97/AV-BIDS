@@ -51,7 +51,14 @@ type FileInformation = {
   _id: string;
 };
 
+type Thumbnail = {
+  fileName: string;
+  url: string;
+  _id: string;
+};
+
 type FileInformationArray = FileInformation[];
+type ThumbnailArray = Thumbnail[];
 
 export type Event = {
   _id: string;
@@ -106,6 +113,7 @@ export type Event = {
     description: string;
   };
   files: FileInformationArray;
+  thumbnail: ThumbnailArray;
   proposals: [string];
   createdAt: Date;
   updatedAt: Date;

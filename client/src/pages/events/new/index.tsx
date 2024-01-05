@@ -49,6 +49,7 @@ export function Index() {
     try {
       const { data } = await api.post("/events", {
         ...formData,
+        status: 'Active',
         createdBy: user && user._id,
       });
       navigate("/events/my-events");

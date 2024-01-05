@@ -41,7 +41,7 @@ const EventPlanner: FC<EventPlannerProps> = ({ planner, loading }) => {
           <div className="flex items-center gap-12 mt-4">
             <div>
               <h2 className="text-[16px]">United States</h2>
-              <p className="text-[16px]">{planner?.address.state}</p>
+              <p className="text-[16px]">{planner?.address?.state}</p>
             </div>
 
             <div>
