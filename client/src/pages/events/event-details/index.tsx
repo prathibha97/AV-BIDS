@@ -242,8 +242,9 @@ export function Index() {
                       ? `https://av-bids-bucket.s3.ap-south-1.amazonaws.com/${event?.thumbnail[0]?.url}`
                       : EVENTDETAILS_03
                   }
-                  alt='aad'
-                  className='object-scale-down w-[300px]'
+                  alt='thumbnail'
+                  loading='lazy'
+                  className='object-contain md:w-[400px] rounded-lg'
                 />
               </div>
               <div className='bg-[#F3F1FB] p-6 mb-16 rounded-lg'>
